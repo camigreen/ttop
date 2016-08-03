@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+
+	<layout title="Display">
+		<message><![CDATA[Display]]></message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request" addfieldpath="/administrator/components/com_zoo/joomla/fields">  	<field name="task" type="hidden" default="testDisplay" />
+			<field name="display" type="list" label="Display" default="3" required="true">
+				<option value="4">Lobby Display</option>
+			</field>
+			<field name="controller" type="hidden" default="test" />        
+		</fieldset>
+	</fields>
+
+</metadata>

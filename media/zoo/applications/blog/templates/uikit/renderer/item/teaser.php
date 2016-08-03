@@ -14,51 +14,45 @@ $params = $item->getParams('site');
 
 /* set media alignment */
 $align = ($this->checkPosition('media')) ? $params->get('template.teaseritem_media_alignment') : '';
+$link = $this->app->route->item($this->_item);
+
+$status = 'closed';
+$endDate = $item->getElement('d245f61b-58aa-47e2-9221-6943ed4d68f2')->get('value');
+$endDate = $endDate ? $this->app->date->create($endDate) : null;
+$now = $this->app->date->create();
+
+if($endDate && $endDate > $now) {
+	$status = 'open';
+}
 
 ?>
 
-<?php if ($align == "above") : ?>
-	<?php echo $this->renderPosition('media', array('style' => 'uikit_block')); ?>
-<?php endif; ?>
-
-<?php if ($this->checkPosition('title')) : ?>
-<h1 class="uk-article-title">
-	<?php echo $this->renderPosition('title'); ?>
-</h1>
-<?php endif; ?>
-
-<?php if ($this->checkPosition('subtitle')) : ?>
-<p class="uk-article-lead">
-	<?php echo $this->renderPosition('subtitle'); ?>
-</p>
-<?php endif; ?>
-
-<?php if ($align == "top") : ?>
-	<?php echo $this->renderPosition('media', array('style' => 'uikit_block')); ?>
-<?php endif; ?>
-
-<?php if ($align == "left" || $align == "right") : ?>
-<div class="uk-align-medium-<?php echo $align; ?>">
-	<?php echo $this->renderPosition('media'); ?>
-</div>
-<?php endif; ?>
-
-<?php if ($this->checkPosition('content')) : ?>
-	<?php echo $this->renderPosition('content'); ?>
-<?php endif; ?>
-
-<?php if ($this->checkPosition('meta')) : ?>
-<p class="uk-article-meta">
-    <?php echo $this->renderPosition('meta'); ?>
-</p>
-<?php endif; ?>
-
-<?php if ($align == "bottom") : ?>
-	<?php echo $this->renderPosition('media', array('style' => 'uikit_block')); ?>
-<?php endif; ?>
-
-<?php if ($this->checkPosition('links')) : ?>
-<ul class="uk-subnav uk-subnav-line">
-	<?php echo $this->renderPosition('links', array('style' => 'uikit_subnav')); ?>
-</ul>
-<?php endif;
+<tr>
+	
+	<td>
+		<?php if ($this->checkPosition('title')) : ?>
+		<a href="<?php echo $link; ?>">
+			<?php echo $this->renderPosition('title', array('style' => 'uikit_blank')); ?>
+		</a>
+		<?php endif; ?>
+	</td>
+	<td>
+		<?php if ($this->checkPosition('content')) : ?>
+		<a href="<?php echo $link; ?>">
+			<?php echo $this->renderPosition('content', array('style' => 'uikit_blank')); ?>
+		</a>
+		<?php endif; ?>
+	</td>
+	<td>
+		<a href="<?php echo $link; ?>">
+			<?php if($status == 'closed') : ?>
+				<p class="uk-text-danger">This position is currently closed.</p>
+			<?php else : ?>
+				<ul class="uk-list">
+			    	<?php echo $this->renderPosition('meta', array('style' => 'uikit_job_dates_teaser')); ?>
+				</ul>
+			<?php endif; ?>
+		</a>
+	</td>
+	</a>
+</tr>

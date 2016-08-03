@@ -9,6 +9,8 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+//$this->app->document->addScript('assets:js/lightbox.js');
+
 // show description only if it has content
 if (!$this->application->description) {
 	$this->params->set('template.show_description', 0);
@@ -50,14 +52,28 @@ $css_class = $this->application->getGroup().'-'.$this->template->name;
 		<?php endif; ?>
 
 	<?php endif; ?>
+	<table class="uk-table-hover uk-table-striped">
+		<thead>
+			<td class="uk-width-2-10">Job Title</td>
+			<td class="uk-width-6-10">Job Description</td>
+			<td class="uk-width-2-10">Posting Dates</td>
+		</thead>
+		<tbody>
+			<?php
 
-	<?php
+				// render items
+				if (count($this->items)) {
+					echo $this->partial('items');
+				}
 
-		// render items
-		if (count($this->items)) {
-			echo $this->partial('items');
-		}
+			?>
+			
+		</tbody>
+	</table>
 
-	?>
+	<p>
+		<a class="uk-button uk-button-primary" href="images/documents/LPI_Employment_Application.pdf" target="_window"><span class="uk-icon-download uk-margin-right"></span>Employment Application</a>
+	</p>
+
 
 </div>

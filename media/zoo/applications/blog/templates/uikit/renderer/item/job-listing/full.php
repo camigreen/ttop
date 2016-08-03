@@ -15,12 +15,19 @@ $params = $item->getParams('site');
 /* set media alignment */
 $align = ($this->checkPosition('media')) ? $view->params->get('template.item_media_alignment') : '';
 
-$status = $element = $item->getElement('634551fb-da95-49b3-a488-3eb99817be20')->get('option')[0];
+$status = 'closed';
+$endDate = $item->getElement('d245f61b-58aa-47e2-9221-6943ed4d68f2')->get('value');
+$endDate = $this->app->date->create($endDate);
+$now = $this->app->date->create();
+
+if($endDate > $now) {
+	$status = 'open';
+}
 
 ?>
 <div class="uk-grid">
 	<div class="uk-width-1-1 uk-margin-bottom">
-		<a href="/about-us/careers"><span class="uk-icon-arrow-left uk-margin-right"></span>Back to Job Listings</a>
+		<a href="/careers/"><span class="uk-icon-arrow-left uk-margin-right"></span>Back to Job Listings</a>
 	</div>
 	<div class="uk-width-1-1">
 		<?php if ($this->checkPosition('top')) : ?>
@@ -37,7 +44,7 @@ $status = $element = $item->getElement('634551fb-da95-49b3-a488-3eb99817be20')->
 		<h1 class="uk-article-title">
 			<?php echo $this->renderPosition('title'); ?>
 			<?php if($status == 'closed') : ?>
-				<p class="uk-article-meta uk-text-danger">This positions is currently closed.</p>
+				<p class="uk-article-meta uk-text-danger">This position is currently closed.</p>
 			<?php endif; ?>
 		</h1>
 			
@@ -56,12 +63,12 @@ $status = $element = $item->getElement('634551fb-da95-49b3-a488-3eb99817be20')->
 	</div>
 	<?php endif; ?>
 	<?php if ($align == "left") : ?>
-	<div class="uk-width-1-2 uk-margin">
+	<div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin">
 		<div class="uk-align-medium-<?php echo $align; ?>">
 			<?php echo $this->renderPosition('media'); ?>
 		</div>
 	</div>
-	<div class="uk-width-1-2 uk-margin">
+	<div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin">
 		<?php if ($this->checkPosition('content')) : ?>
 			<?php echo $this->renderPosition('content'); ?>
 		<?php endif; ?>
@@ -71,7 +78,7 @@ $status = $element = $item->getElement('634551fb-da95-49b3-a488-3eb99817be20')->
 	</div>
 	<?php endif; ?>
 	<?php if ($align == "right") : ?>
-	<div class="uk-width-1-2 uk-margin">
+	<div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin">
 		<?php if ($this->checkPosition('content')) : ?>
 			<?php echo $this->renderPosition('content'); ?>
 		<?php endif; ?>
@@ -79,7 +86,7 @@ $status = $element = $item->getElement('634551fb-da95-49b3-a488-3eb99817be20')->
 			<?php echo $this->renderPosition('taxonomy', array('style' => 'uikit_block')); ?>
 		<?php endif; ?>
 	</div>
-	<div class="uk-width-1-2 uk-margin">
+	<div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin">
 		<div class="uk-align-medium-<?php echo $align; ?>">
 			<?php echo $this->renderPosition('media'); ?>
 		</div>

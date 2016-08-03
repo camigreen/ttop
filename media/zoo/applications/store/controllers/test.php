@@ -178,6 +178,71 @@ class TestController extends AppController {
 		echo json_encode($this->app->bsk->getModel($kind, $make));
 	}
 
+	public function accountDetails() {
+		$aid = $this->app->request->get('aid', 'int',  null);
+		if($aid) {
+			$account = $this->app->account->get($aid);
+		} else {
+			echo 'Account Not Found!';
+		}
+		$orders = $this->app->orderdev->getByAccount($aid);
+		$totals = $this->app->parameter->create();
+		$totals->set('gross', 0);
+		$totals->set('net', 0);
+		foreach($orders as $order) {
+			if($order->id != 7053) {
+				continue;
+			}
+			echo $order->id.'</br>';
+			$gross = $totals->get('gross', 0);
+			$net = $totals->get('net', 0);
+			$totals->set('gross', $gross + $order->total);
+			$totals->set('net', $net + $order->subtotal);
+			$items = $order->elements->get('items.');
+			$discount = $account->params->get('discount');
+			$markup = $account->params->get('markup');
+			foreach($items as $item) {
+				echo $item->name.'</br>';
+				echo $item->type.'</br>';
+				$item->getPrice();
+				$total = $totals->get('items.'.$item->type.'.total', 0);
+				$count = $totals->get('items.'.$item->type.'.count', 0);
+				$totals->set('items.'.$item->type.'.total', $total + $item->total);
+				$totals->set('items.'.$item->type.'.count', $count + 1);
+			}
+			//$order->save(true);
+			 
+		}
+		
+		echo $account->name;
+		var_dump($totals);
+		// echo 'Gross Sales: '.$this->app->number->currency($totals['gross'],array('currency' => 'USD')).'</br>';
+		// echo 'Net Sales: '.$this->app->number->currency($totals['net'],array('currency' => 'USD')).'</br>';
+	}
+
+	public function accountList() {
+		
+		$accounts = $this->app->account->all();
+		$orders = $this->app->orderdev->getByAccount(26);
+		var_dump($accounts);
+		var_dump($orders);
+		$total = 0;
+		foreach($orders as $order) {
+			$total += $order->total;
+		}
+
+		var_dump($total);
+
+		// foreach($accounts as $account) {
+		// 	echo $account->name;
+		// }
+
+	}
+
+	public function testDisplay() {
+		$display = $this->app->request->get('display', 'int');
+		echo '<div class="ttop-display">'.nextend_smartslider3($display).'</div>';
+	}
 
 }
 ?>
