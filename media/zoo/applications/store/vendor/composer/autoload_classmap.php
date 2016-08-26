@@ -58,6 +58,7 @@ return array(
     'net\\authorize\\api\\contract\\v1\\BankAccountType' => $vendorDir . '/authorizenet/authorizenet/lib/net/authorize/api/contract/v1/BankAccountType.php',
     'net\\authorize\\api\\contract\\v1\\BatchDetailsType' => $vendorDir . '/authorizenet/authorizenet/lib/net/authorize/api/contract/v1/BatchDetailsType.php',
     'net\\authorize\\api\\contract\\v1\\BatchStatisticType' => $vendorDir . '/authorizenet/authorizenet/lib/net/authorize/api/contract/v1/BatchStatisticType.php',
+    'net\\authorize\\api\\contract\\v1\\CardArtType' => $vendorDir . '/authorizenet/authorizenet/lib/net/authorize/api/contract/v1/CardArtType.php',
     'net\\authorize\\api\\contract\\v1\\CcAuthenticationType' => $vendorDir . '/authorizenet/authorizenet/lib/net/authorize/api/contract/v1/CcAuthenticationType.php',
     'net\\authorize\\api\\contract\\v1\\CreateCustomerPaymentProfileRequest' => $vendorDir . '/authorizenet/authorizenet/lib/net/authorize/api/contract/v1/CreateCustomerPaymentProfileRequest.php',
     'net\\authorize\\api\\contract\\v1\\CreateCustomerPaymentProfileResponse' => $vendorDir . '/authorizenet/authorizenet/lib/net/authorize/api/contract/v1/CreateCustomerPaymentProfileResponse.php',
