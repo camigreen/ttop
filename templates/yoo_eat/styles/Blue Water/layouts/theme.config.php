@@ -250,9 +250,9 @@ $this['asset']->addFile('css', 'css:components/notify.css');
 
 $this['asset']->addFile('css', 'css:components/datepicker.css');
 
-$this['asset']->addFile('css', 'css:components/timepicker.css');
+//$this['asset']->addFile('css', 'css:components/timepicker.css');
 
-$this['asset']->addFile('css', 'css:components/tooltip.css');
+//$this['asset']->addFile('css', 'css:components/tooltip.css');
 
 
 
