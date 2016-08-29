@@ -11015,7 +11015,7 @@ body {
 /* Background Styles
  ========================================================================== */
 .tm-block-water {
-  background: url('../../../../../images/bg-water.jpeg') no-repeat fixed 50% 0%;
+  background: url('../../../../../images/bg-water.jpeg') no-repeat fixed 50% 100%;
   color: #ffffff;
 }
 .tm-link-contrast {
