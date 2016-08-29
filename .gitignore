@@ -620,6 +620,7 @@ error_log*
 /plugins/quickicon/jcefilebrowser/*
 /plugins/system/jce/*
 /media/jce/*
+/plugins/content/jce/*
 
 ## Templates
 /templates/yoo_master2/*
@@ -708,3 +709,5 @@ plugins/nextend*
 /modules/mod_smartslider3/*
 /plugins/system/nextendsmartslider3/*
 templates/yoo_eat/styles/Laporte Redesign/.DS_Store
+
+templates/yoo_eat/styles/Blue Water/.DS_Store

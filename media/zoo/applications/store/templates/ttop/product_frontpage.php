@@ -61,9 +61,4 @@ $css_class = $this->template->name;
 	?>
 
 </div>
-<div class="uk-text-center">
-                        <div class="uk-thumbnail"><img src="images/flag.gif" alt="flag" width="134" height="85" />
-                                <div class="uk-thumbnail-caption"><span class="uk-text-large uk-text-bold">Proudly</span><br /><span class="uk-text-large">Made in the USA!</span>
-                                </div>
-                        </div>
-                </div>
+<img class="uk-align-center" src="/images/madeintheusa.png" width="150"/>

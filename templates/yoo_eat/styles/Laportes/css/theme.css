@@ -11018,6 +11018,9 @@ body {
   background: url('../../../../../images/bg-water.jpeg') no-repeat fixed 50% 0%;
   color: #ffffff;
 }
+.tm-block-water a {
+  color: #E5C800;
+}
 .menu-logo {
   width: 75px;
 }
