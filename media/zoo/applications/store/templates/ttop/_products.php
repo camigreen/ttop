@@ -25,7 +25,7 @@ defined('_JEXEC') or die('Restricted access');
 	// render rows
 	while ((list($key, $category) = each($this->selected_categories))) {
 		if ($category && !($category->totalItemCount() || $this->params->get('config.show_empty_categories', false)) || !$category->params->get('content.show_products')) continue;
-		if ($i % $columns == 0) echo ($i > 0 ? '</div><hr class="uk-grid-divider"><div class="uk-grid" data-uk-grid-margin data-uk-grid-match>' : '<div class="uk-grid" data-uk-grid-margin data-uk-grid-match>');
+		if ($i % $columns == 0) echo ($i > 0 ? '</div><div class="uk-grid" data-uk-grid-margin data-uk-grid-match>' : '<div class="uk-grid" data-uk-grid-margin data-uk-grid-match>');
                 echo '<div class="uk-width-medium-1-3 product">'.$this->partial('product', compact('category')).'</div>';
 
 		$i++;
