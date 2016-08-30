@@ -61,4 +61,9 @@ $css_class = $this->template->name;
 	?>
 
 </div>
-<img class="uk-align-center" src="/images/madeintheusa.png" width="150"/>
+<div class="uk-width-1-1">
+	<div class="uk-align-center" style="height:150px; width:150px;">
+		<img src="/images/madeintheusa.svg" alt="Proudly Made In the USA." />
+	</div>
+</div>
+

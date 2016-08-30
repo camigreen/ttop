@@ -9,9 +9,9 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 $class = $item->type.'-full';
-$_item = $storeItem->item;
+$storeItem = $this->app->item->create($item);
 ?>
-<div id="<?php echo $_item['id'] ?>" class="uk-grid ttop <?php echo $item->type; ?>" data-item='<?php echo $storeItem->getJson(); ?>'>
+<div id="<?php echo $storeItem->id ?>" class="uk-grid ttop <?php echo $item->type; ?>" data-item='<?php echo $storeItem->getItemsJson(); ?>'>
     <div class="uk-width-1-1 top-container">
         <?php if ($this->checkPosition('top')) : ?>
         <?php echo $this->renderPosition('top', array('style' => 'block')); ?>
@@ -58,7 +58,7 @@ $_item = $storeItem->item;
 
         <div class="uk-width-1-1 addtocart-container uk-margin-top">
             <?php if ($this->checkPosition('addtocart')) : ?>
-                <?php echo $this->renderPosition('addtocart', array('style' => 'block', 'item_id' => $_item['id'])); ?>
+                <?php echo $this->renderPosition('addtocart', array('style' => 'block', 'item_id' => $storeItem->id)); ?>
             <?php endif; ?>
         </div>
     </div>
@@ -75,7 +75,7 @@ $_item = $storeItem->item;
 
 <script>
     jQuery(function($) {
-        var mainItem = jQuery('#<?php echo $_item['id']; ?>');
+        var mainItem = jQuery('#<?php echo $storeItem->id; ?>');
         
         $(document).ready(function(){
 
