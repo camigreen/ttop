@@ -11031,3 +11031,7 @@ body {
   width: 150px;
   margin-bottom: 0px;
 }
+.uk-panel-box-important {
+  background-color: #e44b39;
+  color: #ffffff;
+}
