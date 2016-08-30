@@ -124,6 +124,9 @@ class Price
 			$this->_discountRate = $prices->get($this->_group.'.item.discount') ? $prices->get($this->_group.'.item.discount') : $this->_discountRate;
 			$this->_markupRate = $this->allowMarkup ? $this->_markupRate : 0;
 		}
+		if($this->_item->discount) {
+			$this->_discountRate = $this->_item->discount;
+		}
 		
 	}
 	public function get($name = 'retail', $formatted = false) {
