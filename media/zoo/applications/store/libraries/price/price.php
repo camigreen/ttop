@@ -104,7 +104,7 @@ class Price
 		$this->_markupRate = $this->_defaultMarkupRate;
 
 		// Set the Discount
-		$this->_discountRate = $account->params->get('discount')/100;
+		$this->_discountRate = $this->_item->discount ? $this->_item->discount : $account->params->get('discount')/100;
 		$this->setItem($item);
 
 		if($path = $this->app->path->path($this->resource)) {
