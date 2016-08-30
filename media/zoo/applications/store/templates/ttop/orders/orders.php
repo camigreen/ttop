@@ -41,7 +41,7 @@ $order_number = $this->app->request->get('order_number','string',null);
 			<?php endif; ?>
 			<?php foreach($this->orders as $order) : ?>
 			<tr>
-				<td class="uk-text-center" ><a class="uk-button uk-button-primary" href="orders/all-orders?task=order&id=<?php echo $order->id; ?>">View</a></td>
+				<td class="uk-text-center" ><a class="uk-button uk-button-primary" href="?task=order&id=<?php echo $order->id; ?>">View</a></td>
 				<td><?php echo $order->id; ?></td>
 				<td><?php echo $order->getOrderDate(); ?></td>
 				<td><?php echo $order->params->get('payment.transaction_id'); ?></td>
