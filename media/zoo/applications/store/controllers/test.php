@@ -186,9 +186,6 @@ class TestController extends AppController {
 
 			$item = $this->app->item->create($item, 'ttopboatcover');
 			$price = $item->getPrice();
-			if($price->get('retail') != 0) {
-				continue;
-			}
 			echo  $cat . ' - ' . $item->attributes['boat_model']->get('text').' - '.$price->get('retail', true).'</br>';
 		}
 	}
