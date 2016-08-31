@@ -179,16 +179,13 @@ class TestController extends AppController {
 	}
 
 	public function PriceList() {
-		$options = array('conditions' => array("type = 'ttopboatcover'"));
+		$options = array('conditions' => array("type = 'ttopboatcover' AND state = 1"));
 		$items = $this->app->table->item->all($options);
 		foreach($items as $item) {
 			$cat = $item->getPrimaryCategory()->name;
 
 			$item = $this->app->item->create($item, 'ttopboatcover');
 			$price = $item->getPrice();
-			if($price->get('retail') != 0) {
-				continue;
-			}
 			echo  $cat . ' - ' . $item->attributes['boat_model']->get('text').' - '.$price->get('retail', true).'</br>';
 		}
 	}
