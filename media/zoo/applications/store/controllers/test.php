@@ -178,6 +178,17 @@ class TestController extends AppController {
 		echo json_encode($this->app->bsk->getModel($kind, $make));
 	}
 
+	public function PriceList() {
+		$options = array('conditions' => array("type = 'ttopboatcover'"));
+		$items = $this->app->table->item->all($options);
+		foreach($items as $item) {
+			$cat = $item->getPrimaryCategory()->name;
+
+			$item = $this->app->item->create($item, 'ttopboatcover');
+			echo  $cat . ' - ' . $item->attributes['boat_model']->get('text').' - '.$item->getPrice()->get('retail', true).'</br>';
+		}
+	}
+
 
 }
 ?>
