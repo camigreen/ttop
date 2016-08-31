@@ -179,7 +179,7 @@ class TestController extends AppController {
 	}
 
 	public function PriceList() {
-		$options = array('conditions' => array("type = 'ttopboatcover'"));
+		$options = array('conditions' => array("type = 'ttopboatcover' AND state = 1"));
 		$items = $this->app->table->item->all($options);
 		foreach($items as $item) {
 			$cat = $item->getPrimaryCategory()->name;
