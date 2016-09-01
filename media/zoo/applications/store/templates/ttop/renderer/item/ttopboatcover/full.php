@@ -303,7 +303,7 @@ jQuery(function($){
 <script>
     jQuery(function($) {
         $(document).ready(function(){
-            $('ul.slides').css('height', '415px');
+
 
             $('#storeOrderForm').StoreItem({
                 name: 'T-Top Boat Cover',
@@ -314,6 +314,7 @@ jQuery(function($){
                         onInit: [
                             function (data) {
                                 console.log(data);
+                                $('ul.slides').css('height', '415px');
                                 var item;
                                 $.each(data.args.items, function (k, v) {
                                     if(this.type == 'ttopboatcover') {
