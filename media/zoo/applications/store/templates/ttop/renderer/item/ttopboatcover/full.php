@@ -304,6 +304,7 @@ jQuery(function($){
     jQuery(function($) {
         $(document).ready(function(){
 
+
             $('#storeOrderForm').StoreItem({
                 name: 'T-Top Boat Cover',
                 validate: true,
@@ -313,6 +314,7 @@ jQuery(function($){
                         onInit: [
                             function (data) {
                                 console.log(data);
+                                $("#eb48f28a-10ec-43be-b647-d850d19e35f1-57c849325caee").slideshow('resize');
                                 var item;
                                 $.each(data.args.items, function (k, v) {
                                     if(this.type == 'ttopboatcover') {
