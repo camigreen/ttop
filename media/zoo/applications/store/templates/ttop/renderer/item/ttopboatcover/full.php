@@ -303,6 +303,7 @@ jQuery(function($){
 <script>
     jQuery(function($) {
         $(document).ready(function(){
+            $('ul .slides').css('height', '415px');
 
             $('#storeOrderForm').StoreItem({
                 name: 'T-Top Boat Cover',
