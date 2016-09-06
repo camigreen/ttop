@@ -10264,11 +10264,7 @@ button.uk-button {
 }
 /* Set tm-block-full height */
 .tm-block-full {
-<<<<<<< Updated upstream
   height: 100%;
-=======
-  height: 400px;
->>>>>>> Stashed changes
 }
 /*
  * Logo
@@ -10365,7 +10361,7 @@ button.uk-button {
   .tm-block-light + .tm-block-dark,
   .tm-block-dark + .tm-block-light,
   .tm-block-full + .tm-block {
-    padding-top: 20px;
+    padding-top: 35px;
   }
   .tm-bottom {
     padding-top: 35px;
@@ -10396,7 +10392,7 @@ button.uk-button {
   .tm-block-light + .tm-block-dark,
   .tm-block-dark + .tm-block-light,
   .tm-block-full + .tm-block {
-    padding-top: 40px;
+    padding-top: 70px;
   }
   .tm-bottom {
     padding-top: 70px;
@@ -11018,7 +11014,6 @@ body {
 }
 /* Background Styles
  ========================================================================== */
-<<<<<<< Updated upstream
 .tm-block-water {
   background: url('../../../../../images/bg-water.jpeg') no-repeat fixed 50% 100%;
   color: #ffffff;
@@ -11037,8 +11032,6 @@ body {
   margin-bottom: 0px;
 }
 .uk-panel-box-important {
-  background-color: #e44b39;
+  background-color: #ff1400;
   color: #ffffff;
 }
-=======
->>>>>>> Stashed changes

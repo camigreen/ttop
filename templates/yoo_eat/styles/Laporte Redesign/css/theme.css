@@ -10361,7 +10361,7 @@ button.uk-button {
   .tm-block-light + .tm-block-dark,
   .tm-block-dark + .tm-block-light,
   .tm-block-full + .tm-block {
-    padding-top: 20px;
+    padding-top: 35px;
   }
   .tm-bottom {
     padding-top: 35px;
@@ -10392,7 +10392,7 @@ button.uk-button {
   .tm-block-light + .tm-block-dark,
   .tm-block-dark + .tm-block-light,
   .tm-block-full + .tm-block {
-    padding-top: 40px;
+    padding-top: 70px;
   }
   .tm-bottom {
     padding-top: 70px;
@@ -10821,12 +10821,6 @@ span.tm-heading-italic {
 }
 /* Background Styles
  ========================================================================== */
-<<<<<<< Updated upstream
-=======
-body {
-  background: #1c3767;
-}
->>>>>>> Stashed changes
 /*
  * Default Style
  */
@@ -11018,7 +11012,6 @@ body {
 /* Background Styles
  ========================================================================== */
 .tm-block-water {
-<<<<<<< Updated upstream
   background: url('../../../../../images/bg-water.jpeg') no-repeat fixed 50% 100%;
   color: #ffffff;
 }
@@ -11036,9 +11029,6 @@ body {
   margin-bottom: 0px;
 }
 .uk-panel-box-important {
-  background-color: #e44b39;
+  background-color: #ff1400;
   color: #ffffff;
-=======
-  background: url('../../../../../images/bg-water.jpeg') no-repeat fixed 50% 0%;
->>>>>>> Stashed changes
 }
