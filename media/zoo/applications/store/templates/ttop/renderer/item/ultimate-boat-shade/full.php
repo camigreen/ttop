@@ -17,7 +17,7 @@ $storeItem = $this->app->item->create($item, 'ubsk');
 <div id="storeOrderForm" class="uk-form uk-margin">
     <div id="<?php echo $storeItem->id; ?>" class="uk-grid storeItem" data-item="<?php echo $storeItem->getItemsJSON(); ?>">
         <div class="uk-width-2-3 ubsk-slideshow">
-            <div class="uk-width-5-6 uk-container-center uk-margin">
+            <div class="uk-width-1-1 uk-margin">
                 <?php if ($this->checkPosition('media')) : ?>
                     <?php echo $this->renderPosition('media', array('style' => 'blank')); ?>
                 <?php endif; ?>
