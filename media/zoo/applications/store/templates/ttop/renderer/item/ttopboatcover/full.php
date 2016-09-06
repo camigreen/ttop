@@ -37,9 +37,7 @@ $category = $item->getPrimaryCategory()->getParent();
             <div class="uk-width-2-3">
                     <?php if ($this->checkPosition('media') && $view->params->get('template.item_media_alignment') == "left") : ?>
                         <div class="uk-width-1-1 uk-margin">
-                            <div class="uk-container">
                                 <?php echo $this->renderPosition('media', array('style' => 'blank')); ?>
-                            </div>
                         </div>
                     <?php endif; ?>
                     <div class="uk-width-1-1">
@@ -314,7 +312,6 @@ jQuery(function($){
                         onInit: [
                             function (data) {
                                 console.log(data);
-                                $("div.zoo-gallery").slideshow('resize');
                                 var item;
                                 $.each(data.args.items, function (k, v) {
                                     if(this.type == 'ttopboatcover') {
