@@ -24,7 +24,7 @@ $this->form->setValue('template', $this->template);
 <div id="storeOrderForm" class="uk-form uk-margin" data-item='<?php echo json_encode($data_item); ?>'>
     <div id="<?php echo $storeItem->id ?>" class="uk-grid storeItem" data-item="<?php echo $storeItem->getItemsJSON(); ?>">
         <div class="uk-width-2-3 ccc-slideshow">
-            <div class="uk-width-5-6 uk-margin">
+            <div class="uk-width-1-1 uk-margin">
                 <?php if ($this->checkPosition('media')) : ?>
                     <?php echo $this->renderPosition('media', array('style' => 'blank')); ?>
                 <?php endif; ?>
