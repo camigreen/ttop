@@ -53,6 +53,7 @@ class PlgAuthenticationZooStore extends JPlugin
 	 */
 	public function onUserAuthenticate($credentials, $options, &$response)
 	{
+		//return;
 		// var_dump($response);
 		// die();
 		$response->type = 'Zoo Store';

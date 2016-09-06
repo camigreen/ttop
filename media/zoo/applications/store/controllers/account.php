@@ -121,8 +121,8 @@ class AccountController extends AppController {
             $options['conditions'] = implode(' AND ', $conditions);
             $this->accounts = $this->app->account->all($options);
         } else {
-            $parent = $this->cUser->getParent();
-            $this->accounts = $this->app->account->getUsersByParent($parent, $conditions);
+            $parent = $this->cUser->getAccount();
+            $this->accounts = $parent->getUsers(true);
         }
         
         $this->title = $title;

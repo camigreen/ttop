@@ -10821,6 +10821,12 @@ span.tm-heading-italic {
 }
 /* Background Styles
  ========================================================================== */
+<<<<<<< Updated upstream
+=======
+body {
+  background: #1c3767;
+}
+>>>>>>> Stashed changes
 /*
  * Default Style
  */
@@ -11012,6 +11018,7 @@ span.tm-heading-italic {
 /* Background Styles
  ========================================================================== */
 .tm-block-water {
+<<<<<<< Updated upstream
   background: url('../../../../../images/bg-water.jpeg') no-repeat fixed 50% 100%;
   color: #ffffff;
 }
@@ -11031,4 +11038,7 @@ span.tm-heading-italic {
 .uk-panel-box-important {
   background-color: #e44b39;
   color: #ffffff;
+=======
+  background: url('../../../../../images/bg-water.jpeg') no-repeat fixed 50% 0%;
+>>>>>>> Stashed changes
 }

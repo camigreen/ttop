@@ -10264,7 +10264,11 @@ button.uk-button {
 }
 /* Set tm-block-full height */
 .tm-block-full {
+<<<<<<< Updated upstream
   height: 100%;
+=======
+  height: 400px;
+>>>>>>> Stashed changes
 }
 /*
  * Logo
@@ -11014,6 +11018,7 @@ body {
 }
 /* Background Styles
  ========================================================================== */
+<<<<<<< Updated upstream
 .tm-block-water {
   background: url('../../../../../images/bg-water.jpeg') no-repeat fixed 50% 100%;
   color: #ffffff;
@@ -11035,3 +11040,5 @@ body {
   background-color: #e44b39;
   color: #ffffff;
 }
+=======
+>>>>>>> Stashed changes
