@@ -202,7 +202,7 @@ class TestController extends AppController {
 		foreach($items as $cat => $item) {
 			echo '<h3 class="uk-text-contrast">'.$cat.'</h3></br>';
 			foreach($item as $fabric) {
-				list($)
+				// list($)
 			}
 		}
 	}
