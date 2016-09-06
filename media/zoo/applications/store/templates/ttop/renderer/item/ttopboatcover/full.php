@@ -302,7 +302,7 @@ jQuery(function($){
     jQuery(function($) {
         $(document).ready(function(){
 
-
+            $("div.zoo-gallery").slideshow('resize');
             $('#storeOrderForm').StoreItem({
                 name: 'T-Top Boat Cover',
                 validate: true,

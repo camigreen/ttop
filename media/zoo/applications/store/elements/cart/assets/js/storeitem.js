@@ -373,12 +373,14 @@
             var triggerData = this.trigger('beforePublishPrice', {item: item});
             item = triggerData.args.item;
             var self = this;
+            var elem = $('#'+item.id+'-price span');
+            elem.html('<i class="uk-icon-refresh uk-icon-spin"></i>');
             $.ajax({
                 type: 'POST',
                 url: "?option=com_zoo&controller=store&task=getPrice&format=json",
                 data: {item: item},
                 success: function(data){
-                    var elem = $('#'+item.id+'-price span');
+                    
                     var price = data.price*item.qty;
                     elem.html(price.toFixed(2));
                     self.trigger('afterPublishPrice', {price: price, item: item});
