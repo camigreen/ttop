@@ -412,7 +412,7 @@ $this->form->setValue('template', $this->template);
                 beam: {
                     total: 0,
                     min: 72,
-                    max: 126
+                    max: 114
                 },
                 ttop: {
                     total: 0,
