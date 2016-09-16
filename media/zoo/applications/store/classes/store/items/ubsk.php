@@ -25,7 +25,7 @@ class UBSKStoreItem extends StoreItem {
 
         $this->id = 'ubsk';
         $this->confirm = true;
-        $this->price_group = 'ubsk.'.$this->getOption('kit_class')->get('value', 'A');
+        $this->price_group = 'ubsk.'.$this->getOption('kit_class')->get('value', 'A').($this->getOption('shade_type')->get('value') ? '.'.$this->getOption('shade_type')->get('value') : '');
         $this->type = 'ubsk';
         $this->make = "LaPorte's T-Top Boat Covers";
         
