@@ -144,7 +144,7 @@ class CashRegister {
         // $sale->exp_date = '03/2017';
         // $sale->card_code = '555';
         // $sale->amount = '10.00';
-        list($first, $last) = explode(' ', $shipping['name']);
+        list($first, $last) = explode(' ', $billing['name']);
         $sale->first_name = $first;
         $sale->last_name = $last;
         $sale->address = $billing['street1'].($billing['street2'] ? ', '.$billing['street2'] : '');
