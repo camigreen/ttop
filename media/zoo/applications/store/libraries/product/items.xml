@@ -106,11 +106,12 @@
 		<boat>				
 			<name>contender</name>
 			<label>Contender</label>
+			<skucode>CNTDR</skucode>
 			<models>
 				<model>
 					<name>25-bay</name>
 					<label>25 Bay</label>
-					<skucode>25BAY</label>
+					<skucode>25BAY</skucode>
 				</model>
 			</models>
 		</boat>
@@ -172,7 +173,6 @@
 					<label>1720</label>
 					<skucode>1720</skucode>
 				</model>
-				<models>
 				<model>
 					<name>176-bay-reef</name>
 					<label>176 Bay Reef</label>

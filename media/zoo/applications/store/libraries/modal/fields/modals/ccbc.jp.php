@@ -40,7 +40,7 @@
 			<label><input name="ccbc.jp_modal_helper" type="radio" value="other" class="jp_helper" />Other<span class="uk-text-danger"> (explain in "Additional Info" box)</span></label>
 		</li>
 	</ul>
-	<input type="text" name="ccbc.zipper_modal_value" data-field-id="<?php echo $field; ?>" />
+	<input type="text" name="ccbc.jp_modal_value" data-field-id="<?php echo $field; ?>" />
 </div>
 
 <script>
