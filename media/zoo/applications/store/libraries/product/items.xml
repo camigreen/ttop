@@ -24,11 +24,6 @@
 			<skucode>BW</skucode>
 			<models>
 				<model>
-					<name>13-ss</name>
-					<label>13 Super Sport</label>
-					<skucode>13SS</skucode>
-				</model>
-				<model>
 					<name>17-montauk</name>
 					<label>17 Montauk</label>
 					<skucode>17MNTK</skucode>
@@ -69,11 +64,6 @@
 					<skucode>170MNTK</skucode>
 				</model>
 				<model>
-					<name>180-ventura</name>
-					<label>180 Ventura</label>
-					<skucode>180VNT</skucode>
-				</model>
-				<model>
 					<name>180-dauntless</name>
 					<label>180 Dauntless</label>
 					<skucode>180DNTLS</skucode>
@@ -82,11 +72,6 @@
 					<name>190-montauk</name>
 					<label>190 Montauk</label>
 					<skucode>190MNTK</skucode>
-				</model>
-				<model>
-					<name>210-ventura</name>
-					<label>210 Ventura</label>
-					<skucode>210VNT</skucode>
 				</model>
 				<model>
 					<name>220-dauntless</name>
@@ -114,16 +99,7 @@
 				<model>
 					<name>20</name>
 					<label>20</label>
-				</model>
-			</models>
-		</boat>
-		<boat published="false">				
-			<name>chaperral</name>
-			<label>Chaperral</label>
-			<models>
-				<model>
-					<name>22</name>
-					<label>22</label>
+					<skucode>20</skucode>
 				</model>
 			</models>
 		</boat>
@@ -134,6 +110,7 @@
 				<model>
 					<name>25-bay</name>
 					<label>25 Bay</label>
+					<skucode>25BAY</label>
 				</model>
 			</models>
 		</boat>
@@ -144,6 +121,7 @@
 				<model>
 					<name>19</name>
 					<label>19</label>
+					<skucode>19</skucode>
 				</model>
 			</models>
 		</boat>
@@ -152,18 +130,9 @@
 			<label>Edgewater</label>
 			<models>
 				<model>
-					<name>188-le</name>
-					<label>188 LE</label>
-				</model>
-			</models>
-		</boat>
-		<boat published="false">				
-			<name>everglades</name>
-			<label>Everglades</label>
-			<models>
-				<model>
-					<name>230</name>
-					<label>230</label>
+					<name>188</name>
+					<label>188</label>
+					<skucode>188</skucode>
 				</model>
 			</models>
 		</boat>
@@ -174,14 +143,7 @@
 				<model>
 					<name>191-coastal-explorer</name>
 					<label>191 Coastal Explorer</label>
-				</model>
-				<model>
-					<name>205</name>
-					<label>205</label>
-				</model>
-				<model>
-					<name>225-t</name>
-					<label>225 T</label>
+					<skucode>191CE</skucode>
 				</model>
 			</models>
 		</boat>
@@ -190,16 +152,14 @@
 			<label>Hewes</label>
 			<models>
 				<model>
-					<name>16</name>
-					<label>16</label>
-				</model>
-				<model>
 					<name>16-redfisher</name>
 					<label>16 Redfisher</label>
+					<skucode>16RF</skucode>
 				</model>
 				<model>
-					<name>18</name>
-					<label>18</label>
+					<name>18-redfisher</name>
+					<label>18 Redfisher</label>
+					<skucode>18RF</skucode>
 				</model>
 			</models>
 		</boat>
@@ -208,8 +168,45 @@
 			<label>Key West</label>
 			<models>
 				<model>
-					<name></name>
-					<label></label>
+					<name>1720</name>
+					<label>1720</label>
+					<skucode>1720</skucode>
+				</model>
+				<models>
+				<model>
+					<name>176-bay-reef</name>
+					<label>176 Bay Reef</label>
+					<skucode>176</skucode>
+				</model>
+				<model>
+					<name>189</name>
+					<label>189</label>
+					<skucode>189</skucode>
+				</model>
+				<model>
+					<name>200-xt</name>
+					<label>200 XT</label>
+					<skucode>200XT</skucode>
+				</model>
+				<model>
+					<name>203-fs</name>
+					<label>203 FS</label>
+					<skucode>203FS</skucode>
+				</model>
+				<model>
+					<name>210-bay-reef</name>
+					<label>210 Bay Reef</label>
+					<skucode>210BR</skucode>
+				</model>
+				<model>
+					<name>210-fs</name>
+					<label>210 FS</label>
+					<skucode>210FS</skucode>
+				</model>
+				<model>
+					<name>230-bay-reef</name>
+					<label>230 Bay Reef</label>
+					<skucode>230BR</skucode>
 				</model>
 			</models>
 		</boat>
@@ -218,8 +215,14 @@
 			<label>Maverick</label>
 			<models>
 				<model>
-					<name></name>
-					<label></label>
+					<name>17HPX-S</name>
+					<label>17 HPX-S</label>
+					<skucode>17HPXS</skucode>
+				</model>
+				<model>
+					<name>18HPX-V</name>
+					<label>18 HPX-V</label>
+					<skucode>18HPXV</skucode>
 				</model>
 			</models>
 		</boat>
@@ -228,8 +231,14 @@
 			<label>Nautic Star</label>
 			<models>
 				<model>
-					<name></name>
-					<label></label>
+					<name>210-angler</name>
+					<label>210 Angler</label>
+					<skucode>210ANGLR</skucode>
+				</model>
+				<model>
+					<name>1810</name>
+					<label>1810</label>
+					<skucode>1810</skucode>
 				</model>
 			</models>
 		</boat>
@@ -238,8 +247,14 @@
 			<label>Pathfinder</label>
 			<models>
 				<model>
-					<name></name>
-					<label></label>
+					<name>2200-TRS</name>
+					<label>2200 TRS</label>
+					<skucode>2200TRS</skucode>
+				</model>
+				<model>
+					<name>2300-HPS</name>
+					<label>2300 HPS</label>
+					<skucode>2300HPS</skucode>
 				</model>
 			</models>
 		</boat>
@@ -248,28 +263,24 @@
 			<label>Pioneer</label>
 			<models>
 				<model>
-					<name>175-venture</name>
-					<label>175 Venture</label>
+					<name>180-islander</name>
+					<label>180 Islander</label>
+					<skucode>180ISLNDR</skucode>
 				</model>
 				<model>
-					<name>180</name>
-					<label>180</label>
+					<name>186-cape-island</name>
+					<label>186 Cape Island</label>
+					<skucode>186CPILND</skucode>
 				</model>
 				<model>
-					<name>186</name>
-					<label>186</label>
+					<name>197-sportfish</name>
+					<label>197 Sportfish</label>
+					<skucode>197SF</skucode>
 				</model>
 				<model>
-					<name>197</name>
+					<name>197-venture</name>
 					<label>197 Venture</label>
-				</model>
-				<model>
-					<name>197</name>
-					<label>197</label>
-				</model>
-				<model>
-					<name>222</name>
-					<label>222</label>
+					<skucode>197VNTRE</skucode>
 				</model>
 			</models>
 		</boat>
@@ -278,8 +289,19 @@
 			<label>Robalo</label>
 			<models>
 				<model>
-					<name></name>
-					<label></label>
+					<name>R180</name>
+					<label>R180</label>
+					<skucode>R180</skucode>
+				</model>
+				<model>
+					<name>R200</name>
+					<label>R200</label>
+					<skucode>R200</skucode>
+				</model>
+				<model>
+					<name>206-cayman</name>
+					<label>206 Cayman</label>
+					<skucode>206CMN</skucode>
 				</model>
 			</models>
 		</boat>
@@ -288,8 +310,29 @@
 			<label>Scout</label>
 			<models>
 				<model>
-					<name></name>
-					<label></label>
+					<name>177-winyah-bay</name>
+					<label>177 Winyah Bay</label>
+					<skucode>177WB</skucode>
+				</model>
+				<model>
+					<name>175-sportfish</name>
+					<label>175 Sportfish</label>
+					<skucode>175SF</skucode>
+				</model>
+				<model>
+					<name>191-bay</name>
+					<label>191 Bay</label>
+					<skucode>191BAY</skucode>
+				</model>
+				<model>
+					<name>201-bay</name>
+					<label>201 Bay</label>
+					<skucode>201BAY</skucode>
+				</model>
+				<model>
+					<name>221-winyah-bay</name>
+					<label>221 Winyah Bay</label>
+					<skucode>221WB</skucode>
 				</model>
 			</models>
 		</boat>
@@ -298,8 +341,29 @@
 			<label>Sea Fox</label>
 			<models>
 				<model>
-					<name></name>
-					<label></label>
+					<name>180-viper</name>
+					<label>180 Viper</label>
+					<skucode>180VPR</skucode>
+				</model>
+				<model>
+					<name>186-commander</name>
+					<label>186 Commander</label>
+					<skucode>186CMNDR</skucode>
+				</model>
+				<model>
+					<name>189-commander</name>
+					<label>189 Commander</label>
+					<skucode>189CMNDR</skucode>
+				</model>
+				<model>
+					<name>200-xt</name>
+					<label>200 XT</label>
+					<skucode>200XT</skucode>
+				</model>
+				<model>
+					<name>220-xt</name>
+					<label>220 XT</label>
+					<skucode>220XT</skucode>
 				</model>
 			</models>
 		</boat>
@@ -308,8 +372,29 @@
 			<label>Sea Hunt</label>
 			<models>
 				<model>
-					<name></name>
-					<label></label>
+					<name>177-triton</name>
+					<label>177 Triton</label>
+					<skucode>177TRTN</skucode>
+				</model>
+				<model>
+					<name>188-triton</name>
+					<label>188 Triton</label>
+					<skucode>188TRTN</skucode>
+				</model>
+				<model>
+					<name>196-ultra</name>
+					<label>196 Ultra</label>
+					<skucode>196ULTRA</skucode>
+				</model>
+				<model>
+					<name>20bx-br</name>
+					<label>20 BX-BR</label>
+					<skucode>20BXBR</skucode>
+				</model>
+				<model>
+					<name>22bx-br</name>
+					<label>22 BX-BR</label>
+					<skucode>22BXBR</skucode>
 				</model>
 			</models>
 		</boat>
@@ -318,8 +403,24 @@
 			<label>Sportsman</label>
 			<models>
 				<model>
-					<name></name>
-					<label></label>
+					<name>207-masters</name>
+					<label>207 Masters</label>
+					<skucode>207MSTR</skucode>
+				</model>
+				<model>
+					<name>211-heritage</name>
+					<label>211 Heritage</label>
+					<skucode>211HRTG</skucode>
+				</model>
+				<model>
+					<name>214-tournament</name>
+					<label>214 Tournament</label>
+					<skucode>214T</skucode>
+				</model>
+					<model>
+					<name>227-masters</name>
+					<label>227 Masters</label>
+					<skucode>227MSTR</skucode>
 				</model>
 			</models>
 		</boat>
@@ -328,8 +429,14 @@
 			<label>Sundance</label>
 			<models>
 				<model>
-					<name></name>
-					<label></label>
+					<name>17-fx</name>
+					<label>17 FX</label>
+					<skucode>17FX</skucode>
+				</model>
+				<model>
+					<name>17-spider</name>
+					<label>17 Spider</label>
+					<skucode>17SPDR</skucode>
 				</model>
 			</models>
 		</boat>
@@ -338,8 +445,14 @@
 			<label>Tidewater</label>
 			<models>
 				<model>
-					<name></name>
-					<label></label>
+					<name>1900-bay</name>
+					<label>1900 Bay</label>
+					<skucode>1900BAY</skucode>
+				</model>
+				<model>
+					<name>2200-bay</name>
+					<label>2200 Bay</label>
+					<skucode>2200BAY</skucode>
 				</model>
 			</models>
 		</boat>
