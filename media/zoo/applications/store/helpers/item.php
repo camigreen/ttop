@@ -50,6 +50,10 @@ class ItemHelper extends AppHelper {
 	    }
 		return $this->_items[$item->sku];
 	}
+
+	public function loadXML($xml) {
+
+	}
 }
 
 ?>

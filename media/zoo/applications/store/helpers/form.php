@@ -57,9 +57,9 @@ class FormHelper extends AppHelper {
 class AppForm {
 
 
-	public $assetName;
+	public $assetID = 0;
 
-	public $cUser;
+	public $assetName;
 
 	public $belongsTo = 0;
 
@@ -96,37 +96,15 @@ class AppForm {
 		// init vars
 		$this->app = $app;
 		$this->loadXML($xml, $params);
-		$this->cUser = $this->app->storeuser->get();
 	}
 
-	public function setAssetName($assetName) {
+	public function setAsset($assetName) {
 		$this->assetName = $assetName;
-		return $this;
-	}
-
-	public function setBelongsTo($id = 0) {
-		$this->belongsTo = $id;
-		return $this;
-	}
-
-	public function checkAccess($access) {
-		return $this->cUser->canAccess($access);
-	}
-
-	public function canEdit() {
-		return $this->cUser->canEdit($this->assetName, $this->belongsTo);
-	}
-
-	public function checkPermissions($values) {
-		$canEdit = $this->canEdit();
-		if(!is_null($values)) {
-			$admins = explode('.', $values, 2);
-
-			foreach($admins as $admin) {
-				$canEdit = $this->cUser->isAppAdmin($admin);
-			}
+		$asset = JTable::getInstance('Asset');
+		if($asset->loadByName($assetName)) {
+			$this->assetID = $asset->id;
 		}
-		return $canEdit;
+		return $this;
 	}
 
 	/**
@@ -302,9 +280,9 @@ class AppForm {
 		// load xml file or string ?
 		if ($element || ($element = @simplexml_load_file($xml)) || ($element = simplexml_load_string($xml))) {
 
-			foreach($element->type as $_type) {
-				if($_type->attributes()->name == $type) {
-					$element = $_type;
+			foreach($element->layout as $_layout) {
+				if($_layout->attributes()->name == $layout) {
+					$element = $_layout;
 					continue;
 				}
 			}
@@ -399,6 +377,19 @@ class AppForm {
 	}
 
 	/**
+	 * Check the current users access.
+	 *
+	 * @param int $access_level
+	 * @return bool
+	 * @since 1.0
+	 */
+	public function checkAccess($access_level = 0) {
+
+		return $this->app->storeuser->get()->canAccess($access_level);
+	}
+
+
+	/**
 	 * Render parameter HTML form
 	 *
 	 * @param string $control_name The name of the control, or the default text area if a setup file is not found
@@ -422,16 +413,21 @@ class AppForm {
 				continue;
 			}
 
+			$span = $this->_xml[$group]->attributes()->span ? (string) $this->_xml[$group]->attributes()->span : '1';
+			$columns = $this->_xml[$group]->attributes()->columns ? (string) $this->_xml[$group]->attributes()->columns : '1';
+			$class = 'uk-width-medium-'.$span.'-'.$columns.' uk-width-small-1-1';
+			$html[] = '<div class="'.$class.'">';
+
 			$html[] = '<fieldset id="'.$group.'">';
 			if((string)$this->_xml[$group]->attributes()->label) {
 				$html[] = '<legend>'.JText::_((string)$this->_xml[$group]->attributes()->label).'</legend>';
 			}
-			$html[] = '<ul class="uk-grid parameter-form">';
-
+			$html[] = '<div class="uk-grid">';
 			$group_control_name = $this->_xml[$group]->attributes()->controlname ? $this->_xml[$group]->attributes()->controlname : $control_name;
 
 			// add params
 			foreach ($this->_xml[$group]->field as $field) {
+				$id = uniqid();
 				$access = $field->attributes()->access ? (int) $field->attributes()->access : 1; 
 				if(!$this->checkAccess($access)) {
 					continue;
@@ -439,20 +435,19 @@ class AppForm {
 				// init vars
 				$type = (string) $field->attributes()->type;
 				$name = (string) $field->attributes()->name;
-				$width = (string) $field->attributes()->width;
-				$required = (bool) $field->attributes()->required;
-				$width = $width ? $width : '1-1';
+				$span = $field->attributes()->span ? (string) $field->attributes()->span : '1';
+				$columns = $field->attributes()->columns ? (string) $field->attributes()->columns : '1';
+				$class = 'uk-width-medium-'.$span.'-'.$columns;
+				$class .= (bool) $field->attributes()->required ? ' required' : '';
 				$default = strlen((string) $field->attributes()->default) > 0 ? (string) $field->attributes()->default : null; 
 				$value = $this->getValue($name, $default);
-				$class = 'uk-width-1-1' . ($required ? ' required' : '');
 				$control_name = $field->attributes()->controlname ? $field->attributes()->controlname : $group_control_name;
-				$admins = $field->attributes()->canEdit ? (string) $field->attributes()->canEdit : null;
-				$disabled = !$this->checkPermissions($admins);
-
-				$_field = '<div class="field">'.$this->app->field->render($type, $name, $value, $field, array('cUser' => $this->cUser, 'assetName' => $this->assetName, 'control_name' => $control_name, 'parent' => $this, 'class' => $class, 'disabled' => $disabled)).'</div>';
+				$disabled = $field->attributes()->disabled ? $field->attributes()->disabled : false;
+				$user = $this->app->storeuser->get();
+				$_field = $this->app->field->render($type, $name, $value, $field, array('id' => $id, 'user' => $user, 'assetName' => $this->assetName, 'control_name' => $control_name, 'parent' => $this, 'disabled' => $disabled));
 				
 				if ($type != 'hidden') {
-					$html[] = '<li id="'.$group.'-'.$name.'" class="parameter uk-width-'.$width.'">';
+					$html[] = '<div id="'.$group.'-'.$name.'" class="'.$class.'">';
 
 					$output = '&#160;';
 					if ((string) $field->attributes()->label != '') {
@@ -463,15 +458,25 @@ class AppForm {
 						}
 						$output = sprintf('<label %s>%s</label>', JText::_($this->app->field->attributes($attributes)), JText::_($field->attributes()->label));
 					}
-					$html[] = "<div class=\"label\">$output</div>";
+					$modal_icon = '';
+					if((string) $field->attributes()->modal != '') {
+						$modal = (string) $field->attributes()->modal;
+						$attributes = array();
+						$attributes['class'] = "uk-icon-button uk-icon-info-circle modal-button";
+						$attributes['data-modal'] = $modal;
+						$attributes['data-modal-field-id'] = $id;
+						$modal_icon = sprintf('<a %s data-uk-tooltip></a>', $this->app->field->attributes($attributes));
+					}
+					$html[] = $output;
+					$html[] = $modal_icon;
 					$html[] = $_field;
-					$html[] = '</li>';
+					$html[] = '</div>';
 				} else {
 					$html[] = $_field;
 				}
 			}
 
-			$html[] = '</ul>';
+			$html[] = '</div></fieldset></div>';
 		}
 
 		return implode("\n", $html);

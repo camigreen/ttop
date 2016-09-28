@@ -6,6 +6,7 @@
 * @license   http://www.gnu.org/licenses/gpl.html GNU/GPL
 */
 $embed = $this->app->request->get('embed','bool');
+$this->app->document->addScript('elements:cart/assets/js/storeitem.js');
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 $storeItem = $this->app->item->create($item, 'ttopboatcover');

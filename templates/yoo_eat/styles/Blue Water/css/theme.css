@@ -11014,6 +11014,9 @@ body {
 }
 /* Background Styles
  ========================================================================== */
+.uk-navbar-toggle {
+  padding: 10px;
+}
 .tm-block-water {
   background: url('../../../../../images/bg-water.jpeg') no-repeat fixed 50% 100%;
   color: #ffffff;

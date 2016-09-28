@@ -36,8 +36,16 @@ class StoreApplication extends Application {
         $zoo->path->register($path.'/fields', 'fields');
         $zoo->path->register($path.'/libraries', 'store.lib');
         $zoo->path->register($path.'/logs', 'logs');
+        $zoo->path->register($path.'/views', 'views');
         $zoo->path->register(JPATH_ROOT.'/templates/yoo_eat', 'template');
+        $zoo->path->register(JPATH_ROOT.'/images/logos', 'images.logos');
+        $zoo->path->register(JPATH_ROOT.'/images/boats', 'images.boats');
         include_once $path.'/vendor/autoload.php';
+
+        // Load libraries
+        include_once $zoo->path->path('store.lib:/product/config.php');
+        include_once $zoo->path->path('store.lib:/modal/config.php');
+
 
 //        Load Classes
         $zoo->loader->register('ElementStore','elements:element/element.php');
@@ -62,7 +70,7 @@ class StoreApplication extends Application {
 
         
 //        Add Scripts
-        $zoo->document->addScript('elements:cart/assets/js/storeitem.js');
+        
 
         
     }

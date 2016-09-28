@@ -334,6 +334,7 @@ class StoreItem {
         if(!$this->price) {
             $this->getPrice();
         }
+        //var_dump($this->price->get($display));
         $total = $this->price->get($display)*$this->qty;
         if($formatted) {
             $total = $this->app->number->currency($total, array('currency' => 'USD'));

@@ -98,6 +98,7 @@
                 var elem = $(v);
                 var id = elem.prop('id');
                 var items = elem.data('item');
+                console.log(items);
                 $.each(items, function(key, item) {
                     self.items[id] = item;
                 }); 
@@ -221,6 +222,7 @@
             result.args = args;
             result.triggerResult = true;
             var events = this.getEvents(event, types);
+            console.log(events);
             $.each(events, function (k, v) {
                 self._debug('Starting ' + event + ' ['+k+']');
                 result = v.call(self,result);
@@ -445,7 +447,7 @@
         },
         _refresh: function (e) {
             var id = $(e.target).closest('.options-container').data('id'), self = this;
-
+            console.log(id);
             triggerData = this.trigger('beforeChange', {event: e, item: this.items[id]});
             console.log(triggerData);
             this._getOptions();

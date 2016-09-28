@@ -138,7 +138,7 @@ include($this['path']->path('layouts:theme.config.php'));
 
                                         <?php if ($this['widgets']->count('menu-logo')) : ?>    
 
-                                            <div class="menu-logo">    
+                                            <div class="menu-logo uk-hidden-small">    
 
                                                 <?php echo $this['widgets']->render('menu-logo'); ?>    
 

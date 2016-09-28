@@ -466,3 +466,13 @@ select.oem-select {
    border: 1px solid #D2D2D2;
    padding: 10px;
 }
+
+.boat-manufacturers .uk-panel-box {
+
+}
+
+.boat-manufacturers .uk-panel-title {
+    height:120px;
+    font-size:45px;
+    line-height:50px;
+}

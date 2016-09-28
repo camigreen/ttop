@@ -20,6 +20,7 @@ class StoreUser {
 	public $params;
 	public $elements;
 	public $app;
+    public $debug = false;
 
 	public function __construct(JUser $user) {
 		$this->_user = $user;
@@ -251,11 +252,17 @@ class StoreUser {
      * @since 3.2
      */
     public function canEdit($asset_id = 0, $created_by = 0) {
-        // var_dump($created_by);
-        // var_dump($this->_user->id);
-        // var_dump($this->authorise('core.edit', $asset_id));
-        // var_dump($asset_id);
-        return $this->isAdmin($this->_user, $asset_id) || $this->authorise('core.edit', $asset_id) || ($created_by === $this->_user->id && $this->authorise('core.edit.own', $asset_id));
+        if($this->debug) {
+            echo 'Asset ID:</br>';
+            var_dump($asset_id);
+            echo 'Created By:</br>';
+            var_dump($created_by);
+            echo 'User ID: </br>';
+            var_dump($this->_user->id);
+            echo 'Can Edit:</br>';
+            var_dump($this->authorise('core.edit', $asset_id));
+        }
+        return $this->isAdmin($asset_id) || $this->authorise('core.edit', $asset_id) || ($created_by === $this->_user->id && $this->authorise('core.edit.own', $asset_id));
     }
     /**
      * Evaluates user permission
@@ -271,7 +278,7 @@ class StoreUser {
         if (is_null($this->_user)) {
             $this->_user = $this->get();
         }
-        return $this->isAdmin($this->_user, $asset_id) || ($created_by === $this->_user->id && $this->authorise('core.edit.own', $asset_id));
+        return $this->isAdmin($asset_id) || ($created_by === $this->_user->id && $this->authorise('core.edit.own', $asset_id));
     }
 
     public function checkPermissions($access= null) {
@@ -360,7 +367,7 @@ class StoreUser {
      * @since 3.2
      */
     public function isAdmin($asset_id = 0) {
-        return $this->authorise($this->_user, 'core.admin', $asset_id);
+        return $this->authorise('core.admin', $asset_id);
     }
 
     /**
@@ -436,9 +443,8 @@ class StoreUser {
         if(!$asset_id) {
             $asset_id = 'com_zoo';
         } else {
-        	$asset_id = $this->application->getAssetName().'.'.$asset_id;
+        	$asset_id = 'com_zoo.'.$asset_id;
         }
-
         return (bool) $this->_user->authorise($action, $asset_id);
     }
 
