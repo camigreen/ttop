@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<item>
+	<name>Center Console Boat Cover</name>
+	<template>ccbc</template>
+	<make>LaPorte's Products</make>
+	<version>1.0.1 Branch: accounts</version>
+	<creationDate>September 7, 2016</creationDate>
+	<assetName>store.order</assetName>
+	<description></description>
+	<form>
+		<layout name="full">
+			<fieldset group="cover_options" label="Cover Options" controlname="options" columns="1" span="1">
+				<field name="color" type="order.list" optiontype="variable" columns="2" span="1" default="0" label="Color" description="" modal="ccbc.color"/>
+				<field name="zipper" type="order.list" columns="2" span="1" default="0" label="Zipper Access Side" description="" modal="ccbc.zipper" />
+			</fieldset>
+			<fieldset group="boat_options" label="Boat Options" controlname="options" columns="2" span="1">
+				<field name="storage" type="order.list" columns="1" span="1" default="0" label="How is your boat stored?" description="" />
+				<field name="year" type="order.year.list" columns="2" span="1" default="0" label="Year" description="" />
+				<field name="boat_style" type="order.list" columns="2" span="1" default="0" label="Boat Style" description="" />
+			</fieldset>
+			<fieldset group="motor_options" label="Motor Options" controlname="options" columns="2" span="1">
+				<field name="motors" type="order.list" columns="1" span="1" default="0" label="Number of Motors" description="" />
+				<field name="motor_make" type="order.list" columns="1" span="1" default="0" label="Motor Manufacturer" description="" />
+				<field name="motor_size" type="order.list" columns="1" span="1" default="0" label="Motor Size" description="" />
+			</fieldset>
+			<fieldset group="aft_options" label="Aft Options" controlname="options" columns="1" span="1">
+				<field name="trolling_motor" type="order.list" columns="2" span="1" default="0" label="Trolling Motor" description=""/>
+				<field name="ski_tow_bar" type="order.list" columns="2" span="1" default="0" label="Ski/Tow Bar" description="" modal="ccbc.stb"/>
+				<field name="jack_plate" type="order.list" columns="2" span="1" default="0" label="Jack Plate" description="" modal="ccbc.jp"/>
+				<field name="swim_ladder" type="order.list" columns="2" span="1" default="0" label="Swim Ladder" description="" modal="ccbc.swim" />
+				<field name="power_poles" type="order.list" columns="2" span="1" default="0" label="Power Poles" description="" modal="ccbc.pp"/>
+				<field name="poling_platform" type="order.list" columns="2" span="1" default="0" label="Poling Platform" description="" modal="ccbc.poling_platform" />
+				<field name="casting_platform" type="order.list" columns="2" span="1" default="0" label="Casting Platform" description="" modal="ccbc.cast_platform"/>
+			</fieldset>
+			<fieldset group="bow_options" label="Bow Options" controlname="options" columns="1" span="1">
+				<field name="bow_rails" type="order.list" columns="2" span="1" default="0" label="Bow Rails" description="" modal="bowrails" />
+			</fieldset>
+			<fieldset group="pricing" columns="1" span="1">
+				<field name="price" type="store.price" columns="1" span="1" />
+				<field name="qty" type="store.qty" label="Quantity" columns="1" span="1" />
+			</fieldset>
+		</layout>
+	</form>
+</item>

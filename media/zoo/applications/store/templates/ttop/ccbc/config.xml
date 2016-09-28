@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<item>
+	<name>Center Console Boat Cover</name>
+	<template>ccbc</template>
+	<make>LaPorte's Products</make>
+	<version>1.0.1 Branch: accounts</version>
+	<creationDate>September 7, 2016</creationDate>
+	<assetName>store.order</assetName>
+	<description></description>
+	<form>
+		<layout name="full">
+			<fieldset group="cover_options" label="Cover Options" controlname="options" columns="1" span="1">
+				<field name="colodddr" type="order.list" columns="2" span="1" default="0" label="Color" description=""/>
+				<field name="fabric" type="order.list" columns="2" span="1" default="9oz" label="Fabric" description="">
+					<option value='7oz'>Material 7oz. 3yr. Warranty</option>
+					<option value='8oz'>Material 8oz. 5yr. Warranty</option>
+					<option value='9oz'>Material 9oz. 5yr. Warranty</option>
+				</field>
+				<field name="zipper" type="order.list" columns="2" span="1" default="0" label="Zipper Access Side" description="">
+					<option value='0'>- SELECT -</option>
+					<option value='ZP'>Port Side</option>
+					<option value='ZS'>Starboard Side</option>
+					<option value='CR'>Center Rear (Twin Hulls Only)</option>
+				</field>
+			</fieldset>
+			<fieldset group="boat_options" label="Boat Options" controlname="options" columns="2" span="1">
+				<field name="storage" type="order.list" columns="1" span="1" default="0" label="How is your boat stored?" description="">
+					<option value='0'>- SELECT -</option>
+					<option value='T'>Trailer</option>
+					<option value='L'>Lift</option>
+					<option value='DS'>Dry Stack</option>
+					<option value='JD'>Jet Dock</option>
+					<option value='IW'>In Water</option>
+					<option value='other'>Other</option>
+				</field>
+				<field name="year" type="order.year.list" columns="2" span="1" default="0" label="Year" description="" />
+				<field name="boat_style" type="order.list" columns="2" span="1" default="0" label="Boat Style" description="">
+					<option value='0'>- SELECT -</option>
+					<option value='cc'>Center Console</option>
+					<option value='dc'>Dual Console</option>
+					<option value='wa'>Walkaround</option>
+					<option value='cb'>Catamaran</option>
+					<option value='other'>Other</option>
+				</field>
+			</fieldset>
+			<fieldset group="motor_options" label="Motor Options" controlname="options" columns="2" span="1">
+				<field name="motors" type="order.list" columns="1" span="1" default="0" label="Number of Motors" description="">
+					<option value='0'>- SELECT -</option>
+					<option value='1'>Single Engine</option>
+					<option value='2'>Twin Engines</option>
+					<option value='3'>Triple Engines</option>
+					<option value='4'>Quadruple Engines</option>
+					<option value='other'>Other</option>
+				</field>
+				<field name="motor_make" type="order.list" columns="1" span="1" default="0" label="Motor Manufacturer" description="">
+					<option value='0'>- SELECT -</option>
+					<option value='evinrude'>Evinrude</option>
+					<option value='honda'>Honda</option>
+					<option value='johnson'>Johnson</option>
+					<option value='mercury'>Mercury</option>
+					<option value='suzuki'>Suzuki</option>
+					<option value='yamaha'>Yamaha</option>
+					<option value='other'>Other</option>
+				</field>
+				<field name="motor_size" type="order.list" columns="1" span="1" default="0" label="Motor Size" description="">
+					<option value='0'>- SELECT -</option>
+					<option value='90'>90 HP</option>
+					<option value='115'>115 HP</option>
+					<option value='135'>135 HP</option>
+					<option value='150'>150 HP</option>
+					<option value='175'>175 HP</option>
+					<option value='200'>200 HP</option>
+					<option value='225'>225 HP</option>
+					<option value='250'>250 HP</option>
+					<option value='300'>300 HP</option>
+					<option value='350'>350 HP</option>
+					<option value='400'>400 HP</option>
+					<option value='557'>557 HP</option>
+					<option value='other'>Other</option>
+				</field>
+			</fieldset>
+			<fieldset group="aft_options" label="Aft Options" controlname="options" columns="1" span="1">
+				<field name="ski_tow_bar" type="order.list" columns="2" span="1" default="0" label="Ski/Tow Bar" description="">
+					<option value='0'>- SELECT -</option>
+					<option value='1'>Single Engine</option>
+					<option value='2'>Twin Engines</option>
+					<option value='3'>Triple Engines</option>
+					<option value='4'>Quadruple Engines</option>
+					<option value='other'>Other</option>
+				</field>
+				<field name="jack_plate" type="order.list" columns="2" span="1" default="0" label="Jack Plate" description="">
+					<option value='0'>- SELECT -</option>
+					<option value='evinrude'>Evinrude</option>
+					<option value='honda'>Honda</option>
+					<option value='johnson'>Johnson</option>
+					<option value='mercury'>Mercury</option>
+					<option value='suzuki'>Suzuki</option>
+					<option value='yamaha'>Yamaha</option>
+					<option value='other'>Other</option>
+				</field>
+				<field name="swim_ladder" type="order.list" columns="2" span="1" default="0" label="Swim Ladder" description="">
+					<option value='0'>- SELECT -</option>
+					<option value='90'>90 HP</option>
+					<option value='115'>115 HP</option>
+					<option value='135'>135 HP</option>
+					<option value='150'>150 HP</option>
+					<option value='175'>175 HP</option>
+					<option value='200'>200 HP</option>
+					<option value='225'>225 HP</option>
+					<option value='250'>250 HP</option>
+					<option value='300'>300 HP</option>
+					<option value='350'>350 HP</option>
+					<option value='400'>400 HP</option>
+					<option value='557'>557 HP</option>
+					<option value='other'>Other</option>
+				</field>
+				<field name="power_poles" type="order.list" columns="2" span="1" default="0" label="Power Poles" description="">
+					<option value='0'>- SELECT -</option>
+					<option value='90'>90 HP</option>
+					<option value='115'>115 HP</option>
+					<option value='135'>135 HP</option>
+					<option value='150'>150 HP</option>
+					<option value='175'>175 HP</option>
+					<option value='200'>200 HP</option>
+					<option value='225'>225 HP</option>
+					<option value='250'>250 HP</option>
+					<option value='300'>300 HP</option>
+					<option value='350'>350 HP</option>
+					<option value='400'>400 HP</option>
+					<option value='557'>557 HP</option>
+					<option value='other'>Other</option>
+				</field>
+				<field name="poling_platform" type="order.list" columns="2" span="1" default="0" label="Poling Platform" description="">
+					<option value='0'>- SELECT -</option>
+					<option value='y'>Yes</option>
+					<option value='n'>No</option>
+				</field>
+			</fieldset>
+			<fieldset group="bow_options" label="Bow Options" controlname="options" columns="1" span="1">
+				<field name="bow_rails" type="order.list" columns="2" span="1" default="0" label="Bow Rails" description="">
+					<option value='0'>- SELECT -</option>
+					<option value='1'>Single Engine</option>
+					<option value='2'>Twin Engines</option>
+					<option value='3'>Triple Engines</option>
+					<option value='4'>Quadruple Engines</option>
+					<option value='other'>Other</option>
+				</field>
+			</fieldset>
+		</layout>
+	</form>
+</item>

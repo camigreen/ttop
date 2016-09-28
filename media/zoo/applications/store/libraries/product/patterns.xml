@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ccbc>
+	<patterns name="CCBC-AC1820">
+		<pattern id="001" description="">
+			<option name="style" value="CC" />
+			<option name="motors" value="S" />
+			<option name="bow_rails" value="L" />
+			<option name="trolling_motor" value="y" />
+			<option name="jack_plate" value="JP4" />
+			<option name="poling_platform" value="PO41" />
+			<option name="year" value="1990|2014" />
+		</pattern>
+		<pattern id="001a" description="">
+			<option name="style" value="CC" />
+			<option name="motors" value="S" />
+			<option name="bow_rails" value="L" />
+			<option name="trolling_motor" value="y" />
+			<option name="jack_plate" value="JP4" />
+			<option name="poling_platform" value="PO41" />
+			<option name="year" value="2015" />
+		</pattern>
+		<pattern id="002">
+			<option name="style" value="CC" />
+			<option name="motors" value="S" />
+			<option name="bow_rails" value="L" />
+			<option name="poling_platform" value="PO42" />
+			<option name="year" value="2000" />
+		</pattern>
+	</patterns>
+	<patterns name="CCBC-AC19AFM">
+		<pattern id="001" description="">
+			<option name="style" value="CC" />
+			<option name="motors" value="S" />
+			<option name="bow_rails" value="L" />
+			<option name="trolling_motor" value="y" />
+			<option name="jack_plate" value="JP4" />
+			<option name="poling_platform" value="PO41" />
+			<option name="year" value="1990" />
+		</pattern>
+		<pattern id="002">
+			<option name="style" value="CC" />
+			<option name="motors" value="S" />
+			<option name="bow_rails" value="L" />
+			<option name="poling_platform" value="PO42" />
+			<option name="year" value="2000" />
+		</pattern>
+	</patterns>
+</ccbc>

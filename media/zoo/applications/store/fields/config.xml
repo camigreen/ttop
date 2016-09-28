@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fields>
+	<field name="color">
+		<option value="N">Navy</option>
+		<option value="B">Black</option>
+		<option value="T">Tan</option>
+		<option value="G">Gray</option>
+	</field>
+	<field name="fabric">
+		<option value="7oz">Material 7oz. 3yr. Warranty</option>
+		<option value="8oz">Material 8oz. 5yr. Warranty</option>
+		<option value="9oz">Material 9oz. 5yr. Warranty</option>
+	</field>
+	<field name="zipper">
+		<option value='ZP'>Port Side</option>
+		<option value='ZS'>Starboard Side</option>
+		<option value='CR'>Center Rear (Twin Hulls Only)</option>
+	</field>
+	<field name="storage">
+		<option value='T'>Trailer</option>
+		<option value='L'>Lift</option>
+		<option value='DS'>Dry Stack</option>
+		<option value='JD'>Jet Dock</option>
+		<option value='IW'>In Water</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="storage">
+		<option value='T'>Trailer</option>
+		<option value='L'>Lift</option>
+		<option value='DS'>Dry Stack</option>
+		<option value='JD'>Jet Dock</option>
+		<option value='IW'>In Water</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="boat_style">
+		<option value='cc'>Center Console</option>
+		<option value='dc'>Dual Console</option>
+		<option value='wa'>Walkaround</option>
+		<option value='cb'>Catamaran</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="motors">
+		<option value='1'>Single Engine</option>
+		<option value='2'>Twin Engines</option>
+		<option value='3'>Triple Engines</option>
+		<option value='4'>Quadruple Engines</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="motor_make">
+		<option value='evinrude'>Evinrude</option>
+		<option value='honda'>Honda</option>
+		<option value='johnson'>Johnson</option>
+		<option value='mercury'>Mercury</option>
+		<option value='suzuki'>Suzuki</option>
+		<option value='yamaha'>Yamaha</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="motor_size">
+		<option value='90'>90 HP</option>
+		<option value='115'>115 HP</option>
+		<option value='135'>135 HP</option>
+		<option value='150'>150 HP</option>
+		<option value='175'>175 HP</option>
+		<option value='200'>200 HP</option>
+		<option value='225'>225 HP</option>
+		<option value='250'>250 HP</option>
+		<option value='300'>300 HP</option>
+		<option value='350'>350 HP</option>
+		<option value='400'>400 HP</option>
+		<option value='557'>557 HP</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="ski_tow_bar">
+		<option value='0'>- SELECT -</option>
+		<option value='1'>Single Engine</option>
+		<option value='2'>Twin Engines</option>
+		<option value='3'>Triple Engines</option>
+		<option value='4'>Quadruple Engines</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="jack_plate">
+		<option value='0'>- SELECT -</option>
+		<option value='evinrude'>Evinrude</option>
+		<option value='honda'>Honda</option>
+		<option value='johnson'>Johnson</option>
+		<option value='mercury'>Mercury</option>
+		<option value='suzuki'>Suzuki</option>
+		<option value='yamaha'>Yamaha</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="swim_ladder">
+		<option value='0'>- SELECT -</option>
+		<option value='90'>90 HP</option>
+		<option value='115'>115 HP</option>
+		<option value='135'>135 HP</option>
+		<option value='150'>150 HP</option>
+		<option value='175'>175 HP</option>
+		<option value='200'>200 HP</option>
+		<option value='225'>225 HP</option>
+		<option value='250'>250 HP</option>
+		<option value='300'>300 HP</option>
+		<option value='350'>350 HP</option>
+		<option value='400'>400 HP</option>
+		<option value='557'>557 HP</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="power_poles">
+		<option value='0'>- SELECT -</option>
+		<option value='90'>90 HP</option>
+		<option value='115'>115 HP</option>
+		<option value='135'>135 HP</option>
+		<option value='150'>150 HP</option>
+		<option value='175'>175 HP</option>
+		<option value='200'>200 HP</option>
+		<option value='225'>225 HP</option>
+		<option value='250'>250 HP</option>
+		<option value='300'>300 HP</option>
+		<option value='350'>350 HP</option>
+		<option value='400'>400 HP</option>
+		<option value='557'>557 HP</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="poling_platform">
+		<option value='0'>- SELECT -</option>
+		<option value='y'>Yes</option>
+		<option value='n'>No</option>
+	</field>
+	<field name="bow_rails">
+		<option value='0'>- SELECT -</option>
+		<option value='1'>Single Engine</option>
+		<option value='2'>Twin Engines</option>
+		<option value='3'>Triple Engines</option>
+		<option value='4'>Quadruple Engines</option>
+		<option value='other'>Other</option>
+	</field>
+</fields>

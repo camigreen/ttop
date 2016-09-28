@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<item>
+	<boats>
+		<boat>				
+			<name>action-craft</name>
+			<skucode>AC</skucode>
+			<label>Action Craft</label>
+			<models>
+				<model>
+					<name>1820</name>
+					<label>1820</label>
+					<skucode>1820</skucode>
+				</model>
+				<model>
+					<name>19-ace-flats-master</name>
+					<label>19 Ace Flats Master</label>
+					<skucode>19AFM</skucode>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>boston-whaler</name>
+			<label>Boston Whaler</label>
+			<skucode>BW</skucode>
+			<models>
+				<model>
+					<name>13-ss</name>
+					<label>13 Super Sport</label>
+					<skucode>13SS</skucode>
+				</model>
+				<model>
+					<name>17-montauk</name>
+					<label>17 Montauk</label>
+					<skucode>17MNTK</skucode>
+				</model>
+				<model>
+					<name>18-dauntless</name>
+					<label>18 Dauntless</label>
+					<skucode>18DNTLS</skucode>
+				</model>
+				<model>
+					<name>110-sport</name>
+					<label>110 Sport</label>
+					<skucode>110S</skucode>
+				</model>
+				<model>
+					<name>130-sport</name>
+					<label>130 Sport</label>
+					<skucode>130S</skucode>
+				</model>
+				<model>
+					<name>150-sport</name>
+					<label>150 Sport</label>
+					<skucode>150S</skucode>
+				</model>
+				<model>
+					<name>150-montauk</name>
+					<label>150 Montauk</label>
+					<skucode>150MNTK</skucode>
+				</model>
+				<model>
+					<name>160-dauntless</name>
+					<label>160 Dauntless</label>
+					<skucode>160DNTLS</skucode>
+				</model>
+				<model>
+					<name>170-montauk</name>
+					<label>170 Montauk</label>
+					<skucode>170MNTK</skucode>
+				</model>
+				<model>
+					<name>180-ventura</name>
+					<label>180 Ventura</label>
+					<skucode>180VNT</skucode>
+				</model>
+				<model>
+					<name>180-dauntless</name>
+					<label>180 Dauntless</label>
+					<skucode>180DNTLS</skucode>
+				</model>
+				<model>
+					<name>190-montauk</name>
+					<label>190 Montauk</label>
+					<skucode>190MNTK</skucode>
+				</model>
+				<model>
+					<name>210-ventura</name>
+					<label>210 Ventura</label>
+					<skucode>210VNT</skucode>
+				</model>
+				<model>
+					<name>220-dauntless</name>
+					<label>220 Dauntless</label>
+					<skucode>220DNTLS</skucode>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>carolina-skiff</name>
+			<label>Carolina Skiff</label>
+			<skucode>CRLNASKF</skucode>
+			<models>
+				<model>
+					<name>15-jv</name>
+					<label>15 JV</label>
+					<skucode>15JV</skucode>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>champion</name>
+			<label>Champion</label>
+			<models>
+				<model>
+					<name>20</name>
+					<label>20</label>
+				</model>
+			</models>
+		</boat>
+		<boat published="false">				
+			<name>chaperral</name>
+			<label>Chaperral</label>
+			<models>
+				<model>
+					<name>22</name>
+					<label>22</label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>contender</name>
+			<label>Contender</label>
+			<models>
+				<model>
+					<name>25-bay</name>
+					<label>25 Bay</label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>east-cape</name>
+			<label>East Cape</label>
+			<models>
+				<model>
+					<name>19</name>
+					<label>19</label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>edgewater</name>
+			<label>Edgewater</label>
+			<models>
+				<model>
+					<name>188-le</name>
+					<label>188 LE</label>
+				</model>
+			</models>
+		</boat>
+		<boat published="false">				
+			<name>everglades</name>
+			<label>Everglades</label>
+			<models>
+				<model>
+					<name>230</name>
+					<label>230</label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>grady-white</name>
+			<label>Grady White</label>
+			<models>
+				<model>
+					<name>191-coastal-explorer</name>
+					<label>191 Coastal Explorer</label>
+				</model>
+				<model>
+					<name>205</name>
+					<label>205</label>
+				</model>
+				<model>
+					<name>225-t</name>
+					<label>225 T</label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>hewes</name>
+			<label>Hewes</label>
+			<models>
+				<model>
+					<name>16</name>
+					<label>16</label>
+				</model>
+				<model>
+					<name>16-redfisher</name>
+					<label>16 Redfisher</label>
+				</model>
+				<model>
+					<name>18</name>
+					<label>18</label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>key-west</name>
+			<label>Key West</label>
+			<models>
+				<model>
+					<name></name>
+					<label></label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>maverick</name>
+			<label>Maverick</label>
+			<models>
+				<model>
+					<name></name>
+					<label></label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>nautic-star</name>
+			<label>Nautic Star</label>
+			<models>
+				<model>
+					<name></name>
+					<label></label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>pathfinder</name>
+			<label>Pathfinder</label>
+			<models>
+				<model>
+					<name></name>
+					<label></label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>pioneer</name>
+			<label>Pioneer</label>
+			<models>
+				<model>
+					<name>175-venture</name>
+					<label>175 Venture</label>
+				</model>
+				<model>
+					<name>180</name>
+					<label>180</label>
+				</model>
+				<model>
+					<name>186</name>
+					<label>186</label>
+				</model>
+				<model>
+					<name>197</name>
+					<label>197 Venture</label>
+				</model>
+				<model>
+					<name>197</name>
+					<label>197</label>
+				</model>
+				<model>
+					<name>222</name>
+					<label>222</label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>robalo</name>
+			<label>Robalo</label>
+			<models>
+				<model>
+					<name></name>
+					<label></label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>scout</name>
+			<label>Scout</label>
+			<models>
+				<model>
+					<name></name>
+					<label></label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>sea-fox</name>
+			<label>Sea Fox</label>
+			<models>
+				<model>
+					<name></name>
+					<label></label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>sea-hunt</name>
+			<label>Sea Hunt</label>
+			<models>
+				<model>
+					<name></name>
+					<label></label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>sportsman</name>
+			<label>Sportsman</label>
+			<models>
+				<model>
+					<name></name>
+					<label></label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>sundance</name>
+			<label>Sundance</label>
+			<models>
+				<model>
+					<name></name>
+					<label></label>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>tidewater</name>
+			<label>Tidewater</label>
+			<models>
+				<model>
+					<name></name>
+					<label></label>
+				</model>
+			</models>
+		</boat>
+	</boats>
+</item>

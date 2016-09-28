@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<item>
+	<boats>
+		<boat name="albemarle" text="Albemarle">
+			<params>
+				<logo>AlbFinal.png</logo>
+				<teaser>albermarle3.png</teaser>
+			</params>
+			<models>
+				<model name="24" text="24" />
+			</models>
+		</boat>
+		<boat name="albury_brothers" text="Albury Brothers">
+			<params>
+				<logo>albury_brothers/albury_bros.png</logo>
+				<teaser>albury4.png</teaser>
+			</params>
+			<models>
+				<model name="20" text="20" />
+				<model name="23" text="23" >
+					<years start="2003" end="2009" />
+				</model>
+			</models>
+		</boat>
+	</boats>
+</item>
