@@ -9,7 +9,6 @@ $this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
 $this->app->document->addScript('library.product:assets/js/orderform.js');
 $make = $this->product->getParam('boat.make.');
 $model = $this->product->getParam('boat.make.model');
-//var_dump($this->item);
 ?>
 <div id="OrderForm" class="ccbc ttop" >
 	<div class="uk-form">
@@ -26,7 +25,10 @@ $model = $this->product->getParam('boat.make.model');
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Make:</span><span><?php echo $make['label']; ?></span></p>
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Model:</span><span><?php echo $model['label']; ?></span></p>
 			</div>
-			<div class="uk-width-medium-2-3 uk-width-small-1-1 media-container">
+			<div class="uk-width-medium-2-3 uk-width-small-1-1 slideshow-container">
+				<?php if($this->form->checkGroup('slideshow')) : ?>
+		        	<?php echo $this->form->render('slideshow')?>
+				<?php endif; ?>
 			</div>
 			<div class="uk-width-medium-1-3 uk-width-small-1-1 pricing-container">
 				<?php if($this->form->checkGroup('pricing')) : ?>
@@ -62,7 +64,7 @@ $model = $this->product->getParam('boat.make.model');
 <script>
 jQuery(function($){
 	$(document).ready(function(){
-		
+		lpiModal.init('.modals');
 	})
 })
 </script>
@@ -152,7 +154,7 @@ jQuery(function($){
                     ccbc: {
                         onInit: [
                         	function(data) {
-                        		lpiModal.init('.modals');
+                        		
                         		return data;
                         	}
                         ],

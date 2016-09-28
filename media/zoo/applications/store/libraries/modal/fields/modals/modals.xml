@@ -5,7 +5,7 @@
 		<modal name="bowrails" layout="bowrails" title="Bow Rails" subtitle="" scroll="true" save="Save" cancel="Ok" />
 		<modal name="ccbc.stb" layout="ccbc.stb" title="Ski \ Tow Bar" subtitle="Ski poles and tow bars are mounted in different positions. Please select one below." scroll="true" save="Save" cancel="Cancel" />
 		<modal name="ccbc.pp" layout="ccbc.pp" title="Power Poles" subtitle="" scroll="false" cancel="Ok" />
-		<modal name="ccbc.jp" layout="ccbc.jp" title="Jack Plate" subtitle="" cancel="Ok" />
+		<modal name="ccbc.jp" layout="ccbc.jp" title="Jack Plate" subtitle="If you have a jack plate, please choose which size." cancel="Cancel" save="Save"/>
 		<modal name="ccbc.swim" layout="ccbc.swim" title="Swim Ladder Platform" subtitle="" cancel="Ok" />
 		<modal name="ccbc.cast_platform" layout="ccbc.cast_platform" title="Casting Platform" subtitle="" cancel="Ok" />
 		<modal name="ccbc.poling_platform" layout="ccbc.poling_platform" title="Poling Platform" subtitle=""/>

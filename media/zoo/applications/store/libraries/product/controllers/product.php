@@ -106,7 +106,6 @@ class ProductController extends AppController {
         $model = $this->app->request->get('model', 'string');
         $this->product->setParam('boat.manufacturer', $this->app->boat->create($manufacturer, $model));
         $this->product->getPatternCode();
-        var_dump($this->product);
         $make = $this->product->getParam('boat.manufacturer');
         $model = $make->getModel();
         $layout = 'full';

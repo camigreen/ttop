@@ -13,6 +13,9 @@
 				<field name="color" type="order.list" optiontype="variable" columns="2" span="1" default="0" label="Color" description="" modal="ccbc.color"/>
 				<field name="zipper" type="order.list" columns="2" span="1" default="0" label="Zipper Access Side" description="" modal="ccbc.zipper" />
 			</fieldset>
+			<fieldset group="slideshow" columns="1" span="1">
+				<field name="slideshow" type="order.slideshow" columns="1" span="1" default="0" />
+			</fieldset>
 			<fieldset group="boat_options" label="Boat Options" controlname="options" columns="2" span="1">
 				<field name="storage" type="order.list" columns="1" span="1" default="0" label="How is your boat stored?" description="" />
 				<field name="year" type="order.year.list" columns="2" span="1" default="0" label="Year" description="" />
@@ -30,10 +33,10 @@
 				<field name="swim_ladder" type="order.list" columns="2" span="1" default="0" label="Swim Ladder" description="" modal="ccbc.swim" />
 				<field name="power_poles" type="order.list" columns="2" span="1" default="0" label="Power Poles" description="" modal="ccbc.pp"/>
 				<field name="poling_platform" type="order.list" columns="2" span="1" default="0" label="Poling Platform" description="" modal="ccbc.poling_platform" />
-				<field name="casting_platform" type="order.list" columns="2" span="1" default="0" label="Casting Platform" description="" modal="ccbc.cast_platform"/>
 			</fieldset>
 			<fieldset group="bow_options" label="Bow Options" controlname="options" columns="1" span="1">
 				<field name="bow_rails" type="order.list" columns="2" span="1" default="0" label="Bow Rails" description="" modal="bowrails" />
+				<field name="casting_platform" type="order.list" columns="2" span="1" default="0" label="Casting Platform" description="" modal="ccbc.cast_platform"/>
 			</fieldset>
 			<fieldset group="pricing" columns="1" span="1">
 				<field name="price" type="store.price" columns="1" span="1" />

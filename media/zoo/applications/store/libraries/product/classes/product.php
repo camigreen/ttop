@@ -195,20 +195,14 @@ class Product {
         if($type && $make && $model) {
             $code = strtoupper($type).'-'.$make->skucode.$model->get('skucode');
         } else {
-            var_dump($type);
-            var_dump($make->skucode);
-            var_dump($model->get('skucode'));
             return $this->_patternCode = null;
         }
         $patterns = $this->app->pattern->get($code);
         foreach($patterns as $id => $option) {
                 $match = true;
             foreach($option as $key => $value) {
-
                 if($key == 'year') {
                     $year = (int) $this->options->get('year')->get('value');
-                    var_dump($year);
-                    //list($start, $end) = explode('|', $value);
                     $range = explode('|', $value);
                     if(count($range) == 1) {
                         $start = $range[0];
@@ -217,16 +211,11 @@ class Product {
                         $start = (int) $range[0];
                         $end = (int) $range[1];
                     }
-                    echo 'Year: '.$year.'</br>';
-                    echo 'Start: '.$start.'</br>';
-                    echo 'End: '.$end.'</br>';
                     if($year < $start) {
                         $match = false;
-                        var_dump('too old');
                     }
                     if($year > $end) {
                         $match = false;
-                        var_dump('too New');
                     }
 
                 } else if(!$this->options->get($key) || $this->options->get($key)->get('value') != $value) {

@@ -9,11 +9,15 @@
 	<description></description>
 	<form>
 		<layout name="full">
-			<fieldset group="cover_options" label="Cover Options" controlname="options" columns="1" span="1">
+			<fieldset group="cover_options1" label="Cover Options" controlname="options" columns="1" span="1">
 				<field name="color" type="order.list" optiontype="variable" columns="2" span="1" default="0" label="Color" description="" modal="ccbc.color"/>
 				<field name="zipper" type="order.list" columns="2" span="1" default="0" label="Zipper Access Side" description="" modal="ccbc.zipper" />
 			</fieldset>
+			<fieldset group="slideshow" columns="2" span="1">
+				<field name="slideshow" type="order.slideshow" columns="2" span="1" default="0" />
+			</fieldset>
 			<fieldset group="boat_options" label="Boat Options" controlname="options" columns="2" span="1">
+
 				<field name="storage" type="order.list" columns="1" span="1" default="0" label="How is your boat stored?" description="" />
 				<field name="year" type="order.year.list" columns="2" span="1" default="0" label="Year" description="" />
 				<field name="boat_style" type="order.list" columns="2" span="1" default="0" label="Boat Style" description="" />

@@ -82,7 +82,7 @@ class AppForm {
 	 * The xml params object array, with each group as array key.
 	 * @var array
 	 */
-	protected $_xml;
+	public $_xml;
 
 	/**
 	 * Class constructor
@@ -246,7 +246,6 @@ class AppForm {
 	 */
 	public function setXML($xml) {
 		if ($xml instanceof SimpleXMLElement) {
-
 			if ($group = (string) $xml->attributes()->group) {
 				$this->_xml[$group] = $xml;
 			} else {
