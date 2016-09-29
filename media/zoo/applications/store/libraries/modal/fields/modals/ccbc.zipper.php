@@ -1,10 +1,10 @@
-<div class="uk-grid">
+<div class="uk-grid" data-uk-grid-margin>
 	<div class="uk-width-1-1">
 		<p>Please select a port or starboard side zipper entry for your cover. The zipper entry will be located in-line with the helm seat.</p>
 	</div>
 	<div class="uk-width-1-1">
 		<div class="uk-width-2-3 uk-align-center">
-			<img src="/images/port-starboard.png" />
+			<img src="/images/helpers/port-starboard.png" />
 		</div>
 	</div>
 	<div class="uk-width-1-1">

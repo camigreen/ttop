@@ -22,13 +22,13 @@
 	<div class="uk-width-1-1">
 		<label><input name="sl_modal_helper" type="radio" value="other" />Other<span class="uk-text-danger">(explain in "Additional Info" box)</span></label>
 	</span></div>
-	<input type="text" name="sl_modal_value" data-field-id="<?php echo $field; ?>"/>
+	<input type="hidden" name="ccbc.swim_modal_value" data-field-id="<?php echo $field; ?>"/>
 </div>
 
 <script>
 jQuery(function($){
 	$(document).ready(function(){
-		var elem = $('[name="sl_modal_value"]');
+		var elem = $('[name="ccbc.swim_modal_value"]');
 		$('[name="sl_modal_helper"]').on('change', function(){
 			elem.val($(this).val());
 		});

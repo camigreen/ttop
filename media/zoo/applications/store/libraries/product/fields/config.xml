@@ -117,5 +117,6 @@
 		<option value='0'>- SELECT -</option>
 		<option value='y'>Yes</option>
 		<option value='n'>No</option>
+		<option value='r'>Removeable</option>
 	</field>
 </fields>

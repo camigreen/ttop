@@ -59,6 +59,7 @@
     lpiModal.save = function(elem) {
         var type = elem.data('modal-type');
         var modal_field = $('[name="'+type+'_modal_value"]');
+        console.log(modal_field);
         var field = $('#'+modal_field.data('field-id'));
         var val = modal_field.val() ? modal_field.val() : 0;
         data = {
@@ -68,7 +69,7 @@
             val: val
         }
         console.log(data);
-        field.val(val);
+        field.val(val).trigger('change');
         lpiModal.hide(type);
     }
 

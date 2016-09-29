@@ -93,7 +93,7 @@
             
         },
         loadItems: function() {
-            var elems = this.$element.find('.OrderForm'), self = this;
+            var elems = this.$element.find('.orderForm'), self = this;
             $.each(elems, function(k, v) {
                 var elem = $(v);
                 var id = elem.prop('id');

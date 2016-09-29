@@ -32,7 +32,7 @@
 				<field name="jack_plate" type="order.list" columns="2" span="1" default="0" label="Jack Plate" description="" modal="ccbc.jp"/>
 				<field name="swim_ladder" type="order.list" columns="2" span="1" default="0" label="Swim Ladder" description="" modal="ccbc.swim" />
 				<field name="power_poles" type="order.list" columns="2" span="1" default="0" label="Power Poles" description="" modal="ccbc.pp"/>
-				<field name="poling_platform" type="order.list" columns="2" span="1" default="0" label="Poling Platform" description="" modal="ccbc.poling_platform" />
+				<field name="poling_platform" type="product.poling.platform" columns="2" span="1" default="0" label="Poling Platform" description="" modal="ccbc.poling_platform" />
 			</fieldset>
 			<fieldset group="bow_options" label="Bow Options" controlname="options" columns="1" span="1">
 				<field name="bow_rails" type="order.list" columns="2" span="1" default="0" label="Bow Rails" description="" modal="bowrails" />

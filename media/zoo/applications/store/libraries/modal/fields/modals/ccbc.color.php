@@ -9,22 +9,22 @@
 	<div class="uk-width-1-1">
 		<ul class="uk-grid" data-uk-grid-margin>
 			<li class="uk-width-medium-1-2">
-				<div class="uk-thumbnail"><img src="/images/fabrics/ttoptab/Grey/GreyTtop.png" alt="angler234" onmousedown="return false;" />
+				<div class="uk-thumbnail"><img src="/images/helpers/color/ccbc/gray.png" alt="angler234" onmousedown="return false;" />
 					<div class="uk-thumbnail-caption">Gray</div>
 				</div>
 			</li>
 			<li class="uk-width-medium-1-2">
-				<div class="uk-thumbnail"><img src="/images/fabrics/ttoptab/Black/BlackTtop.png" alt="Black" width="290" height="178" onmousedown="return false;" />
+				<div class="uk-thumbnail"><img src="/images/helpers/color/ccbc/black.png" alt="Black" width="290" height="178" onmousedown="return false;" />
 					<div class="uk-thumbnail-caption">Black</div>
 				</div>
 			</li>
 			<li class="uk-width-medium-1-2">
-				<div class="uk-thumbnail"><img src="/images/fabrics/ttoptab/Blue/BlueTtop.png" alt="Navy" onmousedown="return false;" />
+				<div class="uk-thumbnail"><img src="/images/helpers/color/ccbc/navy.png" alt="Navy" onmousedown="return false;" />
 					<div class="uk-thumbnail-caption">Navy</div>
 				</div>
 			</li >
 			<li class="uk-width-medium-1-2">
-				<div class="uk-thumbnail"><img src="/images/fabrics/ttoptab/Tan/TanTtop.png" alt="Tan" onmousedown="return false;" />
+				<div class="uk-thumbnail"><img src="/images/helpers/color/ccbc/tan.png" alt="Tan" onmousedown="return false;" />
 					<div class="uk-thumbnail-caption">Tan</div>
 				</div>
 			</li>

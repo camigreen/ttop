@@ -15,6 +15,7 @@ $images = $this->app->filesystem->readDirectoryFiles($imagepath);
     <div class="uk-slidenav-position" data-uk-slideshow="{height: 375}">
         <ul class="uk-slideshow">
             <?php foreach($images as $image) : ?>
+            <?php echo $image; ?>
                 <li><a href="<?php echo $imageurl.'/'.$image; ?>" data-uk-lightbox="{group: 'slideshow'}" title="<?php echo $make->label.' '.$model->get('label'); ?>"><img src="<?php echo $imageurl.'/'.$image; ?>" height="375px" /></a></li>
             <?php endforeach; ?>
         </ul>

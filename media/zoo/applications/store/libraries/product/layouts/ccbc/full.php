@@ -7,14 +7,16 @@
 */
 $this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
 $this->app->document->addScript('library.product:assets/js/orderform.js');
-$make = $this->product->getParam('boat.make.');
-$model = $this->product->getParam('boat.make.model');
+$this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
+$this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
+$make = $this->product->getParam('boat.manufacturer');
+$model = $make->getModel();
 ?>
 <div id="OrderForm" class="ccbc ttop" >
 	<div class="uk-form">
-		<div id="ccbc" class="uk-grid storeItem" data-id="ccbc" data-item='[{"id": "ccbc", "type": "ccbc"}]' data-uk-grid-margin>
+		<div id="ccbc" class="uk-grid orderForm" data-id="ccbc" data-item='[{"id": "ccbc", "type": "ccbc"}]' data-uk-grid-margin>
 			<div class="uk-width-1-1">
-				<a class="uk-text-large" href="<?php echo $this->url.$make['name']; ?>"><i class="uk-icon uk-icon-caret-left uk-margin-right"></i>Back to <?php echo $make['label']; ?></a>
+				<a class="uk-text-large" href="<?php echo $this->url.$make->name; ?>"><i class="uk-icon uk-icon-caret-left uk-margin-right"></i>Back to <?php echo $make->label; ?></a>
 			</div>
 			<div class="uk-width-1-1 title-container">
 				<div class="uk-article-title">
@@ -22,8 +24,8 @@ $model = $this->product->getParam('boat.make.model');
 				</div>
 			</div>
 			<div class="uk-width-1-1 make-model-container">
-				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Make:</span><span><?php echo $make['label']; ?></span></p>
-				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Model:</span><span><?php echo $model['label']; ?></span></p>
+				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Make:</span><span><?php echo $make->label; ?></span></p>
+				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Model:</span><span><?php echo $model->label; ?></span></p>
 			</div>
 			<div class="uk-width-medium-2-3 uk-width-small-1-1 slideshow-container">
 				<?php if($this->form->checkGroup('slideshow')) : ?>
@@ -165,10 +167,7 @@ jQuery(function($){
                                 switch(elem.prop('name')) {
                                     case 'options[storage]': //Check the storage value and if "IW" show the modal
                                         if(elem.val() === 'IW') {
-                                            data = {
-												type: 'ccbc.inwater'
-											};
-											lpiModal.getModal(data);
+											lpiModal.getModal({type: 'ccbc.inwater'});
                                         }
                                         break;
                                     case 'options[trolling_motor]': // Check if the trolling motor is "yes" and show the modal for the photo upload
@@ -182,7 +181,10 @@ jQuery(function($){
                                     case 'fabric':
                                         self.trigger('changeColor', {item: item, fabric: elem.val()});
                                         break;
-                                    case 'color':
+                                    case 'options[casting_platform]':
+                                    	if(elem.val() === 'y') {
+											lpiModal.getModal({type: 'ccbc.cast_platform'});
+                                        }
                                         //changeColor(elem.val());
                                         break;
                                 }
