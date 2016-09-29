@@ -3,8 +3,8 @@
 	<boats>
 		<boat>				
 			<name>action-craft</name>
-			<skucode>AC</skucode>
 			<label>Action Craft</label>
+			<skucode>AC</skucode>
 			<models>
 				<model>
 					<name>1820</name>
@@ -95,6 +95,7 @@
 		<boat>				
 			<name>champion</name>
 			<label>Champion</label>
+			<skucode>CHMPN</skucode>
 			<models>
 				<model>
 					<name>20</name>
@@ -118,6 +119,7 @@
 		<boat>				
 			<name>east-cape</name>
 			<label>East Cape</label>
+			<skucode>EC</skucode>
 			<models>
 				<model>
 					<name>19</name>
@@ -129,6 +131,7 @@
 		<boat>				
 			<name>edgewater</name>
 			<label>Edgewater</label>
+			<skucode>EW</skucode>
 			<models>
 				<model>
 					<name>188</name>
@@ -140,6 +143,7 @@
 		<boat>				
 			<name>grady-white</name>
 			<label>Grady White</label>
+			<skucode>GW</skucode>
 			<models>
 				<model>
 					<name>191-coastal-explorer</name>
@@ -151,6 +155,7 @@
 		<boat>				
 			<name>hewes</name>
 			<label>Hewes</label>
+			<skucode>HWS</skucode>
 			<models>
 				<model>
 					<name>16-redfisher</name>
@@ -167,6 +172,7 @@
 		<boat>				
 			<name>key-west</name>
 			<label>Key West</label>
+			<skucode>KW</skucode>
 			<models>
 				<model>
 					<name>1720</name>
@@ -213,6 +219,7 @@
 		<boat>				
 			<name>maverick</name>
 			<label>Maverick</label>
+			<skucode>MVRK</skucode>
 			<models>
 				<model>
 					<name>17HPX-S</name>
@@ -229,6 +236,7 @@
 		<boat>				
 			<name>nautic-star</name>
 			<label>Nautic Star</label>
+			<skucode>NS</skucode>
 			<models>
 				<model>
 					<name>210-angler</name>
@@ -245,6 +253,7 @@
 		<boat>				
 			<name>pathfinder</name>
 			<label>Pathfinder</label>
+			<skucode>PTHFNDR</skucode>
 			<models>
 				<model>
 					<name>2200-TRS</name>
@@ -261,6 +270,7 @@
 		<boat>				
 			<name>pioneer</name>
 			<label>Pioneer</label>
+			<skucode>PIONR</skucode>
 			<models>
 				<model>
 					<name>180-islander</name>
@@ -287,6 +297,7 @@
 		<boat>				
 			<name>robalo</name>
 			<label>Robalo</label>
+			<skucode>RBLO</skucode>
 			<models>
 				<model>
 					<name>R180</name>
@@ -308,6 +319,7 @@
 		<boat>				
 			<name>scout</name>
 			<label>Scout</label>
+			<skucode>SCT</skucode>
 			<models>
 				<model>
 					<name>177-winyah-bay</name>
@@ -339,6 +351,7 @@
 		<boat>				
 			<name>sea-fox</name>
 			<label>Sea Fox</label>
+			<skucode>SF</skucode>
 			<models>
 				<model>
 					<name>180-viper</name>
@@ -370,6 +383,7 @@
 		<boat>				
 			<name>sea-hunt</name>
 			<label>Sea Hunt</label>
+			<skucode>SH</skucode>
 			<models>
 				<model>
 					<name>177-triton</name>
@@ -401,6 +415,7 @@
 		<boat>				
 			<name>sportsman</name>
 			<label>Sportsman</label>
+			<skucode>SPTMN</skucode>
 			<models>
 				<model>
 					<name>207-masters</name>
@@ -427,6 +442,7 @@
 		<boat>				
 			<name>sundance</name>
 			<label>Sundance</label>
+			<skucode>SNDNCE</skucode>
 			<models>
 				<model>
 					<name>17-fx</name>
@@ -443,6 +459,7 @@
 		<boat>				
 			<name>tidewater</name>
 			<label>Tidewater</label>
+			<skucode>TW</skucode>
 			<models>
 				<model>
 					<name>1900-bay</name>
