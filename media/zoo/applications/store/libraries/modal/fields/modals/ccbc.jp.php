@@ -17,22 +17,22 @@
 				</div>
 				<p>I have a jack plate and it is:</p>
 				<div>
-				<label><input name="ccbc.jp_modal_helper" type="radio" value="JP-4" class="uk-margin-right" />4 inches</label>
+				<label><input name="ccbc.jp_modal_helper" type="radio" value="JP4" class="uk-margin-right" />4 inches</label>
 				</div>
 				<div>
-				<label><input name="ccbc.jp_modal_helper" type="radio" value="JP-6" class="uk-margin-right" />6 inches</label>
+				<label><input name="ccbc.jp_modal_helper" type="radio" value="JP6" class="uk-margin-right" />6 inches</label>
 				</div>
 				<div>
-				<label><input name="ccbc.jp_modal_helper" type="radio" value="JP-8" class="uk-margin-right" />8 inches</label>
+				<label><input name="ccbc.jp_modal_helper" type="radio" value="JP8" class="uk-margin-right" />8 inches</label>
 				</div>
 				<div>
-				<label><input name="ccbc.jp_modal_helper" type="radio" value="JP-10" class="uk-margin-right" />10 inches</label>
+				<label><input name="ccbc.jp_modal_helper" type="radio" value="JP10" class="uk-margin-right" />10 inches</label>
 				</div>
 				<div>
-				<label><input name="ccbc.jp_modal_helper" type="radio" value="JP-12" class="uk-margin-right" />12 inches</label>
+				<label><input name="ccbc.jp_modal_helper" type="radio" value="JP12" class="uk-margin-right" />12 inches</label>
 				</div>
 				<div>
-				<label><input name="ccbc.jp_modal_helper" type="radio" value="JP-14" class="uk-margin-right" />14 inches</label>
+				<label><input name="ccbc.jp_modal_helper" type="radio" value="JP14" class="uk-margin-right" />14 inches</label>
 				</div>
 			</div>
 		</li>

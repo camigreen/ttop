@@ -76,6 +76,7 @@
 		<option value='JP10'>10 Inch</option>
 		<option value='JP12'>12 Inch</option>
 		<option value='JP14'>14 Inch</option>
+		<option value='other'>Other</option>
 	</field>
 	<field name="swim_ladder">
 		<option value='N'>None</option>
