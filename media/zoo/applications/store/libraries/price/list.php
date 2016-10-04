@@ -189,6 +189,13 @@ $price['ttopboatcover.247Platinum.item.option.fabric.9oz'] = 1386;
 $price['ttopboatcover.247Platinum.shipping.weight'] = 27;
 $price['ttopboatcover.247Platinum.shipping.price'] = 35;
 
+$price['ttopboatcover.R220Robalo.item.base'] = 0;
+$price['ttopboatcover.R220Robalo.item.option.fabric.7oz'] = 775;
+$price['ttopboatcover.R220Robalo.item.option.fabric.8oz'] = 1021;
+$price['ttopboatcover.R220Robalo.item.option.fabric.9oz'] = 1156;
+$price['ttopboatcover.R220Robalo.shipping.weight'] = 25;
+$price['ttopboatcover.R220Robalo.shipping.price'] = 30;
+
 
 // //TTop Accessories
 
