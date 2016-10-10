@@ -205,7 +205,7 @@ $price['ccbc.1819.9oz.shipping.weight'] = 22;
 $price['ccbc.13.9oz.item.base'] = 500;
 $price['ccbc.13.9oz.shipping.weight'] = 22;
 
-// //TTop Accessories
+// TTop Accessories
 
 $price['accessories.global.allowMarkup'] = false;
 
