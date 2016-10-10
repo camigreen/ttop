@@ -561,7 +561,11 @@ class StoreController extends AppController {
         $post = $this->app->request->get('post:item','array', array());
         $markup = $this->app->request->get('post:markup', 'float', null);
         $post = $this->app->parameter->create($post);
-        $item = $this->app->item->create($post);
+        if($post->get('type') == 'ccbc') {
+            $item = $this->app->product->create($post);
+        } else {
+            $item = $this->app->item->create($post);
+        }
         $price = $item->getPrice();
         $result['price'] = $price->get('markup');
         $result['markup'] = $price->getMarkupRate();

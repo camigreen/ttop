@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fields>
-	<field name="color">
+	<field name="color" label="Color" type="pattern" visible="true">
 		<option value="N">Navy</option>
 		<option value="B">Black</option>
 		<option value="T">Tan</option>
 		<option value="G">Gray</option>
 	</field>
-	<field name="fabric">
+	<field name="fabric" label="Fabric" type="base" visible="true">
 		<option value="7oz">Material 7oz. 3yr. Warranty</option>
 		<option value="8oz">Material 8oz. 5yr. Warranty</option>
 		<option value="9oz">Material 9oz. 5yr. Warranty</option>
 	</field>
-	<field name="zipper">
+	<field name="ccbc.fabric" label="Fabric" type="base" visible="true">
+		<option value="9oz">Material 9oz. 5yr. Warranty</option>
+	</field>
+	<field name="zipper" label="Zipper Side" type="variable" visible="true">
 		<option value='ZP'>Port Side</option>
 		<option value='ZS'>Starboard Side</option>
 		<option value='CR'>Center Rear (Twin Hulls Only)</option>
 	</field>
-	<field name="storage">
+	<field name="storage" label="How is your boat stored?" type="variable" visible="true">
 		<option value='T'>Trailer</option>
 		<option value='L'>Lift</option>
 		<option value='DS'>Dry Stack</option>
@@ -24,21 +27,21 @@
 		<option value='IW'>In Water</option>
 		<option value='other'>Other</option>
 	</field>
-	<field name="boat_style">
+	<field name="boat_style" label="Boat Style" type="pattern" visible="true">
 		<option value='cc'>Center Console</option>
 		<option value='dc'>Dual Console</option>
 		<option value='wa'>Walkaround</option>
 		<option value='cb'>Catamaran</option>
 		<option value='other'>Other</option>
 	</field>
-	<field name="motors">
+	<field name="motors" label="Motors" type="pattern" visible="true">
 		<option value='1'>Single Engine</option>
 		<option value='2'>Twin Engines</option>
 		<option value='3'>Triple Engines</option>
 		<option value='4'>Quadruple Engines</option>
 		<option value='other'>Other</option>
 	</field>
-	<field name="motor_make">
+	<field name="motor_make" label="Motor Make" type="variable" visible="true">
 		<option value='evinrude'>Evinrude</option>
 		<option value='honda'>Honda</option>
 		<option value='johnson'>Johnson</option>
@@ -47,7 +50,7 @@
 		<option value='yamaha'>Yamaha</option>
 		<option value='other'>Other</option>
 	</field>
-	<field name="motor_size">
+	<field name="motor_size" label="Motor Size" type="variable" visible="true">
 		<option value='90'>90 HP</option>
 		<option value='115'>115 HP</option>
 		<option value='135'>135 HP</option>
@@ -62,13 +65,13 @@
 		<option value='557'>557 HP</option>
 		<option value='other'>Other</option>
 	</field>
-	<field name="ski_tow_bar">
+	<field name="ski_tow_bar" label="Ski/Tow Bar" type="pattern" visible="true">
 		<option value='N'>None</option>
 		<option value='above'>Above the Engine</option>
 		<option value='in_front'>In Front of the Engine</option>
 		<option value='other'>Other</option>
 	</field>
-	<field name="jack_plate">
+	<field name="jack_plate" label="Jack Plate" type="pattern" visible="true">
 		<option value='N'>None</option>
 		<option value='JP4'>4 Inch</option>
 		<option value='JP6'>6 Inch</option>
@@ -78,14 +81,14 @@
 		<option value='JP14'>14 Inch</option>
 		<option value='other'>Other</option>
 	</field>
-	<field name="swim_ladder">
+	<field name="swim_ladder" label="Swim Ladder" type="pattern" visible="true">
 		<option value='N'>None</option>
 		<option value='SL-I'>In-Laid</option>
 		<option value='SL-R'>Removeable</option>
 		<option value='SL-P'>Platform</option>
 		<option value='other'>Other</option>
 	</field>
-	<field name="power_poles">
+	<field name="power_poles" label="Power Poles" type="pattern" visible="true">
 		<option value='N'>None</option>
 		<option value='PEB'>Port Side Engine Bracket Mount</option>
 		<option value='SEB'>Starboard Side Engine Bracket Mount</option>
@@ -95,12 +98,13 @@
 		<option value='DTM'>Dual Transom Mount</option>
 		<option value='other'>Other</option>	
 	</field>
-	<field name="poling_platform">
+	<field name="year" label="Year" type="pattern" visible="true" />
+	<field name="poling_platform" label="Poling Platform" type="pattern" visible="true">
 		<option value='0'>- SELECT -</option>
 		<option value='y'>Yes</option>
 		<option value='n'>No</option>
 	</field>
-	<field name="bow_rails">
+	<field name="bow_rails" label="Bow Rails" type="pattern" visible="true">
 		<option value='N'>No Rails</option>
 		<option value='L'>Low - 8" or less</option>
 		<option value='R'>Recessed</option>
@@ -108,12 +112,12 @@
 		<option value='WT'>Walk Through</option>
 		<option value='other'>Other</option>
 	</field>
-	<field name="casting_platform">
+	<field name="casting_platform" label="Casting Platform" type="pattern" visible="true">
 		<option value='0'>- SELECT -</option>
 		<option value='y'>Yes</option>
 		<option value='n'>No</option>
 	</field>
-	<field name="trolling_motor">
+	<field name="trolling_motor" label="Trolling Motor" type="price" visible="true">
 		<option value='0'>- SELECT -</option>
 		<option value='y'>Yes</option>
 		<option value='n'>No</option>

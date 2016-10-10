@@ -168,6 +168,43 @@ $price['ttopboatcover.255Everglades.item.option.fabric.9oz'] = 1491;
 $price['ttopboatcover.255Everglades.shipping.weight'] = 28;
 $price['ttopboatcover.255Everglades.shipping.price'] = 35;
 
+$price['ttopboatcover.231Platinum.item.base'] = 0;
+$price['ttopboatcover.231Platinum.item.option.fabric.7oz'] = 846;
+$price['ttopboatcover.231Platinum.item.option.fabric.8oz'] = 1071;
+$price['ttopboatcover.231Platinum.item.option.fabric.9oz'] = 1206;
+$price['ttopboatcover.231Platinum.shipping.weight'] = 25;
+$price['ttopboatcover.231Platinum.shipping.price'] = 30;
+
+$price['ttopboatcover.232Platinum.item.base'] = 0;
+$price['ttopboatcover.232Platinum.item.option.fabric.7oz'] = 846;
+$price['ttopboatcover.232Platinum.item.option.fabric.8oz'] = 1071;
+$price['ttopboatcover.232Platinum.item.option.fabric.9oz'] = 1206;
+$price['ttopboatcover.232Platinum.shipping.weight'] = 25;
+$price['ttopboatcover.232Platinum.shipping.price'] = 30;
+
+$price['ttopboatcover.247Platinum.item.base'] = 0;
+$price['ttopboatcover.247Platinum.item.option.fabric.7oz'] = 1021;
+$price['ttopboatcover.247Platinum.item.option.fabric.8oz'] = 1226;
+$price['ttopboatcover.247Platinum.item.option.fabric.9oz'] = 1386;
+$price['ttopboatcover.247Platinum.shipping.weight'] = 27;
+$price['ttopboatcover.247Platinum.shipping.price'] = 35;
+
+$price['ttopboatcover.R220Robalo.item.base'] = 0;
+$price['ttopboatcover.R220Robalo.item.option.fabric.7oz'] = 775;
+$price['ttopboatcover.R220Robalo.item.option.fabric.8oz'] = 1021;
+$price['ttopboatcover.R220Robalo.item.option.fabric.9oz'] = 1156;
+$price['ttopboatcover.R220Robalo.shipping.weight'] = 25;
+$price['ttopboatcover.R220Robalo.shipping.price'] = 30;
+
+// CCBC
+$price['ccbc.global.option.trolling_motor.y'] = 175;
+
+$price['ccbc.1819.9oz.item.base'] = 849;
+$price['ccbc.1819.9oz.shipping.weight'] = 22;
+
+$price['ccbc.13.9oz.item.base'] = 500;
+$price['ccbc.13.9oz.shipping.weight'] = 22;
+
 // //TTop Accessories
 
 $price['accessories.global.allowMarkup'] = false;

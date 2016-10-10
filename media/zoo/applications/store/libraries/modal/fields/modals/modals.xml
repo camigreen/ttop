@@ -9,6 +9,6 @@
 		<modal name="ccbc.swim" layout="ccbc.swim" title="Swim Ladder Platform" subtitle="Please select the swim ladder style that is on your boat." cancel="Cancel" save="Save" scroll="true"/>
 		<modal name="ccbc.cast_platform" layout="ccbc.cast_platform" title="Casting Platform" subtitle="" cancel="Ok" />
 		<modal name="ccbc.poling_platform" layout="ccbc.poling_platform" title="Poling Platform" subtitle="Specify the height of your poling platform." cancel="Cancel" save="Save"/>
-		<modal name="ccbc.inwater" layout="ccbc.inwater" title="In Water" subtitle=""/>
-		<modal name="ccbc.trolling_motor" layout="ccbc.trolling_motor" title="Trolling Motor" subtitle=""/>
+		<modal name="ccbc.inwater" layout="ccbc.inwater" title="Attention" subtitle="Center Console Boat Covers are not designed for in-water use. Please consider our Center Console Curtains." cancel="No Thanks!" save="Show Me"/>
+		<modal name="ccbc.trolling_motor" layout="ccbc.trolling_motor" title="Trolling Motor" subtitle="" save="Save" cancel="Cancel"/>
 	</modals>

@@ -14,7 +14,7 @@ $model = $make->getModel();
 ?>
 <div id="OrderForm" class="ccbc ttop" >
 	<div class="uk-form">
-		<div id="ccbc" class="uk-grid orderForm" data-id="ccbc" data-item='[{"id": "ccbc", "type": "ccbc"}]' data-uk-grid-margin>
+		<div id="ccbc" class="uk-grid orderForm" data-id="ccbc" data-item='[{"id": "ccbc", "type": "ccbc", "make": "<?php echo $make->name; ?>", "model": "<?php echo $model->name; ?>", "qty": 1}]' data-uk-grid-margin>
 			<div class="uk-width-1-1">
 				<a class="uk-text-large" href="<?php echo $this->url.$make->name; ?>"><i class="uk-icon uk-icon-caret-left uk-margin-right"></i>Back to <?php echo $make->label; ?></a>
 			</div>
@@ -165,12 +165,12 @@ jQuery(function($){
                                 var e = data.args.event, item = data.args.item, elem = $(e.target), self = this;
                                 console.log(elem.prop('name'));
                                 switch(elem.prop('name')) {
-                                    case 'options[storage]': //Check the storage value and if "IW" show the modal
+                                    case 'storage': //Check the storage value and if "IW" show the modal
                                         if(elem.val() === 'IW') {
 											lpiModal.getModal({type: 'ccbc.inwater'});
                                         }
                                         break;
-                                    case 'options[trolling_motor]': // Check if the trolling motor is "yes" and show the modal for the photo upload
+                                    case 'trolling_motor': // Check if the trolling motor is "yes" and show the modal for the photo upload
                                         if(elem.val() === 'y') {
                                             data = {
 												type: 'ccbc.trolling_motor'
@@ -178,10 +178,7 @@ jQuery(function($){
 											lpiModal.getModal(data);
                                         }
                                         break;
-                                    case 'fabric':
-                                        self.trigger('changeColor', {item: item, fabric: elem.val()});
-                                        break;
-                                    case 'options[casting_platform]':
+                                    case 'casting_platform':
                                     	if(elem.val() === 'y') {
 											lpiModal.getModal({type: 'ccbc.cast_platform'});
                                         }

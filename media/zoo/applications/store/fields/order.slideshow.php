@@ -6,7 +6,13 @@ $make = $product->getParam('boat.manufacturer');
 $model = $make->getModel();
 $imagepath = $this->app->path->path('images.boats:'.str_replace('-', '_', $make->name).'/'.$product->type.'/'.str_replace('-','_',$model->get('name')));
 $imageurl = $this->app->path->url('images.boats:'.str_replace('-', '_', $make->name).'/'.$product->type.'/'.str_replace('-','_',$model->get('name')));
-$images = $this->app->filesystem->readDirectoryFiles($imagepath);
+$images = $this->app->filesystem->readDirectoryFiles($imagepath,'', false, false);
+$count = count($images);
+$i = 0;
+if($count == 0) {
+    $imageurl = '/images/boats/PNA';
+    $images[] = 'OfficialPNA.png';
+}
 ?>
 
 
@@ -22,8 +28,11 @@ $images = $this->app->filesystem->readDirectoryFiles($imagepath);
         <a href="" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
         <a href="" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slideshow-item="next"></a>
         <ul class="uk-dotnav uk-dotnav-contrast uk-position-bottom uk-flex-center">
-            <li data-uk-slideshow-item="0"><a href=""></a></li>
-            <li data-uk-slideshow-item="1"><a href=""></a></li>
+            <?php while($i+1 <= $count) :?>
+                <li data-uk-slideshow-item="<?php echo $i; ?>"><a href=""></a></li>
+                <?php $i++; ?>
+            <?php endwhile; ?>
         </ul>
     </div>
+    <div class="uk-text-center"><i class="uk-icon uk-icon-search-plus uk-margin-right"></i>Click photo to enlarge</div>
 </div>

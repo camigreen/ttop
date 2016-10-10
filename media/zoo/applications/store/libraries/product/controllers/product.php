@@ -29,13 +29,12 @@ class ProductController extends AppController {
         $this->pathway = $this->joomla->getPathway();
 
         
-        $type = $this->app->request->get('product', 'string');
-        $this->product = $this->app->product->create($type);
+        $this->type = $this->app->request->get('product', 'string');
         $this->process = $this->app->request->get('process', 'string');
 
-        $this->xml['config'] = simplexml_load_file($this->getLayoutPath().'/'.$this->product->type.'/config.xml');
+        $this->xml['config'] = simplexml_load_file($this->getLayoutPath().'/'.$this->type.'/config.xml');
         $this->xml['items'] = simplexml_load_file($this->app->path->path('library.product:/items.xml'));
-        $this->url = '/store/'.$this->process.'/'.$this->product->type.'/';
+        $this->url = '/store/'.$this->process.'/'.$this->type.'/';
         // registers tasks
 //      $this->registerTask('checkout', 'checkout');
         //$this->registerTask('getMake', 'display');
@@ -88,7 +87,7 @@ class ProductController extends AppController {
         //         break;
         // }
         
-        $this->getView()->addTemplatePath($this->getLayoutPath().'/'.$this->product->type);
+        $this->getView()->addTemplatePath($this->getLayoutPath().'/'.$this->type);
         $this->getView()->setLayout($layout)->display();
     }
 
@@ -97,15 +96,19 @@ class ProductController extends AppController {
         $manufacturer = $this->app->request->get('make', 'string');
         $this->url;
         $this->manufacturer = $this->getManufacturer($manufacturer);
-        $this->getView()->addTemplatePath($this->getLayoutPath().'/'.$this->product->type);
+        $this->getView()->addTemplatePath($this->getLayoutPath().'/'.$this->type);
         $this->getView()->setLayout($layout)->display();
     }
 
     public function orderForm() {
         $manufacturer = $this->app->request->get('make', 'string');
         $model = $this->app->request->get('model', 'string');
-        $this->product->setParam('boat.manufacturer', $this->app->boat->create($manufacturer, $model));
-        $this->product->getPatternCode();
+        $product = array(
+            'type' => $this->type,
+            'make' => $manufacturer,
+            'model' => $model
+        );
+        $this->product = $this->app->product->create($product);
         $make = $this->product->getParam('boat.manufacturer');
         $model = $make->getModel();
         $layout = 'full';
@@ -243,6 +246,8 @@ class ProductController extends AppController {
         $html['content'] = $this->app->modal->create($modal);
         echo json_encode($html);
     }
+
+
 
 
 

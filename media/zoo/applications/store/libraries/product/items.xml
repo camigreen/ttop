@@ -10,6 +10,10 @@
 					<name>1820</name>
 					<label>1820</label>
 					<skucode>1820</skucode>
+					<length>1819</length>
+					<options>
+						<option name="storage" label="Storage" type="variable" value="T" />
+					</options>
 				</model>
 				<model>
 					<name>19-ace-flats-master</name>
@@ -42,6 +46,7 @@
 					<name>130-sport</name>
 					<label>130 Sport</label>
 					<skucode>130S</skucode>
+					<length>13</length>
 				</model>
 				<model>
 					<name>150-sport</name>

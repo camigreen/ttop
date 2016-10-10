@@ -25,7 +25,7 @@ class PriceHelper extends AppHelper {
 
     }
 
-    public function create(StoreItem $item, $resource = null) {
+    public function create($item, $resource = null) {
         // if(!isset($this->_prices[$item->sku])) {
         //     $this->_prices[$item->sku] = new Price($this->app, $item, $resource);
         // }

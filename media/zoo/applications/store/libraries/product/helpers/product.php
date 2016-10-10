@@ -26,8 +26,9 @@ class ProductHelper extends AppHelper {
 		$this->xml = simplexml_load_file($this->app->path->path('library.product:items.xml'));
 	}
 
-	public function create($type = null, $product = array()) {
+	public function create($product = array()) {
 		$product = $this->app->data->create($product);
+		$type = $product->get('type');
 		$class = $type.'Product';
 		if(file_exists($this->app->path->path('library.product:classes/products/'.$type.'.php'))) {
 			$this->app->loader->register($class, 'library.product:classes/products/'.$type.'.php');

@@ -92,6 +92,24 @@ class BoatHelper extends AppHelper {
                     if($key == 'name') {
                         $name = (string) $value;
                     }
+                    if($key == 'options') {
+                        $options = $this->app->data->create();
+                        $optName = null;
+                        foreach($value->children() as $child) {
+                            $option = $this->app->data->create();
+                            foreach($child->attributes() as $k => $attribute) {
+                                
+                                if($k == 'name') {
+                                    $optName = (string) $attribute;
+                                } 
+                                $option->set($k, (string) $attribute);
+
+                            }
+                            $options->set($optName, $option);
+                        }
+                        $model->set('options', $options);
+                        continue;
+                    }
                     $model->set($key, (string) $value);
                 }
                 $params = $this->app->parameter->create();

@@ -73,7 +73,7 @@ class Product {
     /**
      * Array of options and thier values. An option is a variation of the product that will increase the price.
      *
-     * @var [array]  Will be one of three categories. (priced, base, variable)
+     * @var [array]  Will be one of three categories. (price, base, pattern)
      * @since 1.0.0
      */
     public $options = array();
@@ -124,6 +124,18 @@ class Product {
     }
 
     public function bind($product) {
+        $exclude = array('options', 'params');
+        foreach($product as $key => $value) {
+            if(property_exists($this, $key) && !in_array($key, $exclude)) {
+                $this->$key = $value;
+            }
+        }
+        foreach($product->get('options', array()) as $key => $value) {
+            $this->options->set($key, $this->app->parameter->create($value));
+        }
+        foreach($product->get('params', array()) as $key => $value) {
+            $this->params->set($key, $this->app->parameter->create($value));
+        }
         return $this;
     }
 
@@ -183,6 +195,35 @@ class Product {
         return $this->sku;
     }
 
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getPrice() {
+        if(!$this->price) {
+            $this->price = $this->app->price->create($this);
+        }
+        return $this->price;
+        
+    }
+
+    /**
+     * Get the price group for the item.
+     *
+     * @return     string    the price group.
+     *
+     * @since 1.0
+     */
+    public function getPriceGroup() {
+        return $this->type;
+        
+    }
+
     public function getHash() {}
 
     public function getPatternCode() {
@@ -201,7 +242,7 @@ class Product {
         foreach($patterns as $id => $option) {
                 $match = true;
             foreach($option as $key => $value) {
-                if($key == 'year') {
+                if($key == 'year' && $this->options->get('year')) {
                     $year = (int) $this->options->get('year')->get('value');
                     $range = explode('|', $value);
                     if(count($range) == 1) {
@@ -234,6 +275,10 @@ class Product {
 
     public function generateSKU() {
         
+    }
+
+    public function __get($name) {
+        return $this->getParam($name);
     }
     
 }

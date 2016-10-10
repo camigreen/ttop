@@ -5,11 +5,16 @@
  */
 
 // Get Variables
-$fieldtype = $node->attributes()->fieldtype ? (string) $node->attributes()->fieldtype : 'option';
+$fieldtype = $node->attributes()->option ? ' item-option' : '';
 $xml = simplexml_load_file($this->app->path->path('fields:config.xml'));
-
+$optionData = array(
+	'name' => (string) $node->attributes()->name,
+	'label' => (string) $node->attributes()->label,
+	'type' => (string) $node->attributes()->option
+);
 foreach ($xml->field as $field) {
 	if((string) $field->attributes()->name == $name) {
+		$optionData['visible'] = (string) $xml->attributes()->visible == 'true' ? true : false;
 		$options['0'] = '- SELECT -'; 
 		foreach($field->option as $option) {
 			$options[(string) $option->attributes()->value] = (string) $option;
@@ -18,9 +23,9 @@ foreach ($xml->field as $field) {
 }
 // Set Attributes
 $attributes['id'] = $id;
-$attributes['name'] = "{$control_name}[{$name}]";
+$attributes['name'] = $name;
 $class = 'uk-width-1-1';
-$class .= ' item-'.$fieldtype;
+$class .= $fieldtype;
 
 if(!isset($options)) {
 	echo 'Error - No Options Available.';
@@ -28,6 +33,7 @@ if(!isset($options)) {
 }
 
 $attributes['class'] = $class;
+$attributes['data-option'] = json_encode($optionData);
 
 $disabled = $disabled ? $disabled : !$user->canEdit($assetName);
 if($disabled) {

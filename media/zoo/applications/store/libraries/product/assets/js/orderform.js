@@ -166,7 +166,15 @@
                     return data;
                 }
             ],
-            beforeChange: [],
+            beforeChange: [
+                function (data) {
+                    var elem = $(data.args.event.target),
+                    name = elem.prop('name'),
+                    option = data.args.item.options[name];
+                    data.publishPrice = option.type == 'price' ||  option.type == 'base' ? true : false;                    
+                    return data;
+                }
+            ],
             afterchange: [],
             beforeUpdateQuantity: [],
             afterUpdateQuantity: [],
@@ -222,7 +230,6 @@
             result.args = args;
             result.triggerResult = true;
             var events = this.getEvents(event, types);
-            console.log(events);
             $.each(events, function (k, v) {
                 self._debug('Starting ' + event + ' ['+k+']');
                 result = v.call(self,result);
@@ -263,6 +270,7 @@
             if(!this.cart.confirmed) {
                 return;
             }
+            console.log(this.cart);
             $('body').ShoppingCart('addToCart', this.cart.items);
             this.clearCart();
             this.trigger('afterAddToCart', {items: this.cart.items});
@@ -408,10 +416,14 @@
                 var options = typeof self.fields[id] === 'undefined' ? {} : self.fields[id];
                 var itemOptions = {};
                 $.each(options, function(name, elem){
+                    var data = elem.data('option');
                     itemOptions[elem.prop('name')] = {
-                        name: elem.data('name'),
+                        name: data.name,
                         value: elem.val(),
-                        text: (elem.find('option:selected, input').text() ? elem.find('option:selected, input').text() : elem.val())
+                        text: (elem.find('option:selected, input').text() ? elem.find('option:selected, input').text() : elem.val()),
+                        visible: data.visible,
+                        label: data.label,
+                        type: data.type
                     };
                 });
                 
@@ -447,7 +459,6 @@
         },
         _refresh: function (e) {
             var id = $(e.target).closest('.options-container').data('id'), self = this;
-            console.log(id);
             triggerData = this.trigger('beforeChange', {event: e, item: this.items[id]});
             console.log(triggerData);
             this._getOptions();

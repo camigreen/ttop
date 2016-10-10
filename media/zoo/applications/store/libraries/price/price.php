@@ -96,7 +96,7 @@ class Price
 	/*
 	* Class Constructor
 	*/
-	public function __construct($app, StoreItem $item, $resource = null) {
+	public function __construct($app, $item, $resource = null) {
 		$this->app = $app;
 		// Set the Markup
 		$account = $this->app->storeuser->get()->getAccount();
@@ -196,6 +196,9 @@ class Price
 			if($value->get('value')) {
 				$total += $this->_price_options->get($key.'.'.$value->get('value'), 0);
 			}
+			if($value->get('type') == 'default') {
+				$total += (float) $value->get('value');
+			}
 		}
 		return $total;		
 	}
@@ -247,7 +250,7 @@ class Price
 	 *
 	 * @since 1.0
 	 */
-	public function setItem(StoreItem $item) {
+	public function setItem($item) {
 		$this->_item = $item;
 		$this->setGroup($item->getPriceGroup());
 		$this->setMarkupRate($item->markup);
