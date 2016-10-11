@@ -647,6 +647,7 @@ error_log*
 /media/zoo/elements/*
 /media/zoo/libraries/*
 /components/com_zoo/*
+!/components/com_zoo/router.php
 !/components/com_zoo/views/
 /components/com_zoo/views/*
 !/components/com_zoo/views/users
