@@ -168,6 +168,13 @@ $price['ttopboatcover.255Everglades.item.option.fabric.9oz'] = 1491;
 $price['ttopboatcover.255Everglades.shipping.weight'] = 28;
 $price['ttopboatcover.255Everglades.shipping.price'] = 35;
 
+$price['ttopboatcover.36Fisharound.item.base'] = 0;
+$price['ttopboatcover.36Fisharound.item.option.fabric.7oz'] = 2800;
+$price['ttopboatcover.36Fisharound.item.option.fabric.8oz'] = 3000;
+$price['ttopboatcover.36Fisharound.item.option.fabric.9oz'] = 3150;
+$price['ttopboatcover.36Fisharound.shipping.weight'] = 40;
+$price['ttopboatcover.36Fisharound.shipping.price'] = 45;
+
 // //TTop Accessories
 
 $price['accessories.global.allowMarkup'] = false;
