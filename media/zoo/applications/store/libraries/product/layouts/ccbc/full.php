@@ -12,7 +12,6 @@ $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css'
 $make = $this->product->getParam('boat.manufacturer');
 $model = $make->getModel();
 ?>
-TEst
 <div id="OrderForm" class="ccbc ttop" >
 	<div class="uk-form">
 		<div id="ccbc" class="uk-grid orderForm" data-id="ccbc" data-item='[{"id": "ccbc", "type": "ccbc", "make": "<?php echo $make->name; ?>", "model": "<?php echo $model->name; ?>", "qty": 1}]' data-uk-grid-margin>
