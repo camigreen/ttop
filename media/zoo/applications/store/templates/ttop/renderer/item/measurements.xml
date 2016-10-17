@@ -70,6 +70,7 @@
 			<model value="81,56,24,A">189 FS</model>
 			<model value="84,61,48,A">2020</model>
 			<model value="82,56,55,B">230 Bay Reef</model>
+			<model value="80,108,41,B">239 FS</model>
 			<model value="97,74,47,A">268</model>
 		</make>
 		<make value="mako" name="Mako">
@@ -252,6 +253,7 @@
 			<model value="85,91,44,A">2020</model>
 			<model value="84,90,43,A">203 FS</model>
 			<model value="85,90,41,A">230 Bay Reef</model>
+			<model value="87,60,36,A">239 FS</model>
 			<model value="85,92,43,A">244 Bluewater</model>
 			<model value="87,106,54,B">268</model>
 		</make>
