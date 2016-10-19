@@ -22,9 +22,27 @@ class OptionHelper extends AppHelper {
      * 
      * @since 1.0.0
      */
-    public function create($params = array()) {
+    public function create($name, $value = null) {
         $this->app->loader->register('JSONData', 'data:json.php');
-        return $this->app->data->create($params, 'option');
+        $xml = simplexml_load_file($this->app->path->path('fields:config.xml'));
+        $option = null;
+        foreach ($xml->field as $field) {
+            if((string) $field->attributes()->name == $name) {
+                $option = $this->app->data->create(array(), 'option');
+                foreach($field->attributes() as $key => $val) {
+                    $option->set($key, (string) $val);
+                }
+                if($value) {
+                    $option->set('value', $value);
+                    foreach($field->option as $opt) {
+                        if($opt->attributes()->value == $value) {
+                            $option->set('text', (string) $opt);
+                        }
+                    }
+                }
+            }
+        }
+        return $option;
     }
 
 }

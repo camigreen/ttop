@@ -11,9 +11,6 @@
 					<label>1820</label>
 					<skucode>1820</skucode>
 					<length>1819</length>
-					<options>
-						<option name="storage" label="Storage" type="variable" value="T" />
-					</options>
 				</model>
 				<model>
 					<name>19-ace-flats-master</name>

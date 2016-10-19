@@ -39,7 +39,15 @@ class PatternHelper extends AppHelper {
        				$id = (string) $pattern->attributes()->id;
        				$p[$id] = array();
        				foreach($pattern->option as $option) {
-       					$p[$id][(string) $option->attributes()->name] = (string) $option->attributes()->value;
+       					if(!(string) $option->attributes()->value && (string) $option->attributes()->min) {
+       						$p[$id][(string) $option->attributes()->name] = array(
+       							'min' => (string) $option->attributes()->min,
+       							'max' => $option->attributes()->max ? (string) $option->attributes()->max : null
+       						); 
+       					} else {
+       						$p[$id][(string) $option->attributes()->name] = (string) $option->attributes()->value;
+       					}
+       					
        				}
        				
        			}

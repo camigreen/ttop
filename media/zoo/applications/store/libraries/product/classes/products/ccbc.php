@@ -16,27 +16,36 @@ class CCBCProduct extends Product {
 
 	public $type = 'ccbc';
 
+    protected $_defaultOptions = array(
+        'ccbc.fabric', 
+        'boat_length', 
+        'color',
+        'boat_style', 
+        'zipper', 
+        'storage', 
+        'motors',
+        'motor_make',
+        'motor_size',
+        'jack_plate',
+        'power_poles',
+        'year',
+        'poling_platform',
+        'bow_rails',
+        'casting_platform',
+        'trolling_motor',
+        'ski_tow_bar'
+    );
+
     public function __construct($app) {
         parent::__construct($app);
-        $fabric = array(
-            'name' => 'fabric',
-            'value' => '9oz',
-        );
-        $this->setOption('fabric', $this->app->parameter->create($fabric));
+
     }
 
 	public function bind($product) {
 		parent::bind($product);
-		$make = $this->app->boat->create($product->get('make'), $product->get('model'));
-		$this->setParam('boat.manufacturer', $make);
-		$model = $make->getModel();
-        foreach($model->get('options', array()) as $name => $option) {
-            $this->setOption($name, $option);
-        }
-		
+        $this->setOption('ccbc.fabric', '9oz');
 		$this->id = 'ccbc';
 		$this->name = 'Center Console Boat Cover';
-
 		return $this;
 	}
 
@@ -50,10 +59,17 @@ class CCBCProduct extends Product {
     public function getPriceGroup() {
     	$priceGroup[] = parent::getPriceGroup();
     	$make = $this->getParam('boat.manufacturer');
-    	$priceGroup[] = $make->getModel()->get('length');
-    	$priceGroup[] = $this->getOption('fabric')->get('value');
+    	//$priceGroup[] = $make->getModel()->get('length');
+    	$priceGroup[] = $this->getOption('ccbc.fabric')->get('value');
 
         return implode('.', $priceGroup);
         
+    }
+
+    public function getSKU() {
+        if($this->_patternID) {
+            $this->sku = $this->_patternID.'-'.$this->getOption('ccbc.fabric')->get('value').'-'.$this->getOption('color')->get('value');
+        }
+        return parent::getSKU();
     }
 }

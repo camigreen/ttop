@@ -6,7 +6,7 @@
 	$attributes['class'] = 'uk-width-1-1';
 	$attributes['name'] = 'qty';
 	$attributes['min'] = '1';
-	$attributes['value'] = '1'; 
+	$attributes['value'] = $item->qty; 
 
 	printf('<input %s />', $this->app->field->attributes($attributes));
 ?>

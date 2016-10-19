@@ -10,11 +10,12 @@ $start = $parent->getValue('year.start', 2000);
 $end = $parent->getValue('year.end', 0);
 $fieldtype = $node->attributes()->option ? ' item-option' : '';
 $xml = simplexml_load_file($this->app->path->path('fields:config.xml'));
-$optionData = array(
-	'name' => (string) $node->attributes()->name,
-	'label' => (string) $node->attributes()->label,
-	'type' => (string) $node->attributes()->option
-);
+$fieldOptions = (string) $node->attributes()->options ? (string) $node->attributes()->options : $name;
+$opt = $parent->getValue('product')->getOption($fieldOptions);
+if($opt) {
+	$value = $opt->get('value', $value);
+}
+
 foreach ($xml->field as $field) {
 	if((string) $field->attributes()->name == $name) {
 		$optionData['visible'] = (string) $field->attributes()->visible == 'true' ? true : false; 

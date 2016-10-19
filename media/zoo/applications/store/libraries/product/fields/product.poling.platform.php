@@ -12,6 +12,14 @@ $optionData = array(
 	'label' => (string) $node->attributes()->label,
 	'type' => (string) $node->attributes()->option
 );
+
+$fieldOptions = (string) $node->attributes()->options ? (string) $node->attributes()->options : $name;
+
+$opt = $parent->getValue('product')->getOption($fieldOptions);
+if($opt) {
+	$value = $opt->get('value', $value);
+}
+
 foreach ($xml->field as $field) {
 	if((string) $field->attributes()->name == $name) {
 		$optionData['visible'] = (string) $xml->attributes()->visible == 'true' ? true : false;

@@ -26,17 +26,17 @@ class ProductHelper extends AppHelper {
 		$this->xml = simplexml_load_file($this->app->path->path('library.product:items.xml'));
 	}
 
-	public function create($product = array()) {
-		$product = $this->app->data->create($product);
-		$type = $product->get('type');
+	public function create($data = array()) {
+		$data = $this->app->data->create($data);
+		$type = $data->get('type');
 		$class = $type.'Product';
 		if(file_exists($this->app->path->path('library.product:classes/products/'.$type.'.php'))) {
 			$this->app->loader->register($class, 'library.product:classes/products/'.$type.'.php');
-		} 
+		}
 
-		$object = new $class($this->app);
-		$object->bind($product);
-		return $object;
+		$product = new $class($this->app);
+		$product->bind($data);
+		return $product;
 	}
 
 	public function loadXML($xml) {

@@ -105,12 +105,10 @@ class ProductController extends AppController {
         $model = $this->app->request->get('model', 'string');
         $product = array(
             'type' => $this->type,
-            'make' => $manufacturer,
-            'model' => $model
+            'boat.manufacturer' => $manufacturer,
+            'boat.model' => $model
         );
         $this->product = $this->app->product->create($product);
-        $make = $this->product->getParam('boat.manufacturer');
-        $model = $make->getModel();
         $layout = 'full';
         $values = array();
         $values['product'] = $this->product;

@@ -10,7 +10,29 @@ $this->app->document->addScript('library.product:assets/js/orderform.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
 $make = $this->product->getParam('boat.manufacturer');
+$model = $this->product->getParam('boat.model');
+$make = $this->app->boat->create($make, $model);
 $model = $make->getModel();
+$this->product->setOption('year', '2016');
+$this->product->setOption('motors', '1');
+$this->product->setOption('bow_rails', 'L');
+$this->product->setOption('trolling_motor', 'N');
+$this->product->setOption('jack_plate', 'JP4');
+$this->product->setOption('poling_platform', '42');
+$this->product->setOption('boat_style', 'CC');
+$this->product->setOption('color', 'N');
+$this->product->setOption('zipper', 'ZP');
+$this->product->setOption('storage', 'T');
+$this->product->setOption('motor_make', 'yamaha');
+$this->product->setOption('motor_size', '150');
+$this->product->setOption('ski_tow_bar', 'N');
+$this->product->setOption('power_poles', 'N');
+$this->product->setOption('poling_platform', '37');
+$this->product->setOption('casting_platform', 'N');
+$this->product->setOption('swim_ladder', 'N');
+$pattern = $this->product->getPatternID();
+$pattern = $pattern ? $pattern : 'No Pattern Found.'
+
 ?>
 <div id="OrderForm" class="ccbc ttop" >
 	<div class="uk-form">
@@ -26,6 +48,8 @@ $model = $make->getModel();
 			<div class="uk-width-1-1 make-model-container">
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Make:</span><span><?php echo $make->label; ?></span></p>
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Model:</span><span><?php echo $model->label; ?></span></p>
+				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Pattern:</span><span><?php echo $pattern; ?></span></p>
+				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Product SKU:</span><span><?php echo $this->product->getSKU(); ?></span></p>
 			</div>
 			<div class="uk-width-medium-2-3 uk-width-small-1-1 slideshow-container">
 				<?php if($this->form->checkGroup('slideshow')) : ?>
@@ -146,6 +170,8 @@ jQuery(function($){
 // });
 </script>
 <script>
+	var item = <?php echo $this->product; ?>;
+	console.log(item);
     jQuery(function($) {
         $(document).ready(function(){
             $('#OrderForm').OrderForm({

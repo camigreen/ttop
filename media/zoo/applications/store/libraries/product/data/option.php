@@ -13,62 +13,6 @@
  */
 class OptionData extends AppData {
 
-	/**
-     * Name
-     *
-     * @var [sting]
-     * @since 1.0.0
-     */
-    public $name;
-
-    /**
-     * Type
-     *
-     * @var [sting]
-     * @since 1.0.0
-     */
-    public $type;
-
-    /**
-     * value
-     *
-     * @var [mixed]
-     * @since 1.0.0
-     */
-    public $value;
-
-    /**
-     * text
-     *
-     * @var [sting]
-     * @since 1.0.0
-     */
-    public $text;
-
-    /**
-     * Label
-     *
-     * @var [sting]
-     * @since 1.0.0
-     */
-    public $label;
-
-    /**
-     * Visible
-     *
-     * @var [bool]
-     * @since 1.0.0
-     */
-    public $visible;
-
-    /**
-     * Pattern Option
-     *
-     * @var [bool]
-     * @since 1.0.0
-     */
-    protected $_pattern;
-
 
 }
 

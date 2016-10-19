@@ -52,7 +52,7 @@ class Product {
      * @var [string]
      * @since 1.0.0
      */
-    protected $_patternCode;
+    protected $_patternID;
     
     /**
      * Qty of the item.
@@ -103,6 +103,14 @@ class Product {
     protected $price;
 
     /**
+     * String that identifies the pricing group of an item.
+     *
+     * @var [string]
+     * @since 1.0.0
+     */
+    protected $_defaultOptions = array();
+
+    /**
      * Reference to the App Object.
      *
      * @var [App]
@@ -128,7 +136,12 @@ class Product {
         foreach($product as $key => $value) {
             if(property_exists($this, $key) && !in_array($key, $exclude)) {
                 $this->$key = $value;
+            } else if (!in_array($key, $exclude)) {
+                $this->setParam($key, $value);
             }
+        }
+        foreach($this->_defaultOptions as $option) {
+            $this->setOption($option);
         }
         foreach($product->get('options', array()) as $key => $value) {
             $this->options->set($key, $this->app->parameter->create($value));
@@ -176,8 +189,24 @@ class Product {
         return $this->options->get($name, $default);
     }
 
-    public function setOption($name, $value) {
-        $this->options->set($name, $value);
+    public function getPatternOptions($name = null) {
+        $result = array();
+        foreach($this->options as $option) {
+            if($option->get('type') == 'pattern') {
+                $result[$option->get('name')] = $option;
+            }
+        }
+        return $result;
+    }
+
+    public function setOption($name, $value = null) {
+        if($option = $this->getOption($name)) {
+            $option->set('value', $value);
+            return $this;
+        }
+        if($option = $this->app->option->create($name, $value)) {
+            $this->options->set($name, $option);
+        }
         return $this;
     }
 
@@ -226,59 +255,89 @@ class Product {
 
     public function getHash() {}
 
-    public function getPatternCode() {
-        if($this->_patternCode) {
-            return $this->_patternCode;
+    public function getPatternID() {
+        if($this->_patternID) {
+            return $this->_patternID;
         }
         $type = $this->type;
-        $make = $this->getParam('boat.manufacturer');
+        $make = $this->app->boat->create($this->getParam('boat.manufacturer'), $this->getParam('boat.model'));
         $model = $make->getModel();
         if($type && $make && $model) {
             $code = strtoupper($type).'-'.$make->skucode.$model->get('skucode');
         } else {
-            return $this->_patternCode = null;
+            return $this->_patternID = null;
         }
         $patterns = $this->app->pattern->get($code);
         foreach($patterns as $id => $option) {
                 $match = true;
             foreach($option as $key => $value) {
-                if($key == 'year' && $this->options->get('year')) {
-                    $year = (int) $this->options->get('year')->get('value');
-                    $range = explode('|', $value);
-                    if(count($range) == 1) {
-                        $start = $range[0];
-                        $end = date('m') < 5 ? date('Y') : date('Y')+1;
-                    } else {
-                        $start = (int) $range[0];
-                        $end = (int) $range[1];
+                if(is_array($value)) {
+                    $min = $value['min'];
+                    $max = $value['max'];
+                    switch($key) {
+                        case 'year':
+                            $year = $this->options->get('year');
+                            
+                            if($year = $this->getOption('year')) {
+                                $max = $max ? $max : (date('m') < 5 ? date('Y') : date('Y')+1);
+                                if(!$this->checkRange($year->value, $min, $max)) {
+                                    $match = false;
+                                }
+                            }
+                            break;
+                        default:
+                            $val = $this->options->get($key);
+                            if($val && !$this->checkRange($val->value, $min, $max)) {
+                                $match = false;
+                            }
                     }
-                    if($year < $start) {
-                        $match = false;
-                    }
-                    if($year > $end) {
-                        $match = false;
-                    }
-
                 } else if(!$this->options->get($key) || $this->options->get($key)->get('value') != $value) {
                     $match = false;
                 }
-            }                
+                var_dump($key.' - '.($match ? 'True' : 'False'));
+                if(!$match) {
+                    break;
+                }
+            }
+
             if($match) {
-                $this->_patternCode = $code.'-'.$id;
-                return $this->_patternCode;
+                $this->_patternID = $code.'-'.$id;
+                return $this->_patternID;
             } else {
-                $this->_patternCode = null;
+                $this->_patternID = null;
             }
         }
-        return $this->_patternCode;
+        return $this->_patternID;
     }
 
-    public function generateSKU() {
-        
+    public function checkRange($value, $min, $max) {
+        $result = false;
+        if(!$min || $value >= $min) {
+            $result = true;
+        }
+        if($result && (!$max || $value <= $max)) {
+            $result = true;
+        } else {
+            $result = false;
+        }
+
+        return $result;
     }
 
     public function __get($name) {
         return $this->getParam($name);
+    }
+
+    public function __toString() {
+        $exclude = array('app');
+        $data = array();
+        foreach($this as $key => $value) {
+            if(!in_array($key, $exclude)) {
+                $data[$key] = $value;
+            }
+        }
+        $data = $this->app->data->create($data);
+        return (string) $data;
     }
     
 }

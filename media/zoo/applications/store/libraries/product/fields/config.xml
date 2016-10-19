@@ -6,6 +6,7 @@
 		<option value="T">Tan</option>
 		<option value="G">Gray</option>
 	</field>
+	<field name="boat_length" label="Boat Length" type="base" visible="false" />
 	<field name="fabric" label="Fabric" type="base" visible="true">
 		<option value="7oz">Material 7oz. 3yr. Warranty</option>
 		<option value="8oz">Material 8oz. 5yr. Warranty</option>
@@ -28,11 +29,11 @@
 		<option value='other'>Other</option>
 	</field>
 	<field name="boat_style" label="Boat Style" type="pattern" visible="true">
-		<option value='cc'>Center Console</option>
-		<option value='dc'>Dual Console</option>
-		<option value='wa'>Walkaround</option>
-		<option value='cb'>Catamaran</option>
-		<option value='other'>Other</option>
+		<option value='CC'>Center Console</option>
+		<option value='DC'>Dual Console</option>
+		<option value='WA'>Walkaround</option>
+		<option value='CB'>Catamaran</option>
+		<option value='OTHER'>Other</option>
 	</field>
 	<field name="motors" label="Motors" type="pattern" visible="true">
 		<option value='1'>Single Engine</option>
@@ -101,8 +102,8 @@
 	<field name="year" label="Year" type="pattern" visible="true" />
 	<field name="poling_platform" label="Poling Platform" type="pattern" visible="true">
 		<option value='0'>- SELECT -</option>
-		<option value='y'>Yes</option>
-		<option value='n'>No</option>
+		<option value='Y'>Yes</option>
+		<option value='N'>No</option>
 	</field>
 	<field name="bow_rails" label="Bow Rails" type="pattern" visible="true">
 		<option value='N'>No Rails</option>
@@ -114,13 +115,13 @@
 	</field>
 	<field name="casting_platform" label="Casting Platform" type="pattern" visible="true">
 		<option value='0'>- SELECT -</option>
-		<option value='y'>Yes</option>
-		<option value='n'>No</option>
+		<option value='Y'>Yes</option>
+		<option value='N'>No</option>
 	</field>
 	<field name="trolling_motor" label="Trolling Motor" type="price" visible="true">
 		<option value='0'>- SELECT -</option>
-		<option value='y'>Yes</option>
-		<option value='n'>No</option>
-		<option value='r'>Removeable</option>
+		<option value='Y'>Yes</option>
+		<option value='N'>No</option>
+		<option value='R'>Removeable</option>
 	</field>
 </fields>

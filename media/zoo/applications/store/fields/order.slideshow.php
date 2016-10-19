@@ -3,6 +3,8 @@
 //$make = $parent->getParams('boat.manufacturer');
 $product = $parent->getValue('product');
 $make = $product->getParam('boat.manufacturer');
+$model = $product->getParam('boat.model');
+$make = $this->app->boat->create($make, $model);
 $model = $make->getModel();
 $imagepath = $this->app->path->path('images.boats:'.str_replace('-', '_', $make->name).'/'.$product->type.'/'.str_replace('-','_',$model->get('name')));
 $imageurl = $this->app->path->url('images.boats:'.str_replace('-', '_', $make->name).'/'.$product->type.'/'.str_replace('-','_',$model->get('name')));
