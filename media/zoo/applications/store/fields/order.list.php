@@ -5,8 +5,9 @@
  */
 
 // Get Variables
+$product = $parent->getValue('product');
 $fieldtype = $node->attributes()->option ? ' item-option' : '';
-$xml = simplexml_load_file($this->app->path->path('fields:config.xml'));
+$xml = simplexml_load_file($this->app->path->path('fields:/'.$product->type.'/config.xml'));
 $optionData = array(
 	'name' => (string) $node->attributes()->name,
 	'label' => (string) $node->attributes()->label,
@@ -15,9 +16,10 @@ $optionData = array(
 
 $fieldOptions = (string) $node->attributes()->options ? (string) $node->attributes()->options : $name;
 
-$opt = $parent->getValue('product')->getOption($fieldOptions);
+$opt = $product->getOption($fieldOptions);
 if($opt) {
-	$value = $opt->get('value', $value);
+	$isPrice = $opt->isPriceOption();
+	$value = $opt->getValue($value);
 }
 foreach ($xml->field as $field) {
 	if((string) $field->attributes()->name == $fieldOptions) {
@@ -31,13 +33,8 @@ foreach ($xml->field as $field) {
 // Set Attributes
 $attributes['id'] = $id;
 $attributes['name'] = $name;
-$class = 'uk-width-1-1';
+$class = 'uk-width-1-1 item-option';
 $class .= $fieldtype;
-
-
-if($node->attributes()->option) {
-	$attributes['data-option'] = json_encode($optionData);
-}
 
 if(!isset($options)) {
 	echo 'Error - No Options Available.';
@@ -59,7 +56,7 @@ foreach ($options as $key => $option) {
 	$attributes = array('value' => $key);
 
 	// is checked ?
-	if ($key == $value) {
+	if ($key === $value) {
 		$attributes['selected'] = 'selected';
 	}
 

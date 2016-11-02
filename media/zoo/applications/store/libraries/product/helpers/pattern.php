@@ -54,7 +54,12 @@ class PatternHelper extends AppHelper {
        			
             }
         }
-        return $p;
+        if(isset($p)) {
+          return $p;
+        } else {
+          return;
+        }
+        
 	}
 
 }

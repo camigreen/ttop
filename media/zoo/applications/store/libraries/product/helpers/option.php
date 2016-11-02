@@ -13,6 +13,19 @@
  */
 class OptionHelper extends AppHelper {
 
+    protected $_options;
+    protected $_xml;
+    public $productType = 'ccbc';
+
+    public function __construct($app) {
+        parent::__construct($app);
+        $this->app->loader->register('JSONData', 'data:json.php');
+        $this->app->loader->register('ParameterData', 'data:parameter.php');
+        $this->app->loader->register('Options', 'classes:options.php');
+        $this->_options = $this->app->data->create();
+        
+    }
+
     /**
      * Get a ParameterData object
      * 
@@ -22,27 +35,67 @@ class OptionHelper extends AppHelper {
      * 
      * @since 1.0.0
      */
-    public function create($name, $value = null) {
-        $this->app->loader->register('JSONData', 'data:json.php');
-        $xml = simplexml_load_file($this->app->path->path('fields:config.xml'));
-        $option = null;
-        foreach ($xml->field as $field) {
-            if((string) $field->attributes()->name == $name) {
-                $option = $this->app->data->create(array(), 'option');
-                foreach($field->attributes() as $key => $val) {
-                    $option->set($key, (string) $val);
-                }
-                if($value) {
-                    $option->set('value', $value);
-                    foreach($field->option as $opt) {
-                        if($opt->attributes()->value == $value) {
-                            $option->set('text', (string) $opt);
-                        }
-                    }
+    public function create($type) {
+        $options = new Options($this->app, $type);
+        return $options;
+    }
+
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function isPriceOption($option) {
+        $types = explode('|', $option->get('type'));
+        if(in_array('price', $types)) {
+            return true;
+        }
+        return;
+    }
+
+    public function getOptionText($name, $value) {
+        $xml = $this->_xml;
+        foreach($xml->field as $field) {
+            if($field->attributes()->name == $name) {
+                foreach($field->option as $option) {
+                   return (string) $option; 
                 }
             }
         }
-        return $option;
+        return;
+    }
+
+    public function getOptionCost($name, $value) {
+        $xml = $this->_xml;
+        foreach($xml->field as $field) {
+            if($field->attributes()->name == $name) {
+                foreach($field->option as $option) {
+                   if($option->attributes()->value == $value) {
+                    return (float) $option->attributes()->cost;
+                   }
+                }
+            }
+        }
+        return;
+    }
+
+    public function getOptionFromXML($name) {
+        $xml = $this->_xml;
+        foreach($xml->field as $field) {
+            if($field->attributes()->name == $name) {
+                $option = $this->app->parameter->create();
+                foreach ($field->attributes() as $key => $param) {
+                    $option->set($key, (string) $param);
+                }
+                return $option;
+            }
+        }
+        return $this->app->parameter->create();
     }
 
 }

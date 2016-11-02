@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fields>
-	<field name="color" label="Color" type="pattern" visible="true">
+	<field name="color" label="Color" type="variable" visible="true">
 		<option value="N">Navy</option>
 		<option value="B">Black</option>
 		<option value="T">Tan</option>
 		<option value="G">Gray</option>
 	</field>
 	<field name="boat_length" label="Boat Length" type="base" visible="false" />
-	<field name="fabric" label="Fabric" type="base" visible="true">
-		<option value="7oz">Material 7oz. 3yr. Warranty</option>
-		<option value="8oz">Material 8oz. 5yr. Warranty</option>
-		<option value="9oz">Material 9oz. 5yr. Warranty</option>
-	</field>
-	<field name="ccbc.fabric" label="Fabric" type="base" visible="true">
-		<option value="9oz">Material 9oz. 5yr. Warranty</option>
+	<field name="fabric" label="Fabric" type="base" visible="true" default="9Ply">
+		<option value="9Ply">Material 9oz. 5yr. Warranty</option>
+		<option value="9Acr">Material 9.25oz. Acrylic 5yr. Warranty</option>
 	</field>
 	<field name="zipper" label="Zipper Side" type="variable" visible="true">
 		<option value='ZP'>Port Side</option>
@@ -38,8 +34,6 @@
 	<field name="motors" label="Motors" type="pattern" visible="true">
 		<option value='1'>Single Engine</option>
 		<option value='2'>Twin Engines</option>
-		<option value='3'>Triple Engines</option>
-		<option value='4'>Quadruple Engines</option>
 		<option value='other'>Other</option>
 	</field>
 	<field name="motor_make" label="Motor Make" type="variable" visible="true">
@@ -118,9 +112,9 @@
 		<option value='Y'>Yes</option>
 		<option value='N'>No</option>
 	</field>
-	<field name="trolling_motor" label="Trolling Motor" type="price" visible="true">
+	<field name="trolling_motor" label="Trolling Motor" type="price|pattern" visible="true">
 		<option value='0'>- SELECT -</option>
-		<option value='Y'>Yes</option>
+		<option value='Y' cost="175.00">Yes</option>
 		<option value='N'>No</option>
 		<option value='R'>Removeable</option>
 	</field>

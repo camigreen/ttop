@@ -117,7 +117,7 @@ class Price
 		}
 		$this->allowMarkup = $prices->get($this->_item->type.'.global.allowMarkup', true);
 		$this->allowMarkup = $prices->get($this->_group.'.item.allowMarkup', $this->allowMarkup);
-		
+		var_dump($this->_group);
 		$this->_base = $prices->get($this->_group.'.item.base');
 		$this->_shipWeight = $prices->get($this->_group.'.shipping.weight');
 		if($this->app->storeuser->get()->isReseller()) {

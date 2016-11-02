@@ -5,13 +5,13 @@
  */
 
 // set attributes
-
+$product = $parent->getValue('product');
 $start = $parent->getValue('year.start', 2000);
 $end = $parent->getValue('year.end', 0);
 $fieldtype = $node->attributes()->option ? ' item-option' : '';
-$xml = simplexml_load_file($this->app->path->path('fields:config.xml'));
+$xml = simplexml_load_file($this->app->path->path('fields:'.$product->type.'/config.xml'));
 $fieldOptions = (string) $node->attributes()->options ? (string) $node->attributes()->options : $name;
-$opt = $parent->getValue('product')->getOption($fieldOptions);
+$opt = $product->getOption($fieldOptions);
 if($opt) {
 	$value = $opt->get('value', $value);
 }

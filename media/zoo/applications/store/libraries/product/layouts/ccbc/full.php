@@ -9,34 +9,40 @@ $this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
 $this->app->document->addScript('library.product:assets/js/orderform.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
+// var_dump($this->product);
 $make = $this->product->getParam('boat.manufacturer');
 $model = $this->product->getParam('boat.model');
-$make = $this->app->boat->create($make, $model);
-$model = $make->getModel();
-$this->product->setOption('year', '2016');
-$this->product->setOption('motors', '1');
-$this->product->setOption('bow_rails', 'L');
-$this->product->setOption('trolling_motor', 'N');
-$this->product->setOption('jack_plate', 'JP4');
-$this->product->setOption('poling_platform', '42');
-$this->product->setOption('boat_style', 'CC');
-$this->product->setOption('color', 'N');
-$this->product->setOption('zipper', 'ZP');
-$this->product->setOption('storage', 'T');
-$this->product->setOption('motor_make', 'yamaha');
-$this->product->setOption('motor_size', '150');
-$this->product->setOption('ski_tow_bar', 'N');
-$this->product->setOption('power_poles', 'N');
-$this->product->setOption('poling_platform', '37');
-$this->product->setOption('casting_platform', 'N');
-$this->product->setOption('swim_ladder', 'N');
+// Price Options
+//$this->product->setOptionValue('trolling_motor', 'N');
+// Pattern Options
+// $this->product->setOptionValue('year', '2016');
+// $this->product->setOptionValue('motors', '1');
+// $this->product->setOptionValue('bow_rails', 'L');
+// $this->product->setOptionValue('jack_plate', 'N');
+// $this->product->setOptionValue('poling_platform', '45');
+// $this->product->setOptionValue('boat_style', 'CC');
+// $this->product->setOptionValue('ski_tow_bar', 'N');
+// $this->product->setOptionValue('power_poles', 'N');
+// $this->product->setOptionValue('swim_ladder', 'N');
+
+// Variable Options
+// $this->product->setOptionValue('color', 'B');
+// $this->product->setOptionValue('zipper', 'ZP');
+// $this->product->setOptionValue('storage', 'T');
+// $this->product->setOptionValue('motor_make', 'yamaha');
+// $this->product->setOptionValue('motor_size', '150');
+// $this->product->setOptionValue('casting_platform', 'N');
+
 $pattern = $this->product->getPatternID();
-$pattern = $pattern ? $pattern : 'No Pattern Found.'
+$pattern = $pattern ? $pattern : 'No Pattern Found.';
+//var_dump($this->product->options);
+
+//var_dump($this->product->toJson());
 
 ?>
 <div id="OrderForm" class="ccbc ttop" >
 	<div class="uk-form">
-		<div id="ccbc" class="uk-grid orderForm" data-id="ccbc" data-item='[{"id": "ccbc", "type": "ccbc", "make": "<?php echo $make->name; ?>", "model": "<?php echo $model->name; ?>", "qty": 1}]' data-uk-grid-margin>
+		<div id="ccbc" class="uk-grid orderForm" data-id="ccbc" data-item='[<?php echo $this->product->toJson(); ?>]' data-uk-grid-margin>
 			<div class="uk-width-1-1">
 				<a class="uk-text-large" href="<?php echo $this->url.$make->name; ?>"><i class="uk-icon uk-icon-caret-left uk-margin-right"></i>Back to <?php echo $make->label; ?></a>
 			</div>
@@ -48,8 +54,13 @@ $pattern = $pattern ? $pattern : 'No Pattern Found.'
 			<div class="uk-width-1-1 make-model-container">
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Make:</span><span><?php echo $make->label; ?></span></p>
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Model:</span><span><?php echo $model->label; ?></span></p>
-				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Pattern:</span><span><?php echo $pattern; ?></span></p>
+				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Pattern:</span><span id="patternID"><?php echo $pattern; ?></span></p>
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Product SKU:</span><span><?php echo $this->product->getSKU(); ?></span></p>
+				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Boat Length:</span><span><?php echo $this->product->getOption('boat_length')->getText(); ?></span></p>
+				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Price Group:</span><span><?php echo $this->product->getPriceGroup(); ?></span></p>
+				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Base Price:</span><span><?php echo $this->product->getPrice('base', 0.00, true); ?></span></p>
+				<p><span class="uk-article-lead uk-text-bold uk-margin-right">MSRP Price:</span><span><?php echo $this->product->getPrice('msrp', 0.00, true); ?></span></p>
+				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Display Retail Price:</span><span><?php echo $this->product->getPrice('display', 0.00, true); ?></span></p>
 			</div>
 			<div class="uk-width-medium-2-3 uk-width-small-1-1 slideshow-container">
 				<?php if($this->form->checkGroup('slideshow')) : ?>
@@ -107,70 +118,9 @@ jQuery(function($){
 //         });
        
 //     });
-    
-</script>
-<script>   
-// jQuery(function($){
-
-//     var progressbar = $("#progressbar"),
-//         bar         = progressbar.find('.uk-progress-bar'),
-//         settings    = {
-
-//         action: '?option=com_zoo&controller=store&task=photoUpload&format=json', // upload url
-
-//         allow : '*.(jpg|jpeg|gif|png)', // allow only images
-//         params: {'id': uniqID},
-//         type: 'JSON',
-
-//         loadstart: function() {
-//             bar.css("width", "0%").text("0%");
-//             progressbar.removeClass("uk-hidden");
-//         },
-//         beforeAll: function(files) {
-//             console.log(files);
-//         },
-//         beforeSend: function(xhr) {
-//             console.log(xhr);
-//         },
-//         progress: function(percent) {
-//             percent = Math.ceil(percent);
-//             bar.css("width", percent+"%").text(percent+"%");
-//         },
-
-//         allcomplete: function(response) {
-//             bar.css("width", "100%").text("100%");
-
-//             setTimeout(function(){
-//                 progressbar.addClass("uk-hidden");
-//             }, 250);
-//             console.log(response);
-//             response = JSON.parse(response);
-//             if(response) {
-//                 var img = '<img class="uk-thumbnail" src="'+response.data.path+'" />';
-//                 uniqID = response.data.uniqID;
-//                 $('#upload-drop-'+drop).html(img);
-//                 alert("Upload Completed");
-//             }
-//         }
-//     };
-//     var drop;
-//     var uniqID = null;
-//     $('.uk-placeholder').on('drop', function(e){
-//         drop = $(e.target).closest('.uk-placeholder').data('drop');
-//     })
-//     $.UIkit.uploadDrop($("#upload-drop-1"), settings);
-//     $.UIkit.uploadDrop($("#upload-drop-2"), settings);
-//     $.UIkit.uploadDrop($("#upload-drop-3"), settings);
-//     $(document).ready(function() {
-//         $('.tm-upload-cancel').on('click', function() {
-//             $('[name="trolling_motor"]').val('X').trigger('input');
-//             $('.uk-placeholder').html('<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-vertical-align-middle"></i>');
-//         });
-//     })
-// });
 </script>
 <script>
-	var item = <?php echo $this->product; ?>;
+	var item = <?php echo $this->product->toJson(); ?>;
 	console.log(item);
     jQuery(function($) {
         $(document).ready(function(){

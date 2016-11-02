@@ -199,7 +199,7 @@ class Product {
 
     public function getOptions($type = null) {
         if ($type == null) {
-            return $this->options->getAll();
+            return $this->options;
         }
         $result = array();
         foreach($this->options as $option) {
@@ -285,16 +285,7 @@ class Product {
         
     }
 
-    public function getHash() {
-        $sku = array();
-        foreach($this->getOptions() as $option) {
-            $sku[] = $option->get('name').$option->get('value');
-        }
-        $sku[] = $this->getPrice();
-        $sku[] = $this->name;
-        $sku[] = $this->id;
-        return hash('md5', implode('.', $sku));
-    }
+    public function getHash() {}
 
     public function getPatternID() {
         if($this->_patternID) {
@@ -392,8 +383,6 @@ class Product {
                 $data->set($key, $value);
             }
         }
-        $options = $data->get('options');
-        $data->set('options', $options->toJson());
         return json_encode($data);
     }
     

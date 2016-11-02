@@ -197,7 +197,7 @@ $price['ttopboatcover.R220Robalo.shipping.weight'] = 25;
 $price['ttopboatcover.R220Robalo.shipping.price'] = 30;
 
 // CCBC
-$price['ccbc.global.option.trolling_motor.y'] = 175;
+$price['ccbc.global.option.trolling_motor.Y'] = 175;
 
 $price['ccbc.1819.9oz.item.base'] = 849;
 $price['ccbc.1819.9oz.shipping.weight'] = 22;

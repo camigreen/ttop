@@ -5,24 +5,17 @@
  */
 
 // Get Variables
-$fieldtype = $node->attributes()->option ? ' item-option' : '';
-$xml = simplexml_load_file($this->app->path->path('fields:config.xml'));
-$optionData = array(
-	'name' => (string) $node->attributes()->name,
-	'label' => (string) $node->attributes()->label,
-	'type' => (string) $node->attributes()->option
-);
+$product = $parent->getValue('product');
+$xml = simplexml_load_file($this->app->path->path('fields:/'.$product->type.'/config.xml'));
 
 $fieldOptions = (string) $node->attributes()->options ? (string) $node->attributes()->options : $name;
 
-$opt = $parent->getValue('product')->getOption($fieldOptions);
+$opt = $product->getOption($fieldOptions);
 if($opt) {
-	$value = $opt->get('value', $value);
+	$value = $opt->getValue();
 }
-
 foreach ($xml->field as $field) {
 	if((string) $field->attributes()->name == $name) {
-		$optionData['visible'] = (string) $xml->attributes()->visible == 'true' ? true : false;
 		$options['0'] = '- SELECT -'; 
 		foreach($field->option as $option) {
 			$options[(string) $option->attributes()->value] = (string) $option;
@@ -31,17 +24,14 @@ foreach ($xml->field as $field) {
 }
 // Set Attributes
 $attributes['id'] = $id;
-$attributes['name'] = $name;
+$attributes['name'] = $name.'-select';
 $class = 'uk-width-1-1';
-$class .= $fieldtype;
 
 if(!isset($options)) {
 	echo 'Error - No Options Available.';
 	return;
 }
-
 $attributes['class'] = $class;
-$attributes['data-option'] = json_encode($optionData);
 
 $disabled = $disabled ? $disabled : !$user->canEdit($assetName);
 if($disabled) {
@@ -53,9 +43,8 @@ foreach ($options as $key => $option) {
 
 	// set attributes
 	$attributes = array('value' => $key);
-
 	// is checked ?
-	if ($key == $value) {
+	if ($key === $value) {
 		$attributes['selected'] = 'selected';
 	}
 
@@ -73,26 +62,37 @@ printf('</select>');
 		<div class="uk-text-small uk-text-center"><i class="uk-icon-arrow-left uk-margin-right"></i>Slide the bar to adjust the poling platform height.<i class="uk-icon-arrow-right uk-margin-left"></i></div>
 	</div>
 </div>
+<input type="hidden" class="item-option" name="poling_platform" value="<?php echo ($value !== 0 ? '' : 'N'); ?>" />
 <script>
 jQuery(function($){
 	$(document).ready(function(){
 	    $( "#poling-platform-slider-range-min" ).slider({
 			range: "min",
-			value: 0,
+			value: <?php echo $value == 'N' ? 0 : $value; ?>,
 			min: 0,
 			max: 50,
 			slide: function( event, ui ) {
-			$( "#poling-platform-height" ).val( ui.value );
+				$( "#poling-platform-height" ).val( ui.value );
+				
+			}, 
+			change: function(event, ui) {
+				if(ui.value === 0) {
+					$( '[name="poling_platform"]' ).val( 'N' ).trigger('input');
+				} else {
+					$( '[name="poling_platform"]' ).val( ui.value ).trigger('input');
+				}
 			}
 	    });
 	    $( "#poling-platform-height" ).val( $( "#poling-platform-slider-range-min" ).slider( "value" ) );
 
 	    $('#<?php echo $id; ?>').on('change', function(e) {
-	    	console.log('change');
-	    	if($(this).val() == 'y') {
+	    	if($(this).val() == 'Y') {
 	    		$('#poling-platform-slider').removeClass('uk-hidden');
+	    		$( '[name="poling_platform"]' ).val($( "#poling-platform-slider-range-min" ).slider( "value" )).trigger('input');
+
 	    	} else {
 	    		$('#poling-platform-slider').addClass('uk-hidden');
+	    		$( '[name="poling_platform"]' ).val( 'N' ).trigger('input');
 	    	}
 	    })
 	});

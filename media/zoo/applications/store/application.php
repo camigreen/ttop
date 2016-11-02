@@ -45,6 +45,8 @@ class StoreApplication extends Application {
         // Load libraries
         include_once $zoo->path->path('store.lib:/product/config.php');
         include_once $zoo->path->path('store.lib:/modal/config.php');
+        include_once $zoo->path->path('store.lib:/price/config.php');
+        include_once $zoo->path->path('store.lib:/cart/config.php');
 
 
 //        Load Classes
