@@ -203,6 +203,13 @@ $price['ttopboatcover.36Fisharound.item.option.fabric.9oz'] = 3150;
 $price['ttopboatcover.36Fisharound.shipping.weight'] = 40;
 $price['ttopboatcover.36Fisharound.shipping.price'] = 45;
 
+$price['ttopboatcover.255GradyWhite.item.base'] = 0;
+$price['ttopboatcover.255GradyWhite.item.option.fabric.7oz'] = 1670;
+$price['ttopboatcover.255GradyWhite.item.option.fabric.8oz'] = 1875;
+$price['ttopboatcover.255GradyWhite.item.option.fabric.9oz'] = 1995;
+$price['ttopboatcover.255GradyWhite.shipping.weight'] = 35;
+$price['ttopboatcover.255GradyWhite.shipping.price'] = 45;
+
 // //TTop Accessories
 
 $price['accessories.global.allowMarkup'] = false;
