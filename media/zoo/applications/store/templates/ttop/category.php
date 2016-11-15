@@ -40,7 +40,11 @@ $css_class = $this->application->getGroup().'-'.$this->template->name;
 		<?php endif; ?>
                 
 		<?php if ($this->params->get('template.show_description') || $this->params->get('template.show_image')) : ?>
+		<div class="uk=width-1-1">
+			<p class="uk-h4">Don't see your boat?  We are creating new patterns everyday!  Give us a call (843) 760-6101.</p>
+		</div>
 		<div class="uk-clearfix">
+
                         
 			<?php if ($this->params->get('template.show_image')) : ?>
                         <img class="<?php echo 'uk-align-'.($this->params->get('template.alignment') == "left" || $this->params->get('template.alignment') == "right" ? 'medium-' : '').$this->params->get('template.alignment'); ?>" src="<?php echo $logo_image['src']; ?>" title="<?php echo $this->category->name; ?>" alt="<?php echo $this->category->name; ?>" height="300"/>
