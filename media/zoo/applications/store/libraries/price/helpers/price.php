@@ -44,7 +44,7 @@ class PriceHelper extends AppHelper {
             $class = 'Price';
         }
         $price = new $class($this->app);
-        $price->setGroup($product->getPriceGroup());
+        $price->setGroup($product->getPriceRule());
         $price->register('path.rules.item', $this->app->path->path('rules:'.$product->type.'.php'));
         $price->register('path.rules.global', $this->app->path->path('rules:global.php'));
         $price->register('options.product', $product->options->getByType('price'));

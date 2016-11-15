@@ -33,11 +33,12 @@ class ModalHelper extends AppHelper {
 
     }
 
-    public function create($modal) {
+    public function create($modal, $args = null) {
         $modal = $this->app->data->create($modal);
         $type = $modal->get('type');
         $value = $modal->get('value');
         $field = $modal->get('field');
+        $args = $modal->get('args');
 
         if(!$node = $this->getNode($type)) {
             return 'Error loading modal from XML';
@@ -71,7 +72,7 @@ class ModalHelper extends AppHelper {
         $html[] = '<div class="modal-content'.($scroll ? ' uk-overflow-container' : '').'">';
 
         if(file_exists($this->app->path->path($file))) {
-            $html[] = $this->app->field->render('modals/'.$layout, $modal, $value, $node, array('save' => $save, 'cancel' => $cancel, 'field' => $field)); 
+            $html[] = $this->app->field->render('modals/'.$layout, $modal, $value, $node, array('save' => $save, 'cancel' => $cancel, 'field' => $field, 'args' => $args)); 
         } else {
             $html[] = 'Modal layout '.$layout.' not found!';
         }
@@ -82,11 +83,11 @@ class ModalHelper extends AppHelper {
         $html[] = '<ul class="uk-grid" data-uk-grid-margin>';
         if($save) {
             $html[] = '<li class="uk-width-1-4 uk-push-2-4">';
-            $html[] = '<button class="modal-save uk-button uk-button-primary uk-width-1-1" data-modal-type="'.$type.'">'.$save.'</button>';
+            $html[] = "<button class=\"modal-save uk-button uk-button-primary uk-width-1-1\" data-modal='".json_encode($modal)."'>".$save."</button>";
             $html[] = '</li>';
         }
         $html[] = '<li class="uk-width-1-4'.($save ? " uk-push-2-4" : " uk-push-3-4").'">';
-        $html[] = '<button class="modal-cancel uk-button uk-width-1-1" data-modal-type="'.$type.'">'.$cancel.'</button>';
+        $html[] = "<button class=\"modal-cancel uk-button uk-width-1-1\" data-modal='".json_encode($modal)."' >".$cancel."</button>";
         $html[] = '</li>';
         $html[] = '</ul>';
         $html[] = '</div>';

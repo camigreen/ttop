@@ -6,6 +6,7 @@
 * @license   http://www.gnu.org/licenses/gpl.html GNU/GPL
 */
 $this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
+$this->app->document->addScript('library.cart:assets/js/cart.js');
 $this->app->document->addScript('library.product:assets/js/orderform.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
@@ -26,10 +27,10 @@ $model = $this->product->getParam('boat.model');
 // $this->product->setOptionValue('swim_ladder', 'N');
 
 // Variable Options
-// $this->product->setOptionValue('color', 'B');
-// $this->product->setOptionValue('zipper', 'ZP');
+//$this->product->setOptionValue('color', 'N');
+//$this->product->setOptionValue('zipper', 'ZP');
 // $this->product->setOptionValue('storage', 'T');
-// $this->product->setOptionValue('motor_make', 'yamaha');
+ $this->product->setOptionValue('motor_make', 'yamaha');
 // $this->product->setOptionValue('motor_size', '150');
 // $this->product->setOptionValue('casting_platform', 'N');
 
@@ -42,7 +43,7 @@ $pattern = $pattern ? $pattern : 'No Pattern Found.';
 ?>
 <div id="OrderForm" class="ccbc ttop" >
 	<div class="uk-form">
-		<div id="ccbc" class="uk-grid orderForm" data-id="ccbc" data-item='[<?php echo $this->product->toJson(); ?>]' data-uk-grid-margin>
+		<div id="ccbc" class="uk-grid orderForm" data-id="ccbc" data-item='[<?php echo $this->product->toJson(true); ?>]' data-uk-grid-margin>
 			<div class="uk-width-1-1">
 				<a class="uk-text-large" href="<?php echo $this->url.$make->name; ?>"><i class="uk-icon uk-icon-caret-left uk-margin-right"></i>Back to <?php echo $make->label; ?></a>
 			</div>
@@ -52,12 +53,12 @@ $pattern = $pattern ? $pattern : 'No Pattern Found.';
 				</div>
 			</div>
 			<div class="uk-width-1-1 make-model-container">
-				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Make:</span><span><?php echo $make->label; ?></span></p>
+				<p><span class="uk-article-lead uk-text-bold uk-margin-right" data-uk-tooltip title="test">Make:</span><span><?php echo $make->label; ?></span></p>
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Model:</span><span><?php echo $model->label; ?></span></p>
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Pattern:</span><span id="patternID"><?php echo $pattern; ?></span></p>
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Product SKU:</span><span><?php echo $this->product->getSKU(); ?></span></p>
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Boat Length:</span><span><?php echo $this->product->getOption('boat_length')->getText(); ?></span></p>
-				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Price Group:</span><span><?php echo $this->product->getPriceGroup(); ?></span></p>
+				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Price Group:</span><span><?php echo $this->product->getPriceRule(); ?></span></p>
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Base Price:</span><span><?php echo $this->product->getPrice('base', 0.00, true); ?></span></p>
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">MSRP Price:</span><span><?php echo $this->product->getPrice('msrp', 0.00, true); ?></span></p>
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Display Retail Price:</span><span><?php echo $this->product->getPrice('display', 0.00, true); ?></span></p>
@@ -96,7 +97,7 @@ $pattern = $pattern ? $pattern : 'No Pattern Found.';
 		</div>
 	</div>
 	<div class='modals'></div>
-</div>	
+</div>
 
 <script>
 jQuery(function($){
@@ -120,7 +121,7 @@ jQuery(function($){
 //     });
 </script>
 <script>
-	var item = <?php echo $this->product->toJson(); ?>;
+	var item = <?php echo $this->product->toJson(true); ?>;
 	console.log(item);
     jQuery(function($) {
         $(document).ready(function(){
@@ -147,15 +148,17 @@ jQuery(function($){
                                         }
                                         break;
                                     case 'trolling_motor': // Check if the trolling motor is "yes" and show the modal for the photo upload
-                                        if(elem.val() === 'y') {
+                                        if(elem.val() === 'Y') {
                                             data = {
-												type: 'ccbc.trolling_motor'
+												type: 'ccbc.trolling_motor',
+												value: 'Y',
+												field: elem.prop('id')
 											};
 											lpiModal.getModal(data);
                                         }
                                         break;
                                     case 'casting_platform':
-                                    	if(elem.val() === 'y') {
+                                    	if(elem.val() === 'Y') {
 											lpiModal.getModal({type: 'ccbc.cast_platform'});
                                         }
                                         //changeColor(elem.val());

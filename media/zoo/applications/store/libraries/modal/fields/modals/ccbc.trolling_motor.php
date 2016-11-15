@@ -5,20 +5,20 @@
 	</div>
 	<div class="uk-width-1-2 uk-container-center">
 		<div>
-			<label><input name="ccbc.tm_modal_helper" type="radio" value="y" class="uk-margin-right" />Yes, I need this option.</label>
+			<label><input name="ccbc.trolling_motor_modal_helper" type="radio" value="Y" class="uk-margin-right" />Yes, I need this option.</label>
 		</div>
 		<div>
-			<label><input name="ccbc.tm_modal_helper" type="radio" value="r" class="uk-margin-right" checked/>I will remove my trolling motor.</label>
+			<label><input name="ccbc.trolling_motor_modal_helper" type="radio" value="R" class="uk-margin-right" checked/>I will remove my trolling motor.</label>
 		</div>
 	</div>
 </div>
-<input type="hidden" name="ccbc.tm_modal_value" data-field-id="<?php echo $field; ?>" value="r" />
+<input type="text" name="ccbc.trolling_motor_modal_value" data-field-id="<?php echo $field; ?>" value="R" />
 
 <script>
 jQuery(function($){
 	$(document).ready(function(){
-		var elem = $('[name="ccbc.tm_modal_value"]');
-		$('[name="ccbc.tm_modal_helper"]').on('change', function(){
+		var elem = $('[name="ccbc.trolling_motor_modal_value"]');
+		$('[name="ccbc.trolling_motor_modal_helper"]').on('change', function(){
 			elem.val($(this).val());
 		});
 	})

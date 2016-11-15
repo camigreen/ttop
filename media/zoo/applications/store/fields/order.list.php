@@ -35,6 +35,7 @@ $attributes['id'] = $id;
 $attributes['name'] = $name;
 $class = 'uk-width-1-1 item-option';
 $class .= $fieldtype;
+$class .= $required ? ' required' : '';
 
 if(!isset($options)) {
 	echo 'Error - No Options Available.';

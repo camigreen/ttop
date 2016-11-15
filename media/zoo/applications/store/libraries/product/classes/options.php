@@ -12,7 +12,7 @@
  *
  * @package Class Package
  */
-class Options implements JsonSerializable{
+class Options {
 
 	protected $_storage;
     protected $_xml;

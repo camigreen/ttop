@@ -24,13 +24,6 @@
         this.settings = $.extend(true, this.defaults, options);
         // Initialize the Plugin
         this.name = options.name;
-        this.confirm = {
-            elem: null,
-            modal: null,
-            button: null,
-            cancel: null,
-            id: null
-        };
         this.items = {};
         this.$atc = this.$element.find('.atc');
         this.$qty = this.$element.find('.qty');
@@ -51,12 +44,8 @@
         type: null,
         current_items: {},
         fields: {},
-        cart: {
-            validated: false,
-            items: {},
-            id: null,
-            confirmed: false
-        },
+        cart: lpiCart,
+        modal: lpiModal,
         validation: {
             message: null,
             messageData: {
@@ -82,7 +71,6 @@
             var self = this;
             this.loadItems();
             this.$element.find('#price').remove();
-            this._createConfirmModal();
             this.trigger('onInit', {items: this.items});
             $.each(this.$qty, function (k, v) {
                 var id = $(v).data('id');
@@ -110,15 +98,6 @@
             var id = args[0];
             var markup = args[1];
             this.items[id].markup = markup;
-        },
-        _createConfirmModal: function () {
-            this.confirm.elem = this.$element.find('#confirm-modal');
-            this.confirm.button = this.confirm.elem.find('button.confirm');
-            this.confirm.cancel = this.confirm.elem.find('button.cancel');
-            this.confirm.modal = $.UIkit.modal(this.confirm.elem);
-            this.confirm.modal.options.bgclose = false;
-            this.confirm.button.on('click', $.proxy(this, '_confirm'));
-            this.confirm.cancel.on('click', $.proxy(this, '_clearConfirm'));
         },
         getEvents: function (id, types) {
             
@@ -247,27 +226,39 @@
         },
         addToCart: function (e) {
             this._debug('Adding To Cart');
-            var triggerData = this.trigger('beforeAddToCart', {item: item});
+            id = $(e.target).data('product-id');
+            var triggerData = this.trigger('beforeAddToCart', {item: this.items[id]});
             product = triggerData.args.item;
+            console.log(product);
             var self = this;
+            if(!this._validate([product])) {
+                return;
+            }
+
+            if(!product.params.confirmed) {
+                this._confirmation([product]);
+                return;
+            }
+            this.cart.add([product]);
+            var triggerData = this.trigger('afterAddToCart', {item: this.items[id]});
             // var elem = $('#'+item.id+'-price span');
             // elem.html('<i class="uk-icon-refresh uk-icon-spin"></i>');
-            $.ajax({
-                type: 'POST',
-                url: "?option=com_zoo&controller=cart&task=add&format=json",
-                data: {product: product},
-                success: function(data){
-                    console.log(data);
-                },
-                error: function(data, status, error) {
-                    var elem = $('#'+item.id+'-price span');
-                    elem.html('ERROR');
-                    self._debug('Error');
-                    self._debug(status);
-                    self._debug(error);
-                },
-                dataType: 'json'
-            });
+            // $.ajax({
+            //     type: 'POST',
+            //     url: "?option=com_zoo&controller=cart&task=add&format=json",
+            //     data: {product: product},
+            //     success: function(data){
+            //         console.log(data);
+            //     },
+            //     error: function(data, status, error) {
+            //         var elem = $('#'+item.id+'-price span');
+            //         elem.html('ERROR');
+            //         self._debug('Error');
+            //         self._debug(status);
+            //         self._debug(error);
+            //     },
+            //     dataType: 'json'
+            // });
         },
         clearCart: function() {
             this.cart.id = null;
@@ -279,48 +270,23 @@
             console.log(id);
             return this.items[id];
         },
-        _confirmation: function (items, cart_id) { 
-            var result = false;
-            $.each(items, function (k,item) {
-                if(item.confirm) {
-                    result = true;
-                }
-            })                   
-
-            if (this.cart.confirmed) {
-                return true;
-            }
-
-            if (!result) {
-                return true;
-            }
-
-            this._debug('Starting Confirmation');
-            var triggerData = this.trigger('beforeConfirmation', {items: items});
-            items = triggerData.args.items;
-            var result = false;
-            $.each(items, function (k,item) {
-                if(item.confirm) {
-                    result = true;
-                }
+        setItemConfirmation: function(id, confirm) {
+            this.items[id].params.confirmed = confirm;
+            console.log(this.items[id]);
+        },
+        _confirmation: function (items, cart_id) {
+            this._debug('Starting Confirmation'); 
+            var self = this;
+            $.each(items, function(key, item) {
+                var data = {
+                    type: 'confirm',
+                    args: {product: item},
+                    cache: false
+                };
+                lpiModal.getModal(data);
             })
-
-            var self = this, container;
-            this.confirm.elem.find('[name="cart_id"]').val(cart_id);
-            $.each(items, function(k,item) {
-                var title = typeof item.title === 'undefined' ? item.name : item.title;
-                container = $('<div id="'+item.id+'" class="uk-width-1-1"></div>').append('<div class="item-name uk-width-1-1 uk-margin-top uk-text-large">'+title+'</div>').append('<div class="item-options uk-width-1-1 uk-margin-top"><table class="uk-width-1-1"></table></div>');
-                
-                $.each(item.options, function(k, option){
-                    if (typeof option.visible === 'undefined' || option.visible) {
-                        container.find('.item-options table').append('<tr><td class="item-options-name">'+option.name+'</td><td class="item-options-text">'+option.text+'</td></tr>');
-                    }
-                });
-                self.confirm.elem.find('.item').append(container);
             
-            });
-            this.confirm.modal.show();
-            return false;
+
         },
         _isPriceOption: function(type) {
             var haystack = type.split('|');
@@ -476,16 +442,18 @@
         },
         _validate: function (items) {
 
-            if(!this.settings.validate || this.cart.validated) {
+            if(!this.settings.validate) {
                 return true;
             }
-
+            console.log('test');
             var self = this, validated = true;
             self.$element.find('.validation-fail').removeClass('validation-fail');
             $.each(items, function (key, item) {
                 var fields = !self.fields[item.id] ? {} : self.fields[item.id];
+                console.log(fields);
                 $.each(fields, function (k, v) {
-                    if($(this).hasClass('required') && ($(this).val() === 'X' || $(this).val() === '')) {
+                    console.log($(v).prop('name'));
+                    if($(this).hasClass('required') && ($(this).val() === '0' || $(this).val() === '')) {
                         $(this).addClass('validation-fail');
                         self._debug($(this).prop('name') + 'Failed Validation');
                         validated = false;

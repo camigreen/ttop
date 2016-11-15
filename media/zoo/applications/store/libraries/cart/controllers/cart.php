@@ -36,44 +36,47 @@ class CartController extends AppController {
     }
 
     public function add() {
-        $product = $this->app->request->get('product', 'array', array());
-        $product = $this->app->product->create($product);
+        $stuff = array();
+        $products = $this->app->request->get('items', 'array', array());
+        foreach($products as $product) {
+            $product = $this->app->product->create($product);
+            $hash = $product->getHash();
+            $stuff[$hash] = $product;
+        }
 
-        $this->cart->add($product);
+        $this->cart->add($stuff);
         
-        //$this->output();
+        $this->output();
 
     }
 
     public function updateQty() {
-        $sku = $this->app->request->get('sku','string');
+        $hash = $this->app->request->get('hash','string');
         $qty = $this->app->request->get('qty','int');
-        $this->cart->updateQuantity($sku, $qty);
+        $this->cart->updateQty($hash, $qty);
         $this->output();
     }
 
-    public function emptyCart() {
-        $this->cart->emptyCart();
+    public function clear() {
+        $this->cart->clear();
+        $this->output();
+    }
+
+    public function load() {
         $this->output();
     }
 
     public function remove() {
-        $sku = $this->app->request->get('sku','string');
-        $this->cart->remove($sku);
+        $hash = $this->app->request->get('hash','string');
+        $this->cart->remove($hash);
         $this->output();
     }
 
     public function output() {
         $this->app->document->setMimeEncoding('application/json');
-        $items = $this->cart->getAllItems();
-        foreach($items as $key => $item) {
-            $items[$key] = $item->toSession();
-        }
         $result = array(
             'result' => true,
-            'items' => $items,
-            'item_count' => $this->cart->getItemCount(),
-            'total' => $this->cart->getCartTotal()
+            'render' => $this->cart->render()
         );
         echo json_encode($result);
     }

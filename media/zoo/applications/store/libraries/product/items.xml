@@ -169,6 +169,12 @@
 					<skucode>188</skucode>
 					<length>19</length>
 				</model>
+				<model>
+					<name>185-cc</name>
+					<label>185 CC</label>
+					<skucode>185CC</skucode>
+					<length>18</length>
+				</model>
 			</models>
 		</boat>
 		<boat>				

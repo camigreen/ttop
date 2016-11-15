@@ -51,7 +51,7 @@
 	<div class="uk-width-1-1 uk-margin-top">
 		<label><input name="ccbc.pp_modal_helper_c" type="radio" value="other" class="uk-margin-right" />Other<span class="uk-text-danger"> (explain in "Additional Info" box)</span></label>
 	</div>
-	<input type="text" name="ccbc.pp_modal_value" data-field-id="<?php echo $field; ?>"/>
+	<input type="hidden" name="ccbc.pp_modal_value" data-field-id="<?php echo $field; ?>"/>
 </div>
 
 <script>

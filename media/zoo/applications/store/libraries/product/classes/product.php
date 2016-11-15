@@ -127,34 +127,31 @@ class Product {
 
         $this->app = $app;
         $this->params = $this->app->parameter->create($this->params);
+        $this->options = $this->app->option->create($this->type);
 
     }
 
-    public function bind($product) {
+    public function bind($product = array()) {
+        $product = $this->app->data->create($product);
         $exclude = array('options', 'params');
         foreach($product as $key => $value) {
             if(property_exists($this, $key) && !in_array($key, $exclude)) {
                 $this->$key = $value;
-            } else if (!in_array($key, $exclude)) {
-                $this->setParam($key, $value);
-            }
+            } 
         }
-        $this->options = $this->app->option->create($this->type);
-        if($product->get('options')) {
-            foreach($product->get('options') as $name => $option) {
-                $option = $this->app->data->create($option);
-                $this->setOptionValue($name, $option->get('value'));
+        
+        foreach($product->get('options', array()) as $name => $value) {
+            if(isset($value['value']) && $value['value']) {
+                $this->setOptionValue($name, $value['value']);
             }
+            
         }
 
-        // foreach($this->_defaultOptions as $option) {
-        //     $this->setOption($option);
-        // }
-        // foreach($product->get('options', array()) as $key => $value) {
-        //     $this->options->set($key, $this->app->parameter->create($value));
-        // }
         foreach($product->get('params', array()) as $key => $value) {
-            $this->params->set($key, $this->app->parameter->create($value));
+            $this->params->set($key, $value);
+        }
+        if(!$this->params->get('confirmed')) {
+            $this->params->set('confirmed', false);
         }
         $this->getPrice();
         return $this;
@@ -212,6 +209,52 @@ class Product {
         
     }
 
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function increaseQty($qty = 1) {
+        $this->qty += $qty;
+        return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function decreaseQty($qty = 1) {
+        $this->qty -= $qty;
+        return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function setQty($qty) {
+        $this->qty = $qty;
+        return $this;
+    }
+
+    public function getQty() {
+        return $this->qty;
+    }
+
     public function setOption($name, $value = array()) {
         $this->options->set($name, $value);
         return $this;
@@ -265,6 +308,19 @@ class Product {
      *
      * @since 1.0
      */
+    public function getTotalPrice($name = 'display') {
+        return $this->getPrice($name) * $this->getQty();
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
     public function lockPrice() {
         if(!$this->price || !$this->price->get('lock')) {
             $this->price = $this->app->price->createdev($this);
@@ -281,7 +337,7 @@ class Product {
      * @since 1.0
      */
     public function getPriceRule() {
-        return $this->_priceRule;
+        return $this->_priceRule = $this->type;
         
     }
 
@@ -384,17 +440,50 @@ class Product {
         return $this->locked;
     }
 
-    public function toJson() {
-        $exclude = array('app');
-        $data = $this->app->data->create();
-        foreach($this as $key => $value) {
-            if(!in_array($key, $exclude)) {
-                $data->set($key, $value);
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getCartDetails() {
+        $details = $this->app->parameter->create();
+        $details->set('name', $this->name);
+        $details->set('qty', $this->getQty());
+        $details->set('price', $this->getTotalPrice());
+        foreach($this->getOptions() as $option) {
+            if($option->get('visible') === 'true') {
+                $details->set('options.'.$option->get('label'), $option->get('text'));
             }
         }
-        $options = $data->get('options');
-        $data->set('options', $options->toJson());
-        return json_encode($data);
+
+        return $details;
+    }
+
+    public function toJson($encode = false) {
+        $exclude = array('app', 'options', 'price', '_patternID', '_priceRule', 'boat_lengths');
+        $data = array();
+        foreach($this as $key => $value) {
+            if(!in_array($key, $exclude)) {
+                $data[$key] = $value;
+            }
+        }
+        $options = array();
+        foreach($this->options->getAll() as $name => $option) {
+            $options[$name] = array(
+                'value' => $option->get('value', 0),
+                'type' => $option->get('type', 'variable')
+            );
+        }
+        $data['options'] = $options;
+        $data['params'] = array();
+        $data['params']['boat.model'] = $this->getParam('boat.model')->name;
+        $data['params']['boat.manufacturer'] = $this->getParam('boat.manufacturer')->name;
+
+        return $encode ? json_encode($data) : $data;
     }
     
 }

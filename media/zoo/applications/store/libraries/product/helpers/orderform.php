@@ -437,13 +437,13 @@ class AppForm {
 				$span = $field->attributes()->span ? (string) $field->attributes()->span : '1';
 				$columns = $field->attributes()->columns ? (string) $field->attributes()->columns : '1';
 				$class = 'uk-width-medium-'.$span.'-'.$columns;
-				$class .= (bool) $field->attributes()->required ? ' required' : '';
+				$required = (bool) $field->attributes()->required ? true : false;
 				$default = strlen((string) $field->attributes()->default) > 0 ? (string) $field->attributes()->default : null; 
 				$value = $this->getValue($name, $default);
 				$control_name = $field->attributes()->controlname ? $field->attributes()->controlname : $group_control_name;
 				$disabled = $field->attributes()->disabled ? $field->attributes()->disabled : false;
 				$user = $this->app->storeuser->get();
-				$_field = $this->app->field->render($type, $name, $value, $field, array('id' => $id, 'user' => $user, 'assetName' => $this->assetName, 'control_name' => $control_name, 'parent' => $this, 'disabled' => $disabled));
+				$_field = $this->app->field->render($type, $name, $value, $field, array('id' => $id, 'user' => $user, 'assetName' => $this->assetName, 'control_name' => $control_name, 'parent' => $this, 'disabled' => $disabled, 'required' => $required));
 				$controlType = $field->attributes()->controlType ? $field->attributes()->controlType : 'option';
 
 

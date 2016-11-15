@@ -2,6 +2,8 @@
     //Slider Scope
     var lpiModal = {};
     window.lpiModal = lpiModal;
+
+    lpiModal.storage = {};
     
     lpiModal.init = function(container) {
 
@@ -41,15 +43,31 @@
         if(typeof lpiModal.modals[data.type] === 'undefined') {
             lpiModal.createModal(data).done(function(elem){
                 $('.modals').append(elem);
-                lpiModal.modals[data.type] = UIkit.modal(elem);
+                modal = UIkit.modal(elem);
+                elem.data('modal', data);
+                elem.data('modal').cache = (typeof data.cache === 'undefined' ? true : data.cache);
+                modal.on({
+                    'hide.uk.modal': function(){
+                        console.log("Element is not visible.");
+                        if(!$(this).data('modal').cache) {
+                            console.log($(this).data('modal'));
+                            var type = $(this).data('modal').type;
+                            delete lpiModal.modals[type];
+                            $(this).remove();
+                        }
+
+                    }
+                });
+                modal.cache = typeof data.cache === 'undefined' ? true : data.cache;
+                lpiModal.modals[data.type] = modal;
+                
                 console.log(data);
-                modal = lpiModal.modals[data.type];
                 modal.show();
             });
         } else {
 
             modal = lpiModal.modals[data.type];
-            console.log(data.value);
+            console.log(data);
             modal.find('[name="'+data.type+'_modal_helper"][value="'+data.value+'"]').prop('checked', true);
             modal.find('[name="'+data.type+'_modal_value"]').val(data.value);
             modal.show();
@@ -57,7 +75,9 @@
     };
 
     lpiModal.save = function(elem) {
-        var type = elem.data('modal-type');
+        var type = elem.data('modal').type;
+        var values = elem.data('modal').values;
+        var args = elem.data('modal').args;
         var modal_field = $('[name="'+type+'_modal_value"]');
         console.log(modal_field);
         var field = $('#'+modal_field.data('field-id'));
@@ -66,17 +86,19 @@
             type: type,
             modal_field: modal_field,
             field: field,
-            val: val
+            val: val,
+            args: args
         }
-        console.log(data);
+        
         field.val(val).trigger('change');
+        $('#'+type+'-modal').trigger('save', data);
         lpiModal.hide(type);
+        
     }
 
     lpiModal.cancel = function (elem) {
-        var type = elem.data('modal-type');
+        var type = elem.data('modal').type;
         lpiModal.hide(type);
-        console.log(type);
     }
 
     lpiModal.container = null;
@@ -86,7 +108,8 @@
     };
 
     lpiModal.hide = function(name) {
-        lpiModal.modals[name].hide();
+        var modal = lpiModal.modals[name];
+        modal.hide();
     };
 
     lpiModal.createModal = function(modal) {
@@ -119,7 +142,7 @@
     lpiModal.load = function(modal) {
         return $.ajax({
             type: 'POST',
-            url: "?option=com_zoo&controller=ccbc&task=getModal&format=json",
+            url: "?option=com_zoo&controller=modal&task=getModal&format=json",
             data: {modal: modal},
             dataType: 'json'
         }).promise();

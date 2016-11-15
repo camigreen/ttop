@@ -26,6 +26,7 @@ foreach ($xml->field as $field) {
 $attributes['id'] = $id;
 $attributes['name'] = $name.'-select';
 $class = 'uk-width-1-1';
+$class .= $required ? ' required' : '';
 
 if(!isset($options)) {
 	echo 'Error - No Options Available.';

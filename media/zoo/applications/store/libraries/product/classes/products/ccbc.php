@@ -31,7 +31,7 @@ class CCBCProduct extends Product {
 
     }
 
-	public function bind($product) {
+	public function bind($product = array()) {
 		parent::bind($product);
 		$this->id = 'ccbc';
 		$this->name = 'Center Console Boat Cover';
@@ -43,24 +43,41 @@ class CCBCProduct extends Product {
         foreach($this->getParam('boat.model')->get('options', array()) as $option) {
             $this->setOption($option->get('name'), $option);
         }
+        $this->name .= ' - '.$this->getParam('boat.manufacturer')->label.' '.$this->getParam('boat.model')->label;
+        $this->setPriceRule();
 		return $this;
 	}
-
-	    /**
+    
+    /**
      * Get the price group for the item.
      *
      * @return     string    the price group.
      *
      * @since 1.0
      */
-    public function getPriceGroup() {
-        if($parent = parent::getPriceRule()) {
-            $priceRule[] = $parent;
+    public function setPriceRule($value = null) {
+        if($value) {
+            $this->_priceRule = $value;
+            return $this;
         }
-    	$priceRule[] = $this->getOption('boat_length')->getText();
-    	$priceRule[] = $this->getOption('fabric')->getValue();
 
-        return implode('.', $priceRule);
+        $priceRule[] = $this->getOption('boat_length')->getText();
+        $priceRule[] = $this->getOption('fabric')->getValue();
+
+        $this->_priceRule = implode('.', $priceRule);
+
+        return $this;
+        
+    }
+	/**
+     * Get the price group for the item.
+     *
+     * @return     string    the price group.
+     *
+     * @since 1.0
+     */
+    public function getPriceRule($default = null) {
+        return $this->_priceRule ? $this->_priceRule : $default;
         
     }
 
@@ -87,19 +104,20 @@ class CCBCProduct extends Product {
     }
 
     public function toJson($encode = false) {
-        $exclude = array('app', 'boat_lengths', '_patternID', 'price', '_priceRule', 'params', 'options');
-        $data = $this->app->data->create();
-        foreach($this as $key => $value) {
-            if(!in_array($key, $exclude)) {
-                $data->set($key, $value);
-            }
-        }
-        $make = $this->getParam('boat.manufacturer');
-        $data->set('boat.manufacturer', $make->name);
-        $data->set('boat.model', $make->getModel()->get('name'));
-        $data->set('options', $this->options->toJson());
-        $data->set('sku', $this->getSKU());
-        $data->set('pattern', $this->getPatternID());
-        return $encode ? json_encode($data) : $data;
+        return parent::toJson($encode);
+        // $exclude = array('app', 'boat_lengths', '_patternID', 'price', '_priceRule', 'params', 'options');
+        // $data = $this->app->data->create();
+        // foreach($this as $key => $value) {
+        //     if(!in_array($key, $exclude)) {
+        //         $data->set($key, $value);
+        //     }
+        // }
+        // $make = $this->getParam('boat.manufacturer');
+        // $data->set('boat.manufacturer', $make->name);
+        // $data->set('boat.model', $make->getModel()->get('name'));
+        // $data->set('options', $this->options->toJson());
+        // $data->set('sku', $this->getSKU());
+        // $data->set('pattern', $this->getPatternID());
+        // return $encode ? json_encode($data) : $data;
     }
 }

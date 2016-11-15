@@ -43,7 +43,7 @@ for ($i = $diff;$i>=0;$i--) {
     $options[$year] = $year;  
 }
 
-$attributes = array('name' => $name, 'class' => 'uk-width-1-1'.$fieldtype);
+$attributes = array('name' => $name, 'class' => 'uk-width-1-1'.$fieldtype.($required ? ' required' : ''));
 if($node->attributes()->option) {
 	$attributes['data-option'] = json_encode($optionData);
 }
@@ -54,17 +54,17 @@ if($disabled) {
 
 printf('<select %s>', $this->app->field->attributes($attributes));
 
-foreach ($options as $year) {
+foreach ($options as $val => $text) {
 
 	// set attributes
-	$attributes = array('value' => $year);
+	$attributes = array('value' => $val);
 
 	// is checked ?
-	if ($year == $value) {
+	if ($val == $value) {
 		$attributes['selected'] = 'selected';
 	}
 
-	printf('<option %s>%s</option>', $this->app->field->attributes($attributes), $year);
+	printf('<option %s>%s</option>', $this->app->field->attributes($attributes), $text);
 }
 
 printf('</select>');
