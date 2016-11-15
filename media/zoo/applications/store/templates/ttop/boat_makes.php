@@ -40,6 +40,9 @@ $css_class = $this->application->getGroup().'-'.$this->template->name;
 		<?php endif; ?>
                 
 		<?php if ($this->params->get('template.show_description') || $this->params->get('template.show_image')) : ?>
+		<div class="uk=width-1-1">
+			<p class="uk-h4 uk-text-center">Don't see your boat?  We are creating new patterns everyday!  Give us a call (843) 760-6101.</p>
+		</div>
 		<div class="uk-clearfix">
                         
 			<?php if ($this->params->get('template.show_image')) : ?>
