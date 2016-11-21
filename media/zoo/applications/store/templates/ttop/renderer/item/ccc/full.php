@@ -347,7 +347,7 @@ var_dump($product->price->debug());
 
                             });
                             $('[name="fabric"]').on('change',function (e) {
-                                console.log('test');
+                                console.log('Color Change');
                                 self.trigger('changeColor', {item: self.item, fabric: $(e.target).val()});
                             });
 
@@ -376,7 +376,7 @@ var_dump($product->price->debug());
                                 console.log(CCC.mode);
                             });
 
-
+                            this._publishPrice(this.item);
                             return data;
                         }
                            
@@ -427,7 +427,6 @@ var_dump($product->price->debug());
                             getMeasurements();
                             
                             var adjust = typeof data.args.adjustHSW === 'undefined' ? false : data.args.adjustHSW;
-
                             if(checkMinandMax(location)) {
                                 getCCCClass();
                                 if(adjust) {
@@ -439,9 +438,12 @@ var_dump($product->price->debug());
                                 this.item.options.helm2console.text = CCC.options.helm2console.value + ' inches';
                                 this.item.options.helmSeatWidth.value = CCC.options.helmSeatWidth.value;
                                 this.item.options.helmSeatWidth.text = CCC.options.helmSeatWidth.value + ' inches';
-                                this.item.options.class.value = CCC.class.value;
                                 this.item.options.measurement_source.value = !CCC.measurements_changed ? 'default': CCC.measurements_changed;
-                                this._publishPrice(this.item);
+                                if(this.item.options.class.value != CCC.class.value) {
+                                    this.item.options.class.value = CCC.class.value;
+                                    this._publishPrice(this.item);
+                                }
+                                
                             } else {
                                 data.triggerResult = false;
                             }
@@ -563,9 +565,9 @@ var_dump($product->price->debug());
                             var fabric = data.args.fabric;
                             var colorSelect = $('.item-option[name="color"]');
                             var colors = {
-                                    '9oz': ['navy','black','gray','tan'],
-                                    '8oz': ['navy','black'],
-                                    '7oz': ['navy','black']
+                                    '9oz': ['N','B','G','T'],
+                                    '8oz': ['N','B'],
+                                    '7oz': ['N','B']
                                 }
                             colorSelect.find('option').each(function(k,v){
                                 $(this).find('span').html('');
@@ -579,7 +581,7 @@ var_dump($product->price->debug());
                                 }
                             });
                             if($.inArray(colorSelect.val(), colors[fabric]) === -1) {
-                                colorSelect.val('X').trigger('input');
+                                colorSelect.val('N').trigger('input');
                             }
                             return data;
                         }
@@ -753,10 +755,11 @@ var_dump($product->price->debug());
                     ],
                     beforeAddToCart: [
                         function (data) {
-                            console.log(data);
+                            
                             if (!CCC.measurements_changed) {
                                 this.trigger('measurementsNotChanged', {item: this.item});
                                 data.triggerResult = false;
+                                console.log(data);
                                 return data;
                             }
                             var item = data.args.item;

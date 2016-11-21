@@ -59,8 +59,8 @@ $makes = $bsk->getMakes($kind);
 		  	$('#default-boatchooser-modal').on('save', function(e, data){
 		  		var make = $('[name="boatmake"] option:selected');
                 var model = $('[name="boatmodel"] option:selected');
-                $('[name="make"]').val(make.text());
-                $('[name="model"]').val(model.text());
+                $('[name="make"]').val(make.text()).trigger('input');
+                $('[name="model"]').val(model.text()).trigger('input');
                 var measurements = model.val().split(','), proceed = true;
 
                 // Transfer TTop2Deck Measurement
@@ -91,12 +91,18 @@ $makes = $bsk->getMakes($kind);
                     $('#OrderForm-ccc').trigger('backToDefaults');
                     $('#OrderForm-ccc').trigger('measure');
                 }
-		  		return true;
+                data.result = 'break';
+		  		return data;
 
 	        });
 	        $('#default-boatchooser-modal').on('cancel', function(e, data){
-	        	console.log('cancel');
-	        	return true;
+	        	console.log('Enter My Own');
+	        	$('.ccc-measurement').show();
+                $('#OrderForm-ccc').trigger('backToDefaults', {mode: 'EMM'});
+                CCC.mode = 'EMM';
+                $('#OrderForm-ccc').trigger('measure', {});
+                data.result = true;
+	        	return data;
 	        });
 
 	  		$('#default-boatchooser-modal select').on('change', function() {

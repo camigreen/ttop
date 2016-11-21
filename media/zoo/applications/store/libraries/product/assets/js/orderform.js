@@ -212,6 +212,9 @@
             this._debug('Adding To Cart');
             id = $(e.target).data('product-id');
             var triggerData = this.trigger('beforeAddToCart', {item: this.item});
+            if(!triggerData.triggerResult) {
+                return;
+            }
             product = triggerData.args.item;
             console.log(product);
             var self = this;
@@ -389,7 +392,7 @@
 
             $.each(this.item.options, function(name, option) {
                 console.log(option);
-                if(typeof option.value === 'undefined' || option.value === '' || option.value === '0' || option.value === 0) {
+                if(typeof option.value === 'undefined' || !option.value || option.value === '' || option.value === '0' || option.value === 0) {
                     var elem = $('[name="'+name+'"]');
                     if(elem.hasClass('required')) {
                         elem.addClass('validation-fail');

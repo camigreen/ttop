@@ -68,10 +68,10 @@ $opts['global_options']['zipper'] = array(
 );
 
 $opts['global_options']['color'] = array(
-    'navy' => 'Navy',
-    'black' => 'Black',
-    'gray' => 'Grey',
-    'tan' => 'Tan'
+    'N' => 'Navy',
+    'B' => 'Black',
+    'G' => 'Grey',
+    'T' => 'Tan'
 );
 $opts['global_options']['storage'] = array(
     'T' => 'Trailer',

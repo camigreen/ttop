@@ -102,6 +102,7 @@ class ElementItemOptions extends ElementStore {
 
                 include 'option_lists.php';
                 $options = $opts[$option_type][$option_list];
+
                 if (!$this->config->get('all_options') && $this->get('option')) {
                     $newOptions = array();
                     $selected = $this->get('option');
@@ -115,7 +116,6 @@ class ElementItemOptions extends ElementStore {
                 
                 
                 $default = $this->config->get('default');
-                
                 if (!$default) {
                     $chosen_opts[] = $this->app->html->_('select.option', 'X', '-' . JText::_('Select') . '-');
                 }
