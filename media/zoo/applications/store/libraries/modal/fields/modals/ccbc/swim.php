@@ -22,16 +22,22 @@
 	<div class="uk-width-1-1">
 		<label><input name="sl_modal_helper" type="radio" value="other" />Other<span class="uk-text-danger">(explain in "Additional Info" box)</span></label>
 	</span></div>
-	<input type="hidden" name="ccbc.swim_modal_value" data-field-id="<?php echo $field; ?>"/>
 </div>
 
 <script>
 jQuery(function($){
 	$(document).ready(function(){
-		var elem = $('[name="ccbc.swim_modal_value"]');
-		$('[name="sl_modal_helper"]').on('change', function(){
-			elem.val($(this).val());
-		});
+		var value = $('[name="swim_ladder"]').val();
+		$('input[name="sl_modal_helper"][value="'+value+'"]').prop('checked', 'checked');
+		
+		$('#ccbc-swim-modal').on('save', function(e, data){
+			var name = data.name;
+            var elem = $('[name="swim_ladder"]');
+            console.log(elem);
+            var value = $('[name="sl_modal_helper"]:checked').val()
+            data.result = true;
+            elem.val(value).trigger('change');
+        });
 	})
 })
 </script>

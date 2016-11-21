@@ -20,7 +20,7 @@
 			<fieldset group="boat_options" label="Boat Options" controlname="options" columns="2" span="1">
 				<field name="storage" type="order.list" option="variable" columns="1" span="1" default="0" label="How is your boat stored?" description="" required="1" />
 				<field name="year" type="order.year.list" option="pattern" columns="2" span="1" default="0" label="Year" description="" required="1" />
-				<field name="boat_style" type="order.list" option="pattern" columns="2" span="1" default="0" label="Boat Style" description="" required="1" modal="confirm"/>
+				<field name="boat_style" type="order.list" option="pattern" columns="2" span="1" default="0" label="Boat Style" description="" required="1" />
 			</fieldset>
 			<fieldset group="motor_options" label="Motor Options" controlname="options" columns="2" span="1">
 				<field name="motors" type="order.list" option="pattern" columns="1" span="1" default="0" label="Number of Motors" description="" required="1" />
@@ -38,6 +38,7 @@
 			<fieldset group="bow_options" label="Bow Options" controlname="options" columns="1" span="1">
 				<field name="bow_rails" type="order.list" option="pattern" columns="2" span="1" default="0" label="Bow Rails" description="" modal="bowrails" required="1" />
 				<field name="casting_platform" type="order.list" option="variable" columns="2" span="1" default="0" label="Casting Platform" description="" modal="ccbc.cast_platform" required="1"/>
+				<field name="add_info" type="order.textarea" option="pattern" columns="1" span="1" label="Additional Information" description="" />
 			</fieldset>
 			<fieldset group="pricing" columns="1" span="1">
 				<field name="price" type="store.price" columns="1" span="1" />

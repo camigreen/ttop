@@ -15,7 +15,6 @@
 			<div class="uk-text-small uk-text-center"><i class="uk-icon-arrow-left uk-margin-right"></i>Slide the bar to adjust the poling platform height.<i class="uk-icon-arrow-right uk-margin-left"></i></div>
 		</div>
 	</div>
-	<input type="hidden" name="ccbc.poling_platform_modal_value" data-field-id="<?php echo $field; ?>"/>
 </div>
 
 <script>

@@ -40,19 +40,19 @@ class ReceiptFormPDF extends FormPDF {
     	$item_array = array();
 	    foreach($order->elements->get('items.', array()) as $item) {
 	    	$options = array();
-	    	foreach($item->options as $option) {
-	    		$options[] = $option['name'].': '.$option['text'];
+	    	foreach($item->getOptions() as $option) {
+	    		$options[] = $option->get('label').': '.$option->get('text');
 	    	}
 	    	$item_array[] = array(
 	    		'item_description' => array(
 	    			array('format' => 'item-name','text' => $item->name),
 	    			array('format' => 'item-options','text' => implode("\n",$options))
 	    		),
-	    		'qty' => array('text' => $item->qty),
-	    		'msrp' => array('text' => $item->getTotal('resellerMSRP')),
-	    		'markup_price' => array('text' => $this->app->number->currency($item->getTotal('markup'), array('currency' => 'USD'))."\n".$item->getPrice()->getMarkupRate(true).' Markup'),
-	    		'dealer_price' => array('text' => $this->app->number->currency($item->getTotal('reseller'), array('currency' => 'USD'))."\n".$item->getPrice()->getDiscountRate(true).' Discount'),
-	    		'dealer_profit' => array('text' => $this->app->number->currency($item->getTotal('margin'), array('currency' => 'USD'))."\nTotal Discount ".$item->getPrice()->getProfitRate(true))
+	    		'qty' => array('text' => $item->getQty()),
+	    		'msrp' => array('text' => $item->getTotalPrice('msrp')),
+	    		'markup_price' => array('text' => $this->app->number->currency($item->getTotalPrice('markup'), array('currency' => 'USD'))."\n".$item->getTotalPrice('markup.reseller').' Markup'),
+	    		'dealer_price' => array('text' => $this->app->number->currency($item->getTotalPrice(), array('currency' => 'USD'))."\n".$item->getTotalPrice('discount').' Discount'),
+	    		'dealer_profit' => array('text' => $this->app->number->currency($item->getTotalPrice('profit'), array('currency' => 'USD'))."\nTotal Discount ".$item->getTotalPrice('profit'))
 	    	);
 
 	    }
@@ -71,7 +71,7 @@ class ReceiptFormPDF extends FormPDF {
 	    $form_data->set('tax_total', $order->getTaxTotal());
 	    $form_data->set('ship_total', $order->getShippingTotal());
 	    $form_data->set('total', $order->getTotal());
-	    $form_data->set('balance_due', $order->params->get('payment.status') == 3 ? 0 : $order->total);
+	    $form_data->set('balance_due', $order->params->get('payment.status') == 3 ? 0.00 : $order->total);
 
 		return parent::setData($form_data);
 	}

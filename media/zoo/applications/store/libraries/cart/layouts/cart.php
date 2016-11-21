@@ -20,9 +20,14 @@
                 	<?php else : ?>
 	                	<?php foreach($data['items'] as $hash => $item) : ?>
 	                	<tr id="<?php echo $hash; ?>">
-	                		<td class="name">
-	                			<?php echo $item->get('name'); ?>
-	                			<div class="uk-margin-left uk-grid">
+	                		<td class="product">
+                                <div class="name">
+                                    <?php echo $item->get('name'); ?>
+                                </div>
+	                			<div class="description">
+                                    <?php echo $item->get('description'); ?>
+                                </div>
+	                			<div class="uk-margin-left">
 	                			<?php if(count($item->get('options.', array())) > 0) : ?>
 	                				<span class="options-closed uk-text-small" data-uk-toggle="{target:'#<?php echo $hash; ?> .options-container,#<?php echo $hash; ?> .options-closed,#<?php echo $hash; ?> .options-open'}"><i class="uk-icon uk-icon-plus-square-o"></i> View Options</span>
 	                				<span class="options-open uk-text-small uk-hidden" data-uk-toggle="{target:'#<?php echo $hash; ?> .options-container,#<?php echo $hash; ?> .options-closed,#<?php echo $hash; ?> .options-open'}"><i class="uk-icon uk-icon-minus-square-o"></i> Hide Options</span>
@@ -57,8 +62,8 @@
             </table>
         <div class="uk-align-right">
             <button class="uk-button uk-button-primary continue"><?php echo JText::_('CART_CONTINUE_SHOPPING_BUTTON'); ?></button>
-            <button class="uk-button uk-button-primary checkout"><?php echo JText::_('CART_CHECKOUT_BUTTON'); ?></button>
-            <button class="uk-button uk-button-primary clear"><?php echo JText::_('CART_EMPTY_CART_BUTTON'); ?></button>
+            <button class="uk-button uk-button-primary checkout" <?php echo $data['count'] === 0 ? 'disabled' : '' ?> ><?php echo JText::_('CART_CHECKOUT_BUTTON'); ?></button>
+            <button class="uk-button uk-button-primary clear" <?php echo $data['count'] === 0 ? 'disabled' : '' ?> ><?php echo JText::_('CART_EMPTY_CART_BUTTON'); ?></button>
         </div>
     </div>
 </div>

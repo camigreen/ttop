@@ -76,7 +76,7 @@ class Product {
      * @var [array]  Will be one of three categories. (price, base, pattern)
      * @since 1.0.0
      */
-    public $options = array();
+    public $options;
 
     /**
      * Description of the item.
@@ -123,37 +123,43 @@ class Product {
      *
      * @param datatype    $app    Parameter Description
      */
-    public function __construct($app) {
+    public function __construct($app, $product) {
 
-        $this->app = $app;
-        $this->params = $this->app->parameter->create($this->params);
-        $this->options = $this->app->option->create($this->type);
+        $this->app = $app; 
+        $this->bind($product);
+        $this->initPrice();
+        
 
     }
 
     public function bind($product = array()) {
-        $product = $this->app->data->create($product);
+        // Bind all variable except options and params
         $exclude = array('options', 'params');
         foreach($product as $key => $value) {
             if(property_exists($this, $key) && !in_array($key, $exclude)) {
                 $this->$key = $value;
             } 
         }
-        
+        $this->locked = $this->locked == 'true' ? true : false;
+
+        // Bind options
+        $this->options = $this->app->option->create($this->options);
         foreach($product->get('options', array()) as $name => $value) {
             if(isset($value['value']) && $value['value']) {
                 $this->setOptionValue($name, $value['value']);
             }
-            
         }
-
-        foreach($product->get('params', array()) as $key => $value) {
-            $this->params->set($key, $value);
-        }
+        // Bind Params
+        $this->params = $this->app->parameter->create($product->get('params'));
+        // foreach($product->get('params', array()) as $key => $value) {
+        //     $this->params->set($key, $value);
+        // }
         if(!$this->params->get('confirmed')) {
             $this->params->set('confirmed', false);
         }
-        $this->getPrice();
+
+        $this->setPriceRule();
+
         return $this;
     }
 
@@ -262,8 +268,8 @@ class Product {
 
     public function setOptionValue($name, $value = null) {
         $this->options->setValue($name, $value);
-        if($this->getOption($name)->isPriceOption()) {
-            $this->getPrice();
+        if($this->getOption($name)->isPriceOption() && $this->price) {
+            $this->refreshPrice();
         }
         return $this;
     }
@@ -276,6 +282,19 @@ class Product {
         $this->attributes->set($name, $value); 
         
         return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getWeight() {
+        return $this->price->getParam('weight', 0);
     }
 
     public function getSKU() {
@@ -291,11 +310,78 @@ class Product {
      *
      * @since 1.0
      */
-    public function getPrice($name = 'display', $default = 0.00, $formatted = false) {
-        if(!$this->price || !$this->price->get('lock')) {
+    public function initPrice() {
+        if(!$this->isLocked()) {
             $this->price = $this->app->price->createdev($this);
+        } else {
+            $this->price = $this->app->data->create($this->price);
         }
+        return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function refreshPrice() {
+        if(!$this->locked) {
+            $this->price->calculate();
+        }
+        return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getPrice($name = 'display', $default = 0.00, $formatted = false) {
+        
         return $this->price->get($name, $default, $formatted);
+
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getTotalPrice($name = 'display', $formatted = false) {
+        $total = $this->getPrice($name) * $this->getQty();
+        if($formatted) {
+            $total = $this->app->number->currency($total, array('currency' => 'USD'));
+        }
+        return $total;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function lock() {
+        $this->locked = true;
+        $this->_lockPrice();
+        $product = $this->toJson();
+        $product['price'] = $this->price;
+        return $product;
         
     }
 
@@ -308,20 +394,7 @@ class Product {
      *
      * @since 1.0
      */
-    public function getTotalPrice($name = 'display') {
-        return $this->getPrice($name) * $this->getQty();
-    }
-
-    /**
-     * Describe the Function
-     *
-     * @param     datatype        Description of the parameter.
-     *
-     * @return     datatype    Description of the value returned.
-     *
-     * @since 1.0
-     */
-    public function lockPrice() {
+    protected function _lockPrice() {
         if(!$this->price || !$this->price->get('lock')) {
             $this->price = $this->app->price->createdev($this);
         } 
@@ -339,6 +412,20 @@ class Product {
     public function getPriceRule() {
         return $this->_priceRule = $this->type;
         
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function setPriceRule() {
+        $this->_priceRule = $this->type;
+        return $this;
     }
 
     public function getHash() {
@@ -449,17 +536,30 @@ class Product {
      *
      * @since 1.0
      */
+    public function isTaxable() {
+        return true;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
     public function getCartDetails() {
         $details = $this->app->parameter->create();
         $details->set('name', $this->name);
         $details->set('qty', $this->getQty());
         $details->set('price', $this->getTotalPrice());
+        $details->set('description', $this->description);
         foreach($this->getOptions() as $option) {
             if($option->get('visible') === 'true') {
                 $details->set('options.'.$option->get('label'), $option->get('text'));
             }
         }
-
         return $details;
     }
 
@@ -473,15 +573,10 @@ class Product {
         }
         $options = array();
         foreach($this->options->getAll() as $name => $option) {
-            $options[$name] = array(
-                'value' => $option->get('value', 0),
-                'type' => $option->get('type', 'variable')
-            );
+            $option->remove('choices.');
+            $options[$name] = $option;
         }
         $data['options'] = $options;
-        $data['params'] = array();
-        $data['params']['boat.model'] = $this->getParam('boat.model')->name;
-        $data['params']['boat.manufacturer'] = $this->getParam('boat.manufacturer')->name;
 
         return $encode ? json_encode($data) : $data;
     }

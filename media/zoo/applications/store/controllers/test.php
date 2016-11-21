@@ -265,6 +265,30 @@ class TestController extends AppController {
 		//$this->getView()->addTemplatePath($this->app->path->path('library.cart:/layouts'))->setLayout($layout)->display();
 	}
 
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function testShip() {
+		$shipper = $this->app->shipper;
+		$shipTo = array();
+		$shipTo['name'] = 'Shawn Gibbons';
+		$shipTo['street1'] = '114 St Awdry Street';
+		$shipTo['city'] = 'Summerville';
+		$shipTo['state'] = 'SC';
+		$shipTo['postalCode'] = '29485';
+		$shipTo = $this->app->data->create($shipTo);
+		$shipper->setDestination($shipTo)->assemblePackages($this->app->cart->getAll());
+		var_dump($shipper);
+		var_dump($shipper->getRates());
+
+	}
+
 
 }
 ?>

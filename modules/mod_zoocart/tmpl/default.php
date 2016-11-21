@@ -1,7 +1,8 @@
 <?php // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 $user = $zoo->customer->getUser();
-$testMode = $zoo->merchant->testMode();
+$cart = $zoo->cart;
+$count = $cart->getItemCount();
 ?>
 
 <ul id="cart-module" class="uk-list uk-hidden-small uk-navbar-flip">
@@ -10,9 +11,9 @@ $testMode = $zoo->merchant->testMode();
             <div class="uk-grid"> 
                 <div class="uk-width-1-1">
                     <span class="icon"></span>
-                    <span class="currency">$</span>
-                    <span data-cart="total">0.00</span>
-                    <span class="items">(<span data-cart="quantity">0</span> Items)</span>
+                    <span class="currency" data-cart="currency">$</span>
+                    <span data-cart="total"><?php echo $cart->getTotal(); ?></span>
+                    <span data-cart="quantity">(<?php echo $count; ?> <?php echo $count > 1 ? 'Items)' : 'Item)'; ?></span>
                 </div>
             </div>
         </a>

@@ -35,9 +35,28 @@ class Price {
 	 *
 	 * @param datatype	$value	Parameter Description
 	 */
-	public function __construct($app) {
+	public function __construct($app, $data) {
 		$this->app = $app;
 		$this->_storage = $this->app->parameter->create();
+		$this->init($data);
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function init($data) {
+		$this->register('path.rules.item', $data['path.rules.item']);
+		$this->register('path.rules.global', $data['path.rules.global']);
+		$this->register('product.type', $data['product.type']);
+		$this->setRule($data['rule']);
+		$this->register('options.product.', $data['options.product']);
+		$this->calculate();
 	}
 
 	/**
@@ -58,15 +77,15 @@ class Price {
 		}
 		
 		$base = $this->get('base');
-		$msrpMkup = $this->getParam('markup.msrp')+1;
+		$msrpMkup = $this->getMarkupRate('msrp');
 		
-		$discount = $this->getDiscount();
+		$discount = $this->getDiscountRate();
 		$addons = $this->get('addons');
 		$msrp = $base*$msrpMkup;
 		$msrp += $addons;
 		$this->setPrice('msrp', $msrp);
-		$rDisplay = $msrp*$discount;
-		$this->setPrice('display', $rDisplay);
+		$display = $msrp*$discount;
+		$this->setPrice('display', $display);
 
 	}
 
@@ -80,19 +99,19 @@ class Price {
 	 * @since 1.0
 	 */
 	protected function _loadRules() {
-		if($this->getParam('path.rules.item')) {
-			include $this->getParam('path.rules.item');
-		}
+
 		if($this->getParam('path.rules.global')) {
 			include $this->getParam('path.rules.global');
+		}		
+		if($this->getParam('path.rules.item')) {
+			include $this->getParam('path.rules.item');
 		}
 
 		$rules = $this->app->parameter->create($rules);
 		
-		if (!$rules->get($this->getGroup().'.')) {
+		if (!$rules->get($this->getRule().'.')) {
             return false;
         }
-		
 		$data = $this->app->parameter->create();
 
 		$data = $this->_addGlobalRules($rules, $data);
@@ -101,11 +120,12 @@ class Price {
 
 		$data = $this->_addItemRules($rules, $data);
 
-		$this->register('options.price', $data->get('options.'));
+		$this->register('options.price.', $data->get('options.'));
+		$this->register('allowMarkup', $data->get('allowMarkup'));
 		$this->register('weight', $data->get('weight'));
 		$this->setPrice('base', $data->get('base', 0.00));
-		$this->register('discount', $data->get('discount', 0.00));
-		$this->register('markup.msrp', $data->get('markup.msrp', 0.00));
+		$this->setDiscountRate($data->get('discount',0));
+		$this->setMarkupRate('msrp', $data->get('markup.msrp', 0.00));
 		return $this;
 	}
 
@@ -156,7 +176,7 @@ class Price {
 	 * @since 1.0
 	 */
 	protected function _addItemRules($rules, $data) {
-		foreach($this->getParam('group.', array()) as $part) {
+		foreach($this->getParam('rule.', array()) as $part) {
 			$group = isset($group) ? $group .= '.'.$part : $part;
 			$ruleset = $rules->get($group.'.', array());
 			foreach($ruleset as $key => $value) {
@@ -179,10 +199,12 @@ class Price {
 	 */
 	protected function _addOptions() {
 		$addons = 0.00;
-		$productOptions = $this->getParam('options.product');
+		$productOptions = $this->getParam('options.product.', array());
 		$rules = $this->getPriceOptionRules();
-		foreach($productOptions as $option) {
-			$price = $rules->get($option->get('name').'.'.$option->getValue(), 0.00);
+		foreach($productOptions as $name => $option) {
+			$value = $option->get('type') == 'price.adj' ? null : '.'.$option->get('value');
+			$price = $rules->get($name.$value, 0.00);
+			$price = $option->get('cost', $price);
 			$qty = $option->get('qty', 1);
 			$addons += ($price*$qty);
 
@@ -202,6 +224,10 @@ class Price {
 	 */
 	public function getParam($name, $default = null) {
 		return $this->_storage->get($name, $default);
+	}
+
+	public function getParams() {
+		return $this->_storage;
 	}
 
 	/**
@@ -242,7 +268,7 @@ class Price {
 	 */
 	public function lock() {
 		$price = $this->app->data->create($this->getParam('price.'));
-		$price->set('discount', $this->getParam('discount', 0.00));
+		$price->set('discount', $this->getParam('discount'));
 		$price->set('markup.', $this->getParam('markup.'));
 		$price->set('lock', true);
 		return $price;
@@ -272,9 +298,52 @@ class Price {
 	 *
 	 * @since 1.0
 	 */
-	public function getDiscount() {
-		return $this->getParam('discount')+1;
+	public function getDiscountRate($default = 0) {
+		return (float) $this->getParam('discount', $default);
 		
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function setDiscountRate($value = 0) {
+		$value = $value >= 1 ? $value/100 : $value;
+		$this->register('discount', (float) 1 - $value);
+		return $this;
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function getMarkupRate($name = null, $default = 0) {
+		return $this->getParam('markup.'.$name, (float) $default);
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function setMarkupRate($name, $value = 0) {
+		$value = $value >= 1 ? $value/100 : $value;
+		$this->register('markup.'.$name, (float) $value + 1);
+		return $this;
 	}
 
 	/**
@@ -300,9 +369,9 @@ class Price {
 	 *
 	 * @since 1.0
 	 */
-	public function setGroup($priceGroup) {
-		$parts = explode('.', $priceGroup);
-		$this->register('group.', $parts);
+	public function setRule($rule) {
+		$parts = explode('.', $rule);
+		$this->register('rule.', $parts);
 		return $this;
 	}
 
@@ -315,12 +384,12 @@ class Price {
 	 *
 	 * @since 1.0
 	 */
-	public function getGroup($default = null) {
-		$group = $this->getParam('group.');
-		if(!$group) {
+	public function getRule($default = null) {
+		$rule = $this->getParam('rule.');
+		if(!$rule) {
 			return $default;
 		}
-		return implode('.', $group);
+		return implode('.', $rule);
 		
 	}
 
@@ -335,7 +404,7 @@ class Price {
 	 */
 	public function getPriceOptionRules() {
 
-		return $this->app->data->create($this->getParam('options.price', array()));
+		return $this->app->data->create($this->getParam('options.price.', array()));
 		
 	}
 
@@ -353,6 +422,23 @@ class Price {
 		$data->remove('lock');
 		return $encode ? json_encode($data) : $data;
 	}	
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function debug($toDisplay = false) {
+		if($toDisplay) {
+			var_dump($this->_storage);
+		}
+		return $this->_storage;
+		
+	}
 }
 
 ?>

@@ -14,6 +14,7 @@
 
 
     // The actual plugin constructor
+
     var OrderForm = function (element, options) {
         this.$element = $(element);
         this.defaults = {
@@ -24,9 +25,9 @@
         this.settings = $.extend(true, this.defaults, options);
         // Initialize the Plugin
         this.name = options.name;
-        this.items = {};
-        this.$atc = this.$element.find('.atc');
-        this.$qty = this.$element.find('.qty');
+        this.item = items[this.$element.data('id')];
+        this.$atc = this.$element.find('#atc-'+this.item.id);
+        this.$qty = this.$element.find('#qty-'+this.item.id);
         this.init();
 
         
@@ -34,10 +35,8 @@
         this.$atc.on('click', $.proxy(this, 'addToCart'));
         this.$qty.on('change', $.proxy(this, '_updateQuantity'));
         this.$element.on('input','input.item-option', $.proxy(this, '_refresh'));
-        this.$element.on('change','select.item-option', $.proxy(this, '_refresh'));
-        this.$element.on('change','textarea.item-option', $.proxy(this, '_refresh'));
+        this.$element.on('change','select.item-option, textarea.item-option', $.proxy(this, '_refresh'));
         this.trigger('onComplete');
-
     };
 
     OrderForm.prototype = {
@@ -69,35 +68,19 @@
         },
         init: function () {
             var self = this;
-            this.loadItems();
             this.$element.find('#price').remove();
-            this.trigger('onInit', {items: this.items});
+            this.trigger('onInit', {item: this.item});
             $.each(this.$qty, function (k, v) {
                 var id = $(v).data('id');
-                self.items[id].qty = $('#qty-'+id).val();
+                self.item.qty = $('#qty-'+id).val();
             });
             
             
-        },
-        loadItems: function() {
-            var elems = this.$element.find('.orderForm'), self = this;
-            $.each(elems, function(k, v) {
-                var elem = $(v);
-                var id = elem.prop('id');
-                var items = elem.data('item');
-                
-                $.each(items, function(key, item) {
-                    self.items[id] = item;
-                }); 
-            });
-            console.log(self.items);
-            this._getFields();
-            //this._getOptions();
         },
         setMarkup: function(args) {
             var id = args[0];
             var markup = args[1];
-            this.items[id].markup = markup;
+            this.item.markup = markup;
         },
         getEvents: function (id, types) {
             
@@ -138,7 +121,7 @@
             ],
             afterAddToCart: [
                 function (data) {
-                    this._clearConfirm();
+                    this._clearConfirm(data.args.item.id);
                     this.$qty.val(1);
                     this.validation.status = null;
                     return data;
@@ -149,7 +132,7 @@
                     var elem = $(data.args.event.target),
                     name = elem.prop('name'),
                     option = data.args.item.options[name];
-                    if(this._isPriceOption(option.type) || this._isBaseOption(option.type)) {
+                    if(this._isPriceOption(option) || this._isBaseOption(option)) {
                         data.publishPrice = true;
                     } else {
                         data.publishPrice = false;
@@ -199,7 +182,7 @@
             if(typeof args === 'undefined') {
                 args = {};
             }
-
+            console.log(args);
             if(args.item) {
                 types.push(args.item.type);
             }
@@ -213,6 +196,7 @@
             result.args = args;
             result.triggerResult = true;
             var events = this.getEvents(event, types);
+
             $.each(events, function (k, v) {
                 self._debug('Starting ' + event + ' ['+k+']');
                 result = v.call(self,result);
@@ -227,7 +211,7 @@
         addToCart: function (e) {
             this._debug('Adding To Cart');
             id = $(e.target).data('product-id');
-            var triggerData = this.trigger('beforeAddToCart', {item: this.items[id]});
+            var triggerData = this.trigger('beforeAddToCart', {item: this.item});
             product = triggerData.args.item;
             console.log(product);
             var self = this;
@@ -235,30 +219,13 @@
                 return;
             }
 
-            if(!product.params.confirmed) {
+            if(this.settings.confirm && !product.params.confirmed) {
                 this._confirmation([product]);
                 return;
             }
+            console.log(product);
             this.cart.add([product]);
-            var triggerData = this.trigger('afterAddToCart', {item: this.items[id]});
-            // var elem = $('#'+item.id+'-price span');
-            // elem.html('<i class="uk-icon-refresh uk-icon-spin"></i>');
-            // $.ajax({
-            //     type: 'POST',
-            //     url: "?option=com_zoo&controller=cart&task=add&format=json",
-            //     data: {product: product},
-            //     success: function(data){
-            //         console.log(data);
-            //     },
-            //     error: function(data, status, error) {
-            //         var elem = $('#'+item.id+'-price span');
-            //         elem.html('ERROR');
-            //         self._debug('Error');
-            //         self._debug(status);
-            //         self._debug(error);
-            //     },
-            //     dataType: 'json'
-            // });
+            var triggerData = this.trigger('afterAddToCart', {item: this.item});
         },
         clearCart: function() {
             this.cart.id = null;
@@ -266,30 +233,34 @@
             this.cart.validated = false;
             this.cart.confirmed = false;
         },
-        getItem: function(id) {
-            console.log(id);
-            return this.items[id];
+        getItem: function() {
+            return this.item;
         },
-        setItemConfirmation: function(id, confirm) {
-            this.items[id].params.confirmed = confirm;
-            console.log(this.items[id]);
+        setItemConfirmation: function(confirm) {
+            this.item.params.confirmed = confirm;
+            console.log(this.item);
+        },
+        _isConfirmed: function() {
+            return this.item.params.confirmed;
         },
         _confirmation: function (items, cart_id) {
-            this._debug('Starting Confirmation'); 
             var self = this;
-            $.each(items, function(key, item) {
+            $.each(items, function(key, product) {
+                self._debug('Starting Confirmation on ' + product.name); 
                 var data = {
-                    type: 'confirm',
-                    args: {product: item},
+                    type: 'default',
+                    name: 'confirm',
+                    args: {product: product},
                     cache: false
                 };
                 lpiModal.getModal(data);
-            })
-            
-
+            });
         },
-        _isPriceOption: function(type) {
-            var haystack = type.split('|');
+        _clearConfirm: function(id) {
+            this.item.params.confirmed = false;
+        },
+        _isPriceOption: function(option) {
+            var haystack = option.type.split('|');
             var needle = 'price';
             var length = haystack.length;
             for(var i = 0; i < length; i++) {
@@ -297,41 +268,14 @@
             }
             return false;
         },
-        _isBaseOption: function(type) {
-            var haystack = type.split('|');
+        _isBaseOption: function(option) {
+            var haystack = option.type.split('|');
             var needle = 'base';
             var length = haystack.length;
             for(var i = 0; i < length; i++) {
                 if(haystack[i] == needle) return true;
             }
             return false;
-        },
-        _confirm: function() {
-            var modal = this.confirm.elem;
-            var accept = modal.find('[name="accept"]');
-            var error = modal.find('.confirm-error');
-            if (accept.val().toLowerCase() === 'yes') {
-                modal.hide();
-                this._clearConfirm();
-                this.cart.confirmed = true;
-                var id = this.confirm.elem.find('[name="cart_id"]').val();
-                $('#atc-'+id).trigger('click');
-            } else {
-                error.html('You must type "yes" or press cancel.');            
-            }
-        },
-
-        _clearConfirm: function() {
-            var modal = this.confirm.elem;
-            var accept = modal.find('[name="accept"]');
-            var error = modal.find('.confirm-error');
-            
-            modal.find('.item-name').html('');
-            modal.find('.item-options').html('');
-            accept.val('');
-            error.html('');
-            this.confirm.modal.hide();
-            this.clearCart();
         },
         _cartItemID: function () {
             return $.md5(JSON.stringify(this.item));
@@ -389,8 +333,8 @@
         _getOptionValue: function (key, name) {
             return this.items[key].options[name].value;
         },
-        _updateOptionValue: function (id, elem) {
-            var options = this.items[id].options;
+        _updateOptionValue: function (elem) {
+            var options = this.item.options;
             var name = elem.prop('name');
             var value = elem.val();
             var text = $(elem).children('option:selected').text();
@@ -402,11 +346,7 @@
             var elems = this.$element.find('input.item-option, select.item-option, textarea.item-option'), self = this;
             var fields = {};
             $.each(elems, function(k, field) {
-                var id = $(this).closest('.options-container').data('id');
-                if(typeof fields[id] === 'undefined') {
-                    fields[id] = {};
-                }
-                fields[id][$(this).prop('name')] = $(field);
+                fields[$(this).prop('name')] = $(field);
             });
             this.fields = fields;
         },
@@ -416,50 +356,49 @@
         _updateQuantity: function (e) {
             this._debug('Updating Quantity');
             var elem = $(e.target);
-            var id = elem.data('id');
-            var item = this.items[id];
+            var item = this.item;
             var triggerData = this.trigger('beforeUpdateQuantity', {event: e, item: item});
             item = triggerData.args.item;
             item.qty = elem.val();
             triggerData = this.trigger('afterUpdateQuantity', {event: e, item: item});
             item = triggerData.args.item;
+            console.log(item);
             this._publishPrice(item);
         },
         _refresh: function (e) {
-            var id = $(e.target).closest('.options-container').data('id'), self = this;
-            triggerData = this.trigger('beforeChange', {event: e, item: this.items[id]});
-            console.log(triggerData);
-            this._updateOptionValue(id, $(e.target));
+            var self = this;
+            triggerData = this.trigger('beforeChange', {event: e, item: this.item});
+            this._updateOptionValue($(e.target));
             var publishPrice = typeof triggerData.publishPrice === 'undefined' ? true : triggerData.publishPrice;
             if(publishPrice) {
-                self._publishPrice(this.items[id]);
+                self._publishPrice(this.item);
             }
             if (this.validation.status === 'failed') {
-                this._validate([this.items[id]]);
+                this._validate([this.item]);
             }
-            this.trigger('afterChange', {event: e, item: this.items[id]});
+            this.trigger('afterChange', {event: e, item: this.item});
             
         },
         _validate: function (items) {
-
+            this._debug('Starting Validation');
             if(!this.settings.validate) {
                 return true;
             }
-            console.log('test');
             var self = this, validated = true;
             self.$element.find('.validation-fail').removeClass('validation-fail');
-            $.each(items, function (key, item) {
-                var fields = !self.fields[item.id] ? {} : self.fields[item.id];
-                console.log(fields);
-                $.each(fields, function (k, v) {
-                    console.log($(v).prop('name'));
-                    if($(this).hasClass('required') && ($(this).val() === '0' || $(this).val() === '')) {
-                        $(this).addClass('validation-fail');
-                        self._debug($(this).prop('name') + 'Failed Validation');
+
+            $.each(this.item.options, function(name, option) {
+                console.log(option);
+                if(typeof option.value === 'undefined' || option.value === '' || option.value === '0' || option.value === 0) {
+                    var elem = $('[name="'+name+'"]');
+                    if(elem.hasClass('required')) {
+                        elem.addClass('validation-fail');
+                        self._debug(name + 'Failed Validation');
                         validated = false;
-                    };
-                });
-            })
+                    }
+                    
+                }
+            });
 
             if(validated) {
                 this.trigger('validation_pass');

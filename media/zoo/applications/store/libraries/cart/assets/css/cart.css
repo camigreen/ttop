@@ -84,6 +84,14 @@
     border: 1px solid #eaeaea;
     padding: 5px;
 }
+#cart-modal .product .description {
+      font-size:1em;
+    font-weight:200;
+    margin-left:30px;
+}
+#cart-modal .product .name {
+      font-size:1.2em;
+}
 
 
 

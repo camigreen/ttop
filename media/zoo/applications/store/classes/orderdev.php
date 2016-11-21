@@ -58,6 +58,10 @@ class OrderDev {
         	$this->getTotal('retail');
         }
 
+        foreach($this->elements->get('items.', array()) as $hash => $item) {
+        	$this->elements->set('items.'.$hash, $item->lock());
+        }
+
         $this->elements->set('ip', $this->app->useragent->ip());
 
 		if($writeToDB) {
@@ -131,32 +135,25 @@ class OrderDev {
 	}
 
 	public function getItemPrice($sku) {
-		if(!$item = $this->elements->get('items.'.$sku)) {
-			$item = $this->app->cart->get($sku);
-			$item->getTotal();
-		}
-		$discount = $this->getAccount()->params->get('discount', 0)/100;
-		return $item->total - ($item->total*$discount);
+		$item = $this->elements->get('items.'.$sku);
+		return $item->getPrice();
 	}
 
-	public function getSubtotal($display = 'retail') {
-		if($this->isProcessed()) {
-			return $this->subtotal;
-		}
-		if(!$items = $this->elements->get('items.')) {
-			$items = $this->app->cart->getAllItems();
-		}
+	public function getSubtotal($display = 'display') {
+		$items = $this->elements->get('items.', array());
 		$this->subtotal = 0;
 		foreach($items as $item) {
-			$this->subtotal += $item->getTotal($display);
+			$this->subtotal += $item->getTotalPrice($display);
 		}
 		return $this->subtotal;
 	}
 
 	public function getShippingTotal() {
+
 		if($this->isProcessed()) {
 			return $this->ship_total;
 		}
+
 		if(!$service = $this->elements->get('shipping_method')) {
             return 0;
         }
@@ -170,7 +167,7 @@ class OrderDev {
         $markup = intval($markup)/100;
         $ship = $this->app->shipper;
         $ship_to = $this->app->parameter->create($this->elements->get('shipping.'));
-        $rates = $ship->setDestination($ship_to)->assemblePackages($this->app->cart->getAllItems())->getRates();
+        $rates = $ship->setDestination($ship_to)->assemblePackages($this->app->cart->getAll())->getRates();
         $rate = 0;
         foreach($rates as $shippingMethod) {
             if($shippingMethod->getService()->getCode() == $service) {
@@ -182,10 +179,7 @@ class OrderDev {
         return $this->ship_total;
     }
 
-    public function getTotal($display = 'retail') {
-    	if($this->isProcessed()) {
-    		return $this->total;
-    	}
+    public function getTotal($display = 'display') {
     	$this->total = $this->getSubTotal($display) + $this->getTaxTotal() + $this->getShippingTotal();
     	return $this->total;
     }
@@ -213,10 +207,6 @@ class OrderDev {
 	}
 
 	public function getTaxTotal() {
-
-		if($this->isProcessed()) {
-			return $this->tax_total;
-		}
 		
 		// Init vars
 		$taxtotal = 0;
@@ -227,11 +217,11 @@ class OrderDev {
 		}
 
 		if(!$items = $this->elements->get('items.')) {
-			$items = $this->app->cart->getAllItems();
+			$items = $this->app->cart->getAll();
 		}
 
 		foreach($items as $item) {
-			$taxtotal += ($item->taxable ? ($this->getItemPrice($item->sku)*$taxrate) : 0);
+			$taxtotal += ($item->isTaxable() ? ($item->getTotalPrice()*$taxrate) : 0);
 		}
 		
 		$this->tax_total = $taxtotal;

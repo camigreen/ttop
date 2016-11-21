@@ -139,7 +139,6 @@ class CheckoutController extends AppController {
         );
 
         $this->order = $order;
-
         $this->getView()->addTemplatePath($this->template->getPath().'/checkout')->setLayout($layout)->display();
 
     }
@@ -314,7 +313,6 @@ class CheckoutController extends AppController {
         $order = $this->CR->order;
         $next = $this->app->request->get('next','word', 'customer');
         $post = $this->app->request->get('post:', 'array', array());
-        var_dump($post);
         //return;
         
         if(isset($post['elements'])) {

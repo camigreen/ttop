@@ -132,7 +132,7 @@ class CashRegister {
         $order = $this->order;
         $billing = $order->elements->get('billing.');
         $shipping = $order->elements->get('shipping.');
-        $items = $this->app->cart->getAllItems();
+        $items = $this->app->cart->getAll();
         $creditCard = $order->params->get('payment.creditcard.');
         $sale = $this->merchant;
         
@@ -177,7 +177,7 @@ class CashRegister {
                 '',
 //                str_replace('-',' ',substr($item->get('description'),0,31)),// Item Description
                 $item->qty,// Item Quantity
-                number_format($item->getPrice()->get($priceDisplay),2,'.',''), // Item Unit Price
+                $item->getTotalPrice(true), // Item Unit Price
                 ($item->taxable ? 'Y' : 'N')// Item taxable
             );
         }

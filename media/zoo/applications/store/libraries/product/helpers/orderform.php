@@ -462,10 +462,17 @@ class AppForm {
 					$modal_icon = '';
 					if((string) $field->attributes()->modal != '') {
 						$modal = (string) $field->attributes()->modal;
+						$parts = explode('.', $modal);
+						if(count($parts) == 1) {
+							$modalConfig['type'] = 'default';
+							$modalConfig['name'] = $parts[0];
+						} else {
+							$modalConfig['type'] = $parts[0];
+							$modalConfig['name'] = $parts[1];
+						}
 						$attributes = array();
 						$attributes['class'] = "uk-icon-button uk-icon-info-circle modal-button";
-						$attributes['data-modal'] = $modal;
-						$attributes['data-modal-field-id'] = $id;
+						$attributes['data-config'] = json_encode($modalConfig);
 						$modal_icon = sprintf('<a %s data-uk-tooltip></a>', $this->app->field->attributes($attributes));
 					}
 					$html[] = $output;

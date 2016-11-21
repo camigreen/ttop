@@ -40,18 +40,22 @@
 			</ul>
 		</li>
 	</ul>
-	<input type="hidden" name="ccbc.jp_modal_value" data-field-id="<?php echo $field; ?>" />
 </div>
 
 <script>
 jQuery(function($){
 	$(document).ready(function(){
-		var elem = $('[name="ccbc.jp_modal_value"]');
-		//elem.val($('[name="ccbc.zipper_modal_helper"]').val());
-		$('[name="ccbc.jp_modal_helper"]').on('change', function(){
-			console.log('changed');
-			elem.val($(this).val());
-		});
+		var value = $('[name="jack_plate"]').val();
+		$('input[name="ccbc.jp_modal_helper"][value="'+value+'"]').prop('checked', 'checked');
+
+		$('#ccbc-jp-modal').on('save', function(e, data){
+			var name = data.name;
+            var elem = $('[name="jack_plate"]');
+            console.log(elem);
+            var value = $('[name="ccbc.jp_modal_helper"]:checked').val()
+            data.result = true;
+            elem.val(value).trigger('change');
+        });
 	})
 
 })

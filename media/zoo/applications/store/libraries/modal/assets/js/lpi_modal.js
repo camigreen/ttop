@@ -14,6 +14,7 @@
         }
 
         lpiModal.container.on('click', '.modal-save', function() {
+            console.log('save test');
             var elem = $(this);
             lpiModal.save(elem);
             
@@ -25,110 +26,108 @@
 
         $('.modal-button').on('click', function(e){
             var elem = $(e.target);
-            var data = {
-                type: elem.data('modal'),
-                field: elem.data('modal-field-id'),
-                value: $('#'+elem.data('modal-field-id')).val()
-            };
-            lpiModal.getModal(data);
+            var config = elem.data('config');
+            lpiModal.getModal(config);
         });
 
+        lpiModal.storage.triggerResult = {};
+
         console.log('LPI Modal Initialized');
-        console.log(lpiModal.modals);
         
     };
 
-    lpiModal.getModal = function(data) {
-        var modal;
-        if(typeof lpiModal.modals[data.type] === 'undefined') {
-            lpiModal.createModal(data).done(function(elem){
-                $('.modals').append(elem);
-                modal = UIkit.modal(elem);
-                elem.data('modal', data);
-                elem.data('modal').cache = (typeof data.cache === 'undefined' ? true : data.cache);
+    lpiModal.getModal = function(config) {
+        var modal, elem = $('#'+config.type+'-'+config.name);
+        console.log(config);
+        if(elem.length === 0) {
+            config.cache = (typeof config.cache === 'undefined' ? true : config.cache);
+            lpiModal.createModal(config).done(function(mElem){
+
+                $('.modals').append(mElem);
+                modal = UIkit.modal(mElem);
+                console.log(UIkit.modal(mElem));
                 modal.on({
                     'hide.uk.modal': function(){
                         console.log("Element is not visible.");
-                        if(!$(this).data('modal').cache) {
-                            console.log($(this).data('modal'));
-                            var type = $(this).data('modal').type;
-                            delete lpiModal.modals[type];
+                        var config = $(this).data('config');
+                        
+                        // if(config.cache === 'false' || !config.cache) {
+                        //     console.log(config.cache);
                             $(this).remove();
-                        }
+                        // }
 
                     }
                 });
-                modal.cache = typeof data.cache === 'undefined' ? true : data.cache;
-                lpiModal.modals[data.type] = modal;
-                
-                console.log(data);
+                modal.options.bgclose = false;
+                modal.options.center = true;
+                modal.options.minScrollHeight = 150;
+                console.log(modal.options);
                 modal.show();
             });
         } else {
 
-            modal = lpiModal.modals[data.type];
-            console.log(data);
-            modal.find('[name="'+data.type+'_modal_helper"][value="'+data.value+'"]').prop('checked', true);
-            modal.find('[name="'+data.type+'_modal_value"]').val(data.value);
+            modal = lpiModal.modals[config.type];
+            console.log(config);
             modal.show();
         }
     };
 
     lpiModal.save = function(elem) {
-        var type = elem.data('modal').type;
-        var values = elem.data('modal').values;
-        var args = elem.data('modal').args;
-        var modal_field = $('[name="'+type+'_modal_value"]');
-        console.log(modal_field);
-        var field = $('#'+modal_field.data('field-id'));
-        var val = modal_field.val() ? modal_field.val() : 0;
-        data = {
-            type: type,
-            modal_field: modal_field,
-            field: field,
-            val: val,
-            args: args
+        console.log('Saving');
+        var config = elem.closest('.uk-modal').data('config');
+        var modalId = elem.closest('.uk-modal').prop('id');
+
+        lpiModal.storage.triggerResult[modalId] = config;
+        $('#'+modalId).trigger('save', lpiModal.storage.triggerResult[modalId]);
+        console.log(lpiModal.storage.triggerResult[modalId]);
+        if(lpiModal.storage.triggerResult[modalId].result === true) {
+            lpiModal.hide(modalId);
+        } else if(lpiModal.storage.triggerResult[modalId].result === 'break') {
+
+        } else {
+            lpiModal.hide(modalId);
         }
-        
-        field.val(val).trigger('change');
-        $('#'+type+'-modal').trigger('save', data);
-        lpiModal.hide(type);
         
     }
 
     lpiModal.cancel = function (elem) {
-        var type = elem.data('modal').type;
-        lpiModal.hide(type);
+        console.log('Canceling');
+        var config = elem.closest('.uk-modal').data('config');
+        var modalId = elem.closest('.uk-modal').prop('id');
+
+        lpiModal.storage.triggerResult[modalId] = config;
+        $('#'+modalId).trigger('cancel', lpiModal.storage.triggerResult[modalId]);
+        console.log(lpiModal.storage.triggerResult[modalId]);
+        if(lpiModal.storage.triggerResult[modalId].result === true) {
+            lpiModal.hide(modalId);
+        } else if(lpiModal.storage.triggerResult[modalId].result === 'break') {
+
+        } else {
+            lpiModal.hide(modalId);
+        }
     }
 
     lpiModal.container = null;
 
     lpiModal.show = function(name) {
-        lpiModal.modals[name].show();
+        var modal = UIkit.modal($('#'+name));
+        console.log(modal);
+        modal.show();
     };
 
     lpiModal.hide = function(name) {
-        var modal = lpiModal.modals[name];
-        modal.hide();
+        UIkit.modal($('#'+name)).hide();
     };
 
-    lpiModal.createModal = function(modal) {
-        var dfd = $.Deferred();
-        if(typeof lpiModal.modals[modal.type] === 'undefined') {  
+    lpiModal.createModal = function(config) {
+        var dfd = $.Deferred(); 
 
-            console.log('creating modal');
+        console.log('creating modal');
 
-            lpiModal.load(modal).done(function(data){
-                var elem = $('<div class="uk-modal ttop"><div class="uk-modal-dialog"> <div class="contents"></div></div></div>');
-                elem.prop('id', modal.type+'-modal');
-                elem.find('.contents').append(data.content);
-                dfd.resolve(elem);
-            });
-
-        } else {
-            console.log('Modal Exists');
-            dfd.resolve(lpiModal.modals[modal.type]);
-        }
+        lpiModal.load(config).done(function(data){
+            var elem = $(data.content);
+            dfd.resolve(elem);
+        });
         
         return dfd.promise();
     };
@@ -139,12 +138,18 @@
         lpiModal.modals[modal].find('.contents').html('<i class="uk-icon-spinner uk-icon-spin"></i>')
     }
 
-    lpiModal.load = function(modal) {
+    lpiModal.load = function(config) {
         return $.ajax({
             type: 'POST',
             url: "?option=com_zoo&controller=modal&task=getModal&format=json",
-            data: {modal: modal},
-            dataType: 'json'
+            data: {config: config},
+            dataType: 'json', 
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(data, status, error) {
+                console.log(error);
+            }
         }).promise();
     };
     

@@ -72,15 +72,21 @@
 			Other<span class="uk-text-danger">(Please leave a description of your bow rails in the additional infomation box on the order page)</span>
 		</label>
 	</div>
-	<input type="hidden" name="bowrails_modal_value" data-field-id="<?php echo $field; ?>"/>
 </div>
 <script>
 jQuery(function($){
 	$(document).ready(function(){
-		var elem = $('[name="bowrails_modal_value"]');
-		$('[name="bowrails_modal_helper"]').on('change', function(){
-			elem.val($(this).val());
-		});
+		var value = $('[name="bow_rails"]').val();
+		$('input[name="bowrails_modal_helper"][value="'+value+'"]').prop('checked', 'checked');
+		
+		$('#default-bowrails-modal').on('save', function(e, data){
+			var name = data.name;
+            var elem = $('[name="bow_rails"]');
+            console.log(elem);
+            var value = $('[name="bowrails_modal_helper"]:checked').val()
+            data.result = true;
+            elem.val(value).trigger('change');
+        });
 	})
 })
 </script>

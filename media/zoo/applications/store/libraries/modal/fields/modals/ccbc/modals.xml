@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<modals>
+		<modal name="zipper" layout="zipper" title="Zipper Access" subtitle="Port or Starboard Side Access" save="Save" cancel="Cancel" scroll="true" />
+		<modal name="color" layout="color" title="Fabrics and Colors" subtitle="Our Available Fabrics and Colors" cancel="Ok" scroll="true" />
+		<modal name="stb" layout="stb" title="Ski \ Tow Bar" subtitle="Ski poles and tow bars are mounted in different positions. Please select one below." scroll="true" save="Save" cancel="Cancel" />
+		<modal name="pp" layout="pp" title="Power Poles" subtitle="Power Poles are mounted using motor bracket mounts and transom mounts, examples of mounts are provided here at the top. Please select one below." scroll="true" cancel="Cancel" save="Save" />
+		<modal name="jp" layout="jp" title="Jack Plate" subtitle="If you have a jack plate, please choose which size." cancel="Cancel" save="Save" scroll="true"/>
+		<modal name="swim" layout="swim" title="Swim Ladder Platform" subtitle="Please select the swim ladder style that is on your boat." cancel="Cancel" save="Save" scroll="true"/>
+		<modal name="cast_platform" layout="cast_platform" title="Casting Platform" subtitle=""  save="I will remove it" cancel="Cancel"/>
+		<modal name="poling_platform" layout="poling_platform" title="Poling Platform" subtitle="Specify the height of your poling platform." cancel="Cancel" save="Save"/>
+		<modal name="inwater" layout="inwater" title="Attention" subtitle="Center Console Boat Covers are not designed for in-water use."/>
+		<modal name="trolling_motor" layout="trolling_motor" title="Trolling Motor" subtitle="" save="Save" cancel="Cancel"/>
+	</modals>

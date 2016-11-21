@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fields>
+	<field name="bag_size" label="Bag Size" type="price" default="bsk" visible="true">
+		<option value="bsk">Boat Shade Kit</option>
+		<option value="ubsk">Ultimate Boat Shade Kit</option>
+	</field>
+</fields>

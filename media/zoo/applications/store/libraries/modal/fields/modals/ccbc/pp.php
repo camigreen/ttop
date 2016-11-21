@@ -51,7 +51,6 @@
 	<div class="uk-width-1-1 uk-margin-top">
 		<label><input name="ccbc.pp_modal_helper_c" type="radio" value="other" class="uk-margin-right" />Other<span class="uk-text-danger"> (explain in "Additional Info" box)</span></label>
 	</div>
-	<input type="hidden" name="ccbc.pp_modal_value" data-field-id="<?php echo $field; ?>"/>
 </div>
 
 <script>
@@ -59,26 +58,26 @@ jQuery(function($){
 	$(document).ready(function(){
 		var val_a = "none", val_b = "none";
 		var elem = $('[name="ccbc.pp_modal_value"]');
+		var value = null
 		$('[name="ccbc.pp_modal_helper_c"]').on('change', function(){
 			$('[name="ccbc.pp_modal_helper_a"], [name="ccbc.pp_modal_helper_b"]').removeAttr('checked');
 			val_a = $(this).val();
 			val_b = $(this).val();
-			elem.val($(this).val());
+			value = $(this).val();
 		});
 		$('[name="ccbc.pp_modal_helper_a"]').on('change', function(){
 			$('[name="ccbc.pp_modal_helper_c"]').removeAttr('checked');
 			val_a = $(this).val();
 			val_b = $('[name="ccbc.pp_modal_helper_b"]:checked').val();
-			elem.val(val_a+val_b);
+			value = val_a+val_b;
 		});
 		$('[name="ccbc.pp_modal_helper_b"]').on('change', function(){
 			$('[name="ccbc.pp_modal_helper_c"]').removeAttr('checked');
 			val_b = $(this).val();
 			val_a = $('[name="ccbc.pp_modal_helper_a"]:checked').val();
-			elem.val(val_a+val_b);
+			value = val_a+val_b;
 		});
-		$('.modal-save').on('click', function(e){
-
+		$('#ccbc-pp-modal').on('save', function(e, data){
 			if(typeof val_a === 'undefined') {
 				alert('Please choose which side your power poles are mounted on.');
 				e.stopPropagation();
@@ -87,8 +86,13 @@ jQuery(function($){
 				alert('Please choose which power pole mount that you have.');
 				e.stopPropagation();
 			}
-
-		});
+			var name = data.name;
+            var elem = $('[name="power_poles"]');
+            console.log(value);
+            data.result = true;
+            elem.val(value).trigger('change');	
+			
+        });
 
 	})
 })

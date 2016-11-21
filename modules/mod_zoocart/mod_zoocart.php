@@ -33,7 +33,7 @@ $zoo->path->register($path.'/assets','assets');
 
 //$zoo->document->addScript('assets:js/jquery.cookie.js');
 $zoo->document->addScript('library.cart:assets/js/cart.js');
-$zoo->document->addStylesheet('assets:css/cart.css');
+$zoo->document->addStylesheet('library.cart:assets/css/cart.css');
 $zoo->document->addStylesheet('media/zoo/applications/store/assets/css/ttop.css');
 
 $layout = $params->get('layout', 'default');

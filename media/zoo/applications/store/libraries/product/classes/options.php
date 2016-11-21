@@ -23,7 +23,12 @@ class Options {
         $this->app->loader->register('JSONData', 'data:json.php');
         $this->_storage = $this->app->data->create();
         $this->type = $type;
-        $this->_xml = simplexml_load_file($this->app->path->path('fields:'.$type.'/config.xml'));
+        if(file_exists($this->app->path->path('fields:options/'.$type.'.xml'))) {
+            $this->_xml = simplexml_load_file($this->app->path->path('fields:options/'.$type.'.xml'));
+        } else {
+            $this->_xml = null;
+        }
+        
         $this->init();
         
     }
@@ -130,6 +135,9 @@ class Options {
      * @since 1.0
      */
     protected function loadFromXML($xml = null) {
+        if(!$this->_xml) {
+            return $this;
+        }
         if(!$xml) {
             $xml = $this->_xml;
         }  	
@@ -155,8 +163,9 @@ class Options {
                 $option['choices.'.$key] = $this->app->data->create($choices);
             }
             $this->set($name, $option);
-
-        
+            if(isset($option['value'])) {
+                $this->setValue($name, $option['value']);
+            }
         }
     	return $this;
     }

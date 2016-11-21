@@ -11,18 +11,24 @@
 
         $("#cart-module a").on('click', function(e) {
             console.log('cart open');
-            lpiCart.show();
+            lpiCart.show(true);
         });
 
     };
 
-    lpiCart.refresh = function(elem) {
-        if(typeof elem === 'undefined') {
+    lpiCart.refresh = function(data) {
+
+        var count = data.count;
+        count = count === '1' ? '(' + count + ' Item)' : '(' + count + ' Items)';
+        $('#cart-module span[data-cart="quantity"]').html(count);
+        $('#cart-module span[data-cart="total"]').html(data.total);
+
+        if(typeof data.render === 'undefined') {
             $.when(lpiCart.load()).done(function(data) {
                 lpiCart.updateEvents();
             })
         } else {
-            $('#cart-modal').html(elem);
+            $('#cart-modal').html(data.render);
             lpiCart.updateEvents();
         }
 
@@ -49,7 +55,6 @@
             url: "?option=com_zoo&controller=cart&task=load&format=json",
             data: {},
             success: function(data){
-                console.log(data);
                 $('#cart-modal').html(data.render);
             },
             error: function(data, status, error) {
@@ -84,16 +89,31 @@
         $('#cart-modal .continue').on('click', function(e) {
             lpiCart.hide();
         });
+
+        $('#cart-modal .checkout').on('click', function(e) {
+            console.log('Checking out');
+            window.location.href = '/store/checkout';
+        });
+
         $('.options-toggle').on('click', function(e){
             console.log('toggle');
             $('.options-container').show();
         })
+
+        
     }
 
-    lpiCart.show = function() {
-        $.when(lpiCart.load()).done(function(data) {
+    lpiCart.show = function(reload) {
+        reload = (typeof reload === 'undefined' ? false : reload);
+        console.log(reload);
+        if(reload) {
+            $.when(lpiCart.load()).done(function(data) {
+                lpiCart.modal.show();
+            })
+        } else {
             lpiCart.modal.show();
-        })
+        }
+        
         
     };
 
@@ -108,6 +128,7 @@
             data: {items: items},
             success: function(data){
                 console.log(data);
+                lpiCart.refresh(data);
                 lpiCart.show();
             },
             error: function(data, status, error) {
@@ -126,7 +147,7 @@
             data: {hash: hash},
             success: function(data){
                 console.log(data);
-                lpiCart.refresh(data.render);
+                lpiCart.refresh(data);
             },
             error: function(data, status, error) {
                 console.log(error);
@@ -142,8 +163,7 @@
             url: "?option=com_zoo&controller=cart&task=clear&format=json",
             data: {},
             success: function(data){
-                console.log(data);
-                lpiCart.refresh(data.render);
+                lpiCart.refresh(data);
             },
             error: function(data, status, error) {
                 console.log(error);
@@ -159,8 +179,7 @@
             url: "?option=com_zoo&controller=cart&task=updateQty&format=json",
             data: {hash: hash, qty: qty},
             success: function(data){
-                console.log(data);
-                lpiCart.refresh(data.render);
+                lpiCart.refresh(data);
             },
             error: function(data, status, error) {
                 console.log(error);

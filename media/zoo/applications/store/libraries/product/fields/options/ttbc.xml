@@ -7,9 +7,10 @@
 		<option value="G">Gray</option>
 	</field>
 	<field name="boat_length" label="Boat Length" type="base" visible="false" />
-	<field name="fabric" label="Fabric" type="base" visible="true" default="9Ply">
-		<option value="9Ply">Material 9oz. 5yr. Warranty</option>
-		<option value="9Acr">Material 9.25oz. Acrylic 5yr. Warranty</option>
+	<field name="fabric" label="Fabric" type="base" visible="true" default="9oz">
+		<option value="7oz">Material 7oz. 3yr. Warranty</option>
+		<option value="8oz">Material 8oz. 5yr. Warranty</option>
+		<option value="9oz">Material 9oz. 5yr. Warranty</option>
 	</field>
 	<field name="zipper" label="Zipper Side" type="variable" visible="true">
 		<option value='ZP'>Port Side</option>
@@ -29,7 +30,20 @@
 		<option value='DC'>Dual Console</option>
 		<option value='WA'>Walkaround</option>
 		<option value='CB'>Catamaran</option>
-		<option value='OTHER'>Other</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="ttop_type" label="T-Top Type" type="variable" visible="true">
+		<option value='hard-top'>Hard Top</option>
+		<option value='canvas-top'>Canvas Top</option>
+		<option value='key-west'>Key West</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="bow_accessories" label="Bow Accessories" type="pattern" visible="true">
+		<option value='N'>None</option>
+		<option value='BRW'>Bow Roller/Windless</option>
+		<option value='THA'>Thru Hull Anchor</option>
+		<option value='BP'>Bow Pulpit</option>
+		<option value='other'>Other</option>
 	</field>
 	<field name="motors" label="Motors" type="pattern" visible="true">
 		<option value='1'>Single Engine</option>
@@ -93,12 +107,7 @@
 		<option value='DTM'>Dual Transom Mount</option>
 		<option value='other'>Other</option>	
 	</field>
-	<field name="year" label="Year" type="pattern" visible="true" />
-	<field name="poling_platform" label="Poling Platform" type="pattern" visible="true">
-		<option value='0'>- SELECT -</option>
-		<option value='Y'>Yes</option>
-		<option value='N'>No</option>
-	</field>
+	<field name="year" label="Boat Year" type="pattern" visible="true" />
 	<field name="bow_rails" label="Bow Rails" type="pattern" visible="true">
 		<option value='N'>No Rails</option>
 		<option value='L'>Low - 8" or less</option>
@@ -107,15 +116,11 @@
 		<option value='WT'>Walk Through</option>
 		<option value='other'>Other</option>
 	</field>
-	<field name="casting_platform" label="Casting Platform" type="pattern" visible="true">
-		<option value='0'>- SELECT -</option>
-		<option value='Y'>Yes</option>
-		<option value='N'>No</option>
-	</field>
 	<field name="trolling_motor" label="Trolling Motor" type="price|pattern" visible="true">
 		<option value='0'>- SELECT -</option>
 		<option value='Y' cost="175.00">Yes</option>
 		<option value='N'>No</option>
 		<option value='R'>Removeable</option>
 	</field>
+	<field name="add_info" label="Additional Information" type="variable" visible="true" />
 </fields>

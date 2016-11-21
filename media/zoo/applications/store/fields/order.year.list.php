@@ -9,7 +9,7 @@ $product = $parent->getValue('product');
 $start = $parent->getValue('year.start', 2000);
 $end = $parent->getValue('year.end', 0);
 $fieldtype = $node->attributes()->option ? ' item-option' : '';
-$xml = simplexml_load_file($this->app->path->path('fields:'.$product->type.'/config.xml'));
+$xml = simplexml_load_file($this->app->path->path('fields:options/'.$product->type.'.xml'));
 $fieldOptions = (string) $node->attributes()->options ? (string) $node->attributes()->options : $name;
 $opt = $product->getOption($fieldOptions);
 if($opt) {

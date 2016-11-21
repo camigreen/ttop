@@ -26,12 +26,13 @@ class CCBCProduct extends Product {
 
         );
 
-    public function __construct($app) {
-        parent::__construct($app);
+    public function __construct($app, $product) {
+        parent::__construct($app, $product);
 
     }
 
 	public function bind($product = array()) {
+        $this->options = $this->type;
 		parent::bind($product);
 		$this->id = 'ccbc';
 		$this->name = 'Center Console Boat Cover';
@@ -39,11 +40,12 @@ class CCBCProduct extends Product {
         $boat_model = $this->getParam('boat.model');
         $this->setParam('boat.manufacturer', $this->app->boat->create($boat_make, $boat_model));
         $this->setParam('boat.model',$this->getParam('boat.manufacturer')->getModel());
-        $this->setBoatLength();
+        
         foreach($this->getParam('boat.model')->get('options', array()) as $option) {
             $this->setOption($option->get('name'), $option);
         }
-        $this->name .= ' - '.$this->getParam('boat.manufacturer')->label.' '.$this->getParam('boat.model')->label;
+        $this->description = 'Custom fit for a '.$this->getParam('boat.manufacturer')->label.' '.$this->getParam('boat.model')->label;
+        $this->setBoatLength();
         $this->setPriceRule();
 		return $this;
 	}
@@ -89,7 +91,7 @@ class CCBCProduct extends Product {
     }
 
     public function setBoatLength() {
-        $length = $this->getParam('boat.model')->get('length');
+        $length = $this->getOption('boat_length')->get('value');
         foreach($this->boat_lengths as $rule => $range) {
             $parts = explode('.', $range, 2);
             $min = $parts[0];
@@ -104,20 +106,11 @@ class CCBCProduct extends Product {
     }
 
     public function toJson($encode = false) {
-        return parent::toJson($encode);
-        // $exclude = array('app', 'boat_lengths', '_patternID', 'price', '_priceRule', 'params', 'options');
-        // $data = $this->app->data->create();
-        // foreach($this as $key => $value) {
-        //     if(!in_array($key, $exclude)) {
-        //         $data->set($key, $value);
-        //     }
-        // }
-        // $make = $this->getParam('boat.manufacturer');
-        // $data->set('boat.manufacturer', $make->name);
-        // $data->set('boat.model', $make->getModel()->get('name'));
-        // $data->set('options', $this->options->toJson());
-        // $data->set('sku', $this->getSKU());
-        // $data->set('pattern', $this->getPatternID());
-        // return $encode ? json_encode($data) : $data;
+        $data = parent::toJson();
+        $data['params'] = array();
+        $data['params']['boat.model'] = $this->getParam('boat.model')->name;
+        $data['params']['boat.manufacturer'] = $this->getParam('boat.manufacturer')->name;
+
+        return $encode ? json_encode($data) : $data;
     }
 }

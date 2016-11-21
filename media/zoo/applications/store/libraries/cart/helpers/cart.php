@@ -208,12 +208,25 @@ class CartHelper extends AppHelper {
 	 *
 	 * @since 1.0
 	 */
+	public function isEmpty() {
+		return ($this->getItemCount() == 0);
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
 	public function getTotal() {
 		$total = 0.00;
 		foreach($this->getAll() as $item) {
 			$total += $item->getTotalPrice();
 		}
-		return $total;
+		return $this->app->number->precision($total, 2);
 	}
 
 	/**

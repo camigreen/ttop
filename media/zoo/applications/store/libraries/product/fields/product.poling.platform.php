@@ -6,7 +6,7 @@
 
 // Get Variables
 $product = $parent->getValue('product');
-$xml = simplexml_load_file($this->app->path->path('fields:/'.$product->type.'/config.xml'));
+$xml = simplexml_load_file($this->app->path->path('fields:options/'.$product->type.'.xml'));
 
 $fieldOptions = (string) $node->attributes()->options ? (string) $node->attributes()->options : $name;
 
@@ -25,7 +25,7 @@ foreach ($xml->field as $field) {
 // Set Attributes
 $attributes['id'] = $id;
 $attributes['name'] = $name.'-select';
-$class = 'uk-width-1-1';
+$class = 'uk-width-1-1 item-option';
 $class .= $required ? ' required' : '';
 
 if(!isset($options)) {

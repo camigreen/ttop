@@ -21,7 +21,6 @@
 	<div class="uk-width-1-1">
 		<p>For further details on this please contact one of our sales associates at (843) 760-6101.</p>
 	</div>
-	<input type="text" name="ccbc.inwater_modal_value" data-field-id="<?php echo $field; ?>" value="0" />
 </div>
 
 <script>

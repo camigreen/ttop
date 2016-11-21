@@ -6,18 +6,23 @@
 * @license   http://www.gnu.org/licenses/gpl.html GNU/GPL
 */
 $embed = $this->app->request->get('embed','bool');
-$this->app->document->addScript('elements:cart/assets/js/storeitem.js');
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-$storeItem = $this->app->item->create($item, 'ttopboatcover');
+$product = $this->app->product->create($item);
 $category = $item->getPrimaryCategory()->getParent();
+$this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
+$this->app->document->addScript('library.cart:assets/js/cart.js');
+$this->app->document->addScript('library.product:assets/js/orderform.js');
+$this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
+$this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
+$product->price->debug(true);
 
 ?>
-<div id="storeOrderForm" class="t-top-boat-cover" >
-    <div id="<?php echo $storeItem->id ?>" class="storeItem" data-item="<?php echo $storeItem->getItemsJSON(); ?>">
-    <div class="uk-grid <?php echo $storeItem->getPriceGroup(); ?>">
+<div id="OrderForm" class="t-top-boat-cover" data-id="<?php echo $product->id; ?>">
+    <div id="<?php echo $product->id ?>" class="storeItem" >
+    <div class="uk-grid">
         <div class="uk-width-1-2">
-            <p class="uk-article-title"><?php echo $storeItem->name; ?></p>
+            <p class="uk-article-title"><?php echo $product->name; ?></p>
         </div>
 
         <div class="uk-width-1-2 uk-text-right">
@@ -56,7 +61,7 @@ $category = $item->getPrimaryCategory()->getParent();
                             <?php endif; ?>
                         </ul>
 
-                        <ul id="tabs" style="min-height:150px;" class="uk-width-1-1 uk-switcher uk-margin options-container" data-id="<?php echo $storeItem->id; ?>">
+                        <ul id="tabs" style="min-height:150px;" class="uk-width-1-1 uk-switcher uk-margin options-container" data-id="<?php echo $product->id; ?>">
                             <li class="uk-grid">
 
 
@@ -149,10 +154,10 @@ $category = $item->getPrimaryCategory()->getParent();
             <div class="uk-width-1-3">
                 <div class="uk-width-1-1 uk-grid price-container">
                     <?php if ($this->checkPosition('pricing')) : ?>
-                            <?php echo $this->renderPosition('pricing', array('item' => $storeItem)); ?>
+                            <?php echo $this->renderPosition('pricing', array('item' => $product)); ?>
                     <?php endif; ?>
                 </div>
-                <div class="uk-width-1-1 options-container uk-margin-top" data-id="<?php echo $storeItem->id; ?>">
+                <div class="uk-width-1-1 options-container uk-margin-top" data-id="<?php echo $product->id; ?>">
                     <?php if ($this->checkPosition('options')) : ?>
                         <div class="uk-panel uk-panel-box">
                             <h3><?php echo JText::_('Options'); ?></h3>
@@ -163,9 +168,9 @@ $category = $item->getPrimaryCategory()->getParent();
                 </div>
                 <div class="uk-width-1-1 addtocart-container uk-margin-top">
                     <label>Quantity</label>
-                    <input id="qty-<?php echo $storeItem->id; ?>" type="number" class="uk-width-1-1 qty" name="qty" data-id="<?php echo $storeItem->id; ?>" min="1" value ="1" />
+                    <input id="qty-<?php echo $product->id; ?>" type="number" class="uk-width-1-1 qty" name="qty" data-id="<?php echo $product->id; ?>" min="1" value ="1" />
                     <div class="uk-margin-top">
-                        <button id="atc-<?php echo $storeItem->id; ?>" class="uk-button uk-button-danger atc" data-id="<?php echo $storeItem->id; ?>"><i class="uk-icon-shopping-cart" data-store-cart style="margin-right:5px;"></i>Add to Cart</button>
+                        <button id="atc-<?php echo $product->id; ?>" class="uk-button uk-button-danger atc" data-id="<?php echo $product->id; ?>"><i class="uk-icon-shopping-cart" data-store-cart style="margin-right:5px;"></i>Add to Cart</button>
                     </div>
                 </div>
                 <?php if ($this->checkPosition('accessories')) : ?>
@@ -186,37 +191,6 @@ $category = $item->getPrimaryCategory()->getParent();
             
             <?php if ($this->checkPosition('modals')) : ?>
                 <div class="modals">
-                    <div id="confirm-modal" class="uk-modal">
-                        <div class="uk-modal-dialog">
-                            <div class="uk-grid" data-uk-grid-margin="">
-                                <div class="uk-width-1-1">
-                                    <div class="uk-article-title uk-text-center">Confirmation</div>
-                                    <div class="uk-text-center uk-margin">By typing "yes" in the box below, I certify that the options that I have chosen are correct. I understand that a T-Top Boat Cover is a custom made product and that if I have chosen an option incorrectly it may lead to the T-Top Boat Cover not fitting my boat correctly.</div>
-                                </div>
-                                <div class="uk-width-1-1"> 
-                                    <div class="item"></div>
-                                </div>
-                                <div class="uk-width-1-1">
-                                    <span>Type "yes" in the box below to confirm that your options have been chosen correctly.</span><br />
-                                    <span class="confirm-error uk-text-danger uk-text-small"></span><br />
-                                    <input type="text" name="accept" />
-                                </div>
-                                <div class="uk-width-1-1">
-                                    <div class="uk-grid">
-                                        <div class="uk-width-1-2">
-                                            <button class="uk-width-1-1 uk-button uk-button-danger confirm">Confirm</button>
-                                        </div>
-                                        <div class="uk-width-1-2">
-                                            <button class="uk-width-1-1 uk-button uk-button-danger cancel">Cancel</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="uk-width-1-1">
-                                    <input type="hidden" name="cart_id" value="" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <?php echo $this->renderPosition('modals'); ?>
                 </div>
             <?php endif; ?>
@@ -226,97 +200,24 @@ $category = $item->getPrimaryCategory()->getParent();
     </div>
 </div>
 <script>
-    jQuery(document).ready(function($) { 
-        $('button.tm-yes').on('click', function() {
-            $('[name="trolling_motor"]').val('y');
-            $('[name="trolling_motor"]').trigger('change');
-        });
-        $('button.tm-r').on('click', function() {
-            $('[name="trolling_motor"]').val('r');
-            $('[name="trolling_motor"]').trigger('change');
-        });
-       
-    });
-    
-</script>
-<script>   
-jQuery(function($){
-
-    var progressbar = $("#progressbar"),
-        bar         = progressbar.find('.uk-progress-bar'),
-        settings    = {
-
-        action: '?option=com_zoo&controller=store&task=photoUpload&format=json', // upload url
-
-        allow : '*.(jpg|jpeg|gif|png)', // allow only images
-        params: {'id': uniqID},
-        type: 'JSON',
-
-        loadstart: function() {
-            bar.css("width", "0%").text("0%");
-            progressbar.removeClass("uk-hidden");
-        },
-        beforeAll: function(files) {
-            console.log(files);
-        },
-        beforeSend: function(xhr) {
-            console.log(xhr);
-        },
-        progress: function(percent) {
-            percent = Math.ceil(percent);
-            bar.css("width", percent+"%").text(percent+"%");
-        },
-
-        allcomplete: function(response) {
-            bar.css("width", "100%").text("100%");
-
-            setTimeout(function(){
-                progressbar.addClass("uk-hidden");
-            }, 250);
-            console.log(response);
-            response = JSON.parse(response);
-            if(response) {
-                var img = '<img class="uk-thumbnail" src="'+response.data.path+'" />';
-                uniqID = response.data.uniqID;
-                $('#upload-drop-'+drop).html(img);
-                alert("Upload Completed");
-            }
-        }
-    };
-    var drop;
-    var uniqID = null;
-    $('.uk-placeholder').on('drop', function(e){
-        drop = $(e.target).closest('.uk-placeholder').data('drop');
-    })
-    $.UIkit.uploadDrop($("#upload-drop-1"), settings);
-    $.UIkit.uploadDrop($("#upload-drop-2"), settings);
-    $.UIkit.uploadDrop($("#upload-drop-3"), settings);
-    $(document).ready(function() {
-        $('.tm-upload-cancel').on('click', function() {
-            $('[name="trolling_motor"]').val('X').trigger('input');
-            $('.uk-placeholder').html('<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-vertical-align-middle"></i>');
-        });
-    })
-});
-</script>
-<script>
+    if(typeof items === 'undefined') { var items = {} };
+    items[<?php echo $product->id; ?>] = <?php echo $product->toJson(true); ?>;
     jQuery(function($) {
+
+        lpiModal.init('.modals');
+
         $(document).ready(function(){
-            $('#storeOrderForm').StoreItem({
+            $('#OrderForm').OrderForm({
                 name: 'T-Top Boat Cover',
-                validate: true,
+                validate: false,
                 debug: true,
+                confirm: true,
                 events: {
-                    ttopboatcover: {
+                    ttbc: {
                         onInit: [
                             function (data) {
-                                console.log(data);
-                                var item;
-                                $.each(data.args.items, function (k, v) {
-                                    if(this.type == 'ttopboatcover') {
-                                        item = this;
-                                    }
-                                })
+                                var item data.args.item;
+
                                 this.trigger('changeColor', {item: item, fabric: item.options.fabric.value});
                                 return data;
                             }
@@ -327,16 +228,20 @@ jQuery(function($){
                                 switch(elem.prop('name')) {
                                     case 'storage': //Check the storage value and if "IW" show the modal
                                         if(elem.val() === 'IW') {
-                                            var modal = $.UIkit.modal("#inwater-modal");
-                                            modal.options.bgclose = false;
-                                            modal.show();
+                                            lpiModal.getModal({type: 'ccbc', name: 'inwater'});
                                         }
                                         break;
                                     case 'trolling_motor': // Check if the trolling motor is "yes" and show the modal for the photo upload
-                                        if(elem.val() === 'y') {
-                                            var modal = $.UIkit.modal("#tm-temp-modal");
-                                            modal.options.bgclose = false;
-                                            modal.show();
+                                        if(elem.val() === 'Y' && !this.item.options.trolling_motor.confirmed) {
+                                            data = {
+                                                type: 'ttbc',
+                                                name: 'trolling_motor',
+                                                value: 'Y',
+                                                field: elem.prop('id')
+                                            };
+                                            lpiModal.getModal(data);
+                                        } else {
+                                            this.item.options.trolling_motor.confirmed = false;
                                         }
                                         break;
                                     case 'fabric':

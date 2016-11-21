@@ -12,7 +12,9 @@
                 <td>
                     <div class="ttop-checkout-item-name"><?php echo $item->name ?></div>
                     <div class="ttop-checkout-item-description"><?php echo $item->description ?></div>
-                    <div class="ttop-checkout-item-options"><?php echo $item->getOptions(); ?></div>
+                    <?php if(count($item->getOptions()) > 0) : ?>
+                        <div class="ttop-checkout-item-options"><?php echo $item->getOptions(); ?></div>
+                    <?php endif; ?>
 
                 </td>
                 <td class="ttop-checkout-item-qty">

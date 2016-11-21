@@ -37,19 +37,20 @@ class PriceHelper extends AppHelper {
 
     public function createdev($product) {
         $this->app->loader->register('Price','classes:pricedev.php');
-        if(!$this->app->customer->isReseller()) {
+        if($this->app->customer->isReseller()) {
             $class = 'ResellerPrice';
             $this->app->loader->register('ResellerPrice','classes:reseller.php');
         } else {
             $class = 'Price';
         }
-        $price = new $class($this->app);
-        $price->setGroup($product->getPriceRule());
-        $price->register('path.rules.item', $this->app->path->path('rules:'.$product->type.'.php'));
-        $price->register('path.rules.global', $this->app->path->path('rules:global.php'));
-        $price->register('options.product', $product->options->getByType('price'));
-        $price->register('product.type', $product->type);
-        $price->calculate();
+        $data = array();
+        $data['path.rules.item'] = $this->app->path->path('rules:'.$product->type.'.php');
+        $data['path.rules.global'] = $this->app->path->path('rules:global.php');
+        $data['product.type'] = $product->type;
+        $data['rule'] = $product->getPriceRule();
+        $options = array_merge(array(), $product->options->getByType('price', array())->getArrayCopy(), $product->options->getByType('price.adj', array())->getArrayCopy());
+        $data['options.product'] = $options;
+        $price = new $class($this->app, $data);
         return $price;
     }
 

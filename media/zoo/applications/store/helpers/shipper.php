@@ -146,8 +146,8 @@ class ShipperHelper extends AppHelper {
         $newpackage = $this->app->parameter->create();
         $count = 1;
         foreach($items as $item) {
-            $shipWeight = $item->getPrice()->getShippingWeight();
-            $qty = $item->qty;
+            $shipWeight = $item->getWeight();
+            $qty = $item->getQty();
             while($qty >= 1) {
                 if(($newpackage->get('weight', 0) + $shipWeight) > $this->packageWeightMax) {
                     $package = new \SimpleUPS\Rates\Package();
@@ -157,7 +157,7 @@ class ShipperHelper extends AppHelper {
                     $count = 1;
                 }
                 $newpackage->set('weight', $newpackage->get('weight', 0) + $shipWeight);
-                $newpackage->set('insurance', $newpackage->get('insurance', 0.00) + $item->getPrice()->retail*$this->packageInsuredValuePercentage);
+                $newpackage->set('insurance', $newpackage->get('insurance', 0.00) + $item->getPrice()*$this->packageInsuredValuePercentage);
                 $count++;
                 $qty--;
             }
@@ -171,37 +171,42 @@ class ShipperHelper extends AppHelper {
     }
 
     public function getRates() {
+        $shipment = new \SimpleUPS\Rates\Shipment();
+        $shipment->setDestination($this->destination);
 
-        //try {
+        foreach($this->packages as $package) {
+            $shipment->addPackage($package);
+        }
+        try {
             //define a package, we could specify the dimensions of the box if we wanted a more accurate estimate
             //$this->setShipper();
             //$shipper = $this->getShipper();
             
-            $shipment = new \SimpleUPS\Rates\Shipment();
-            $shipment->setDestination($this->destination);
-            foreach($this->packages as $package) {
-                $shipment->addPackage($package);
-            }
+
             //$service = new \SimpleUPS\Service();
             //$service->setCode('03');
             //$shipment->setService($service);
             //$shipment->setShipper($shipper);
+
             $rates = UPS::getRates($shipment);
-            foreach ($rates as $shippingMethod) {
-                $this->_rates[$shippingMethod->getService()->getCode()] = $shippingMethod;
-            }
-            return $this->_rates;
+
+            
                     
 
-        //} catch (ShipperException $e) {
+        } catch (Exception $e) {
             //doh, something went wrong
             echo 'Failed: ('.get_class($e).') '.$e->getMessage().'<br/>';
            echo 'Stack trace:<br/><pre>'.$e->getTraceAsString().'</pre>';
-        //}
+           var_dump($this->packages);
+           return;
+        }
         if (UPS::getDebug()) {
             UPS::getDebugOutput();
         }
-        
+        foreach ($rates as $shippingMethod) {
+            $this->_rates[$shippingMethod->getService()->getCode()] = $shippingMethod;
+        }
+        return $this->_rates;
     }
 
     public function getRateByMethod($method) {
@@ -262,8 +267,4 @@ class ShipperHelper extends AppHelper {
  * @see   \SimpleUPS\UPS::setAuthentication()
  * @since 1.0
  */
-class ShipperException extends \Exception
-{
-
-
-}
+class ShipperException extends \SimpleUPS\Api\RequestFailedException {}

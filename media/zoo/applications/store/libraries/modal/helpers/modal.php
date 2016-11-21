@@ -17,7 +17,6 @@ class ModalHelper extends AppHelper {
     
     public function __construct($app) {
         parent::__construct($app);
-        $this->xml = simplexml_load_file($this->app->path->path('library.modal:/fields/modals/modals.xml'));
                 
     }
 
@@ -33,14 +32,13 @@ class ModalHelper extends AppHelper {
 
     }
 
-    public function create($modal, $args = null) {
-        $modal = $this->app->data->create($modal);
-        $type = $modal->get('type');
-        $value = $modal->get('value');
-        $field = $modal->get('field');
-        $args = $modal->get('args');
-
-        if(!$node = $this->getNode($type)) {
+    public function create($config) {
+        $config = $this->app->data->create($config);
+        $this->xml = simplexml_load_file($this->app->path->path('library.modal:/fields/modals/'.$config->get('type').'/modals.xml'));
+        
+        $name = $config->get('name');
+        $type = $config->get('type', 'default');
+        if(!$node = $this->getNode($name)) {
             return 'Error loading modal from XML';
         }
 
@@ -49,7 +47,7 @@ class ModalHelper extends AppHelper {
         $scroll = $this->getBool($node->attributes()->scroll);
         $scrolltext = $node->attributes()->scrolltext ? (string) $node->attributes()->scrolltext : 'Scroll down for more info.';
         $layout = (string) $node->attributes()->layout;
-        $file = 'fields:/modals/'.$layout.'.php';
+        $file = 'fields:/modals/'.$type.'/'.$layout.'.php';
         $save = $node->attributes()->save ? (string) $node->attributes()->save : null;
         $cancel = $node->attributes()->cancel ? (string) $node->attributes()->cancel : 'Ok';
         $html[] = '<div class="uk-modal-header uk-text-center">';
@@ -72,7 +70,7 @@ class ModalHelper extends AppHelper {
         $html[] = '<div class="modal-content'.($scroll ? ' uk-overflow-container' : '').'">';
 
         if(file_exists($this->app->path->path($file))) {
-            $html[] = $this->app->field->render('modals/'.$layout, $modal, $value, $node, array('save' => $save, 'cancel' => $cancel, 'field' => $field, 'args' => $args)); 
+            $html[] = $this->app->field->render('modals/'.$config->get('type','default').'/'.$layout, $config, $config->get('value'), $node, array('save' => $save, 'cancel' => $cancel, 'config' => $config)); 
         } else {
             $html[] = 'Modal layout '.$layout.' not found!';
         }
@@ -83,16 +81,16 @@ class ModalHelper extends AppHelper {
         $html[] = '<ul class="uk-grid" data-uk-grid-margin>';
         if($save) {
             $html[] = '<li class="uk-width-1-4 uk-push-2-4">';
-            $html[] = "<button class=\"modal-save uk-button uk-button-primary uk-width-1-1\" data-modal='".json_encode($modal)."'>".$save."</button>";
+            $html[] = "<button class=\"modal-save uk-button uk-button-primary uk-width-1-1\" >".$save."</button>";
             $html[] = '</li>';
         }
         $html[] = '<li class="uk-width-1-4'.($save ? " uk-push-2-4" : " uk-push-3-4").'">';
-        $html[] = "<button class=\"modal-cancel uk-button uk-width-1-1\" data-modal='".json_encode($modal)."' >".$cancel."</button>";
+        $html[] = "<button class=\"modal-cancel uk-button uk-width-1-1\" >".$cancel."</button>";
         $html[] = '</li>';
         $html[] = '</ul>';
         $html[] = '</div>';
 
-        return implode('', $html);
+        return sprintf('<div id="'.$config->get('type').'-'.$config->get('name').'-modal" class="uk-modal ttop" data-config=\''.json_encode($config).'\'><div class="uk-modal-dialog"> <div class="contents">%s</div></div></div>', implode('',$html));
 
 
         

@@ -74,8 +74,15 @@ class CartController extends AppController {
 
     public function output() {
         $this->app->document->setMimeEncoding('application/json');
+        $arr = array();
+        foreach ($this->cart->getAll() as $item) {
+            $arr[] = get_class($item);
+        }
         $result = array(
             'result' => true,
+            'items' => $arr,
+            'total' => $this->cart->getTotal(),
+            'count' => $this->cart->getItemCount(),
             'render' => $this->cart->render()
         );
         echo json_encode($result);

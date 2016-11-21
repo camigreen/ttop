@@ -24,15 +24,12 @@ class OrderDevHelper extends AppHelper {
     }
 
     public function get($id) {
-
+        
         if (isset($this->_order[$id])) {
             return $this->_order[$id];
         } 
-        
         $order = $this->table->get($id);
         if($order) {
-            // trigger the init event
-            $this->app->event->dispatcher->notify($this->app->event->create($order, 'order:init'));
             $this->_order[$id] = $order;
             return $this->_order[$id];
         } else {

@@ -1,3 +1,7 @@
+<?php 
+$product = $this->app->product->create($config->get('args')['product']);
+?>
+
 <div class="uk-grid" data-uk-grid-margin>
 	<div class="uk-width-1-1">
 		<p>Please select a port or starboard side zipper entry for your cover. The zipper entry will be located in-line with the helm seat.</p>
@@ -13,18 +17,24 @@
 			<label><input name="ccbc.zipper_modal_helper" type="radio" value="ZP" class="uk-margin-right" <?php echo $value == 'ZP' ? 'checked' : '' ?> />Port Side Access</label><br />
 			<label><input name="ccbc.zipper_modal_helper" type="radio" value="ZS" class="uk-margin-right" <?php echo $value == 'ZS' ? 'checked' : '' ?> />Starboard Side Access</label><br />
 			<label><input name="ccbc.zipper_modal_helper" type="radio" value="CR" class="uk-margin-right" <?php echo $value == 'CR' ? 'checked' : '' ?> />Center Rear Access (Twin Hull Only)</label></div>
-			<input type="hidden" name="ccbc.zipper_modal_value" data-field-id="<?php echo $field; ?>" />
 	</div>
 </div>
 
 <script>
 jQuery(function($){
 	$(document).ready(function(){
-		var elem = $('[name="ccbc.zipper_modal_value"]');
-		//elem.val($('[name="ccbc.zipper_modal_helper"]').val());
-		$('[name="ccbc.zipper_modal_helper"]').on('change', function(){
-			elem.val($(this).val());
-		});
+		var value = $('[name="zipper"]').val();
+		$('input[name="ccbc.zipper_modal_helper"][value="'+value+'"]').prop('checked', 'checked');
+		
+		$('#ccbc-zipper-modal').on('save', function(e, data){
+			var name = data.name;
+            var elem = $('[name="'+name+'"]');
+            console.log(elem);
+            var value = $('[name="ccbc.zipper_modal_helper"]:checked').val()
+            data.result = true;
+            elem.val(value).trigger('change');
+        });
+
 	})
 
 })

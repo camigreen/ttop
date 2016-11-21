@@ -7,7 +7,7 @@
 // Get Variables
 $product = $parent->getValue('product');
 $fieldtype = $node->attributes()->option ? ' item-option' : '';
-$xml = simplexml_load_file($this->app->path->path('fields:/'.$product->type.'/config.xml'));
+$xml = simplexml_load_file($this->app->path->path('fields:options/'.$product->type.'.xml'));
 $optionData = array(
 	'name' => (string) $node->attributes()->name,
 	'label' => (string) $node->attributes()->label,
@@ -24,7 +24,10 @@ if($opt) {
 foreach ($xml->field as $field) {
 	if((string) $field->attributes()->name == $fieldOptions) {
 		$optionData['visible'] = (string) $field->attributes()->visible == 'true' ? true : false;
-		$options['0'] = '- SELECT -'; 
+		if($value == '0') {
+			$options['0'] = '- SELECT -'; 
+		}
+		
 		foreach($field->option as $option) {
 			$options[(string) $option->attributes()->value] = (string) $option;
 		}

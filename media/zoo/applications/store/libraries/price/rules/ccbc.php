@@ -23,4 +23,5 @@ $rules['2425.shipping.weight'] = 22;
 $rules['26.9Ply.base'] = 816.67;
 $rules['26.9Acr.base'] = 1037.50;
 $rules['26.shipping.weight'] = 22;
+
 ?>
