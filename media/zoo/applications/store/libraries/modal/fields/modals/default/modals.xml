@@ -2,4 +2,5 @@
 	<modals>
 		<modal name="confirm" layout="confirm" title="Confirmation" subtitle="Please read carefully!" save="Confirm" cancel="Cancel" scroll="true" />
 		<modal name="bowrails" layout="bowrails" title="Bow Rails" subtitle="" scroll="true" save="Save" cancel="Cancel" />
+		<modal name="boatchooser" layout="boatchooser" title="Choose Your Boat" subtitle="" save="Continue" cancel="Enter My Own" scroll="true" />
 	</modals>

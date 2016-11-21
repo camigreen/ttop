@@ -316,7 +316,7 @@ var_dump($product->price->debug());
     };
 
     jQuery(document).ready(function($){
-
+        lpiModal.init('.modals');
         $('#OrderForm-ccc').OrderForm({
             name: 'CenterConsoleCurtain',
             validate: true,
@@ -327,6 +327,12 @@ var_dump($product->price->debug());
                     onInit: [
                         function (data) {
                             var self = this;
+                            this.$element.on('measure', function(e, data){
+                                return self.trigger('measure', {item: self.item, location: data.location}).triggerResult;
+                            });
+                            this.$element.on('backToDefaults', function(e, data){
+                                return self.trigger('backToDefaults', {item: self.item, action: 'measurements'}).triggerResult;
+                            });
                             this.trigger('backToDefaults', {item: this.item});
                             this.trigger('measure', {item: this.item});
                             //this.trigger('measure2', {});
@@ -345,50 +351,6 @@ var_dump($product->price->debug());
                                 self.trigger('changeColor', {item: self.item, fabric: $(e.target).val()});
                             });
 
-                            $('[name="boatmodel"]').on('change', function() {
-                                //self.trigger('backToDefaults', {item: self.item});
-                                if($(this).val() == 0 ) {
-                                    return;
-                                }
-                                var make = $('[name="boatmake"] option:selected').text();
-                                var model = $('[name="boatmodel"] option:selected').text();
-                                $('[name="make"]').val(make);
-                                $('[name="model"]').val(model);
-
-                                var m = $(this).val().split(','), proceed = true;
-
-                                $('#ttop2deck').val(parseInt(m[0]));
-                                
-                                if(self.trigger('measure',{item: self.item, location: 'ttop2deck'}).triggerResult) {
-                                    $('#helm2console').val(parseInt(m[1]));
-                                } else {
-                                    $('#ttop2deck').val(CCC.options.ttop2deck.default);
-                                    proceed = false;
-                                }
-                                if(proceed && self.trigger('measure',{item: self.item, adjustHSW: false, location: 'helm2console'}).triggerResult) {
-                                    $('#helmSeatWidth').val(parseInt(m[2]));
-                                } else {
-                                    $('#helm2console').val(CCC.options.helm2console.default);
-                                    proceed = false;
-                                }
-                              
-                                if(proceed && !self.trigger('measure',{item: self.item, adjustHSW: false, location: 'helmSeatWidth'}).triggerResult) {
-                                    $('#helmSeatWidth').val(CCC.options.helmSeatWidth.default);
-                                    proceed = false;
-                                }
-                                
-                                if(proceed) {
-                                    CCC.measurements_changed = 'T-Top';
-                                    $('.chosen_boat').text('Chosen Boat: '+make+' - '+model);
-                                    $('.ccc-measurement').hide();
-                                    CCC.mode = 'CYB';
-                                } else {
-                                    self.trigger('backToDefaults', {item: self.item, action: 'measurements'});
-                                    self.trigger('measure', {item: self.item});
-                                }
-
-                                
-                            });
                             $('#startPage #btn_continue').on('click', function() {
                                 startPageModal.hide();
                             });
@@ -422,8 +384,13 @@ var_dump($product->price->debug());
                     beforeChange: [],
                     startPage: [
                         function (data) {
-                            startPageModal.options.bgclose = false;
-                            startPageModal.show();
+                            var data = {
+                                type: 'default',
+                                name: 'boatchooser',
+                                args: {product: this.item, kind: 'ccc'},
+                                cache: false
+                            };
+                            lpiModal.getModal(data);
 
                             return data;
                         }
