@@ -229,6 +229,7 @@ class TestController extends AppController {
 	 */
 	public function changeAccountDiscount() {
 		$commit = $this->app->request->get('commit', 'string');
+		$d = $this->app->request->get('d', 'int', 10);
 		if($commit != 'yes') {
 			echo 'Not Committed';
 			return;
@@ -240,7 +241,7 @@ class TestController extends AppController {
 			echo $account->name.'</br>';
 			echo 'From</br>';
 			var_dump($account->params->get('discount'));
-			$account->params->set('discount', 10);
+			$account->params->set('discount', $d);
 			$account->save();
 			echo 'To:</br>';
 			var_dump($account->params->get('discount'));
