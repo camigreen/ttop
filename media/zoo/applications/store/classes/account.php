@@ -95,10 +95,13 @@ class Account {
         }
 
         // Bind the related accounts.
-        if($this->app->storeuser->get()->isAccountAdmin()) {
-            $related = isset($data['related']) ? $data['related'] : array();
-            $this->_bindMappedAccounts($related);
-        }
+        // if($this->app->storeuser->get()->isAccountAdmin()) {
+        //     $related = isset($data['related']) ? $data['related'] : array();
+        //     $this->_bindMappedAccounts($related);
+        // }
+
+        $related = isset($data['related']) ? $data['related'] : array();
+        $this->_bindMappedAccounts($related);
         
         
 

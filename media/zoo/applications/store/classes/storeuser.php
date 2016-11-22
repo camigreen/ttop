@@ -222,8 +222,7 @@ class StoreUser {
      * @since 1.0.0
      */
     public function isAccountAdmin() {
-        return true;
-        //return $this->isStoreAdmin() || $this->authorise('account.admin', 'account');
+        return $this->isStoreAdmin() || $this->authorise('account.admin', 'account');
     }
 
     /**
