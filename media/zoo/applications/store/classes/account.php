@@ -39,7 +39,7 @@ class Account {
 
     public $app;
 
-    protected $_mappedAccounts;
+    public $_mappedAccounts;
 
     protected $_mappedAccountsLoaded = false;
 
