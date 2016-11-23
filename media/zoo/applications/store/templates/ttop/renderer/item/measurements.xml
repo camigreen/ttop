@@ -13,6 +13,7 @@
 		<make value="boston_whaler" name="Boston Whaler">
 			<model value="76,61,34,A">200 Dauntless</model>
 			<model value="76,61,34,A">210 Montauk</model>
+			<model value="86,88,46">230 Vantage</model>
 			<model value="81,72,24,A">240 Outrage</model>
 			<model value="95,71,63,B">270 Dauntless</model>
 			<model value="108,77,50,B">28 Conquest</model>
