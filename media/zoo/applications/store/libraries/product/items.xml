@@ -335,6 +335,14 @@
 					</options>
 				</model>
 				<model>
+					<name>216</name>
+					<label>216</label>
+					<skucode>216</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="21" />
+					</options>
+				</model>
+				<model>
 					<name>230-bay-reef</name>
 					<label>230 Bay Reef</label>
 					<skucode>230BR</skucode>
