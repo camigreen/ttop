@@ -52,6 +52,7 @@
 		<make value="grady_white" name="Grady White">
 			<model value="86,62,39">191 Coastal Explorer</model>
 			<model value="87,68,24,A">251 Coastal Explorer</model>
+			<model value="86,90,45">255 Freedom</model>
 			<model value="94,74,62,B">272 Sailfish</model>
 			<model value="90,72,60,B">275 Freedom</model>
 			<model value="94,74,62,B">272 Sailfish</model>
