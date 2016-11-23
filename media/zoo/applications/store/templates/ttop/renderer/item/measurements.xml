@@ -84,6 +84,9 @@
 			<model value="88,74,44,A">2200 XS</model>
 			<model value="90,70,42,A">2500</model>
 		</make>
+		<make value="panga_craft" name="Panga Craft">
+			<model value="83,64,78">27</model>
+		</make>
 		<make value="pathfinder" name="Pathfinder">
 			<model value="88,64,57,B">2200</model>
 			<model value="88,65,57,B">2400</model>
@@ -265,6 +268,9 @@
 		</make>
 		<make value="nautic_star" name="Nautic Star">
 			<model value="84,98,45,B">2200 XS</model>
+		</make>
+		<make value="panga_craft" name="Panga Craft">
+			<model value="83,100,40">27</model>
 		</make>
 		<make value="pathfinder" name="Pathfinder">
 			<model value="82,89,41,A">2200</model>
