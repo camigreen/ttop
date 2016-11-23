@@ -123,6 +123,21 @@
 			</models>
 		</boat>
 		<boat>				
+			<name>beavertail</name>
+			<label>Beavertail</label>
+			<skucode>BT</skucode>
+			<models>
+				<model>
+					<name>16-micro</name>
+					<label>16 Micro</label>
+					<skucode>17MCR</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="16" />
+					</options>
+				</model>
+			</models>
+		</boat>
+		<boat>				
 			<name>carolina-skiff</name>
 			<label>Carolina Skiff</label>
 			<skucode>CRLNASKF</skucode>

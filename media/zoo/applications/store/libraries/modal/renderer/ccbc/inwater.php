@@ -26,9 +26,11 @@
 <script>
 jQuery(function($){
 	$(document).ready(function(){
-		$('[name="ccbc.stb_modal_helper"]').on('change', function(){
-			elem.val($(this).val());
-		});
+		$('#ccbc-inwater-modal').on('cancel', function(e, data) {
+			$('[name="storage"]').val(0).trigger('change');
+			data.result = true;
+		})
+		
 	})
 })
 </script>

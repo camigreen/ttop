@@ -289,6 +289,10 @@ class TestController extends AppController {
 
 	}
 
+	public function testModal() {
+		echo $this->app->modal->create(array('type' => 'ccbc', 'name' => 'zipper', 'args' => array('value' => 'ZP')));
+	}
+
 
 }
 ?>

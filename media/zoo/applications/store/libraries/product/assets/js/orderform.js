@@ -308,7 +308,7 @@
             var triggerData = this.trigger('beforePublishPrice', {item: item});
             product = triggerData.args.item;
             var self = this;
-            var elem = $('#'+item.id+'-price span');
+            var elem = typeof triggerData.args.elem === 'undefined' ? $('#'+item.id+'-price span') : triggerData.args.elem;
             elem.html('<i class="uk-icon-refresh uk-icon-spin"></i>');
             $.ajax({
                 type: 'POST',

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modals>
+	<modal name="measurements-aft" layout="measurements-aft" title="Aft Measurements" subtitle="" save="Save" cancel="Cancel" />
+	<modal name="measurements-bow" layout="measurements-bow" title="Bow Measurements" subtitle="" save="Save" cancel="Cancel" />
+	<modal name="beamtoosmall" layout="beamtoosmall" title="Uh oh!" subtitle="That beam measurement is too low." save="Contact Us" cancel="Cancel" />
+	<modal name="beamtoolarge" layout="beamtoolarge" title="Uh oh!" subtitle="That beam measurement is too high." save="Show Me!" cancel="Cancel" />
+	<modal name="ttoptoosmall" layout="ttoptoolarge" title="Uh oh!" subtitle="That T-Top width measurement is too high." save="Show Me!" cancel="Cancel" />
+	<modal name="ttoptoolarge" layout="ttoptoolarge" title="Uh oh!" subtitle="That T-Top width measurement is too high." save="Show Me!" cancel="Cancel" />
+	<modal name="ttop2rodtoosmall" layout="ttop2rodtoolarge" title="Uh oh!" subtitle="That T-Top to Rod Holder measurement is too high." save="Show Me!" cancel="Cancel" />
+	<modal name="ttop2rodtoolarge" layout="ttop2rodtoolarge" title="Uh oh!" subtitle="That T-Top to Rod Holder measurement is too high." save="Show Me!" cancel="Cancel" />
+	<modal name="nochange" layout="nochange" title="Uh oh!" subtitle="The order form measurements for the Boat Shade Kit have not been changed." save="Continue" cancel="Cancel" />
+</modals>
+

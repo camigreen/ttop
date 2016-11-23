@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+
+	<layout title="Order Form">
+		<message><![CDATA[Displays all of the products from the store application]]></message>
+	</layout>
+
+	<fields name="params">
+		<fieldset name="params"	addfieldpath="/administrator/components/com_zoo/joomla/fields">
+            <field name="task" type="hidden" label="" required="true" default="order" />
+                            
+		</fieldset>
+	</fields>
+	<fields name="request">
+		<fieldset name="request" addfieldpath="/administrator/components/com_zoo/joomla/fields">  
+			<field name="controller" type="hidden" label="" required="true" default="storedev" />          
+		</fieldset>
+	</fields>
+
+</metadata>

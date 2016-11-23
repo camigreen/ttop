@@ -14,13 +14,13 @@ $this->app->document->addScript('library.product:assets/js/orderform.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
 $class = $item->type.'-full';
-$product = $this->app->product->create($item, 'ccc');
+$product = $this->app->product->create($item);
 
 $this->template = $this->app->zoo->getApplication()->getTemplate()->getPath().'/renderer/item/ccc/';
 $type = 'orderform';
 $this->form = $this->app->form->create(array($this->template.'config.xml', compact('type')));
 $this->form->setValue('template', $this->template);
-var_dump($product->price->debug());
+var_dump($product);
 ?>
 <article>
     <span class="uk-article-title"><?php echo $item->name; ?></span>
