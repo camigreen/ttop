@@ -87,6 +87,7 @@
 		<make value="pathfinder" name="Pathfinder">
 			<model value="88,64,57,B">2200</model>
 			<model value="88,65,57,B">2400</model>
+			<model value="89,64,80">2500</model>
 		</make>
 		<make value="polar_kraft" name="Polar Kraft">
 			<model value="85,70,56,B">2300</model>
