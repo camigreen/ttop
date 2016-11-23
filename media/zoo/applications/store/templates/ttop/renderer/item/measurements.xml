@@ -164,6 +164,7 @@
 			<model value="84,63,43,A">24 BX BR</model>
 			<model value="86,62,33,A">24 RZR</model>
 			<model value="80,89,24,A">24 Edge</model>
+			<model value="85,65,64">25 BXBR</model>
 			<model value="92,69,46,A">27 Gamefish</model>
 			<model value="92,84,54,B">30 Gamefish</model>
 		</make>
@@ -342,6 +343,7 @@
 			<model value="84,104,41,B">234 Ultra</model>
 			<model value="84,96,43,B">24 BX BR</model>
 			<model value="82,108,39,B">24 RZR</model>
+			<model value="82,103,44">25 BXBR</model>
 			<model value="85,105,43,B">25 Gamefish</model>
 			<model value="85,127,48,D">27 Gamefish</model>
 		</make>
