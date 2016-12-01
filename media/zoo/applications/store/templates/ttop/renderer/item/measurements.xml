@@ -113,6 +113,7 @@
 		<make value="regulator" name="Regulator">
 			<model value="90,66,30,A">23</model>
 			<model value="94,85,31,A">29 FS</model>
+			<model value="95,91,60">31</model>
 		</make>
 		<make value="robalo" name="Robalo">
 			<model value="85,70,25,A">R200</model>
@@ -186,6 +187,7 @@
 			<model value="87,62,24,A">247 Platinum</model>
 			<model value="87,60,24,A">247 Masters</model>
 			<model value="92,70,27,A">251 Heritage</model>
+			<model value="92,72,40">267 Masters Bay</model>
 			<model value="92,73,60">282 Open</model>
 		</make>
 		<make value="tidewater" name="Tidewater">
@@ -359,6 +361,7 @@
 			<model value="81,88,40,A">247 Platinum</model>
 			<model value="85,86,39,A">247 Masters</model>
 			<model value="84,105,39,B">251 Heritage</model>
+			<model value="82,97,48">267 Masters Bay</model>
 			<model value="83,114,48">282 Open</model>
 		</make>
 		<make value="sundance" name="Sundance">
