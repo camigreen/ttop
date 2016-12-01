@@ -218,6 +218,43 @@ class TestController extends AppController {
 		}
 	}
 
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function changeAccountDiscount() {
+		$commit = $this->app->request->get('commit', 'string');
+		$d = $this->app->request->get('d', 'int', null);
+		$m = $this->app->request->get('m', 'int', null);
+
+		if($commit != 'yes') {
+			echo 'Not Committed';
+			return;
+		}
+		$accounts = $this->app->account->all(array('conditions' => 'id != 7'));
+		$count = 0;
+		foreach($accounts as $account) {
+			$count++;
+			echo $account->name.'</br>';
+			echo 'From</br>';
+			var_dump($account->params->get('discount'));
+			var_dump($account->params->get('margin'));
+			$account->params->set('discount', $d);
+			$account->params->set('margin', $m);
+			$account->save();
+			echo 'To:</br>';
+			var_dump($account->params->get('discount'));
+			var_dump($account->params->get('margin'));
+		}
+		echo $count.' Accounts Changed.';
+		
+	}
+
 
 }
 ?>

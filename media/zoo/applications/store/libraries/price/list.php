@@ -196,16 +196,19 @@ $price['ttopboatcover.R220Robalo.item.option.fabric.9oz'] = 1156;
 $price['ttopboatcover.R220Robalo.shipping.weight'] = 25;
 $price['ttopboatcover.R220Robalo.shipping.price'] = 30;
 
-// CCBC
-$price['ccbc.global.option.trolling_motor.y'] = 175;
+$price['ttopboatcover.36Fisharound.item.base'] = 0;
+$price['ttopboatcover.36Fisharound.item.option.fabric.7oz'] = 2800;
+$price['ttopboatcover.36Fisharound.item.option.fabric.8oz'] = 3000;
+$price['ttopboatcover.36Fisharound.item.option.fabric.9oz'] = 3150;
+$price['ttopboatcover.36Fisharound.shipping.weight'] = 40;
+$price['ttopboatcover.36Fisharound.shipping.price'] = 45;
 
-$price['ccbc.1819.9oz.item.base'] = 849;
-$price['ccbc.1819.9oz.shipping.weight'] = 22;
-
-$price['ccbc.13.9oz.item.base'] = 500;
-$price['ccbc.13.9oz.shipping.weight'] = 22;
-
-// TTop Accessories
+$price['ttopboatcover.255GradyWhite.item.base'] = 0;
+$price['ttopboatcover.255GradyWhite.item.option.fabric.7oz'] = 1670;
+$price['ttopboatcover.255GradyWhite.item.option.fabric.8oz'] = 1875;
+$price['ttopboatcover.255GradyWhite.item.option.fabric.9oz'] = 1995;
+$price['ttopboatcover.255GradyWhite.shipping.weight'] = 35;
+$price['ttopboatcover.255GradyWhite.shipping.price'] = 45;
 
 $price['accessories.global.allowMarkup'] = false;
 

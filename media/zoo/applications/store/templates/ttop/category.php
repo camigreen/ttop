@@ -30,17 +30,18 @@ $css_class = $this->application->getGroup().'-'.$this->template->name;
 ?>
 
 <div class="yoo-zoo <?php echo $css_class; ?> <?php echo $css_class.'-'.$this->category->alias; ?>">
-        <div class="<?php echo 'uk-text-'.$this->params->get('template.alignment'); ?>"><?php echo $this->category->getText($this->category->getParams()->get('content.slider')); ?></div>
-        
+    <div class="<?php echo 'uk-text-'.$this->params->get('template.alignment'); ?> uk-margin-bottom"><?php echo $this->category->getText($this->category->getParams()->get('content.slider')); ?></div>  
 	<?php if ($this->params->get('template.show_title') || $this->params->get('template.show_description') || $this->params->get('template.show_image')) : ?>
 
 		<?php if ($this->params->get('template.show_title')) : ?>
 		<h1 class="<?php echo 'uk-text-'.$this->params->get('template.alignment'); ?>"><?php echo $this->category->name; ?></h1>
                 
 		<?php endif; ?>
-                
+               
 		<?php if ($this->params->get('template.show_description') || $this->params->get('template.show_image')) : ?>
+
 		<div class="uk-clearfix">
+
                         
 			<?php if ($this->params->get('template.show_image')) : ?>
                         <img class="<?php echo 'uk-align-'.($this->params->get('template.alignment') == "left" || $this->params->get('template.alignment') == "right" ? 'medium-' : '').$this->params->get('template.alignment'); ?>" src="<?php echo $logo_image['src']; ?>" title="<?php echo $this->category->name; ?>" alt="<?php echo $this->category->name; ?>" height="300"/>
