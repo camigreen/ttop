@@ -76,7 +76,7 @@ if (in_array($widget->position, array('breadcrumbs', 'logo', 'logo-small', 'sear
 			$zoo = APP::getInstance('zoo');
 			$user = $zoo->storeuser->get();
 			$account = $user->getAccount(true);
-			$account_line = $zoo->store->merchantTestMode() ? '<div class="test-mode">'.$account->name.'<span>- Test Mode -</span></div>' : '<div>'.$account->name.'</div>';
+			$account_line = $zoo->store->merchantTestMode() ? '<div class="test-mode">'.$account->name.' - <span class="uk-text-danger">Test Mode</span></div>' : '<div>'.$account->name.'</div>';
 			
 			$content = str_replace('{user-name}', $user->name, $content);
 			$content = $account ? str_replace('<div>{account-name}</div>', $account_line, $content) : $content;
