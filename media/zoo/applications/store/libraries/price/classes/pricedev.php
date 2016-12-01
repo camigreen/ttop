@@ -56,6 +56,12 @@ class Price {
 		$this->register('product.type', $data['product.type']);
 		$this->setRule($data['rule']);
 		$this->register('options.product.', $data['options.product']);
+		if(!$this->_loadRules()) {
+			return false;
+		}
+		if(!$this->_addOptions()) {
+			return false;
+		}
 		$this->calculate();
 	}
 
@@ -69,12 +75,6 @@ class Price {
 	 * @since 1.0
 	 */
 	public function calculate() {
-		if(!$this->_loadRules()) {
-			return false;
-		}
-		if(!$this->_addOptions()) {
-			return false;
-		}
 		
 		$base = $this->get('base');
 		$msrpMkup = $this->getMarkupRate('msrp');

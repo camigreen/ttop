@@ -34,7 +34,7 @@ $makes = $bsk->getMakes($kind);
 
 	jQuery(function($) {
 	  	$(document).ready(function() {
-	  		$('#default-boatchooser-modal .modal-save').prop('disabled', true);
+	  		$('#bsk-boatchooser-modal .modal-save').prop('disabled', true);
 	  		$('[name="boatmake"]').on('change', function() {
 	  			var elem = $('[name="boatmodel"]');
 	  			var make = $('#boatmake option:selected').val();
@@ -55,63 +55,64 @@ $makes = $bsk->getMakes($kind);
 	                dataType: 'json'
             	});
 	  		})
-		  	console.log($('#default-boatchooser-modal'));
-		  	$('#default-boatchooser-modal').on('save', function(e, data){
+		  	$('#bsk-boatchooser-modal').on('save', function(e, data){
+		  		console.log(data);
+		  		var item = items['bsk-aft'];
+
 		  		var make = $('[name="boatmake"] option:selected');
                 var model = $('[name="boatmodel"] option:selected');
-                $('[name="make"]').val(make.text()).trigger('input');
-                $('[name="model"]').val(model.text()).trigger('input');
+                $('[name="boat_make"]').val(make.text()).trigger('input');
+                $('[name="boat_model"]').val(model.text()).trigger('input');
                 var measurements = model.val().split(','), proceed = true;
 
                 // Transfer TTop2Deck Measurement
-                $('#ttop2deck').val(parseInt(measurements[0]));
-                if($('#OrderForm-ccc').trigger('measure', {location: 'ttop2deck'})) {
-                	$('#helm2console').val(parseInt(measurements[1]));
-                	console.log('Passed');
+                item.options.beam.value = parseInt(measurements[0]);
+                if($('#OrderForm-bsk').trigger('measure', {item: item, type: 'aft'})) {
+                	item.options.ttop.value = parseInt(measurements[1]);
+                	console.log('Beam Passed');
                 } else {
-                	$('#ttop2deck').val(CCC.options.ttop2deck.default);
+                	item.options.ttop.value = defaults.aft.ttop.default;
                 	proceed = false;
                 }
-                if(proceed && $('#OrderForm-ccc').trigger('measure',{adjustHSW: false, location: 'helm2console'})) {
-                    $('#helmSeatWidth').val(parseInt(measurements[2]));
+                if(proceed && $('#OrderForm-bsk').trigger('measure',{item: item, type: 'aft'})) {
+                    item.options.ttop2rod.value = parseInt(measurements[2]);
+                    console.log('TTop Width Passed');
                 } else {
-                    $('#helm2console').val(CCC.options.helm2console.default);
+                    item.options.ttop2rod.value = defaults.aft.ttop.default;
                     proceed = false;
                 }
-	            if(proceed && !$('#OrderForm-ccc').trigger('measure',{item: self.item, adjustHSW: false, location: 'helmSeatWidth'})) {
-	                $('#helmSeatWidth').val(CCC.options.helmSeatWidth.default);
+	            if(proceed && !$('#OrderForm-bsk').trigger('measure',{item: item, type: 'aft'})) {
+	                item.options.ttop2rod.value = defaults.aft.ttop2rod.default;
 	                proceed = false;
 	            }
+	            console.log('TTop2Rod Passed');
 	            if(proceed) {
-                    CCC.measurements_changed = 'T-Top';
+                    defaults.aft.changed = 'T-Top';
                     $('.chosen_boat').text('Chosen Boat: '+make.text()+' - '+model.text());
-                    $('.ccc-measurement').hide();
-                    CCC.mode = 'CYB';
+                    $('.bsk-measurement').hide();
+                    mode = 'CYB';
+                    data.result = proceed;
                 } else {
-                    $('#OrderForm-ccc').trigger('backToDefaults');
-                    $('#OrderForm-ccc').trigger('measure');
+                	data.result = false;
                 }
-                data.result = 'break';
 		  		return data;
 
 	        });
-	        $('#default-boatchooser-modal').on('cancel', function(e, data){
+	        $('#bsk-boatchooser-modal').on('cancel', function(e, data){
 	        	console.log('Enter My Own');
-	        	$('.ccc-measurement').show();
-                $('#OrderForm-ccc').trigger('backToDefaults', {mode: 'EMM'});
-                CCC.mode = 'EMM';
-                $('#OrderForm-ccc').trigger('measure', {});
+                $('#OrderForm-bsk').trigger('setMode', {mode: 'EMM'});
+                $('#OrderForm-bsk').trigger('measure', {});
                 data.result = true;
 	        	return data;
 	        });
 
-	  		$('#default-boatchooser-modal select').on('change', function() {
+	  		$('#bsk-boatchooser-modal select').on('change', function() {
 	  			var make = $('#boatmake option:selected').val();
 	  			var model = $('#boatmodel option:selected').val();
 	  			if(make == 0 || model == 0) {
-                    $('#default-boatchooser-modal .modal-save').prop('disabled', true);
+                    $('#bsk-boatchooser-modal .modal-save').prop('disabled', true);
                 } else {
-                    $('#default-boatchooser-modal .modal-save').prop('disabled', false);
+                    $('#bsk-boatchooser-modal .modal-save').prop('disabled', false);
                 }
             	if(make == 0) {
                     $('[name="boatmodel"]').prop('disabled',true);

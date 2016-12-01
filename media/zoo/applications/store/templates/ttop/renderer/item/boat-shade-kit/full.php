@@ -24,7 +24,7 @@ var_dump($product->price->debug());
 <article>
     <span class="uk-article-title"><?php echo $product->name; ?></span>
 </article>
-<div id="OrderForm-bsk" class="uk-form" data-id="<?php echo $product->id; ?>">
+<div id="OrderForm-bsk" class="uk-form" data-id="bsk">
         <div class="uk-grid">
                 <div class="uk-width-2-3">
                     <div class="uk-width-1-1 options-container" data-id="bsk">
@@ -92,17 +92,14 @@ var_dump($product->price->debug());
                                         </fieldset>
                                     </div>
                                     <div class="uk-width-1-1 options-container uk-margin-top" data-id="<?php echo $product->id; ?>">
-                                        <?php if ($this->checkPosition('options')) : ?>
-                                            <div class="uk-panel uk-panel-box">
-                                                <h3><?php echo JText::_('Options'); ?></h3>
-                                                <div class="validation-errors"></div>
-                                                <?php echo $this->renderPosition('options', array('style' => 'user_options')); ?>
-                                            </div>
-                                        <?php endif; ?>
+
                                     </div>
                                 <?php endif; ?>
                                 <p class="uk-text-danger">Please refer to the note and maintenance section in the Info and Video Tab above.</p>
-                                <div class="uk-grid aft-container">
+                                <div class="uk-grid aft-container options-container" data-type="aft">
+                                    <div class="uk-width-1-1">
+                                        <legend>Aft Measurements</legend>
+                                    </div>
                                     <?php if ($this->checkPosition('aft_measurements')) : ?>
                                     <div class="uk-width-1-2">
                                         <div class="uk-width-1-1">
@@ -125,6 +122,15 @@ var_dump($product->price->debug());
                                             <label>Quantity</label>
                                             <input id="qty-bsk-aft" type="number" class="uk-width-1-3 qty" name="qty" data-id="bsk-aft" min="1" value ="1" />
                                         </div>
+                                        <div class="uk-width-1-1 uk-margin-top">
+                                            <?php if ($this->checkPosition('options')) : ?>
+                                            <div class="uk-panel uk-panel-box">
+                                                <h3><?php echo JText::_('Options'); ?></h3>
+                                                <div class="validation-errors"></div>
+                                                <?php echo $this->renderPosition('options', array('style' => 'user_options')); ?>
+                                            </div>
+                                            <?php endif; ?>
+                                        </div>
                                         <div class="uk-width-1-1">
                                             <p class="uk-text-danger" style="font-size:18px">Fill out the measurements below for your custom price.</p>
                                              <label><input type="checkbox" id="use_on_bow" name="use_on_bow" /> I want to use this shade on my bow also.<a href="#multipositional-modal" class="uk-icon-button uk-icon-info-circle" data-uk-tooltip="" title="Click here for more info!" data-uk-modal=""></a></label>
@@ -144,7 +150,10 @@ var_dump($product->price->debug());
                                     </div>
                                     <?php endif; ?>
                                 </div>
-                                <div class="uk-grid bow-container">
+                                <div class="uk-grid bow-container options-container uk-hidden" data-type="bow">
+                                    <div class="uk-width-1-1">
+                                        <legend>Bow Measurements</legend>
+                                    </div>
                                     <?php if ($this->checkPosition('bow_measurements')) : ?>
                                     <div class="uk-width-1-2 ">
                                         <div class="uk-margin-top">
@@ -162,6 +171,15 @@ var_dump($product->price->debug());
                                         <div class="uk-width-1-1">
                                             <label>Quantity</label>
                                             <input id="qty-bsk-bow" type="number" class="uk-width-1-3 qty" name="qty" data-id="bsk-bow" min="1" value ="1" />
+                                        </div>
+                                        <div class="uk-width-1-1 uk-margin-top">
+                                            <?php if ($this->checkPosition('options')) : ?>
+                                            <div class="uk-panel uk-panel-box">
+                                                <h3><?php echo JText::_('Options'); ?></h3>
+                                                <div class="validation-errors"></div>
+                                                <?php echo $this->renderPosition('options', array('style' => 'user_options')); ?>
+                                            </div>
+                                            <?php endif; ?>
                                         </div>
                                         <div class="uk-width-1-1 uk-margin-top">
                                             <button id="measurements-bow" class="uk-width-1-1 uk-button uk-button-danger" data-mode="EMM">Enter My Own Measurements</button>
@@ -206,11 +224,15 @@ var_dump($product->price->debug());
                             <fieldset>
                                 <legend>Essential Accessories</legend>
                                     <ul class="uk-list" data-uk-grid-margin>
-                                    <?php //echo $this->renderPosition('accessories', array('style' => 'related')); ?>
+                                    <?php echo $this->renderPosition('accessories', array('style' => 'related')); ?>
                                     </ul>
                             </fieldset>
                     </div>
                     <?php endif; ?>
+                    <div class="uk-width-1-1 uk-hidden">
+                        <button id="atc-bsk-aft" class="uk-button uk-button-danger"><i class="uk-icon-shopping-cart" data-store-cart style="margin-right:5px;"></i>Add to Cart</button>
+                        <button id="atc-bsk-bow" class="uk-button uk-button-danger"><i class="uk-icon-shopping-cart" data-store-cart style="margin-right:5px;"></i>Add to Cart</button>
+                    </div>
                 </div>
     </div>
         <div class="modals">
@@ -244,10 +266,9 @@ var_dump($product->price->debug());
     </div>
 </div>
 <script>
-    if(typeof items === 'undefined') {items = {}};
-    items['bsk'] = <?php echo $product->toJson(true); ?>;
-    var products = {};
-    var types = ['aft'];
+    if(typeof items === 'undefined') { var items = {}};
+    
+    var bsktypes = ['aft'];
     var mode = 'CYB';
     var defaults = {
         class: [
@@ -319,11 +340,13 @@ var_dump($product->price->debug());
         
     } 
     jQuery(document).ready(function($){
-
+        items['bsk-aft'] = $.extend({}, <?php echo $product->toJson(true); ?>);
+        items['bsk-bow'] = $.extend({}, <?php echo $product->toJson(true); ?>);
         lpiModal.init('.modals');
         $('#OrderForm-bsk').OrderForm({
             name: 'BoatShadeKit',
-            validate: true,
+            item: items['bsk-aft'],
+            validate: false,
             confirm: true,
             debug: true,
             events: {
@@ -331,18 +354,44 @@ var_dump($product->price->debug());
                     onInit: [
                         function (data) {
                             var self = this;
+                            // Create Items
+                            items['bsk-aft'].id = 'bsk-aft';
+                            items['bsk-aft'].description = 'Aft';
+                            items['bsk-aft'].params.location = 'aft';
+
+                            items['bsk-bow'].id = 'bsk-bow';
+                            items['bsk-bow'].description = 'Bow';
+                            items['bsk-bow'].params.location = 'bow';
+
+                            $('#atc-bsk-aft').on('click', $.proxy(this, 'addToCart'));
+                            $('#atc-bsk-bow').on('click', $.proxy(this, 'addToCart'));
 
                             $(this.$element).on('measure', function(e, data){
+                                if(mode === 'EMM') {
+                                    $('.chosen_boat').html();
+                                }
                                 self.trigger('measure', {item: data.item, type: data.type});
                             })
 
-                            $('#use_on_bow').on('change', function() {
-                                self.trigger('measure', {item: products['bsk-aft'], type: 'aft'});
+                            this.$element.on('setMode', function(e, data) {
+                                console.log(data);
+                                self.trigger('setMode', {item: self.item, mode: data.mode});
                             })
-                            // Create Items
-                            products['bsk-aft'] = $.extend(true, {}, this.item);
-                            products['bsk-bow'] = $.extend(true, {}, this.item);
 
+                            $('#use_on_bow').on('change', function() {
+                                self.trigger('measure', {item: items['bsk-aft'], type: 'aft'});
+                            })
+
+                            $('#qty-bsk-bow').on('input', function(e) {
+                                self.item = items['bsk-bow'];
+                                self._updateQuantity(e);
+                            });
+
+                            $('#qty-bsk-aft').on('input', function(e) {
+                                self.item = items['bsk-aft'];
+                                self._updateQuantity(e);
+                            });
+                            
                             $('.bsk-chooser .bsk-chooser-buttons li').on('click',function(e){
                                     var index = $(this).index();
                                     var type = $('.bsk-chooser .bsk-chooser-buttons li:eq('+index+')').data('value');
@@ -354,16 +403,20 @@ var_dump($product->price->debug());
 
                                     if(type === 'bow|aft') {
                                         $('.aft-container, .bow-container').removeClass('uk-hidden');
-                                        types = ['aft', 'bow'];
+                                        bsktypes = ['aft', 'bow'];
+                                        self._publishPrice({item: self.item, type: 'aft'});
                                     } else if(type === 'aft') {
                                         $('.aft-container').removeClass('uk-hidden');
                                         $('.bow-container').addClass('uk-hidden');
-                                        types = [type];
+                                        bsktypes = [type];
+                                        self._publishPrice({item: self.item, type: type});
                                     } else {
                                         $('.bow-container').removeClass('uk-hidden');
                                         $('.aft-container').addClass('uk-hidden');
-                                        types = [type];
+                                        bsktypes = [type];
+                                        self._publishPrice({item: self.item, type: type});
                                     }
+
                             });
 
 
@@ -375,10 +428,11 @@ var_dump($product->price->debug());
                                     cache: false,
                                     args: {
                                         measurements: defaults.aft,
-                                        product: products['bsk-aft']
+                                        item: items['bsk-aft']
                                     }
                                 };
                                 lpiModal.getModal(data);
+                                self.trigger('setMode', {item: items['bsk-aft'], mode: 'EMM'});
                             });
 
                             $('button#measurements-bow').on('click', function(e) {
@@ -388,16 +442,31 @@ var_dump($product->price->debug());
                                     cache: false,
                                     args: {
                                         measurements: defaults.bow,
-                                        product: products['bsk-bow']
+                                        item: items['bsk-bow']
                                     }
                                 };
                                 lpiModal.getModal(data);
+                                self.trigger('setMode', {item: items['bsk-bow'], mode: 'EMM'});
                             });
-                            $.each(types, function(k,type) {
+
+                            $.each(bsktypes, function(k,type) {
                                 self._debug('Measuring the '+type);
-                                self.trigger('measure', {item: products['bsk-'+type], type: type});
+                                self.trigger('measure', {item: items['bsk-'+type], type: type});
                             })
                             
+                            $('#btn_find_my_boat').on('click', function(e) {
+                                var elem = $(e.target);
+                                var data = {
+                                    type: 'bsk',
+                                    name: 'boatchooser',
+                                    args: {item: items['bsk-aft'], kind: 'bsk'},
+                                    cache: false
+                                };
+                                lpiModal.getModal(data);
+                                self.trigger('setMode', {item: items['bsk-aft'], mode: elem.data('mode')});
+                            });
+
+                            self._publishPrice({item: self.item, type: 'aft'});
                             
                             return data;
 
@@ -406,17 +475,16 @@ var_dump($product->price->debug());
                             
                             
                     ],
+                    setMode: [
+                        function (data) {
+                            var value = data.args.mode === 'EMM' ? 'customer' : 'default';
+                            data.args.item.options.measurement_source.value = value;
+                            return data;
+                        }
+                    ],
                     backToDefaults: [
                         function (data) {
-                            m = measurements.aft.location;
-                            measurements.changed = false;
-                            $('.chosen_boat').text('');
-                            $('#startPage select').val(0).trigger('change');
-                            $('#beam-width-in').val(m.beam.default);
-                            $('#ttop-width-in').val(m.ttop.default);
-                            $('#ttop2rod-in').val(m.ttop2rod.default);
-                            $('.options-container input').val('');
-
+                            console.log(data);
                             return data;
                         }
                     ],
@@ -440,12 +508,10 @@ var_dump($product->price->debug());
                                     if(k !== 'changed' && k !== 'tapered') {
                                         var total = item.options[k].value;
                                         if (total < v.min) {
-                                            console.log(k+'TooSmall');
                                             self.trigger(k+'TooSmall',data.args);
                                             result =  false;
                                         }
                                         if(total > v.max) {
-                                            console.log(k+'TooLarge');
                                             self.trigger(k+'TooLarge',data.args);
                                             result = false;
                                         }
@@ -457,67 +523,75 @@ var_dump($product->price->debug());
                             }
                             
                             function getBSKClass(type) {
-                                console.log('Getting Class');
+                                self._debug('Getting Class');
                                 var kit_class;
                                 var old_class = item.options.class.value;
                                 var ttop2rod = item.options.ttop2rod.value;
-                                console.log(ttop2rod);
-                                var cls = null;
                                 $.each(defaults.class, function(k,v) {
                                     if(ttop2rod >= v.min && ttop2rod <= v.max) {
                                         cls = k;
                                     }
                                 })
-                                if($('#use_on_bow').is(':checked')) {
+                                if($('#use_on_bow').is(':checked') && type == 'aft') {
                                     cls++;
                                 }
-                                kit_class = cls ? defaults.class[cls].name : 'Unknown';
+                                kit_class = typeof cls !== 'undefined' ? defaults.class[cls].name : 'Unknown';
 
                                 item.options.class.value = kit_class;
-                                console.log('BSK '+type+' Class is '+kit_class);
+                                self._debug('BSK '+type+' Class is '+kit_class);
                                 if(old_class !== kit_class) { 
-                                    self._publishPrice(item);
+                                    self._publishPrice({item: item, type: type});
                                 }
                             }
                             return data;
                         }
                     ],
-                    beforeUpdateQuantity: [],
+                    beforeUpdateQuantity: [
+                        function (data) {
+                            console.log(data);
+                            return data;
+                        }
+                    ],
                     beforeChange: [
                         function (data) {
                             console.log(data);
                             var self = this;
-                            if($(data.args.event.target).closest('.options-container').data('id') === 'bsk') {
-                                data.publishPrice = false;
-                                var name = $(data.args.event.target).prop('name');
-                                var value = $(data.args.event.target).val();
-                                this.trigger('measure', {item: {type: 'bsk'}, type: measurements.types});
+                            var type = $(data.args.event.target).closest('.options-container').data('type');
+                            
+                            if(typeof type === 'undefined') {
+                                this.item = items['bsk-aft'];
+                                this._updateOptionValue($(data.args.event.target));
+                                this.item = items['bsk-bow'];
+                                this._updateOptionValue($(data.args.event.target));
+                                data.triggerResult = false;
+                                return data;
                             }
+
+                            this.item = items['bsk-'+type]
+                            data.args.type = type;
+                            this.trigger('measure', {item: this.item, type: type});
+                            data.triggerResult = true;
                             return data;
                         }
                     ],
-                    afterChange: [
-                        function (data) {
-                            var types = measurements.types, self = this;
-                            $.each(types, function (k, v) {
-                                var bsk = measurements[v];
-                                var item = products['bsk-'+v];
-                                item.id = 'bsk-'+v;
-                                item.price_group = 'bsk.'+bsk.kit.class;
-                                self._publishPrice(item);
-                            })
-                            return data;
-                        }
-                    ],
+                    afterChange: [],
                     beforePublishPrice: [
                         function (data) {
-                            var type = data.args.type;
-                            data.args.elem = $('.'+type+'-container #bsk-price span.price');
+                            console.log(data);
+                            var type = data.args.item.id;
+                            data.args.elem = $('.'+data.args.item.params.location+'-container #bsk-price span.price');
                             return data;
                         }
                     ],
                     afterPublishPrice: [
                         function (data) {
+                            var total = 0.00;
+                            data.args.item.price = data.args.price;
+                            $.each(bsktypes, function(k, type) {
+                                total += items['bsk-'+type].price;
+                            })
+                            $('#bsk-total-price span.price').html(total.toFixed(2));
+                            console.log(total);
                             return data;
                         }
                     ],
@@ -530,7 +604,7 @@ var_dump($product->price->debug());
                                 name: 'beamtoosmall',
                                 value: defaults[type].beam.min
                             });
-                            products['bsk-'+type].options.beam.value = defaults[type].beam.min;
+                            items['bsk-'+type].options.beam.value = defaults[type].beam.min;
                             data.triggerResult = false;
                             return data;
                         }
@@ -543,7 +617,7 @@ var_dump($product->price->debug());
                                 name: 'beamtoolarge',
                                 value: defaults[type].beam.max
                             });
-                            products['bsk-'+type].options.beam.value = defaults[type].beam.max;
+                            items['bsk-'+type].options.beam.value = defaults[type].beam.max;
                             data.triggerResult = false;
                             return data;
                         }
@@ -556,7 +630,7 @@ var_dump($product->price->debug());
                                 name: 'ttoptoosmall',
                                 value: defaults[type].ttop.min
                             });
-                            products['bsk-'+type].options.ttop.value = defaults[type].ttop.min;
+                            items['bsk-'+type].options.ttop.value = defaults[type].ttop.min;
                             data.triggerResult = false;
                             return data;
                         }
@@ -569,7 +643,7 @@ var_dump($product->price->debug());
                                 name: 'ttoptoolarge',
                                 value: defaults[type].ttop.max
                             });
-                            products['bsk-'+type].options.ttop.value = defaults[type].ttop.max;
+                            items['bsk-'+type].options.ttop.value = defaults[type].ttop.max;
                             data.triggerResult = false;
                             return data;
                         }
@@ -582,7 +656,7 @@ var_dump($product->price->debug());
                                 name: 'ttop2rodtoosmall',
                                 value: defaults[type].ttop2rod.min
                             });
-                            products['bsk-'+type].options.ttop2rod.value = defaults[type].ttop2rod.min;
+                            items['bsk-'+type].options.ttop2rod.value = defaults[type].ttop2rod.min;
                             data.triggerResult = false;
                             return data;
                         }
@@ -595,7 +669,7 @@ var_dump($product->price->debug());
                                 name: 'ttop2rodtoolarge',
                                 value: defaults[type].ttop2rod.max
                             });
-                            products['bsk-'+type].options.ttop2rod.value = defaults[type].ttop2rod.max;
+                            items['bsk-'+type].options.ttop2rod.value = defaults[type].ttop2rod.max;
                             data.triggerResult = false;
                             return data;
                         }
@@ -613,65 +687,13 @@ var_dump($product->price->debug());
                     ],
                     beforeAddToCart: [
                         function (data) {
-                            var boat_options = this._getOptions();
-                            var m = measurements, types = m.types, self = this;
-                            var items = {};
-
-                            if(!m.changed) {
-                                self.trigger('measurementsNotChanged', {item: {type: 'bsk'}});
-                                data.triggerResult = false
-                                return data;
-                            }
-
-                            $.each(types, function(k,v){
-
-                                var kit = m[v];
-                                var item = self.items['bsk-'+v];
-                                item.name = 'Boat Shade Kit - '+v;
-                                item.price_group = 'bsk.'+kit.kit.class;
-                                item.fromCart = true;
-                                item.options.tapered = {
-                                        name: 'Tapered',
-                                        value: 'y',
-                                        text: (kit.kit.tapered ? 'Yes' : 'No'),
-                                        visible: false
-                                    };
-                                item.options.kit_type = {
-                                        name: 'Kit Type',
-                                        value: v,
-                                        text: v
-                                    };
-                                item.options.kit_class = {
-                                        name: 'Class',
-                                        value: kit.kit.class,
-                                        text: kit.kit.class,
-                                        visible: false
-                                    };
-                                item.options.beam_width = {
-                                        name: 'Beam Width',
-                                        value: kit.location.beam.total,
-                                        text: kit.location.beam.total+' in'
-                                    };
-                                item.options.ttop_width = {
-                                        name: 'T-Top Width',
-                                        value: kit.location.ttop.total,
-                                        text: kit.location.ttop.total+' in'
-                                    };
-                                item.options.ttop2rod = {
-                                        name: 'T-Top to Rod Holders',
-                                        value: kit.location.ttop2rod.total,
-                                        text: kit.location.ttop2rod.total+' in'
-                                    };
-                                if(v === 'aft') {
-                                    item.options.measurement_source = {
-                                            name: 'Measurements Provided By',
-                                            value: !m.changed ? 'Default': m.changed,
-                                            text: !m.changed ? 'Default': m.changed
-                                    };
-                                }
-                                items[item.id] = item;
+                            console.log(bsktypes);
+                            data.args.items = [];
+                            $.each(bsktypes, function(k, type) {
+                                data.args.items.push(items['bsk-'+type]);
                             });
-                            data.args.items = items;
+                            data.triggerResult = true;
+                            console.log(data);
                             return data;
                         }
                     ]

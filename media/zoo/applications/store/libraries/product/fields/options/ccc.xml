@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fields>
-	<field name="class" label="Class" type="base" visible="true" default="B">
+	<field name="class" label="Class" type="base" visible="false" default="B">
 		<option value="A">A Class</option>
 		<option value="B">B Class</option>
 		<option value="C">C Class</option>

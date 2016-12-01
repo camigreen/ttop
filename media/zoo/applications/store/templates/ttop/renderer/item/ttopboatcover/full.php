@@ -216,7 +216,7 @@ $product->price->debug(true);
                     ttbc: {
                         onInit: [
                             function (data) {
-                                var item data.args.item;
+                                var item = data.args.item;
 
                                 this.trigger('changeColor', {item: item, fabric: item.options.fabric.value});
                                 return data;
@@ -263,11 +263,12 @@ $product->price->debug(true);
                         changeColor: [
                             function (data) {
                                 var fabric = data.args.fabric;
+                                console.log(fabric);
                                 var colorSelect = $('.item-option[name="color"]');
                                 var colors = {
-                                        '9oz': ['navy','black','gray','tan'],
-                                        '8oz': ['navy','black'],
-                                        '7oz': ['navy','black']
+                                        '9oz': ['N','B','G','T'],
+                                        '8oz': ['N','B'],
+                                        '7oz': ['N','B']
                                     }
                                 colorSelect.find('option').each(function(k,v){
                                     $(this).find('span').html('');
@@ -288,11 +289,6 @@ $product->price->debug(true);
                         ],
                         beforeAddToCart: [
                             function(data) {
-                                var items = data.args.items
-                                $.each(items, function(key, item){
-                                    console.log(item);
-                                    item.name = item.name+' for a '+item.options.year.text+' '+item.attributes.oem.name+' '+item.attributes.boat_model.text;
-                                })
 
                                 return data;
                             }

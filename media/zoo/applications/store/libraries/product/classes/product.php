@@ -134,7 +134,7 @@ class Product {
 
     public function bind($product = array()) {
         // Bind all variable except options and params
-        $exclude = array('options', 'params');
+        $exclude = array('options', 'params', 'price');
         foreach($product as $key => $value) {
             if(property_exists($this, $key) && !in_array($key, $exclude)) {
                 $this->$key = $value;
@@ -348,6 +348,32 @@ class Product {
         
         return $this->price->get($name, $default, $formatted);
 
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getMarkupRate($name = 'msrp', $default = 0) {
+        return $this->price->getMarkupRate($name, $default);
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getDiscountRate($default = 0) {
+        return $this->price->getDiscountRate($default);
     }
 
     /**

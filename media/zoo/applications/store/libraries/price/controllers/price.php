@@ -61,7 +61,8 @@ class PriceController extends AppController {
         $this->app->document->setMimeEncoding('application/json');
         $price = array(
             'price' =>  $product->getTotalPrice(),
-            'product' => $product->toJson()
+            'product' => $product->toJson(),
+            'rule' => $product->getPriceRule()
         );
         echo json_encode($price);
     }

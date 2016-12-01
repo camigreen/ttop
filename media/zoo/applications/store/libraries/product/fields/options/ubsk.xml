@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fields>
+	<field name="kit_class" label="Class" type="base" visible="false" default="B">
+		<option value="A">A Class</option>
+		<option value="B">B Class</option>
+		<option value="C">C Class</option>
+		<option value="D">D Class</option>
+		<option value="E">E Class</option>
+		<option value="F">F Class</option>
+		<option value="G">G Class</option>
+		<option value="H">H Class</option>
+		<option value="I">I Class</option>
+		<option value="J">J Class</option>
+	</field>
+	<field name="make" label="Boat Make" type="variable" default="" visible="true" />
+	<field name="model" label="Boat Model" type="variable" default="" visible="true" />
+	<field name="year" label="Boat Year" type="variable" visible="true" />
+	<field name="boat_style" label="Boat Style" type="variable" visible="true">
+		<option value='CC'>Center Console</option>
+		<option value='DC'>Dual Console</option>
+		<option value='WA'>Walkaround</option>
+		<option value='CB'>Catamaran</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="kit_options" label="Kit Options" type="base" visible="true" default="full">
+		<option value='shade_only'>Shade Only</option>
+		<option value='full'>Complete Kit without Suction Cups</option>
+		<option value='fullwithcups'>Complete Kit with Suction Cups</option>
+	</field>
+	<field name="shade_type" label="Shade Type" type="base" visible="true" default="regular">
+		<option value='regular'>Regular</option>
+		<option value='extended'>Extended</option>
+	</field>
+	<field name="beam" label="Rod Holder to Rod Holder Measurement" type="variable" visible="true" min="84" max="221" default="84" />
+	<field name="bridge" label="Bridge Width Measurement" type="variable" visible="true" min="1" max="200" default="1" />
+	<field name="depth" label="Bridge to Rod Holder Measurement" type="variable" visible="true" min="46" max="105" default="46" />
+	<field name="tapered" label="Tapered" type="variable" visible="false" default="false" />
+	<field name="add_info" label="Additional Info" type="variable" visible="true" />
+	<field name="measurement_source" label="Measurements Provided By" type="variable" visible="false" default="customer">
+		<option value="default">LaPorte's Products</option>
+		<option value="customer">Customer</option>
+	</field>
+</fields>

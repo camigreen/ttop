@@ -12,9 +12,9 @@
  *
  * @package Class Package
  */
-class BSKProduct extends Product {
+class UBSKProduct extends Product {
 
-	public $type = 'bsk';
+	public $type = 'ubsk';
 
     public function __construct($app, $product) {
         parent::__construct($app, $product);
@@ -24,8 +24,8 @@ class BSKProduct extends Product {
 	public function bind($product = array()) {
         $this->options = $this->type;
 		parent::bind($product);
-		$this->id = 'bsk';
-		$this->name = 'Boat Shade Kit';
+		$this->id = 'ubsk';
+		$this->name = 'Ultimate Boat Shade Kit';
         $this->setPriceRule();
 		return $this;
 	}
@@ -38,8 +38,11 @@ class BSKProduct extends Product {
      * @since 1.0
      */
     public function setPriceRule() {
-        $rules[] = $this->getOption('class')->get('value');
-        $rules[] = $this->getOption('bsk_kit')->get('value');
+        $rules[] = $this->getOption('kit_class')->get('value');
+        $rules[] = $this->getOption('kit_options')->get('value');
+        if($this->getOption('shade_type')->get('value') != 'regular') {
+            $rules[] = $this->getOption('shade_type')->get('value');
+        }
         $this->_priceRule = implode('.', $rules);
         return $this;  
     }
@@ -60,8 +63,6 @@ class BSKProduct extends Product {
     }
 
     public function toJson($encode = false) {
-        $json = parent::toJson();
-        $json['price'] = $this->getTotalPrice();
-        return $encode ? json_encode($json) : $json;
+        return parent::toJson($encode);
     }
 }

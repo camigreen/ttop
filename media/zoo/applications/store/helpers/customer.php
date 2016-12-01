@@ -40,7 +40,7 @@ class CustomerHelper extends AppHelper {
         if(!$this->isRegistered()) {
             return $this->_account;
         } 
-        return $this->_account->getParentAccount();
+        return $this->_account;
     }
 
     public function get($id = null) {

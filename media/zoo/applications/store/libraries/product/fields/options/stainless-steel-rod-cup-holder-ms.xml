@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fields>
+	<field name="rod_angle" label="Rod Angle" type="variable" default="0D" visible="true">
+		<option value="0D">Zero Degree</option>
+		<option value="15D">15 Degree</option>
+		<option value="30D">30 Degree</option>
+	</field>
+	<field name="drain_fitting" label="Drain Fitting" type="variable" default="ND" visible="true">
+		<option value="ND">No Drain</option>
+		<option value="DF">NPT Drain Fitting</option>
+	</field>
+</fields>

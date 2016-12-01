@@ -9,5 +9,6 @@
 	<modal name="ttop2rodtoosmall" layout="ttop2rodtoolarge" title="Uh oh!" subtitle="That T-Top to Rod Holder measurement is too high." save="Show Me!" cancel="Cancel" />
 	<modal name="ttop2rodtoolarge" layout="ttop2rodtoolarge" title="Uh oh!" subtitle="That T-Top to Rod Holder measurement is too high." save="Show Me!" cancel="Cancel" />
 	<modal name="nochange" layout="nochange" title="Uh oh!" subtitle="The order form measurements for the Boat Shade Kit have not been changed." save="Continue" cancel="Cancel" />
+	<modal name="boatchooser" layout="boatchooser" title="Choose Your Boat" subtitle="" save="Continue" cancel="Enter My Own" scroll="true" />
 </modals>
 

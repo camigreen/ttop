@@ -4,4 +4,10 @@
 		<option value="bsk">Boat Shade Kit</option>
 		<option value="ubsk">Ultimate Boat Shade Kit</option>
 	</field>
+	<field name="color" label="Color" type="variable" visible="true" default="B">
+		<option value="N">Navy</option>
+		<option value="B">Black</option>
+		<option value="T">Tan</option>
+		<option value="G">Gray</option>
+	</field>
 </fields>

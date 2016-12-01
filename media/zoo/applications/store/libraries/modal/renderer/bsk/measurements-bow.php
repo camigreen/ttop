@@ -60,6 +60,7 @@ jQuery(function($){
         }); 
         $('#bsk-measurements-modal').on('cancel', function(e, data){
             console.log(data);
+            mode = 'EMM';
             data.result = true;
         }); 
     });

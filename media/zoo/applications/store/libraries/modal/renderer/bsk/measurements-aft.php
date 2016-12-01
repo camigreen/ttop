@@ -2,7 +2,7 @@
 <?php
 
 //var_dump($config['args']['measurements']);
-$product = $config['args']['product'];
+$product = $config['args']['item'];
 $product = $this->app->product->create($product);
 
 
@@ -50,12 +50,12 @@ jQuery(function($){
     $(document).ready(function(){
         $('#bsk-measurements-aft-modal input').on('change', function(e) {
             var name = $(this).prop('id');
-            var p = products['bsk-aft'];
+            var p = items['bsk-aft'];
             p.options[name].value = $(this).val();
-            $('#OrderForm-bsk').trigger('measure', {item: products['bsk-aft'], type: 'aft'});
+            $('#OrderForm-bsk').trigger('measure', {item: items['bsk-aft'], type: 'aft'});
         })
         $('#bsk-measurements-aft-modal').on('save', function(e, data){
-            $('#OrderForm-bsk').trigger('measure', {item: products['bsk-aft'], type: 'aft'});
+            $('#OrderForm-bsk').trigger('measure', {item: items['bsk-aft'], type: 'aft'});
             data.result = true;
         }); 
         $('#bsk-measurements-modal').on('cancel', function(e, data){

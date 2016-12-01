@@ -1,6 +1,6 @@
 <?php 
-if(isset($config['args']['product'])) {
-    $product = $this->app->product->create($config['args']['product']);
+if(isset($config['args']['item'])) {
+    $product = $this->app->product->create($config['args']['item']);
 } else {
     $product = null;
 }
@@ -69,19 +69,24 @@ jQuery(function($){
         }
 
         $('#default-confirm-modal').on('save', function(e, data){
-            var item = $('#OrderForm').OrderForm('getItem', data.args.product.id);
+            var item = data.args.item;
+            console.log(item);
             if(validate()) {
-                var id = data.args.product.id;
                 console.log('Saving Confirm Modal');
                 item.params.confirmed = true;
-                $('#atc-'+id).trigger('click');
+                data.triggerResult = true;
+                data.callback = function() {
+                    $('#atc-'+item.id).trigger('click');
+                }
             } else {
                 item.params.confirmed = false;
-                data.result = 'break';
+                data.triggerResult = 'break';
             }
         });
+
         $('#default-confirm-modal').on('cancel', function(e, data){
-            var item = $('#OrderForm').OrderForm('getItem', data.args.product.id);
+            var item = data.args.item;
+            console.log(item);
             item.params.confirmed = false;
             data.result = true;
         });

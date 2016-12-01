@@ -64,6 +64,8 @@ class ProductHelper extends AppHelper {
         	$data->params->set('model', $data->name);
 		} else if($data->type == 'boat-shade-kit') {
 			$item->set('type', 'bsk');
+		} else if ($data->type = 'ultimate-boat-shade') {
+			$item->set('type', 'ubsk');
 		} else {
 			$item->set('type', $data->type);
 		}

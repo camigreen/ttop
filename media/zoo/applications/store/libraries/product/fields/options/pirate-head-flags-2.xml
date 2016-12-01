@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fields>
+	<field name="flag" label="Choose your flag!" type="variable" visible="true" >
+		<option value="piratezombie">Pirate Zombie</option>
+		<option value="pirategirlzombie">Pirate Girl Zombie</option>
+		<option value="piratewench">Pirate Wench Gone Wild</option>
+		<option value="myboatrules">My Boat Rules</option>
+		<option value="piratecrew">Pirate Crew</option>
+		<option value="piratelife">Pirate for Life</option>
+		<option value="pirategirl">Pirate Girl</option>
+		<option value="onboard">What Happens on Board</option>
+		<option value="preparetobeboarded">Prepare to be Boarded</option>
+		<option value="rum">Time Flies When You're Having Rum</option>
+		<option value="booty">Surrender the Booty</option>
+		<option value="fishorcutbait">Fish or Cut Bait</option>
+		<option value="happyhour">Happy Hour Pirate</option>
+		<option value="jack">One Eyed Jack</option>
+		<option value="fishordie">Fish or Die</option>
+	</field>
+</fields>

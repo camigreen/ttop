@@ -1,4 +1,4 @@
-<div id="<?php echo $config->get('type').'-'.$config->get('name'); ?>-modal" class="uk-modal ttop" data-config=<?php echo json_encode($config); ?>>
+<div id="<?php echo $config->get('type').'-'.$config->get('name'); ?>-modal" class="uk-modal ttop" >
 	<div class="uk-modal-dialog">
 		<div class="contents">
 			<div class="uk-modal-header uk-text-center">

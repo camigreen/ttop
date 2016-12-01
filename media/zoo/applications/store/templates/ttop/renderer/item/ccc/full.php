@@ -351,15 +351,6 @@ var_dump($product);
                                 self.trigger('changeColor', {item: self.item, fabric: $(e.target).val()});
                             });
 
-                            $('#startPage #btn_continue').on('click', function() {
-                                startPageModal.hide();
-                            });
-
-                            $('#startPage #btn_enter_my_own').on('click', function() {
-                                self.trigger('backToDefaults', {item: self.item});
-                                startPageModal.hide();
-                            });
-
                             $('#btn_find_my_boat').on('click', function(e) {
                                 var elem = $(e.target);
                                 self.trigger('startPage', {item: self.item, mode: elem.data('mode')});
@@ -376,7 +367,7 @@ var_dump($product);
                                 console.log(CCC.mode);
                             });
 
-                            this._publishPrice(this.item);
+                            this._publishPrice({item: this.item});
                             return data;
                         }
                            
@@ -385,7 +376,7 @@ var_dump($product);
                     startPage: [
                         function (data) {
                             var data = {
-                                type: 'default',
+                                type: 'ccc',
                                 name: 'boatchooser',
                                 args: {product: this.item, kind: 'ccc'},
                                 cache: false
@@ -441,7 +432,7 @@ var_dump($product);
                                 this.item.options.measurement_source.value = !CCC.measurements_changed ? 'default': CCC.measurements_changed;
                                 if(this.item.options.class.value != CCC.class.value) {
                                     this.item.options.class.value = CCC.class.value;
-                                    this._publishPrice(this.item);
+                                    this._publishPrice({item: this.item});
                                 }
                                 
                             } else {
