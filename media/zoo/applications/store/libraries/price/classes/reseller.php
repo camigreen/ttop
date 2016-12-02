@@ -22,18 +22,39 @@ class ResellerPrice extends Price {
 	 *
 	 * @since 1.0
 	 */
-	public function calculate() {
+	public function init($data) {
+		parent::init($data);
 		$user = $this->app->customer->get();
+		if(isset($data['tempMarkup'])) {
+			// Set Markup to Temporary Setting
+			$this->setMarkupRate('reseller', $data['tempMarkup']);
+		} else {
+
+			// Set Markup by User Account
+			
+			$this->setMarkupRate('reseller', $user->params->get('margin', 0));
+		}
+		//$this->setMarkupRate('msrp', 0.15);
+
+		// Set User Account Discount
+		$this->setDiscountRate($user->params->get('discount', 0));
+
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function calculate() {
+		
 		// Calculate the Base
 		$base = $this->get('base');
-
-		// Get markups
-		$this->setMarkupRate('reseller', $user->params->get('margin', 0));
-		$this->setMarkupRate('msrp', 0.15);
-
-		// Get Discounts
-		$this->setDiscountRate($user->params->get('discount', 0));
-		
+				
 		// Assign Variables
 		$msrpMkup = $this->getMarkupRate('msrp');
 		$resellerMkup = $this->getMarkupRate('reseller');
@@ -46,13 +67,13 @@ class ResellerPrice extends Price {
 		$this->setPrice('msrp', $msrp);
 
 		// Calculate Reseller
-
-		$display = $base*$discount;
-		$display += $addons;
-		$this->setPrice('reseller', $display);
+		var_dump($discount);
+		$reseller = $base+$addons;
+		$reseller = $reseller*$discount;
+		$this->setPrice('reseller', $reseller);
 
 		// Calculate Reseller Customer Price
-		
+
 		$customer = $base*$resellerMkup;
 		$customer += $addons;
 		$this->setPrice('customer', $customer);
@@ -60,6 +81,17 @@ class ResellerPrice extends Price {
 		// Calculate Reseller Display
 
 		$this->setPrice('display', $customer);
+
+		// Calculate Reseller Profit
+
+		$profit = $this->get('customer') - $this->get('reseller');
+		$this->setPrice('profit', $profit);
+
+		// Calculate Reseller Profit Rate
+		if($this->get('customer') > 0) {
+			$profitRate = $profit/$this->get('customer');
+			$this->setPrice('profitRate', $profitRate);
+		}
 		
 
 	}

@@ -15,10 +15,11 @@ $this->app->document->addScript('library.cart:assets/js/cart.js');
 $this->app->document->addScript('library.product:assets/js/orderform.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
+
 $product->price->debug(true);
 
 ?>
-<div id="OrderForm" class="t-top-boat-cover" data-id="<?php echo $product->id; ?>">
+<div id="OrderForm-<?php echo $product->id; ?>" class="t-top-boat-cover" data-id="<?php echo $product->id; ?>">
     <div id="<?php echo $product->id ?>" class="storeItem" >
     <div class="uk-grid">
         <div class="uk-width-1-2">
@@ -207,7 +208,7 @@ $product->price->debug(true);
         lpiModal.init('.modals');
 
         $(document).ready(function(){
-            $('#OrderForm').OrderForm({
+            $('#OrderForm-<?php echo $product->id; ?>').OrderForm({
                 name: 'T-Top Boat Cover',
                 validate: false,
                 debug: true,

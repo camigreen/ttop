@@ -1,16 +1,16 @@
 <?php 
 $product = $this->app->product->create($config['item']);
 $markups = array(0, 0.05, 0.10, 0.15, 0.20, 0.25);
-$currentDiscount = (1-$product->getDiscountRate()) * 100;
-$msrpRate = $product->getMarkupRate('msrp')-1;
+$currentDiscount = ($product->getDiscountRate());
+$mkupRate = $product->getMarkupRate('reseller');
 $options = array();
-$base = $product->getPrice('base');
+$base = $product->getPrice('base')+$product->getPrice('addons');
 $isBase = true;
 
 foreach($markups as $markup) {
 	$option = array();
 	$text = array();
-	if((string) $msrpRate == (string) $markup) {
+	if((string) $mkupRate == (string) $markup*100) {
 		$option['selected'] = true;
 	} else {
 		$option['selected'] = false;
@@ -44,3 +44,19 @@ foreach($markups as $markup) {
 		<?php endforeach; ?>
 	</ul>
 </div>
+
+<script>
+jQuery(function($){
+    $(document).ready(function(){
+        $('#default-resellerMarkup-modal').on('save', function(e, data){
+        	console.log('Price Options Saved');
+        	data.item.params.tempMarkup = $('[name="markup"]:checked').val();
+        	$('#OrderForm-'+data.item.id).trigger('updatePrice', data);
+        });
+
+        $('#default-resellerMarkup-modal').on('cancel', function(e, data){
+			console.log('Price Options Canceled');
+        });
+    });
+});
+</script>

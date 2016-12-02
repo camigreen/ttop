@@ -20,16 +20,14 @@ jQuery(function($){
 		$('input[name="ccbc.trolling_motor_modal_helper"][value="'+value+'"]').prop('checked', 'checked');
 
 		$('#ccbc-trolling_motor-modal').on('save', function(e, data){
-			var item = $('#OrderForm').OrderForm('getItem');
-			var name = data.name;
-            var elem = $('[name="'+name+'"]');
-            console.log(elem);
+			console.log(data);
+			var item = data.item;
             var value = $('[name="ccbc.trolling_motor_modal_helper"]:checked').val()
             if(value === 'Y') {
             	item.options.trolling_motor.confirmed = true;
             }
             data.result = true;
-            elem.val(value).trigger('change');
+            $('[name="trolling_motor"]').val(value).trigger('change');
         });
 	})
 

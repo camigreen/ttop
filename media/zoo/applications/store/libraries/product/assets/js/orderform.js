@@ -69,6 +69,11 @@
         init: function () {
             var self = this;
             this.$element.find('#price').remove();
+            this.$element.on('updatePrice', function(e, data) {
+                console.log('Update Price Event');
+                console.log(data);
+                self._publishPrice({item: self.item});
+            })
             this.trigger('onInit', {item: this.item});
             $.each(this.$qty, function (k, v) {
                 var id = $(v).data('id');

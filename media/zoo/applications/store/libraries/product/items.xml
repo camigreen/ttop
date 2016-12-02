@@ -13,7 +13,7 @@
 					<options>
 						<option name="suction_cup" type="price.adj" qty="0" />
 						<option name="boat_length" label="Boat Length" type="base" value="18" />
-						<option name="price_adjustment" label="Price Adjustment" type="price.adj" cost="100" description="Adjusting Price" visible="false" />
+						<option name="price_adjustment" label="Price Adjustment" type="price.adj" cost="175" description="Adjusting Price" visible="false" />
 					</options>
 				</model>
 				<model>

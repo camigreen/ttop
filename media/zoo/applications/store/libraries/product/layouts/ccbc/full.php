@@ -37,7 +37,7 @@ $model = $this->product->getParam('boat.model');
 
 $pattern = $this->product->getPatternID();
 $pattern = $pattern ? $pattern : 'No Pattern Found.';
-var_dump($this->product->price->debug());
+$this->product->price->debug(true);
 $renderer = $this->app->renderer->create('item');
 $items = $this->app->table->item->getByCategory(1,125,true);
 $relateds = array();
@@ -50,7 +50,7 @@ foreach($items as $_item) {
 }
 
 ?>
-<div id="OrderForm" class="ccbc ttop" data-id="ccbc">
+<div id="OrderForm-<?php echo $this->product->id; ?>" class="ccbc ttop" data-id="ccbc">
 	<div class="uk-form">
 		<div class="uk-grid" data-uk-grid-margin>
 			<div class="uk-width-1-1">
@@ -121,7 +121,7 @@ foreach($items as $_item) {
         $(document).ready(function(){
 			lpiModal.init('.modals');
 
-            $('#OrderForm').OrderForm({
+            $('#OrderForm-<?php echo $this->product->id; ?>').OrderForm({
                 name: 'Center Console Boat Cover',
                 validate: false,
                 debug: true,
@@ -150,7 +150,7 @@ foreach($items as $_item) {
 												type: 'ccbc',
 												name: 'trolling_motor',
 												value: 'Y',
-												field: elem.prop('id')
+												item: this.item
 											};
 											lpiModal.getModal(data);
                                         } else {

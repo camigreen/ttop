@@ -18,7 +18,7 @@ $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
 $product->price->debug(true);
 ?>
-<div id="OrderForm" class="<?php echo $item->type; ?>" data-id="<?php echo $product->id; ?>">
+<div id="OrderForm-<?php echo $product->id; ?>" class="<?php echo $item->type; ?>" data-id="<?php echo $product->id; ?>">
     <div id="<?php echo $product->id; ?>" class="uk-form uk-grid ttop storeItem" >
         <div class="uk-width-1-1 top-container">
             <?php if ($this->checkPosition('top')) : ?>
@@ -82,7 +82,7 @@ $product->price->debug(true);
         
         $(document).ready(function(){
 
-            $('#OrderForm').OrderForm({
+            $('#OrderForm-<?php echo $product->id; ?>').OrderForm({
                 name: 'Accessories',
                 validate: true,
                 confirm: false,

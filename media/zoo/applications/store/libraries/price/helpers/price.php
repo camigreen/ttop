@@ -21,22 +21,12 @@ class PriceHelper extends AppHelper {
 
     public function __construct($app) {
         parent::__construct($app);
-        
-
-    }
-
-    public function create($item, $resource = null) {
         $this->app->loader->register('Price','classes:price.php');
-        // if(!isset($this->_prices[$item->sku])) {
-        //     $this->_prices[$item->sku] = new Price($this->app, $item, $resource);
-        // }
-        // var_dump($this->_prices);
-        // return $this->_prices[$item->sku];
-        return new Price($this->app, $item, $resource);
+
     }
 
-    public function createdev($product) {
-        $this->app->loader->register('Price','classes:pricedev.php');
+    public function create($product) {
+        
         if($this->app->customer->isReseller()) {
             $class = 'ResellerPrice';
             $this->app->loader->register('ResellerPrice','classes:reseller.php');
@@ -50,6 +40,8 @@ class PriceHelper extends AppHelper {
         $data['rule'] = $product->getPriceRule();
         $options = array_merge(array(), $product->options->getByType('price', array())->getArrayCopy(), $product->options->getByType('price.adj', array())->getArrayCopy());
         $data['options.product'] = $options;
+        if($product->getParam('tempMarkup') != null)
+            $data['tempMarkup'] = $product->getParam('tempMarkup');
         $price = new $class($this->app, $data);
         return $price;
     }

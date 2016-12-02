@@ -142,6 +142,9 @@ class Product {
         }
         $this->locked = $this->locked == 'true' ? true : false;
 
+        if($this->locked) 
+            $this->price = $product->get('price');
+
         // Bind options
         $this->options = $this->app->option->create($this->options);
         foreach($product->get('options', array()) as $name => $value) {
@@ -312,7 +315,7 @@ class Product {
      */
     public function initPrice() {
         if(!$this->isLocked()) {
-            $this->price = $this->app->price->createdev($this);
+            $this->price = $this->app->price->create($this);
         } else {
             $this->price = $this->app->data->create($this->price);
         }
@@ -360,7 +363,7 @@ class Product {
      * @since 1.0
      */
     public function getMarkupRate($name = 'msrp', $default = 0) {
-        return $this->price->getMarkupRate($name, $default);
+        return ($this->price->getMarkupRate($name, $default)-1) * 100;
     }
 
     /**
@@ -373,7 +376,7 @@ class Product {
      * @since 1.0
      */
     public function getDiscountRate($default = 0) {
-        return $this->price->getDiscountRate($default);
+        return (1-$this->price->getDiscountRate($default))*100;
     }
 
     /**
@@ -422,7 +425,7 @@ class Product {
      */
     protected function _lockPrice() {
         if(!$this->price || !$this->price->get('lock')) {
-            $this->price = $this->app->price->createdev($this);
+            $this->price = $this->app->price->create($this);
         } 
         $this->price = $this->price->lock();
         return $this->price;

@@ -57,14 +57,12 @@ class ProductHelper extends AppHelper {
 					$opt = array('boat_length' => array('value' => $option->get('option')));
 					$item->set('options', $opt);
 				}
-				
-				
 			}
 			$data->params->set('make', $data->getPrimaryCategory()->name);
         	$data->params->set('model', $data->name);
 		} else if($data->type == 'boat-shade-kit') {
 			$item->set('type', 'bsk');
-		} else if ($data->type = 'ultimate-boat-shade') {
+		} else if ($data->type == 'ultimate-boat-shade') {
 			$item->set('type', 'ubsk');
 		} else {
 			$item->set('type', $data->type);
