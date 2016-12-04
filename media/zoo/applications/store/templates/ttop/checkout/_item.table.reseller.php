@@ -1,5 +1,5 @@
 <?php 
-    $items = $this->cart->getAllItems() ? $this->cart->getAllItems() : $order->elements->get('items.');
+    $items = $order->elements->get('items.');
 ?>
 <table id="item-reseller-table" class="uk-table">
     <thead>
@@ -13,15 +13,38 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($items as $sku => $item) : ?>
+    <?php foreach ($items as $hash => $item) : ?>
             <?php $price = $item->getPrice(); ?>
-            <tr id="<?php echo $sku; ?>">
+            <tr id="<?php echo $hash; ?>">
                 <td>
                     <div class="ttop-checkout-item-name"><?php echo $item->name ?></div>
                     <div class="ttop-checkout-item-description"><?php echo $item->description ?></div>
-                    <a href="#" class="uk-text-small option-expand" data-uk-toggle="{target:'#item-reseller-table #<?php echo $sku; ?> .item-options'}" ><span class="uk-icon-plus-square-o uk-margin-small-right item-options"></span><span class="uk-icon-minus-square-o uk-margin-small-right item-options uk-hidden"></span>Options</a> 
-                    <div class="ttop-checkout-item-options item-options uk-hidden"><?php echo $item->getOptionsList(); ?></div>
-
+                    <?php if(count($item->getOptions()) > 0) : ?>
+                    <span class="options-closed uk-text-small" data-uk-toggle="{target:'#<?php echo $hash; ?> .options-container,#<?php echo $hash; ?> .options-closed,#<?php echo $hash; ?> .options-open'}"><i class="uk-icon uk-icon-plus-square-o"></i> View Options</span>
+                    <span class="options-open uk-text-small uk-hidden" data-uk-toggle="{target:'#<?php echo $hash; ?> .options-container,#<?php echo $hash; ?> .options-closed,#<?php echo $hash; ?> .options-open'}"><i class="uk-icon uk-icon-minus-square-o"></i> Hide Options</span>
+                    <div class="options-container uk-width-2-3 uk-hidden">
+                        <table class="uk-table uk-table-condensed uk-table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="uk-width-1-3">
+                                        Option
+                                    </th>
+                                    <th class="uk-width-2-3">
+                                        Value
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        <?php foreach($item->getOptions() as $option) : ?>
+                            <tr>
+                                <td class="uk-text-small"><?php echo $option->get('label'); ?></td>
+                                <td class="uk-text-small <?php echo $option->get('name') == 'add_info' ? 'uk-text-left' : ''; ?>"><?php echo $option->get('text', 'Empty'); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div> 
+                    <?php endif; ?>
                 </td>
                 <?php if($this->page != 'payment') : ?>
                     <td class="ttop-checkout-item-total uk-width-1-10">
@@ -34,19 +57,19 @@
                     </td>
                 <?php endif; ?>
                 <td class="ttop-checkout-item-total">
-                    <?php echo $item->getTotal('resellerMSRP', true); ?>
+                    <?php echo $item->getTotalPrice('msrp', true); ?>
                 </td>
                 <td class="ttop-checkout-item-total">
-                    <?php echo $item->getTotal('markup', true); ?>
-                    <?php echo '<p class="uk-text-small">('.$price->getMarkupRate(true).' Markup)</p>'; ?>
+                    <?php echo $item->getTotalPrice('customer', true); ?>
+                    <?php echo '<p class="uk-text-small">('.$item->getMarkupRate('reseller').' Markup)</p>'; ?>
                 </td>
                 <td class="ttop-checkout-item-total">
-                    <?php echo $item->getTotal('reseller', true); ?>
-                    <?php echo '<p class="uk-text-small">('.$price->getDiscountRate(true).' Discount)</p>'; ?>
+                    <?php echo $item->getTotalPrice('reseller', true); ?>
+                    <?php echo '<p class="uk-text-small">('.$this->app->number->toPercentage($item->getDiscountRate(), 0).' Discount)</p>'; ?>
                 </td>
                 <td class="ttop-checkout-item-total">
-                    <?php echo $item->getTotal('margin', true);; ?>
-                    <?php echo '<p class="uk-text-small">(Total Discount '.$price->getProfitRate(true).')</p>'; ?>
+                    <?php echo $item->getTotalPrice('profit', true); ?>
+                    <?php echo '<p class="uk-text-small">('.$this->app->number->toPercentage($item->getPrice('profitRate')*100, 0).' Profit)</p>'; ?>
                 </td>
             </tr>
     <?php endforeach; ?>

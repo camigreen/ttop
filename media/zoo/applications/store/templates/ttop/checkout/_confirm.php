@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 $order = $this->order;
-$items = $this->cart->getAllItems();
+$items = $this->cart->getAll();
 $elements = $order->elements;
 $params = $order->params;
 $article = JTable::getInstance("content"); 

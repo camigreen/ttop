@@ -6,15 +6,52 @@
 * @license   http://www.gnu.org/licenses/gpl.html GNU/GPL
 */
 $this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
+$this->app->document->addScript('library.cart:assets/js/cart.js');
 $this->app->document->addScript('library.product:assets/js/orderform.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
+// var_dump($this->product);
 $make = $this->product->getParam('boat.manufacturer');
-$model = $make->getModel();
+$model = $this->product->getParam('boat.model');
+
+// Price Options
+// $this->product->setOptionValue('trolling_motor', 'Y');
+// Pattern Options
+// $this->product->setOptionValue('year', '2016');
+// $this->product->setOptionValue('motors', '1');
+// $this->product->setOptionValue('bow_rails', 'L');
+// $this->product->setOptionValue('jack_plate', 'N');
+// $this->product->setOptionValue('poling_platform', '45');
+// $this->product->setOptionValue('boat_style', 'CC');
+// $this->product->setOptionValue('ski_tow_bar', 'N');
+// $this->product->setOptionValue('power_poles', 'N');
+// $this->product->setOptionValue('swim_ladder', 'N');
+
+// Variable Options
+//$this->product->setOptionValue('color', 'N');
+//$this->product->setOptionValue('zipper', 'ZP');
+// $this->product->setOptionValue('storage', 'T');
+// $this->product->setOptionValue('motor_make', 'yamaha');
+// $this->product->setOptionValue('motor_size', '150');
+// $this->product->setOptionValue('casting_platform', 'N');
+
+$pattern = $this->product->getPatternID();
+$pattern = $pattern ? $pattern : 'No Pattern Found.';
+$renderer = $this->app->renderer->create('item');
+$items = $this->app->table->item->getByCategory(1,125,true);
+$relateds = array();
+foreach($items as $_item) {
+	$renderer->addPath(array($_item->getApplication()->getTemplate()->getPath()));
+	$mRenderer = $this->app->renderer->create('item');
+	$mRenderer->addPath(array($_item->getApplication()->getTemplate()->getPath()));
+	$modal = $mRenderer->render('item.accessories.related_modal', array('item' => $_item));
+	$relateds[] = $renderer->render('item.accessories.related', array('item' => $_item, 'modal' => $modal));
+}
+
 ?>
-<div id="OrderForm" class="ccbc ttop" >
+<div id="OrderForm-<?php echo $this->product->id; ?>" class="ccbc ttop" data-id="ccbc">
 	<div class="uk-form">
-		<div id="ccbc" class="uk-grid orderForm" data-id="ccbc" data-item='[{"id": "ccbc", "type": "ccbc", "make": "<?php echo $make->name; ?>", "model": "<?php echo $model->name; ?>", "qty": 1}]' data-uk-grid-margin>
+		<div class="uk-grid" data-uk-grid-margin>
 			<div class="uk-width-1-1">
 				<a class="uk-text-large" href="<?php echo $this->url.$make->name; ?>"><i class="uk-icon uk-icon-caret-left uk-margin-right"></i>Back to <?php echo $make->label; ?></a>
 			</div>
@@ -24,7 +61,7 @@ $model = $make->getModel();
 				</div>
 			</div>
 			<div class="uk-width-1-1 make-model-container">
-				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Make:</span><span><?php echo $make->label; ?></span></p>
+				<p><span class="uk-article-lead uk-text-bold uk-margin-right" data-uk-tooltip title="test">Make:</span><span><?php echo $make->label; ?></span></p>
 				<p><span class="uk-article-lead uk-text-bold uk-margin-right">Model:</span><span><?php echo $model->label; ?></span></p>
 			</div>
 			<div class="uk-width-medium-2-3 uk-width-small-1-1 slideshow-container">
@@ -54,104 +91,40 @@ $model = $make->getModel();
 					<?php if($this->form->checkGroup('bow_options')) : ?>
 			        	<?php echo $this->form->render('bow_options')?>
 					<?php endif; ?>
+					<?php if($this->form->checkGroup('additional_info')) : ?>
+			        	<?php echo $this->form->render('additional_info')?>
+					<?php endif; ?>
 				</div>
 			</div>
 			<div class="uk-width-1-3 accessories-container">
+				<fieldset id="essential-accessories">
+					<legend>Essential Accessories</legend>
+					<div class="uk-grid">
+						<?php foreach($relateds as $related) : ?>
+						<div class="uk-width-1-1">
+							<?php echo $related; ?>
+						</div>
+						<?php endforeach; ?>
+					</div>
+				</fieldset>
 			</div>
 		</div>
 	</div>
 	<div class='modals'></div>
-</div>	
+</div>
 
 <script>
-jQuery(function($){
-	$(document).ready(function(){
-		lpiModal.init('.modals');
-	})
-})
-</script>
-
-<script>
-//     jQuery(document).ready(function($) { 
-//         $('button.tm-yes').on('click', function() {
-//             $('[name="trolling_motor"]').val('y');
-//             $('[name="trolling_motor"]').trigger('change');
-//         });
-//         $('button.tm-r').on('click', function() {
-//             $('[name="trolling_motor"]').val('r');
-//             $('[name="trolling_motor"]').trigger('change');
-//         });
-       
-//     });
-    
-</script>
-<script>   
-// jQuery(function($){
-
-//     var progressbar = $("#progressbar"),
-//         bar         = progressbar.find('.uk-progress-bar'),
-//         settings    = {
-
-//         action: '?option=com_zoo&controller=store&task=photoUpload&format=json', // upload url
-
-//         allow : '*.(jpg|jpeg|gif|png)', // allow only images
-//         params: {'id': uniqID},
-//         type: 'JSON',
-
-//         loadstart: function() {
-//             bar.css("width", "0%").text("0%");
-//             progressbar.removeClass("uk-hidden");
-//         },
-//         beforeAll: function(files) {
-//             console.log(files);
-//         },
-//         beforeSend: function(xhr) {
-//             console.log(xhr);
-//         },
-//         progress: function(percent) {
-//             percent = Math.ceil(percent);
-//             bar.css("width", percent+"%").text(percent+"%");
-//         },
-
-//         allcomplete: function(response) {
-//             bar.css("width", "100%").text("100%");
-
-//             setTimeout(function(){
-//                 progressbar.addClass("uk-hidden");
-//             }, 250);
-//             console.log(response);
-//             response = JSON.parse(response);
-//             if(response) {
-//                 var img = '<img class="uk-thumbnail" src="'+response.data.path+'" />';
-//                 uniqID = response.data.uniqID;
-//                 $('#upload-drop-'+drop).html(img);
-//                 alert("Upload Completed");
-//             }
-//         }
-//     };
-//     var drop;
-//     var uniqID = null;
-//     $('.uk-placeholder').on('drop', function(e){
-//         drop = $(e.target).closest('.uk-placeholder').data('drop');
-//     })
-//     $.UIkit.uploadDrop($("#upload-drop-1"), settings);
-//     $.UIkit.uploadDrop($("#upload-drop-2"), settings);
-//     $.UIkit.uploadDrop($("#upload-drop-3"), settings);
-//     $(document).ready(function() {
-//         $('.tm-upload-cancel').on('click', function() {
-//             $('[name="trolling_motor"]').val('X').trigger('input');
-//             $('.uk-placeholder').html('<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-vertical-align-middle"></i>');
-//         });
-//     })
-// });
-</script>
-<script>
+	if(typeof items === 'undefined') { var items = {} };
+	items.ccbc = <?php echo $this->product->toJson(true); ?>;
     jQuery(function($) {
         $(document).ready(function(){
-            $('#OrderForm').OrderForm({
+			lpiModal.init('.modals');
+
+            $('#OrderForm-<?php echo $this->product->id; ?>').OrderForm({
                 name: 'Center Console Boat Cover',
-                validate: false,
-                debug: true,
+                validate: true,
+                debug: false,
+                confirm: true,
                 events: {
                     ccbc: {
                         onInit: [
@@ -167,20 +140,26 @@ jQuery(function($){
                                 switch(elem.prop('name')) {
                                     case 'storage': //Check the storage value and if "IW" show the modal
                                         if(elem.val() === 'IW') {
-											lpiModal.getModal({type: 'ccbc.inwater'});
+											lpiModal.getModal({type: 'ccbc', name: 'inwater'});
                                         }
                                         break;
                                     case 'trolling_motor': // Check if the trolling motor is "yes" and show the modal for the photo upload
-                                        if(elem.val() === 'y') {
+                                        if(elem.val() === 'Y' && !this.item.options.trolling_motor.confirmed) {
                                             data = {
-												type: 'ccbc.trolling_motor'
+												type: 'ccbc',
+												name: 'trolling_motor',
+												value: 'Y',
+												item: this.item
 											};
 											lpiModal.getModal(data);
+                                        } else {
+                                        	this.item.options.trolling_motor.confirmed = false;
                                         }
+
                                         break;
                                     case 'casting_platform':
-                                    	if(elem.val() === 'y') {
-											lpiModal.getModal({type: 'ccbc.cast_platform'});
+                                    	if(elem.val() === 'Y') {
+											lpiModal.getModal({type: 'ccbc', name: 'cast_platform'});
                                         }
                                         //changeColor(elem.val());
                                         break;

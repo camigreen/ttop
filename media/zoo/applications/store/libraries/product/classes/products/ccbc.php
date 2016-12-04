@@ -16,44 +16,101 @@ class CCBCProduct extends Product {
 
 	public $type = 'ccbc';
 
-    public function __construct($app) {
-        parent::__construct($app);
-        $fabric = array(
-            'name' => 'fabric',
-            'value' => '9oz',
+    protected $boat_lengths = array(
+            '17' => '17',
+            '1819' => '18.19',
+            '2021' => '20.21',
+            '2223' => '22.23',
+            '2425' => '24.25',
+            '26' => '26'
+
         );
-        $this->setOption('fabric', $this->app->parameter->create($fabric));
+
+    public function __construct($app, $product) {
+        parent::__construct($app, $product);
+
     }
 
-	public function bind($product) {
+	public function bind($product = array()) {
+        $this->options = $this->type;
 		parent::bind($product);
-		$make = $this->app->boat->create($product->get('make'), $product->get('model'));
-		$this->setParam('boat.manufacturer', $make);
-		$model = $make->getModel();
-        foreach($model->get('options', array()) as $name => $option) {
-            $this->setOption($name, $option);
-        }
-		
 		$this->id = 'ccbc';
 		$this->name = 'Center Console Boat Cover';
-
+        $boat_make = $this->getParam('boat.manufacturer');
+        $boat_model = $this->getParam('boat.model');
+        $this->setParam('boat.manufacturer', $this->app->boat->create($boat_make, $boat_model));
+        $this->setParam('boat.model',$this->getParam('boat.manufacturer')->getModel());
+        
+        foreach($this->getParam('boat.model')->get('options', array()) as $option) {
+            $this->setOption($option->get('name'), $option);
+        }
+        $this->description = 'Custom fit for a '.$this->getParam('boat.manufacturer')->label.' '.$this->getParam('boat.model')->label;
+        $this->setBoatLength();
+        $this->setPriceRule();
 		return $this;
 	}
-
-	    /**
+    
+    /**
      * Get the price group for the item.
      *
      * @return     string    the price group.
      *
      * @since 1.0
      */
-    public function getPriceGroup() {
-    	$priceGroup[] = parent::getPriceGroup();
-    	$make = $this->getParam('boat.manufacturer');
-    	$priceGroup[] = $make->getModel()->get('length');
-    	$priceGroup[] = $this->getOption('fabric')->get('value');
+    public function setPriceRule($value = null) {
+        if($value) {
+            $this->_priceRule = $value;
+            return $this;
+        }
 
-        return implode('.', $priceGroup);
+        $priceRule[] = $this->getOption('boat_length')->getText();
+        $priceRule[] = $this->getOption('fabric')->getValue();
+
+        $this->_priceRule = implode('.', $priceRule);
+
+        return $this;
         
+    }
+	/**
+     * Get the price group for the item.
+     *
+     * @return     string    the price group.
+     *
+     * @since 1.0
+     */
+    public function getPriceRule($default = null) {
+        return $this->_priceRule ? $this->_priceRule : $default;
+        
+    }
+
+    public function getSKU() {
+        if($this->_patternID) {
+            $this->sku = $this->_patternID.'-'.$this->getOption('fabric')->get('value').'-'.$this->getOption('color')->get('text');
+        }
+        return parent::getSKU();
+    }
+
+    public function setBoatLength() {
+        $length = $this->getOption('boat_length')->get('value');
+        foreach($this->boat_lengths as $rule => $range) {
+            $parts = explode('.', $range, 2);
+            $min = $parts[0];
+            $max = isset($parts[1]) ? $parts[1] : $min;
+            if($this->checkRange($length, $min, $max)) {
+                $this->getOption('boat_length')->setValue($length);
+                $this->getOption('boat_length')->setText($rule);
+            }
+        } 
+        return false;
+
+    }
+
+    public function toJson($encode = false) {
+        $data = parent::toJson();
+        $data['params'] = array();
+        $data['params']['boat.model'] = $this->getParam('boat.model')->name;
+        $data['params']['boat.manufacturer'] = $this->getParam('boat.manufacturer')->name;
+
+        return $encode ? json_encode($data) : $data;
     }
 }

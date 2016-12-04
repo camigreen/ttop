@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8"?>
+<products  >
+	<product name="Center Console Boat Cover" type="ccbc" alias="ccbc" description="" skucode="CCBC" >
+		<make name="Action Craft" alias="action-craft" description="" skucode="AC">				
+			<models>
+				<model name="1820 Flatsmaster" alias="1820-flatsmaster" description="" skucode="1820FM">
+					<options>
+						<option name="suction_cup" type="default" qty="0" />
+						<option name="boat_length" type="base" value="18" />
+					</options>
+					<patterns>
+						<pattern id="001" description="">
+							<option name="boat_style" value="CC" />
+							<option name="motors" value="1" />
+							<option name="trolling_motor" value="Y" />
+							<option name="bow_rails" value="L" />
+							<option name="jack_plate" value="JP4" />
+							<option name="poling_platform" value="41"/>
+							<option name="power_poles" value="N"/>
+							<option name="ski_tow_bar" value="N"/>
+							<option name="swim_ladder" value="N"/>
+							<option name="year" min="1990" />
+						</pattern>
+					</patterns>
+				</model>
+				<model name="19 Ace Flats Master" alias="19-ace-flats-master" description="" skucode="19AFM">
+					<options>
+						<option name="boat_length" type="base" value="19" />
+					</options>
+					<patterns>
+						<pattern>
+							<pattern id="001" description="">
+								<option name="boat_style" value="CC" />
+								<option name="motors" value="1" />
+								<option name="trolling_motor" value="N" />
+								<option name="bow_rails" value="L" />
+								<option name="jack_plate" value="N" />
+								<option name="poling_platform" value="42"/>
+								<option name="power_poles" value="N"/>
+								<option name="ski_tow_bar" value="N"/>
+								<option name="swim_ladder" value="N"/>
+								<option name="year" min="2000" />
+							</pattern>
+						</pattern>
+					</patterns>
+				</model>
+			</models>
+		</make>
+	</product>
+	<product>
+		<make name="" alias="" description="" skucode="">				
+			<models>
+				<model name="" alias="" description="" skucode="">
+					<options>
+						<option name="" type="" qty="" />
+					</options>
+					<patterns>
+						<pattern id="001" description="">
+							<option name="boat_style" value="" />
+							<option name="motors" value="" />
+							<option name="trolling_motor" value="" />
+							<option name="bow_rails" value="" />
+							<option name="jack_plate" value="" />
+							<option name="poling_platform" value=""/>
+							<option name="power_poles" value=""/>
+							<option name="ski_tow_bar" value=""/>
+							<option name="swim_ladder" value=""/>
+							<option name="year" min="" />
+						</pattern>
+					</patterns>
+				</model>
+			</models>
+		</make>
+	</product>
+</products>
+
+
+
+
+
+
+
+
+
+<!-- 		<boat>				
+			<name>boston-whaler</name>
+			<label>Boston Whaler</label>
+			<skucode>BW</skucode>
+			<models>
+				<model>
+					<name>17-montauk</name>
+					<label>17 Montauk</label>
+					<skucode>17MNTK</skucode>
+					<length>17</length>
+				</model>
+				<model>
+					<name>18-dauntless</name>
+					<label>18 Dauntless</label>
+					<skucode>18DNTLS</skucode>
+					<length>18</length>
+				</model>
+				<model>
+					<name>110-sport</name>
+					<label>110 Sport</label>
+					<skucode>110S</skucode>
+					<length>11</length>
+				</model>
+				<model>
+					<name>130-sport</name>
+					<label>130 Sport</label>
+					<skucode>130S</skucode>
+					<length>13</length>
+				</model>
+				<model>
+					<name>150-sport</name>
+					<label>150 Sport</label>
+					<skucode>150S</skucode>
+					<length>15</length>
+				</model>
+				<model>
+					<name>150-montauk</name>
+					<label>150 Montauk</label>
+					<skucode>150MNTK</skucode>
+					<length>15</length>
+				</model>
+				<model>
+					<name>160-dauntless</name>
+					<label>160 Dauntless</label>
+					<skucode>160DNTLS</skucode>
+					<length>16</length>
+				</model>
+				<model>
+					<name>170-montauk</name>
+					<label>170 Montauk</label>
+					<skucode>170MNTK</skucode>
+					<length>17</length>
+				</model>
+				<model>
+					<name>180-dauntless</name>
+					<label>180 Dauntless</label>
+					<skucode>180DNTLS</skucode>
+					<length>18</length>
+				</model>
+				<model>
+					<name>190-montauk</name>
+					<label>190 Montauk</label>
+					<skucode>190MNTK</skucode>
+					<length>19</length>
+				</model>
+				<model>
+					<name>220-dauntless</name>
+					<label>220 Dauntless</label>
+					<skucode>220DNTLS</skucode>
+					<length>22</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>carolina-skiff</name>
+			<label>Carolina Skiff</label>
+			<skucode>CRLNASKF</skucode>
+			<models>
+				<model>
+					<name>15-jv</name>
+					<label>15 JV</label>
+					<skucode>15JV</skucode>
+					<length>15</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>champion</name>
+			<label>Champion</label>
+			<skucode>CHMPN</skucode>
+			<models>
+				<model>
+					<name>20</name>
+					<label>20</label>
+					<skucode>20</skucode>
+					<length>20</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>chaos</name>
+			<label>Chaos</label>
+			<skucode>CHAOS</skucode>
+			<models>
+				<model>
+					<name>21-tarpon</name>
+					<label>21 Tarpon</label>
+					<skucode>21TRPN</skucode>
+					<length>21</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>contender</name>
+			<label>Contender</label>
+			<skucode>CNTDR</skucode>
+			<models>
+				<model>
+					<name>25-bay</name>
+					<label>25 Bay</label>
+					<skucode>25BAY</skucode>
+					<length>25</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>east-cape</name>
+			<label>East Cape</label>
+			<skucode>EC</skucode>
+			<models>
+				<model>
+					<name>19</name>
+					<label>19</label>
+					<skucode>19</skucode>
+					<length>19</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>edgewater</name>
+			<label>Edgewater</label>
+			<skucode>EW</skucode>
+			<models>
+				<model>
+					<name>188</name>
+					<label>188</label>
+					<skucode>188</skucode>
+					<length>19</length>
+				</model>
+				<model>
+					<name>185-cc</name>
+					<label>185 CC</label>
+					<skucode>185CC</skucode>
+					<length>18</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>grady-white</name>
+			<label>Grady White</label>
+			<skucode>GW</skucode>
+			<models>
+				<model>
+					<name>191-coastal-explorer</name>
+					<label>191 Coastal Explorer</label>
+					<skucode>191CE</skucode>
+					<length>19</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>hewes</name>
+			<label>Hewes</label>
+			<skucode>HWS</skucode>
+			<models>
+				<model>
+					<name>16-redfisher</name>
+					<label>16 Redfisher</label>
+					<skucode>16RF</skucode>
+					<length>16</length>
+				</model>
+				<model>
+					<name>18-redfisher</name>
+					<label>18 Redfisher</label>
+					<skucode>18RF</skucode>
+					<length>18</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>key-west</name>
+			<label>Key West</label>
+			<skucode>KW</skucode>
+			<models>
+				<model>
+					<name>1720</name>
+					<label>1720</label>
+					<skucode>1720</skucode>
+					<length>17</length>
+				</model>
+				<model>
+					<name>176-bay-reef</name>
+					<label>176 Bay Reef</label>
+					<skucode>176</skucode>
+					<length>17</length>
+				</model>
+				<model>
+					<name>189</name>
+					<label>189</label>
+					<skucode>189</skucode>
+					<length>19</length>
+				</model>
+				<model>
+					<name>200-xt</name>
+					<label>200 XT</label>
+					<skucode>200XT</skucode>
+					<length>20</length>
+				</model>
+				<model>
+					<name>203-fs</name>
+					<label>203 FS</label>
+					<skucode>203FS</skucode>
+					<length>20</length>
+				</model>
+				<model>
+					<name>210-bay-reef</name>
+					<label>210 Bay Reef</label>
+					<skucode>210BR</skucode>
+					<length>21</length>
+				</model>
+				<model>
+					<name>210-fs</name>
+					<label>210 FS</label>
+					<skucode>210FS</skucode>
+					<length>21</length>
+				</model>
+				<model>
+					<name>230-bay-reef</name>
+					<label>230 Bay Reef</label>
+					<skucode>230BR</skucode>
+					<length>23</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>maverick</name>
+			<label>Maverick</label>
+			<skucode>MVRK</skucode>
+			<models>
+				<model>
+					<name>17HPX-S</name>
+					<label>17 HPX-S</label>
+					<skucode>17HPXS</skucode>
+					<length>17</length>
+				</model>
+				<model>
+					<name>18HPX-V</name>
+					<label>18 HPX-V</label>
+					<skucode>18HPXV</skucode>
+					<length>18</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>nautic-star</name>
+			<label>Nautic Star</label>
+			<skucode>NS</skucode>
+			<models>
+				<model>
+					<name>210-angler</name>
+					<label>210 Angler</label>
+					<skucode>210ANGLR</skucode>
+					<length>21</length>
+				</model>
+				<model>
+					<name>1810</name>
+					<label>1810</label>
+					<skucode>1810</skucode>
+					<length>18</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>pathfinder</name>
+			<label>Pathfinder</label>
+			<skucode>PTHFNDR</skucode>
+			<models>
+				<model>
+					<name>2200-TRS</name>
+					<label>2200 TRS</label>
+					<skucode>2200TRS</skucode>
+					<length>22</length>
+				</model>
+				<model>
+					<name>2300-HPS</name>
+					<label>2300 HPS</label>
+					<skucode>2300HPS</skucode>
+					<length>23</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>pioneer</name>
+			<label>Pioneer</label>
+			<skucode>PIONR</skucode>
+			<models>
+				<model>
+					<name>180-islander</name>
+					<label>180 Islander</label>
+					<skucode>180ISLNDR</skucode>
+					<length>18</length>
+				</model>
+				<model>
+					<name>186-cape-island</name>
+					<label>186 Cape Island</label>
+					<skucode>186CPILND</skucode>
+					<length>18</length>
+				</model>
+				<model>
+					<name>197-sportfish</name>
+					<label>197 Sportfish</label>
+					<skucode>197SF</skucode>
+					<length>19</length>
+				</model>
+				<model>
+					<name>197-venture</name>
+					<label>197 Venture</label>
+					<skucode>197VNTRE</skucode>
+					<length>19</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>robalo</name>
+			<label>Robalo</label>
+			<skucode>RBLO</skucode>
+			<models>
+				<model>
+					<name>R180</name>
+					<label>R180</label>
+					<skucode>R180</skucode>
+					<length>18</length>
+				</model>
+				<model>
+					<name>R200</name>
+					<label>R200</label>
+					<skucode>R200</skucode>
+					<length>20</length>
+				</model>
+				<model>
+					<name>206-cayman</name>
+					<label>206 Cayman</label>
+					<skucode>206CMN</skucode>
+					<length>20</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>scout</name>
+			<label>Scout</label>
+			<skucode>SCT</skucode>
+			<models>
+				<model>
+					<name>177-winyah-bay</name>
+					<label>177 Winyah Bay</label>
+					<skucode>177WB</skucode>
+					<length>17</length>
+				</model>
+				<model>
+					<name>175-sportfish</name>
+					<label>175 Sportfish</label>
+					<skucode>175SF</skucode>
+					<length>17</length>
+				</model>
+				<model>
+					<name>191-bay</name>
+					<label>191 Bay</label>
+					<skucode>191BAY</skucode>
+					<length>19</length>
+				</model>
+				<model>
+					<name>201-bay</name>
+					<label>201 Bay</label>
+					<skucode>201BAY</skucode>
+					<length>20</length>
+				</model>
+				<model>
+					<name>221-winyah-bay</name>
+					<label>221 Winyah Bay</label>
+					<skucode>221WB</skucode>
+					<length>22</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>sea-fox</name>
+			<label>Sea Fox</label>
+			<skucode>SF</skucode>
+			<models>
+				<model>
+					<name>180-viper</name>
+					<label>180 Viper</label>
+					<skucode>180VPR</skucode>
+					<length>18</length>
+				</model>
+				<model>
+					<name>186-commander</name>
+					<label>186 Commander</label>
+					<skucode>186CMNDR</skucode>
+					<length>18</length>
+				</model>
+				<model>
+					<name>189-commander</name>
+					<label>189 Commander</label>
+					<skucode>189CMNDR</skucode>
+					<length>18</length>
+				</model>
+				<model>
+					<name>200-xt</name>
+					<label>200 XT</label>
+					<skucode>200XT</skucode>
+					<length>20</length>
+				</model>
+				<model>
+					<name>220-xt</name>
+					<label>220 XT</label>
+					<skucode>220XT</skucode>
+					<length>22</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>sea-hunt</name>
+			<label>Sea Hunt</label>
+			<skucode>SH</skucode>
+			<models>
+				<model>
+					<name>177-triton</name>
+					<label>177 Triton</label>
+					<skucode>177TRTN</skucode>
+					<length>17</length>
+				</model>
+				<model>
+					<name>188-triton</name>
+					<label>188 Triton</label>
+					<skucode>188TRTN</skucode>
+					<length>18</length>
+				</model>
+				<model>
+					<name>196-ultra</name>
+					<label>196 Ultra</label>
+					<skucode>196ULTRA</skucode>
+					<length>19</length>
+				</model>
+				<model>
+					<name>20bx-br</name>
+					<label>20 BX-BR</label>
+					<skucode>20BXBR</skucode>
+					<length>20</length>
+				</model>
+				<model>
+					<name>22bx-br</name>
+					<label>22 BX-BR</label>
+					<skucode>22BXBR</skucode>
+					<length>22</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>sportsman</name>
+			<label>Sportsman</label>
+			<skucode>SPTMN</skucode>
+			<models>
+				<model>
+					<name>207-masters</name>
+					<label>207 Masters</label>
+					<skucode>207MSTR</skucode>
+					<length>20</length>
+				</model>
+				<model>
+					<name>211-heritage</name>
+					<label>211 Heritage</label>
+					<skucode>211HRTG</skucode>
+					<length>21</length>
+				</model>
+				<model>
+					<name>214-tournament</name>
+					<label>214 Tournament</label>
+					<skucode>214T</skucode>
+					<length>21</length>
+				</model>
+					<model>
+					<name>227-masters</name>
+					<label>227 Masters</label>
+					<skucode>227MSTR</skucode>
+					<length>22</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>sundance</name>
+			<label>Sundance</label>
+			<skucode>SNDNCE</skucode>
+			<models>
+				<model>
+					<name>17-fx</name>
+					<label>17 FX</label>
+					<skucode>17FX</skucode>
+					<length>17</length>
+				</model>
+				<model>
+					<name>17-spider</name>
+					<label>17 Spider</label>
+					<skucode>17SPDR</skucode>
+					<length>17</length>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>tidewater</name>
+			<label>Tidewater</label>
+			<skucode>TW</skucode>
+			<models>
+				<model>
+					<name>1900-bay</name>
+					<label>1900 Bay</label>
+					<skucode>1900BAY</skucode>
+					<length>19</length>
+				</model>
+				<model>
+					<name>2200-bay</name>
+					<label>2200 Bay</label>
+					<skucode>2200BAY</skucode>
+					<length>22</length>
+				</model>
+			</models>
+		</boat>
+ -->

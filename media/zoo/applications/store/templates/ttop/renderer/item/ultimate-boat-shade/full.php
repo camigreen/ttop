@@ -8,14 +8,19 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
+$this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
+$this->app->document->addScript('library.cart:assets/js/cart.js');
+$this->app->document->addScript('library.product:assets/js/orderform.js');
+$this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
+$this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
 $class = $item->type.'-full';
-$storeItem = $this->app->item->create($item, 'ubsk');
+$product = $this->app->product->create($item);
 ?>
 <article>
-    <span class="uk-article-title"><?php echo $item->name; ?></span>
+    <span class="uk-article-title"><?php echo $product->name; ?></span>
 </article>
-<div id="storeOrderForm" class="uk-form uk-margin">
-    <div id="<?php echo $storeItem->id; ?>" class="uk-grid storeItem" data-item="<?php echo $storeItem->getItemsJSON(); ?>">
+<div id="OrderForm-<?php echo $product->id; ?>" data-id="<?php echo $product->id; ?>">
+    <div id="" class="uk-grid uk-form">
         <div class="uk-width-2-3 ubsk-slideshow">
             <div class="uk-width-1-1 uk-margin">
                 <?php if ($this->checkPosition('media')) : ?>
@@ -39,14 +44,14 @@ $storeItem = $this->app->item->create($item, 'ubsk');
                 <ul id="tabs" style="min-height:150px;" class="uk-width-1-1 uk-switcher uk-margin">
                     <li>
                         <?php if ($this->checkPosition('boat_options')) : ?>
-                            <div class="uk-width-1-1 uk-margin-top options-container" data-id="<?php echo $storeItem->id; ?>">
+                            <div class="uk-width-1-1 uk-margin-top options-container" data-id="<?php echo $product->id; ?>">
                                 <fieldset> 
                                     <legend>
                                         <?php echo JText::_('Boat Information'); ?>
                                     </legend>
                                     <div class="uk-grid">
                                         <?php echo $this->renderPosition('boat_options', array('style' => 'options')); ?>
-                                        <div class="uk-width-1-1 options-container uk-margin-top" data-id="<?php echo $storeItem->id; ?>">
+                                        <div class="uk-width-1-1 options-container uk-margin-top" data-id="<?php echo $product->id; ?>">
                                             <?php if ($this->checkPosition('options')) : ?>
                                                 <div class="uk-panel uk-panel-box">
                                                     <h3><?php echo JText::_('Options'); ?></h3>
@@ -71,7 +76,7 @@ $storeItem = $this->app->item->create($item, 'ubsk');
                             </div>
                             <div class="uk-width-1-2 uk-grid price-container">
                                 <?php if ($this->checkPosition('pricing')) : ?>
-                                        <?php echo $this->renderPosition('pricing', array('item' => $storeItem)); ?>
+                                        <?php echo $this->renderPosition('pricing', array('item' => $product)); ?>
                                 <?php endif; ?>
                             </div>
                             <div class="uk-width-1-2">
@@ -87,7 +92,7 @@ $storeItem = $this->app->item->create($item, 'ubsk');
                                             <label>1) From Rod Holder to Rod Holder</label>
                                             <div class="uk-grid">
                                                 <div class="uk-width-2-6">
-                                                   <input type="number" id="beam-width" name="beam-width" class="required" data-location="beam" min="0" value="84" />
+                                                   <input type="number" id="beam" name="beam" data-location="beam" min="<?php echo $product->getOption('beam')->get('min')-1; ?>" value="<?php echo $product->getOption('beam')->get('value'); ?>" />
                                                 </div>
                                                 <div class="uk-width-1-6">
                                                     in
@@ -98,7 +103,7 @@ $storeItem = $this->app->item->create($item, 'ubsk');
                                             <label>2) Bridge Width Measurement</label>
                                             <div class="uk-grid">
                                                 <div class="uk-width-2-6">
-                                                   <input type="number" id="bridge-width" name="bridge-width" class="required" data-location="bridge_width" min="0" value="0" />
+                                                   <input type="number" id="bridge" name="bridge" data-location="bridge_width" min="<?php echo $product->getOption('bridge')->get('min')-1; ?>" value="<?php echo $product->getOption('bridge')->get('value'); ?>" />
                                                 </div>
                                                 <div class="uk-width-1-6">
                                                     in
@@ -109,7 +114,7 @@ $storeItem = $this->app->item->create($item, 'ubsk');
                                             <label>3) Bridge to Rod Holders Measurement</label>
                                             <div class="uk-grid">
                                                 <div class="uk-width-2-6">
-                                                   <input type="number" id="depth" name="depth" class="required" data-location="depth" min="0" value="46" />
+                                                   <input type="number" id="depth" name="depth" data-location="depth" min="<?php echo $product->getOption('depth')->get('min')-1; ?>" value="<?php echo $product->getOption('depth')->get('value'); ?>" />
                                                 </div>
                                                 <div class="uk-width-1-6">
                                                     in
@@ -146,9 +151,9 @@ $storeItem = $this->app->item->create($item, 'ubsk');
             </div>
             <div class="uk-width-1-1 addtocart-container uk-margin-top">
                 <label>Quantity</label>
-                <input id="qty-<?php echo $storeItem->id; ?>" type="number" class="uk-width-1-1 qty" data-id="<?php echo $storeItem->id; ?>" name="qty" min="1" value ="1" />
+                <input id="qty-<?php echo $product->id; ?>" type="number" class="uk-width-1-1 qty" data-id="<?php echo $product->id; ?>" name="qty" min="1" value ="1" />
                 <div class="uk-margin-top">
-                    <button id="atc-<?php echo $storeItem->id; ?>" class="uk-button uk-button-danger atc" data-id="<?php echo $storeItem->id; ?>"><i class="uk-icon-shopping-cart" data-store-cart style="margin-right:5px;"></i>Add to Cart</button>
+                    <button id="atc-<?php echo $product->id; ?>" class="uk-button uk-button-danger atc" data-id="<?php echo $product->id; ?>"><i class="uk-icon-shopping-cart" data-store-cart style="margin-right:5px;"></i>Add to Cart</button>
                 </div>
             </div>
             <div class="uk-width-1-1 uk-container-center uk-margin-top">
@@ -161,7 +166,7 @@ $storeItem = $this->app->item->create($item, 'ubsk');
                     <fieldset>
                         <legend>Essential Accessories</legend>
                             <ul class="uk-list" data-uk-grid-margin>
-                            <?php echo $this->renderPosition('accessories', array('style' => 'related')); ?>
+                            <?php //echo $this->renderPosition('accessories', array('style' => 'related')); ?>
                             </ul>
                     </fieldset>
             </div>
@@ -170,123 +175,36 @@ $storeItem = $this->app->item->create($item, 'ubsk');
         </div>
     </div>
     <div class="modals">
-        <div id="confirm-modal" class="uk-modal">
-            <div class="uk-modal-dialog">
-                <div class="uk-grid" data-uk-grid-margin="">
-                    <div class="uk-width-1-1">
-                        <div class="uk-article-title uk-text-center">Confirmation</div>
-                        <div class="uk-text-center uk-margin">By typing "yes" in the box below, I certify that the options that I have chosen are correct. I understand that a Boat Shade is a custom made product and that if I have chosen an option incorrectly it may lead to the Boat Shade not fitting my boat correctly.</div>
-                        <div class="uk-text-center uk-margin">Your measurement will calculate the proper size of shade, because of the stretch of the fabric your shade will be sized down. This will allow tension on the shade to prevent any sag and to give your BSK a custom fit.</div>
-                    </div>
-                    <div class="uk-width-1-1"> 
-                        <div class="item"></div>
-                    </div>
-                    <div class="uk-width-1-1">
-                        <span>Type "yes" in the box below to confirm that your options have been chosen correctly.</span><br />
-                        <span class="confirm-error uk-text-danger uk-text-small"></span><br />
-                        <input type="text" name="accept" />
-                    </div>
-                    <div class="uk-width-1-1">
-                        <div class="uk-grid">
-                            <div class="uk-width-1-2">
-                                <button class="uk-width-1-1 uk-button uk-button-danger confirm">Confirm</button>
-                            </div>
-                            <div class="uk-width-1-2">
-                                <button class="uk-width-1-1 uk-button uk-button-danger cancel">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="uk-width-1-1">
-                        <input type="hidden" name="cart_id" value="" />
-                    </div>
-                </div>
-            </div>
-        </div>
         <?php if ($this->checkPosition('modals')) : ?>        
             <?php echo $this->renderPosition('modals'); ?>
         <?php endif; ?>
-        <div id="info_modal" class="uk-modal">
-            <div class="uk-modal-dialog">
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="uk-width-1-1">
-                        <div class="uk-article-title uk-text-center uk-text-danger">Attention</div>
-                        <p class="uk-text-center uk-margin ttop-modal-title"></p><p class="uk-text-center ttop-modal-subtitle" ></p>
-                    </div>
-                    <div class="uk-width-1-1">
-<!--                        <img src="/images/ubs/ubs2.png" />-->
-                    </div>
-                    <div class="uk-width-1-1">
-                        <div class="uk-grid">
-                            <div class="uk-width-1-2">
-                                <button class="uk-width-1-1 uk-button uk-button-danger confirm">Show Me</button>
-                            </div>
-                            <div class="uk-width-1-2">
-                                <button class="uk-width-1-1 uk-button uk-button-danger cancel">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
 
 
 <script>
-    var info_modal = jQuery.UIkit.modal('#info_modal');
-    var UBSK = {
-        cls: [0,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W'],
-        measurements_changed: false,
-        params: {
+    if(typeof items === 'undefined') { var items = {} };
+    var classes = [0,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W'];
+    var measurements_changed = false;
+    var defaults = {
             beam: {
                 min: 84,
                 max: 221
             },
-            bridge_width: {
-                min: 0,
+            bridge: {
+                min: 1,
                 max: 200
             },
             depth: {
                 min: 46,
                 max: 105
             }
-        },
-        options: {
-            shade_type: {
-                name: 'Shade Type',
-                text: 'Regular',
-                value: 'regular',
-                visible: false
-            },
-            beam: {
-                name: 'Rod Holder to Rod Holder Measurement',
-                text: null,
-                value: 0
-            }, 
-            bridge_width: {
-                name: 'Bridge Width Measurement',
-                text: null,
-                value: 0
-            },
-            depth: {
-                name: 'Bridge to Rod Holder Measurement',
-                text: null,
-                value: 0
-            },
-            kit_class: {
-                name: 'Shade Class',
-                text: 'A',
-                value: 'A',
-                visible: false
-
-            }
-            
-        }
-        
-    };
+        };
     jQuery(document).ready(function($){
-        $('#storeOrderForm').StoreItem({
+        items['ubsk'] = <?php echo $product->toJson(true); ?>;
+        lpiModal.init('.modals');
+        $('#OrderForm-<?php echo $product->id; ?>').OrderForm({
             name: 'UltimateBoatShadeKit',
             validate: true,
             confirm: true,
@@ -296,95 +214,85 @@ $storeItem = $this->app->item->create($item, 'ubsk');
                     onInit: [
                         function (data) {
                             var self = this;
-                            this.trigger('measure', {item: this.items['ubsk']});
+                            this.trigger('measure', {item: this.item});
        
-                            $('.ubsk-measurement input').on('change', function(){
-                                UBSK.measurements_changed = true;
-                                self.trigger('measure', {item: self.items['ubsk']});
+                            $('.ubsk-measurement input').on('change', function(e){
+                                var name = $(this).prop('name');
+                                var value = $(this).val();
+                                self.item.options[name].value = value;
+                                measurements_changed = true;
+                                self.trigger('measure', {item: self.item});
                             });
                             return data;
                         }
                     ],
                     onChanged: [
                         function (data) {
-                            this.trigger('measure', {item: self.items['ubsk']});
+                            this.trigger('measure', {item: self.item});
                             return data;
                         }
                     ],
                     measure: [
                         function (data) {
                             var self = this;
-                            getMeasurements();
+                            var item = this.item;
+                            var old_class = item.options.kit_class.value;
                             checkMinandMax();
-
-                            function getMeasurements() {
-                                var measurements = $('.ubsk-measurement input[type="number"]'), length = {};
-                                
-                                measurements.each(function(k,v){
-                                    length[$(this).data('location')] = parseInt($(this).val());
-                                    
-                                    
-                                    $.each(length, function(k,v){
-                                        UBSK.options[k].value = v;
-                                        UBSK.options[k].text = v+' inches';
-                                    });
-                                });
-                                var cls = (UBSK.options.beam.value - 84);
-                                var kit_class = UBSK.options.kit_class;
-                                cls = (cls + 1)/6;
-                                cls = Math.ceil(cls) > 23 ? 23 : Math.ceil(cls);
-                                cls = UBSK.cls[cls];
-                                kit_class.name = 'Kit Class';
-                                kit_class.text =  cls;
-                                kit_class.value = cls;
-                                self.items['ubsk'].options.kit_class = kit_class;
-                            }
+                            getClass();
                             
                             function checkMinandMax() {
-                                var beam = UBSK.options.beam, bridge_width = UBSK.options.bridge_width, depth = UBSK.options.depth, shade_type = UBSK.options.shade_type, params = UBSK.params, args = {};
-                                // Checking depth and determine if it is an exended shade.
-                                if (depth.value >= 46 && depth.value <= 80) {
-                                    shade_type.text = 'Regular';
-                                    shade_type.value = 'regular';
-                                } else if (depth.value >= 81 ) {
-                                    shade_type.text = 'Extended';
-                                    shade_type.value = 'extended';
-                                } 
-                                self.items['ubsk'].options.shade_type = shade_type;
+                                var beam = item.options.beam, bridge = item.options.bridge, depth = item.options.depth, shade_type = item.options.shade_type;
+                                var args = {item: item};
+
                                 // Checking Beam Width
-                                args.item = self.items['ubsk'];
                                 switch (true) {
-                                    case beam.value < params.beam.min:
+                                    case beam.value < defaults.beam.min:
                                         self.trigger('beamTooSmall', args);
                                         break;
-                                    case beam.value > params.beam.max:
+                                    case beam.value > defaults.beam.max:
                                         self.trigger('beamTooLarge', args);
                                 }
 
                                 // Checking Bridge Width
                                 switch (true) {
-                                    case bridge_width.value < params.bridge_width.min:
+                                    case bridge.value < defaults.bridge.min:
                                         self.trigger('bridgeTooSmall', args);
                                         break;
-                                    case bridge_width.value > params.bridge_width.max:
+                                    case bridge.value > defaults.bridge.max:
                                         self.trigger('bridgeTooLarge', args);
                                 }
 
                                 // Checking Depth
                                 switch (true) {
-                                    case depth.value < params.depth.min:
+                                    case depth.value < defaults.depth.min:
                                         self.trigger('depthTooSmall', args);
                                         break;
-                                    case depth.value > params.depth.max:
+                                    case depth.value > defaults.depth.max:
                                         self.trigger('depthTooLarge', args);
                                 }
 
-                                
+                                // Checking depth and determine if it is an exended shade.
+                                if (depth.value >= 46 && depth.value <= 80) {
+                                    shade_type.value = 'regular';
+                                } else if (depth.value >= 81 ) {
+                                    shade_type.value = 'extended';
+                                } 
+
                             }
-                            var item = this.items['ubsk'];
-                            var type = item.options.shade_type.value === 'regular' ? '' : '.'+item.options.shade_type.value;
-                            item.price_group = 'ubsk.'+item.options.kit_class.value+type;
-                            this._publishPrice(item);
+
+                            function getClass() {
+                                var cls = (item.options.beam.value - 84);
+                                cls = (cls + 1)/6;
+                                cls = Math.ceil(cls) > 23 ? 23 : Math.ceil(cls);
+                                console.log(cls);
+                                cls = classes[cls];
+                                item.options.kit_class.value = cls;
+                                console.log('USBK Class: '+cls);
+                            }
+                            if(old_class !== item.options.kit_class.value) {
+                                this._publishPrice({item: item});
+                            }
+                            
                             return data;
                         }
                     ],
@@ -396,47 +304,30 @@ $storeItem = $this->app->item->create($item, 'ubsk');
                     ],
                     beamTooSmall: [
                         function (data) {
+                            console.log(data);
                             var type = data.args.type;
-                            $('#info_modal').find('.ttop-modal-title').html('Boats with a '+UBSK.options.beam.name+' under '+UBSK.params.beam.min+' inches are too small for our Ultimate Boat Shade Kit.');
-                            $('#info_modal').find('.ttop-modal-subtitle').html('Please check out our Boat Shade Kit for smaller boats.');
-                            
-                            $('.ubsk-measurements #beam-width').val(UBSK.params.beam.min).trigger('change');
-                            $('#info_modal button.confirm').click(function(){
-                                window.location = '/store/boat-shade-kit';
-                            }).html('Boat Shade Kit');
-                            
-                            $('#info_modal button.cancel').click(function(){
-                                $('#info_modal button').off();
-                                info_modal.hide();
-
+                            lpiModal.getModal({
+                                type: 'ubsk',
+                                name: 'beamtoosmall',
+                                value: defaults.beam.min
                             });
-                            
-                            info_modal.options.bgclose = false;
-                            info_modal.show();
+                            this.item.options.beam.value = defaults.beam.min;
+                            $('[name="beam"]').val(defaults.beam.min);
                             data.triggerResult = false;
                             return data;
                         }
                     ],
                     beamTooLarge: [
                         function (data) {
+                            console.log(data);
                             var type = data.args.type;
-                            $('#info_modal').find('.ttop-modal-title').html('Boats with a '+UBSK.options.beam.name+' over '+UBSK.params.beam.max+' inches are too large for our Ultimate Boat Shade Kit.');
-                            $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Ultimate Boat Shade Kit.  Click the contact us button below for send us an email.');
-                            
-                            $('.ubsk-measurements #beam-width').val(UBSK.params.beam.max).trigger('change');
-
-                            $('#info_modal button.confirm').click(function(){
-                                window.location = '/about-us/contact-us';
-                            }).html('Contact Us');
-                            
-                            $('#info_modal button.cancel').click(function(){
-                                $('#info_modal button').off();
-                                info_modal.hide();
-
+                            lpiModal.getModal({
+                                type: 'ubsk',
+                                name: 'beamtoolarge',
+                                value: defaults.beam.max
                             });
-                            
-                            info_modal.options.bgclose = false;
-                            info_modal.show();
+                            this.item.options.beam.value = defaults.beam.max;
+                            $('[name="beam"]').val(defaults.beam.max);
                             data.triggerResult = false;
                             return data;
                         }
@@ -444,23 +335,13 @@ $storeItem = $this->app->item->create($item, 'ubsk');
                     bridgeTooSmall: [
                         function (data) {
                             var type = data.args.type;
-                            $('#info_modal').find('.ttop-modal-title').html('Boats with a '+UBSK.options.bridge_width.name+' under '+UBSK.params.bridge_width.min+' inches are too small for our Ultimate Boat Shade Kit.');
-                            $('#info_modal').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom shade kit for your boat.  Click the contact us button below for send us an email.');
-                            
-                            $('.ubsk-measurements #bridge-width').val(UBSK.params.bridge_width.max).trigger('change');
-                            
-                            $('#info_modal button.confirm').click(function(){
-                                window.location = '/about-us/contact-us';
-                            }).html('Contact Us');
-                            
-                            $('#info_modal button.cancel').click(function(){
-                                $('#info_modal button').off();
-                                info_modal.hide();
-
+                            lpiModal.getModal({
+                                type: 'ubsk',
+                                name: 'bridgetoosmall',
+                                value: defaults.bridge.min
                             });
-                            
-                            info_modal.options.bgclose = false;
-                            info_modal.show();
+                            this.item.options.bridge.value = defaults.bridge.min;
+                            $('[name="bridge"]').val(defaults.bridge.min);
                             data.triggerResult = false;
                             return data;
                         }
@@ -468,46 +349,27 @@ $storeItem = $this->app->item->create($item, 'ubsk');
                     bridgeTooLarge: [
                         function (data) {
                             var type = data.args.type;
-                            $('#info_modal').find('.ttop-modal-title').html('Boats with a '+UBSK.options.bridge_width.name+' over '+UBSK.params.bridge_width.max+' inches are too large for our Ultimate Boat Shade Kit.');
-                            $('#info_modal').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom shade kit for your boat.  Click the contact us button below for send us an email.');
-                            
-                            $('.ubsk-measurements #bridge-width').val(UBSK.params.bridge_width.max).trigger('change');
-                            
-                            $('#info_modal button.confirm').click(function(){
-                                window.location = '/about-us/contact-us';
-                            }).html('Contact Us');
-                            
-                            $('#info_modal button.cancel').click(function(){
-                                $('#info_modal button').off();
-                                info_modal.hide();
+                            lpiModal.getModal({
+                                type: 'ubsk',
+                                name: 'bridgetoolarge',
+                                value: defaults.bridge.max
                             });
-                            
-                            info_modal.options.bgclose = false;
-                            info_modal.show();
+                            this.item.options.bridge.value = defaults.bridge.max;
+                            $('[name="bridge"]').val(defaults.bridge.max);
                             data.triggerResult = false;
                             return data;
                         }
                     ],
                     depthTooSmall: [
-                        function(data) {
+                        function (data) {
                             var type = data.args.type;
-                            $('#info_modal').find('.ttop-modal-title').html('Boats with a '+UBSK.options.depth.name+' under '+UBSK.params.depth.min+' inches are too small for our Ultimate Boat Shade Kit.');
-                            $('#info_modal').find('.ttop-modal-subtitle').html('Please check out our Boat Shade Kit for smaller boats.');
-
-                            $('.ubsk-measurements #depth').val(UBSK.params.depth.min);
-
-                            $('#info_modal button.confirm').click(function(){
-                                window.location = '/store/boat-shade-kit';
-                            }).html('Boat Shade Kit');
-
-                            $('#info_modal button.cancel').click(function(){
-                                $('#info_modal button').off();
-                                info_modal.hide();
-
+                            lpiModal.getModal({
+                                type: 'ubsk',
+                                name: 'depthtoosmall',
+                                value: defaults.depth.min
                             });
-
-                            info_modal.options.bgclose = false;
-                            info_modal.show();
+                            this.item.options.depth.value = defaults.depth.min;
+                            $('[name="depth"]').val(defaults.depth.min);
                             data.triggerResult = false;
                             return data;
                         }
@@ -515,61 +377,35 @@ $storeItem = $this->app->item->create($item, 'ubsk');
                     depthTooLarge: [
                         function (data) {
                             var type = data.args.type;
-                            $('#info_modal').find('.ttop-modal-title').html('Boats with a '+UBSK.options.depth.name+' over '+UBSK.params.depth.max+' inches are too large for our Ultimate Boat Shade Kit.');
-                            $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Ultimate Boat Shade Kit.  Click the contact us button below for send us an email.');
-
-                            $('.ubsk-measurements #depth').val(UBSK.params.depth.max);
-                            $('#info_modal button.confirm').click(function(){
-                                window.location = '/contact-us';
-                            }).html('Contact Us');
-                            
-                            $('#info_modal button.cancel').on('click', function(e){
-                                $('#info_modal button').off();
-                                info_modal.hide();
+                            lpiModal.getModal({
+                                type: 'ubsk',
+                                name: 'depthtoolarge',
+                                value: defaults.depth.max
                             });
-                            info_modal.options.bgclose = false;
-                            info_modal.show();
+                            this.item.options.depth.value = defaults.depth.max;
+                            $('[name="depth"]').val(defaults.depth.max);
                             data.triggerResult = false;
                             return data;
                         }
                     ],
                     measurementsNotChanged: [
                         function (data) {
-                            var self = this;
-                            $('#info_modal').find('.ttop-modal-title').html('The order form measurements have not been changed.');
-                            $('#info_modal').find('.ttop-modal-subtitle').html('The measurements on the order form are initially set to the lowest sizes that will work with the Ultimate Boat Shade Kit. Please make sure that the measurements entered match the measurements of your boat.  If the measurements in the order form are correct click Continue or click Back to correct them.');
-                            
-                            $('#info_modal button.confirm').click(function(){
-                                UBSK.measurements_changed = true;
-                                info_modal.hide();
-                                $('#atc-ubsk').trigger('click');
-                            }).html('Continue');
-                                
-                            $('#info_modal button.cancel').click(function(){
-                                
-                                $('#info_modal button').off();
-                                info_modal.hide();
-                                $(this).html('Cancel');
-
-                            }).html('Back');
-
-                            info_modal.options.bgclose = false;
-                            info_modal.show();
+                            var type = data.args.type;
+                            lpiModal.getModal({
+                                type: 'ubsk',
+                                name: 'nochange'
+                            });
                             data.triggerResult = false;
                             return data;
                         }
                     ],
                     beforeAddToCart: [
                         function (data) {
-                            if (!UBSK.measurements_changed) {
-                                this.trigger('measurementsNotChanged', {item: this.items['ubsk']});
+                            if (!measurements_changed) {
+                                this.trigger('measurementsNotChanged', {item: this.item});
                                 data.triggerResult = false;
                                 return data;
                             }
-                            var item = $.extend(true,{},data.args.items['ubsk']);
-                            item.name = 'Ultimate Boat Shade - '+item.options.kit_options.text;
-                            item.options = $.extend(true, item.options, UBSK.options);
-                            data.args.items['ubsk'] = item;
                             return data;
                         }
                     ]

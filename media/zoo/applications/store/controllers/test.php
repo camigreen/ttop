@@ -227,32 +227,66 @@ class TestController extends AppController {
 	 *
 	 * @since 1.0
 	 */
-	public function changeAccountDiscount() {
-		$commit = $this->app->request->get('commit', 'string');
-		$d = $this->app->request->get('d', 'int', null);
-		$m = $this->app->request->get('m', 'int', null);
 
-		if($commit != 'yes') {
-			echo 'Not Committed';
-			return;
-		}
-		$accounts = $this->app->account->all(array('conditions' => 'id != 7'));
-		$count = 0;
-		foreach($accounts as $account) {
-			$count++;
-			echo $account->name.'</br>';
-			echo 'From</br>';
-			var_dump($account->params->get('discount'));
-			var_dump($account->params->get('margin'));
-			$account->params->set('discount', $d);
-			$account->params->set('margin', $m);
-			$account->save();
-			echo 'To:</br>';
-			var_dump($account->params->get('discount'));
-			var_dump($account->params->get('margin'));
-		}
-		echo $count.' Accounts Changed.';
+	public function testCart() {
+		// $x = array();
+		// $x['id'] = 'ccbc';
+		// $x['type'] = 'ccbc';
+		// $x['qty'] = 3;
+		// $x['params'] = array(
+		// 	'boat.manufacturer' => 'action-craft',
+		// 	'boat.model' => '1820-flatsmaster'
+		// );
+		// $x['options'] = array(
+		// 	'trolling_motor' => 'Y',
+		// 	'bow_rails' => 'L',
+		// 	'poling_platform' => 42,
+		// 	'year' => 2016,
+		// 	'motors' => 1
+		// );
+		// $cart[] = $x;
+
+		//$this->app->request->set('products', $cart);
+		$this->cart = $this->app->cart;
 		
+		
+		// $stuff = array();
+        // $products = $this->app->request->get('products', 'array', array());
+        // foreach($products as $product) {
+        //     $product = $this->app->product->create($product);
+        //     $hash = $product->getHash();
+        //     $stuff[$hash] = $product;
+        // }
+
+        //$this->cart->add($stuff);
+
+        echo '<button class="open-cart">Open Cart</button>';
+        //$layout = 'cart';
+
+		//$this->getView()->addTemplatePath($this->app->path->path('library.cart:/layouts'))->setLayout($layout)->display();
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function testShip() {
+		$shipper = $this->app->shipper;
+		$shipTo = array();
+		$shipTo['name'] = 'Shawn Gibbons';
+		$shipTo['street1'] = '114 St Awdry Street';
+		$shipTo['city'] = 'Summerville';
+		$shipTo['state'] = 'SC';
+		$shipTo['postalCode'] = '29485';
+		$shipTo = $this->app->data->create($shipTo);
+		$shipper->setDestination($shipTo)->assemblePackages($this->app->cart->getAll());
+		var_dump($shipper);
+		var_dump($shipper->getRates());
 	}
 
 

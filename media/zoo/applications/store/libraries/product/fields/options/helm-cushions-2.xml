@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fields>
+	<field name="size" label="Fender Size" type="base" default="12x24" visible="true">
+		<option value="12x24">12in x 24in</option>
+		<option value="18x36">18in x 36in</option>
+	</field>
+</fields>

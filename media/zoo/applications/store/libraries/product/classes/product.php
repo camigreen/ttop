@@ -52,7 +52,7 @@ class Product {
      * @var [string]
      * @since 1.0.0
      */
-    protected $_patternCode;
+    protected $_patternID;
     
     /**
      * Qty of the item.
@@ -76,7 +76,7 @@ class Product {
      * @var [array]  Will be one of three categories. (price, base, pattern)
      * @since 1.0.0
      */
-    public $options = array();
+    public $options;
 
     /**
      * Description of the item.
@@ -87,12 +87,12 @@ class Product {
     public $description;
     
     /**
-     * String that identifies the pricing group of an item.
+     * String that identifies the pricing rule of an item.
      *
      * @var [string]
      * @since 1.0.0
      */
-    public $price_group;
+    public $_priceRule;
 
     /**
      * String that identifies the pricing group of an item.
@@ -100,7 +100,15 @@ class Product {
      * @var [string]
      * @since 1.0.0
      */
-    protected $price;
+    public $price;
+
+    /**
+     * Locks the product from any further changes.
+     *
+     * @var [bool]
+     * @since 1.0.0
+     */
+    protected $locked = false;
 
     /**
      * Reference to the App Object.
@@ -115,27 +123,46 @@ class Product {
      *
      * @param datatype    $app    Parameter Description
      */
-    public function __construct($app) {
+    public function __construct($app, $product) {
 
-        $this->app = $app;
-        $this->params = $this->app->parameter->create($this->params);
-        $this->options = $this->app->data->create($this->options);
+        $this->app = $app; 
+        $this->bind($product);
+        $this->initPrice();
+        
 
     }
 
-    public function bind($product) {
-        $exclude = array('options', 'params');
+    public function bind($product = array()) {
+        // Bind all variable except options and params
+        $exclude = array('options', 'params', 'price');
         foreach($product as $key => $value) {
             if(property_exists($this, $key) && !in_array($key, $exclude)) {
                 $this->$key = $value;
+            } 
+        }
+        $this->locked = $this->locked == 'true' ? true : false;
+
+        if($this->locked) 
+            $this->price = $product->get('price');
+
+        // Bind options
+        $this->options = $this->app->option->create($this->options);
+        foreach($product->get('options', array()) as $name => $value) {
+            if(isset($value['value']) && $value['value']) {
+                $this->setOptionValue($name, $value['value']);
             }
         }
-        foreach($product->get('options', array()) as $key => $value) {
-            $this->options->set($key, $this->app->parameter->create($value));
+        // Bind Params
+        $this->params = $this->app->parameter->create($product->get('params'));
+        // foreach($product->get('params', array()) as $key => $value) {
+        //     $this->params->set($key, $value);
+        // }
+        if(!$this->params->get('confirmed')) {
+            $this->params->set('confirmed', false);
         }
-        foreach($product->get('params', array()) as $key => $value) {
-            $this->params->set($key, $this->app->parameter->create($value));
-        }
+
+        $this->setPriceRule();
+
         return $this;
     }
 
@@ -176,8 +203,77 @@ class Product {
         return $this->options->get($name, $default);
     }
 
-    public function setOption($name, $value) {
+    public function getOptions($type = null) {
+        if ($type == null) {
+            return $this->options->getAll();
+        }
+        $result = array();
+        foreach($this->options as $option) {
+            $types = explode('|', $option->get('type'));
+            if(in_array($type, $types)) {
+                $result[$option->get('name')] = $option;
+            }
+        }
+        return $this->app->data->create($result);
+        
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function increaseQty($qty = 1) {
+        $this->qty += $qty;
+        return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function decreaseQty($qty = 1) {
+        $this->qty -= $qty;
+        return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function setQty($qty) {
+        $this->qty = $qty;
+        return $this;
+    }
+
+    public function getQty() {
+        return $this->qty;
+    }
+
+    public function setOption($name, $value = array()) {
         $this->options->set($name, $value);
+        return $this;
+    }
+
+    public function setOptionValue($name, $value = null) {
+        $this->options->setValue($name, $value);
+        if($this->getOption($name)->isPriceOption() && $this->price) {
+            $this->refreshPrice();
+        }
         return $this;
     }
 
@@ -189,6 +285,19 @@ class Product {
         $this->attributes->set($name, $value); 
         
         return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getWeight() {
+        return $this->price->getParam('weight', 0);
     }
 
     public function getSKU() {
@@ -204,12 +313,128 @@ class Product {
      *
      * @since 1.0
      */
-    public function getPrice() {
-        if(!$this->price) {
+    public function initPrice() {
+        if(!$this->isLocked()) {
             $this->price = $this->app->price->create($this);
+        } else {
+            $this->price = $this->app->data->create($this->price);
         }
-        return $this->price;
+        return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function refreshPrice() {
+        if(!$this->locked) {
+            $this->price->calculate();
+        }
+        return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getPrice($name = 'display', $default = 0.00, $formatted = false) {
         
+        return $this->price->get($name, $default, $formatted);
+
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getMarkupRate($name = 'msrp', $default = 0) {
+        if($this->price instanceof Price) {
+            return ($this->price->getMarkupRate($name, $default)-1) * 100;
+        }
+        return ($this->price->get('markup.'.$name, $default)-1)*100; 
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getDiscountRate($default = 0) {
+        if($this->price instanceof Price) {
+            return (1-$this->price->getDiscountRate($default))*100;
+        }
+        return (1-$this->price->get('discount', $default))*100;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getTotalPrice($name = 'display', $formatted = false) {
+        $total = $this->getPrice($name) * $this->getQty();
+        if($formatted) {
+            $total = $this->app->number->currency($total, array('currency' => 'USD'));
+        }
+        return $total;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function lock() {
+        $this->locked = true;
+        $this->_lockPrice();
+        $product = $this->toJson();
+        $product['price'] = $this->price;
+        return $product;
+        
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    protected function _lockPrice() {
+        if(!$this->price || !$this->price->get('lock')) {
+            $this->price = $this->app->price->create($this);
+        } 
+        $this->price = $this->price->lock();
+        return $this->price;
     }
 
     /**
@@ -219,16 +444,39 @@ class Product {
      *
      * @since 1.0
      */
-    public function getPriceGroup() {
-        return $this->type;
+    public function getPriceRule() {
+        return $this->_priceRule = $this->type;
         
     }
 
-    public function getHash() {}
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function setPriceRule() {
+        $this->_priceRule = $this->type;
+        return $this;
+    }
 
-    public function getPatternCode() {
-        if($this->_patternCode) {
-            return $this->_patternCode;
+    public function getHash() {
+        $sku = array();
+        foreach($this->getOptions() as $option) {
+            $sku[] = $option->get('name').$option->get('value');
+        }
+        $sku[] = $this->getPrice();
+        $sku[] = $this->name;
+        $sku[] = $this->id;
+        return hash('md5', implode('.', $sku));
+    }
+
+    public function getPatternID() {
+        if($this->_patternID) {
+            return $this->_patternID;
         }
         $type = $this->type;
         $make = $this->getParam('boat.manufacturer');
@@ -236,49 +484,136 @@ class Product {
         if($type && $make && $model) {
             $code = strtoupper($type).'-'.$make->skucode.$model->get('skucode');
         } else {
-            return $this->_patternCode = null;
+            return $this->_patternID = null;
         }
         $patterns = $this->app->pattern->get($code);
+        if(!$patterns) {
+            $this->_patternID = null;
+            return;
+        }
         foreach($patterns as $id => $option) {
                 $match = true;
             foreach($option as $key => $value) {
-                if($key == 'year' && $this->options->get('year')) {
-                    $year = (int) $this->options->get('year')->get('value');
-                    $range = explode('|', $value);
-                    if(count($range) == 1) {
-                        $start = $range[0];
-                        $end = date('m') < 5 ? date('Y') : date('Y')+1;
-                    } else {
-                        $start = (int) $range[0];
-                        $end = (int) $range[1];
+                if(is_array($value)) {
+                    $min = $value['min'];
+                    $max = $value['max'];
+                    switch($key) {
+                        case 'year':
+                            $year = $this->options->get('year');
+                            
+                            if($year = $this->getOption('year')) {
+                                $max = $max ? $max : (date('m') < 5 ? date('Y') : date('Y')+1);
+                                if(!$this->checkRange($year->value, $min, $max)) {
+                                    $match = false;
+                                }
+                            }
+                            break;
+                        default:
+                            $val = $this->options->get($key);
+                            if($val && !$this->checkRange($val->value, $min, $max)) {
+                                $match = false;
+                            }
                     }
-                    if($year < $start) {
-                        $match = false;
-                    }
-                    if($year > $end) {
-                        $match = false;
-                    }
-
                 } else if(!$this->options->get($key) || $this->options->get($key)->get('value') != $value) {
                     $match = false;
                 }
-            }                
+                // var_dump($key.' - '.($match ? 'True' : 'False'));
+                if(!$match) {
+                    break;
+                }
+            }
+
             if($match) {
-                $this->_patternCode = $code.'-'.$id;
-                return $this->_patternCode;
+                $this->_patternID = $code.'-'.$id;
+                return $this->_patternID;
             } else {
-                $this->_patternCode = null;
+                $this->_patternID = null;
             }
         }
-        return $this->_patternCode;
+        return $this->_patternID;
     }
 
-    public function generateSKU() {
-        
+    public function checkRange($value, $min, $max) {
+        $result = false;
+        if(!$min || $value >= $min) {
+            $result = true;
+        }
+        if($result && (!$max || $value <= $max)) {
+            $result = true;
+        } else {
+            $result = false;
+        }
+
+        return $result;
     }
 
     public function __get($name) {
         return $this->getParam($name);
+    }
+
+    /**
+     * Determines if the product is locked.
+     *
+     * @return     bool    Locked status.
+     *
+     * @since 1.0
+     */
+    public function isLocked() {
+        return $this->locked;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function isTaxable() {
+        return true;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getCartDetails() {
+        $details = $this->app->parameter->create();
+        $details->set('name', $this->name);
+        $details->set('qty', $this->getQty());
+        $details->set('price', $this->getTotalPrice());
+        $details->set('description', $this->description);
+        foreach($this->getOptions() as $option) {
+            if($option->get('visible') === 'true') {
+                $details->set('options.'.$option->get('label'), $option->get('text'));
+            }
+        }
+        return $details;
+    }
+
+    public function toJson($encode = false) {
+        $exclude = array('app', 'options', 'price', '_patternID', '_priceRule', 'boat_lengths');
+        $data = array();
+        foreach($this as $key => $value) {
+            if(!in_array($key, $exclude)) {
+                $data[$key] = $value;
+            }
+        }
+        $options = array();
+        foreach($this->options->getAll() as $name => $option) {
+            $option->remove('choices.');
+            $options[$name] = $option;
+        }
+        $data['options'] = $options;
+
+        return $encode ? json_encode($data) : $data;
     }
     
 }

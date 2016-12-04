@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fields>
+	<field name="color" label="Color" type="variable" visible="true">
+		<option value="N">Navy</option>
+		<option value="B">Black</option>
+		<option value="T">Tan</option>
+		<option value="G">Gray</option>
+	</field>
+	<field name="boat_length" label="Boat Length" type="base" visible="false" />
+	<field name="fabric" label="Fabric" type="base" visible="true" default="9oz">
+		<option value="7oz">Material 7oz. 3yr. Warranty</option>
+		<option value="8oz">Material 8oz. 5yr. Warranty</option>
+		<option value="9oz">Material 9oz. 5yr. Warranty</option>
+	</field>
+	<field name="zipper" label="Zipper Side" type="variable" visible="true">
+		<option value='ZP'>Port Side</option>
+		<option value='ZS'>Starboard Side</option>
+		<option value='CR'>Center Rear (Twin Hulls Only)</option>
+	</field>
+	<field name="storage" label="How is your boat stored?" type="variable" visible="true">
+		<option value='T'>Trailer</option>
+		<option value='L'>Lift</option>
+		<option value='DS'>Dry Stack</option>
+		<option value='JD'>Jet Dock</option>
+		<option value='IW'>In Water</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="boat_style" label="Boat Style" type="pattern" visible="true">
+		<option value='CC'>Center Console</option>
+		<option value='DC'>Dual Console</option>
+		<option value='WA'>Walkaround</option>
+		<option value='CB'>Catamaran</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="ttop_type" label="T-Top Type" type="variable" visible="true">
+		<option value='hard-top'>Hard Top</option>
+		<option value='canvas-top'>Canvas Top</option>
+		<option value='key-west'>Key West</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="bow_accessories" label="Bow Accessories" type="pattern" visible="true">
+		<option value='N'>None</option>
+		<option value='BRW'>Bow Roller/Windless</option>
+		<option value='THA'>Thru Hull Anchor</option>
+		<option value='BP'>Bow Pulpit</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="motors" label="Motors" type="pattern" visible="true">
+		<option value='1'>Single Engine</option>
+		<option value='2'>Twin Engines</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="motor_make" label="Motor Make" type="variable" visible="true">
+		<option value='evinrude'>Evinrude</option>
+		<option value='honda'>Honda</option>
+		<option value='johnson'>Johnson</option>
+		<option value='mercury'>Mercury</option>
+		<option value='suzuki'>Suzuki</option>
+		<option value='yamaha'>Yamaha</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="motor_size" label="Motor Size" type="variable" visible="true">
+		<option value='90'>90 HP</option>
+		<option value='115'>115 HP</option>
+		<option value='135'>135 HP</option>
+		<option value='150'>150 HP</option>
+		<option value='175'>175 HP</option>
+		<option value='200'>200 HP</option>
+		<option value='225'>225 HP</option>
+		<option value='250'>250 HP</option>
+		<option value='300'>300 HP</option>
+		<option value='350'>350 HP</option>
+		<option value='400'>400 HP</option>
+		<option value='557'>557 HP</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="ski_tow_bar" label="Ski/Tow Bar" type="pattern" visible="true">
+		<option value='N'>None</option>
+		<option value='above'>Above the Engine</option>
+		<option value='in_front'>In Front of the Engine</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="jack_plate" label="Jack Plate" type="pattern" visible="true">
+		<option value='N'>None</option>
+		<option value='JP4'>4 Inch</option>
+		<option value='JP6'>6 Inch</option>
+		<option value='JP8'>8 Inch</option>
+		<option value='JP10'>10 Inch</option>
+		<option value='JP12'>12 Inch</option>
+		<option value='JP14'>14 Inch</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="swim_ladder" label="Swim Ladder" type="pattern" visible="true">
+		<option value='N'>None</option>
+		<option value='SL-I'>In-Laid</option>
+		<option value='SL-R'>Removeable</option>
+		<option value='SL-P'>Platform</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="power_poles" label="Power Poles" type="pattern" visible="true">
+		<option value='N'>None</option>
+		<option value='PEB'>Port Side Engine Bracket Mount</option>
+		<option value='SEB'>Starboard Side Engine Bracket Mount</option>
+		<option value='DEB'>Dual Engine Bracket Mount</option>
+		<option value='PTM'>Port Side Transom Mount</option>
+		<option value='STM'>Starboard Side Transom Mount</option>
+		<option value='DTM'>Dual Transom Mount</option>
+		<option value='other'>Other</option>	
+	</field>
+	<field name="year" label="Boat Year" type="pattern" visible="true" />
+	<field name="bow_rails" label="Bow Rails" type="pattern" visible="true">
+		<option value='N'>No Rails</option>
+		<option value='L'>Low - 8" or less</option>
+		<option value='R'>Recessed</option>
+		<option value='H'>High - 9" or more</option>
+		<option value='WT'>Walk Through</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="trolling_motor" label="Trolling Motor" type="price|pattern" visible="true">
+		<option value='0'>- SELECT -</option>
+		<option value='Y' cost="175.00">Yes</option>
+		<option value='N'>No</option>
+		<option value='R'>Removeable</option>
+	</field>
+	<field name="add_info" label="Additional Information" type="variable" visible="true" />
+</fields>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fields>
+	<field name="cover_size" label="Fender Size" type="base" default="small" visible="true">
+		<option value="small">Small</option>
+		<option value="medium">Medium</option>
+		<option value="large">Large</option>
+		<option value="x-large">X-Large</option>
+	</field>
+	<field name="cover_color" label="Color" type="variable" visible="true" default="B">
+		<option value="navy">Navy</option>
+		<option value="black">Black</option>
+	</field>
+</fields>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modals>
+	<modal name="measurements" layout="measurements" title="Measurements" subtitle="" save="Save" cancel="Cancel" />
+	<modal name="beamtoosmall" layout="beamtoosmall" title="Uh oh!" subtitle="That beam measurement is too low." save="Show Me!" cancel="Cancel" />
+	<modal name="beamtoolarge" layout="beamtoolarge" title="Uh oh!" subtitle="That beam measurement is too high." save="Contact Us" cancel="Cancel" />
+	<modal name="bridgetoosmall" layout="bridgetoolarge" title="Uh oh!" subtitle="That Bridge Width measurement is too low." save="Show Me!" cancel="Cancel" />
+	<modal name="bridgetoolarge" layout="bridgetoolarge" title="Uh oh!" subtitle="That Bridge Width measurement is too high." save="Contact Us" cancel="Cancel" />
+	<modal name="depthtoosmall" layout="depthtoolarge" title="Uh oh!" subtitle="That Bridge to Rod Holder measurement is too high." save="Show Me!" cancel="Cancel" />
+	<modal name="depthtoolarge" layout="depthtoolarge" title="Uh oh!" subtitle="That Bridge to Rod Holder measurement is too high." save="Contact Us" cancel="Cancel" />
+	<modal name="nochange" layout="nochange" title="Uh oh!" subtitle="The order form measurements for the Ultimate Boat Shade Kit have not been changed." save="Continue" cancel="Cancel" />
+</modals>
+

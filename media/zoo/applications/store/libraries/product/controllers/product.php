@@ -105,12 +105,12 @@ class ProductController extends AppController {
         $model = $this->app->request->get('model', 'string');
         $product = array(
             'type' => $this->type,
-            'make' => $manufacturer,
-            'model' => $model
+            'params' => array(
+                'boat.manufacturer' => $manufacturer,
+                'boat.model' => $model
+            )
         );
         $this->product = $this->app->product->create($product);
-        $make = $this->product->getParam('boat.manufacturer');
-        $model = $make->getModel();
         $layout = 'full';
         $values = array();
         $values['product'] = $this->product;
@@ -219,7 +219,12 @@ class ProductController extends AppController {
             $models = $this->app->data->create();
             foreach($xml->models->model as $xModel) {
                 $model = $this->app->data->create();
+                $enabled = $this->app->xml->getBool($xModel->attributes()->published);                   
+                if(!$enabled) {
+                    continue;
+                }
                 foreach($xModel as $key => $value) {
+
                     if($key == 'name') {
                         $name = (string) $value;
                     }

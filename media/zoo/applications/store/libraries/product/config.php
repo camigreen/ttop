@@ -6,5 +6,10 @@ $zoo->path->register($path.'/classes', 'classes');
 $zoo->path->register($path.'/helpers', 'helpers');
 $zoo->path->register($path.'/fields', 'fields');
 $zoo->path->register($path.'/data', 'data');
+$zoo->path->register($path.'/events', 'events');
+
+// register and connect events
+$zoo->event->register('ProductEvent');
+$zoo->event->dispatcher->connect('product:init', array('ProductEvent', 'init'));
 
 ?>

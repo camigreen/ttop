@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fields>
+	<field name="class" label="Class" type="base" visible="false" default="B">
+		<option value="A">A Class</option>
+		<option value="B">B Class</option>
+		<option value="C">C Class</option>
+		<option value="D">D Class</option>
+		<option value="E">E Class</option>
+		<option value="F">F Class</option>
+		<option value="G">G Class</option>
+		<option value="H">H Class</option>
+		<option value="I">I Class</option>
+		<option value="J">J Class</option>
+	</field>
+	<field name="fabric" label="Fabric" type="base" visible="true" default="9oz">
+		<option value="8oz">Material 8oz. 5yr. Warranty</option>
+		<option value="9oz">Material 9oz. 5yr. Warranty</option>
+	</field>
+	<field name="color" label="Color" type="variable" default="N" visible="true">
+		<option value="N">Navy</option>
+		<option value="B">Black</option>
+		<option value="T">Tan</option>
+		<option value="G">Gray</option>
+	</field>
+	<field name="make" label="Boat Make" type="variable" default="" visible="true" />
+	<field name="model" label="Boat Model" type="variable" default="" visible="true" />
+	<field name="year" label="Boat Year" type="variable" visible="true" />
+	<field name="boat_style" label="Boat Style" type="variable" visible="true">
+		<option value='CC'>Center Console</option>
+		<option value='DC'>Dual Console</option>
+		<option value='WA'>Walkaround</option>
+		<option value='CB'>Catamaran</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="ttop_type" label="T-Top Type" type="variable" visible="true">
+		<option value='hard-top'>Hard Top</option>
+		<option value='canvas-top'>Canvas Top</option>
+		<option value='key-west'>Key West</option>
+		<option value='other'>Other</option>
+	</field>
+	<field name="add_info" label="Additional Info" type="variable" visible="true" />
+	<field name="ttop2deck" label="T-Top to Deck Measurement" type="variable" visible="true" min="76" max="88" default="76" />
+	<field name="helm2console" label="Rear of Helm Seat to Front of Console Seat" type="variable" visible="true" min="75" max="133" default="95" />
+	<field name="helmSeatWidth" label="Width of the Helm Seat" type="variable" visible="true" min="38" max="62" default="50" />
+	<field name="measurement_source" label="Measurements Provided By" type="variable" visible="true" default="default">
+		<option value="default">LaPorte's Products</option>
+		<option value="customer">Customer</option>
+	</field>
+</fields>

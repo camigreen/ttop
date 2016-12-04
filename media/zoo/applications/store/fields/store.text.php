@@ -12,7 +12,6 @@ $id = $parent->getValue('id');
 $type = $parent->getValue('type');
 $canEdit = $parent->getValue('canEdit');
 $viewOnly = (bool) $node->attributes()->viewOnly;
-var_dump($viewOnly);
 
 if($this->app->storeuser->get()->isStoreAdmin() || ($canEdit && !$viewOnly)) {
 	$attributes = array('type' => 'text', 'name' => "{$control_name}[{$name}]", 'value' => $value, 'class' => isset($class) ? $class : '');

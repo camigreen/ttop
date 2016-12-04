@@ -1,39 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ccbc>
-	<patterns name="CCBC-AC1820">
+	<patterns name="CCBC-AC1820FM">
 		<pattern id="001" description="">
-			<option name="style" value="CC" />
-			<option name="motors" value="S" />
+			<option name="boat_style" value="CC" />
+			<option name="motors" value="1" />
+			<option name="trolling_motor" value="Y" />
 			<option name="bow_rails" value="L" />
-			<option name="trolling_motor" value="y" />
 			<option name="jack_plate" value="JP4" />
-			<option name="poling_platform" value="PO41" />
-			<option name="year" value="1990" />
-		</pattern>
-		<pattern id="002">
-			<option name="style" value="CC" />
-			<option name="motors" value="S" />
-			<option name="bow_rails" value="L" />
-			<option name="poling_platform" value="PO42" />
-			<option name="year" value="2000" />
+			<option name="poling_platform" value="41"/>
+			<option name="power_poles" value="N"/>
+			<option name="ski_tow_bar" value="N"/>
+			<option name="swim_ladder" value="N"/>
+			<option name="year" min="1990" />
 		</pattern>
 	</patterns>
 	<patterns name="CCBC-AC19AFM">
 		<pattern id="001" description="">
-			<option name="style" value="CC" />
-			<option name="motors" value="S" />
+			<option name="boat_style" value="CC" />
+			<option name="motors" value="1" />
+			<option name="trolling_motor" value="N" />
 			<option name="bow_rails" value="L" />
-			<option name="trolling_motor" value="y" />
-			<option name="jack_plate" value="JP4" />
-			<option name="poling_platform" value="PO41" />
-			<option name="year" value="1990" />
+			<option name="jack_plate" value="N" />
+			<option name="poling_platform" value="42"/>
+			<option name="power_poles" value="N"/>
+			<option name="ski_tow_bar" value="N"/>
+			<option name="swim_ladder" value="N"/>
+			<option name="year" min="2000" />
 		</pattern>
-		<pattern id="002">
-			<option name="style" value="CC" />
-			<option name="motors" value="S" />
+	</patterns>
+	<patterns name="CCBC-BW13SS">
+		<pattern id="001" description="">
+			<option name="boat_style" value="CC" />
+			<option name="motors" value="1" />
+			<option name="trolling_motor" value="N" />
 			<option name="bow_rails" value="L" />
-			<option name="poling_platform" value="PO42" />
-			<option name="year" value="2000" />
+			<option name="jack_plate" value="N" />
+			<option name="poling_platform" value="N"/>
+			<option name="power_poles" value="N"/>
+			<option name="ski_tow_bar" value="N"/>
+			<option name="swim_ladder" value="N"/>
+			<option name="year" min="2000" max="2009" />
+		</pattern>
+	</patterns>
+	<patterns name="CCBC-BW17MNTK">
+		<pattern id="001" description="">
+			<option name="boat_style" value="CC" />
+			<option name="motors" value="1" />
+			<option name="trolling_motor" value="N" />
+			<option name="bow_rails" value="H" />
+			<option name="jack_plate" value="N" />
+			<option name="poling_platform" value="N"/>
+			<option name="power_poles" value="N"/>
+			<option name="ski_tow_bar" value="N"/>
+			<option name="swim_ladder" value="N"/>
+			<option name="year" min="2000" />
+		</pattern>
+		<pattern id="002" description="">
+			<option name="boat_style" value="CC" />
+			<option name="motors" value="1" />
+			<option name="trolling_motor" value="N" />
+			<option name="bow_rails" value="L" />
+			<option name="jack_plate" value="N" />
+			<option name="poling_platform" value="N"/>
+			<option name="power_poles" value="N"/>
+			<option name="ski_tow_bar" value="N"/>
+			<option name="swim_ladder" value="N"/>
+			<option name="year" min="2000" />
+		</pattern>
+	</patterns>
+	<patterns name="CCBC-BW18DNTLS">
+		<pattern id="001" description="">
+			<option name="boat_style" value="CC" />
+			<option name="motors" value="1" />
+			<option name="trolling_motor" value="N" />
+			<option name="bow_rails" value="L" />
+			<option name="jack_plate" value="N" />
+			<option name="poling_platform" value="N"/>
+			<option name="power_poles" value="N"/>
+			<option name="ski_tow_bar" value="N"/>
+			<option name="swim_ladder" value="N"/>
+			<option name="year" min="2000" />
+		</pattern>
+	</patterns>
+	<patterns name="CCBC-BW110SPT">
+		<pattern id="001" description="">
+			<option name="boat_style" value="CC" />
+			<option name="motors" value="1" />
+			<option name="trolling_motor" value="N" />
+			<option name="bow_rails" value="L" />
+			<option name="jack_plate" value="N" />
+			<option name="poling_platform" value="N"/>
+			<option name="power_poles" value="N"/>
+			<option name="ski_tow_bar" value="N"/>
+			<option name="swim_ladder" value="N"/>
+			<option name="year" min="2000" />
+		</pattern>
+	</patterns>
+	<patterns name="CCBC-CHAOS21TRPN">
+		<pattern id="001" description="">
+			<option name="boat_style" value="CC" />
+			<option name="motors" value="1" />
+			<option name="trolling_motor" value="N" />
+			<option name="bow_rails" value="L" />
+			<option name="jack_plate" value="N" />
+			<option name="poling_platform" value="N"/>
+			<option name="power_poles" value="STM"/>
+			<option name="ski_tow_bar" value="N"/>
+			<option name="swim_ladder" value="N"/>
+			<option name="year" min="2000" />
+		</pattern>
+	</patterns>
+	<patterns name="TEMPLATE">
+		<pattern id="001" description="">
+			<option name="boat_style" value="CC" />
+			<option name="motors" value="1" />
+			<option name="trolling_motor" value="N" />
+			<option name="bow_rails" value="L" />
+			<option name="jack_plate" value="N" />
+			<option name="poling_platform" value="N"/>
+			<option name="power_poles" value="N"/>
+			<option name="ski_tow_bar" value="N"/>
+			<option name="swim_ladder" value="N"/>
+			<option name="year" min="2000" />
 		</pattern>
 	</patterns>
 </ccbc>

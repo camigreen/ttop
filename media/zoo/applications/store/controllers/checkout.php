@@ -139,7 +139,6 @@ class CheckoutController extends AppController {
         );
 
         $this->order = $order;
-
         $this->getView()->addTemplatePath($this->template->getPath().'/checkout')->setLayout($layout)->display();
 
     }
@@ -314,7 +313,6 @@ class CheckoutController extends AppController {
         $order = $this->CR->order;
         $next = $this->app->request->get('next','word', 'customer');
         $post = $this->app->request->get('post:', 'array', array());
-        var_dump($post);
         //return;
         
         if(isset($post['elements'])) {
@@ -351,17 +349,19 @@ class CheckoutController extends AppController {
         $oid = $this->app->request->get('oid', 'int');
         $order = $this->app->orderdev->get($oid);
         $types = array('payment','receipt', 'printer');
+        
         if(!$order->notify()) {
+            var_dump('No Notifications');
             return;
         }
-        
+        var_dump('Sending Notifications');
         $result = true;
 
         // Send the Notifications.
         foreach($types as $type) {
             try {
                 $this->app->notify->create('order:'.$type, $order)->send();
-            } catch (phpmailerException $e) {
+            } catch (Exception $e) {
                 echo 'From Order:'.$type.' - '.$e->errorMessage(); //Pretty error messages from PHPMailer
                 $result = false;
             } catch (Exception $e) {

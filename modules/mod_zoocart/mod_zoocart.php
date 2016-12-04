@@ -31,9 +31,9 @@ $path = dirname(__FILE__);
 $zoo->path->register($path, 'mod_zoocart');
 $zoo->path->register($path.'/assets','assets');
 
-$zoo->document->addScript('assets:js/jquery.cookie.js');
-$zoo->document->addScript('assets:js/cart.js');
-$zoo->document->addStylesheet('assets:css/cart.css');
+//$zoo->document->addScript('assets:js/jquery.cookie.js');
+$zoo->document->addScript('library.cart:assets/js/cart.js');
+$zoo->document->addStylesheet('library.cart:assets/css/cart.css');
 $zoo->document->addStylesheet('media/zoo/applications/store/assets/css/ttop.css');
 
 $layout = $params->get('layout', 'default');

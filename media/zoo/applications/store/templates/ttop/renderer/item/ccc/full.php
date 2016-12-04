@@ -8,21 +8,25 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-
+$this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
+$this->app->document->addScript('library.cart:assets/js/cart.js');
+$this->app->document->addScript('library.product:assets/js/orderform.js');
+$this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
+$this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
 $class = $item->type.'-full';
-$data_item = array('id' => $item->id, 'name' => 'Center Console Curtain');
-$storeItem = $this->app->item->create($item, 'ccc');
+$product = $this->app->product->create($item);
 
 $this->template = $this->app->zoo->getApplication()->getTemplate()->getPath().'/renderer/item/ccc/';
 $type = 'orderform';
 $this->form = $this->app->form->create(array($this->template.'config.xml', compact('type')));
 $this->form->setValue('template', $this->template);
+
 ?>
 <article>
     <span class="uk-article-title"><?php echo $item->name; ?></span>
 </article>
-<div id="storeOrderForm" class="uk-form uk-margin" data-item='<?php echo json_encode($data_item); ?>'>
-    <div id="<?php echo $storeItem->id ?>" class="uk-grid storeItem" data-item="<?php echo $storeItem->getItemsJSON(); ?>">
+<div id="OrderForm-ccc" class="uk-form uk-margin" data-id='<?php echo $product->id; ?>'>
+    <div class="uk-grid">
         <div class="uk-width-2-3 ccc-slideshow">
             <div class="uk-width-1-1 uk-margin">
                 <?php if ($this->checkPosition('media')) : ?>
@@ -73,7 +77,7 @@ $this->form->setValue('template', $this->template);
                                 <div class="uk-width-1-1">
                                     <div class="uk-width-1-1 uk-grid price-container">
                                         <?php if ($this->checkPosition('pricing')) : ?>
-                                                <?php echo $this->renderPosition('pricing', array('item' => $storeItem)); ?>
+                                                <?php echo $this->renderPosition('pricing', array('item' => $product)); ?>
                                         <?php endif; ?>
                                     </div>
                                 </div>
@@ -137,7 +141,7 @@ $this->form->setValue('template', $this->template);
                             </div>
                             <div class="uk-width-1-1 options-container" data-id="ccc">
                                 <label>Additional Information<span class="uk-text-small uk-margin-left">(other)</span></label>
-                                <textarea class="uk-width-1-1 item-option" style="height:120px;" name="add_info" data-name="Additional Information"></textarea>
+                                <textarea class="uk-width-1-1 item-option" style="height:120px;" name="add_info" ></textarea>
                             </div>
                         </div>
                     </li>
@@ -253,20 +257,15 @@ $this->form->setValue('template', $this->template);
                 </div>
             </div>
         </div>
-                <!-- Start page modal -->
-        <div id="startPage" class="uk-modal">
-            <div class="uk-modal-dialog">
-                <?php if($this->form->checkGroup('chooser')) : ?>
-                    <?php echo $this->form->render('chooser')?>
-                <?php endif; ?>
-            </div>
-        </div>
     </div>
 </div>
 
 
 
 <script>
+
+    if(typeof items === 'undefined') { var items = {} };
+    items['<?php echo $product->id; ?>'] = <?php echo $product->toJson(true); ?>;
     var info_modal = jQuery.UIkit.modal('#info_modal');
     var startPageModal = jQuery.UIkit.modal('#startPage');
     var CCC = {
@@ -317,90 +316,44 @@ $this->form->setValue('template', $this->template);
     };
 
     jQuery(document).ready(function($){
-
-        $('#storeOrderForm').StoreItem({
+        lpiModal.init('.modals');
+        $('#OrderForm-ccc').OrderForm({
             name: 'CenterConsoleCurtain',
             validate: true,
+            confirm: false,
             debug: true,
             events: {
                 ccc: {
                     onInit: [
                         function (data) {
                             var self = this;
-                            this.trigger('backToDefaults', {item: this.items['ccc']});
-                            this.trigger('measure', {item: this.items['ccc']});
+                            this.$element.on('measure', function(e, data){
+                                return self.trigger('measure', {item: self.item, location: data.location}).triggerResult;
+                            });
+                            this.$element.on('backToDefaults', function(e, data){
+                                return self.trigger('backToDefaults', {item: self.item, action: 'measurements'}).triggerResult;
+                            });
+                            this.trigger('backToDefaults', {item: this.item});
+                            this.trigger('measure', {item: this.item});
                             //this.trigger('measure2', {});
                             $('.ccc-measurement').hide();
                             $('.ccc-measurement input').on('change', function(e){
-                                CCC.measurements_changed = 'Customer';
+                                CCC.measurements_changed = 'customer';
                                 var adjust = false;
                                 if($(e.target).prop('name') === 'helm2console') {
                                     adjust = true;
                                 }
-                                self.trigger('measure',{item: self.items['ccc']});
+                                self.trigger('measure',{item: self.item});
 
                             });
                             $('[name="fabric"]').on('change',function (e) {
-                                console.log('test');
-                                self.trigger('changeColor', {item: self.items['ccc'], fabric: $(e.target).val()});
-                            });
-
-                            $('[name="boatmodel"]').on('change', function() {
-                                //self.trigger('backToDefaults', {item: self.items['ccc']});
-                                if($(this).val() == 0 ) {
-                                    return;
-                                }
-                                var make = $('[name="boatmake"] option:selected').text();
-                                var model = $('[name="boatmodel"] option:selected').text();
-                                $('[name="make"]').val(make);
-                                $('[name="model"]').val(model);
-
-                                var m = $(this).val().split(','), proceed = true;
-
-                                $('#ttop2deck').val(parseInt(m[0]));
-                                
-                                if(self.trigger('measure',{item: self.items['ccc'], location: 'ttop2deck'}).triggerResult) {
-                                    $('#helm2console').val(parseInt(m[1]));
-                                } else {
-                                    $('#ttop2deck').val(CCC.options.ttop2deck.default);
-                                    proceed = false;
-                                }
-                                if(proceed && self.trigger('measure',{item: self.items['ccc'], adjustHSW: false, location: 'helm2console'}).triggerResult) {
-                                    $('#helmSeatWidth').val(parseInt(m[2]));
-                                } else {
-                                    $('#helm2console').val(CCC.options.helm2console.default);
-                                    proceed = false;
-                                }
-                              
-                                if(proceed && !self.trigger('measure',{item: self.items['ccc'], adjustHSW: false, location: 'helmSeatWidth'}).triggerResult) {
-                                    $('#helmSeatWidth').val(CCC.options.helmSeatWidth.default);
-                                    proceed = false;
-                                }
-                                
-                                if(proceed) {
-                                    CCC.measurements_changed = 'T-Top';
-                                    $('.chosen_boat').text('Chosen Boat: '+make+' - '+model);
-                                    $('.ccc-measurement').hide();
-                                    CCC.mode = 'CYB';
-                                } else {
-                                    self.trigger('backToDefaults', {item: self.items['ccc'], action: 'measurements'});
-                                    self.trigger('measure', {item: self.items['ccc']});
-                                }
-
-                                
-                            });
-                            $('#startPage #btn_continue').on('click', function() {
-                                startPageModal.hide();
-                            });
-
-                            $('#startPage #btn_enter_my_own').on('click', function() {
-                                self.trigger('backToDefaults', {item: self.items['ccc']});
-                                startPageModal.hide();
+                                console.log('Color Change');
+                                self.trigger('changeColor', {item: self.item, fabric: $(e.target).val()});
                             });
 
                             $('#btn_find_my_boat').on('click', function(e) {
                                 var elem = $(e.target);
-                                self.trigger('startPage', {item: self.items['ccc'], mode: elem.data('mode')});
+                                self.trigger('startPage', {item: self.item, mode: elem.data('mode')});
                                 CCC.mode = elem.data('mode');
                                 console.log(CCC.mode);
                             });
@@ -408,13 +361,13 @@ $this->form->setValue('template', $this->template);
                             $('#btn_my_measurements').on('click', function(e) {
                                 $('.ccc-measurement').show();
                                 var elem = $(e.target);
-                                self.trigger('backToDefaults', {item: self.items['ccc'], mode: elem.data('mode')});
+                                self.trigger('backToDefaults', {item: self.item, mode: elem.data('mode')});
                                 CCC.mode = elem.data('mode') ? elem.data('mode') : CCC.mode;
-                                self.trigger('measure', {item: self.items['ccc']});
+                                self.trigger('measure', {item: self.item});
                                 console.log(CCC.mode);
                             });
 
-
+                            this._publishPrice({item: this.item});
                             return data;
                         }
                            
@@ -422,8 +375,13 @@ $this->form->setValue('template', $this->template);
                     beforeChange: [],
                     startPage: [
                         function (data) {
-                            startPageModal.options.bgclose = false;
-                            startPageModal.show();
+                            var data = {
+                                type: 'ccc',
+                                name: 'boatchooser',
+                                args: {product: this.item, kind: 'ccc'},
+                                cache: false
+                            };
+                            lpiModal.getModal(data);
 
                             return data;
                         }
@@ -457,17 +415,26 @@ $this->form->setValue('template', $this->template);
                     measure: [
                         function (data) {
                             var self = this, location = data.args.location;
-                            CCC.options = $.extend(true, CCC.options,this._getOptions());
                             getMeasurements();
                             
                             var adjust = typeof data.args.adjustHSW === 'undefined' ? false : data.args.adjustHSW;
-
                             if(checkMinandMax(location)) {
                                 getCCCClass();
                                 if(adjust) {
                                     adjustHelmSeatWidth();
                                 };
-                                this._publishPrice(this.items['ccc']);
+                                this.item.options.ttop2deck.value = CCC.options.ttop2deck.value;
+                                this.item.options.ttop2deck.text = CCC.options.ttop2deck.value + ' inches';
+                                this.item.options.helm2console.value = CCC.options.helm2console.value;
+                                this.item.options.helm2console.text = CCC.options.helm2console.value + ' inches';
+                                this.item.options.helmSeatWidth.value = CCC.options.helmSeatWidth.value;
+                                this.item.options.helmSeatWidth.text = CCC.options.helmSeatWidth.value + ' inches';
+                                this.item.options.measurement_source.value = !CCC.measurements_changed ? 'default': CCC.measurements_changed;
+                                if(this.item.options.class.value != CCC.class.value) {
+                                    this.item.options.class.value = CCC.class.value;
+                                    this._publishPrice({item: this.item});
+                                }
+                                
                             } else {
                                 data.triggerResult = false;
                             }
@@ -491,7 +458,7 @@ $this->form->setValue('template', $this->template);
                             function checkMinandMax(location) {
                                 var ttop2deck = CCC.options.ttop2deck, helm2console = CCC.options.helm2console, helmSeatWidth = CCC.options.helmSeatWidth, proceed = true;
                                 self._debug('Checking Mins and Maxs');
-                                var data = {item: self.items['ccc']};
+                                var data = {item: self.item};
                                 // Checking ttop2deck Width
 
                                 if(typeof location === 'undefined') {
@@ -547,7 +514,7 @@ $this->form->setValue('template', $this->template);
                                 }
                                 CCC.class.value = CCC.type;
                                 CCC.class.text = CCC.type + ' Class';
-                                self.items['ccc'].price_group = 'ccc.'+CCC.type;
+                                self.item.price_group = 'ccc.'+CCC.type;
                                 self._debug('CCC class is '+CCC.type);
 
                                         
@@ -589,9 +556,9 @@ $this->form->setValue('template', $this->template);
                             var fabric = data.args.fabric;
                             var colorSelect = $('.item-option[name="color"]');
                             var colors = {
-                                    '9oz': ['navy','black','gray','tan'],
-                                    '8oz': ['navy','black'],
-                                    '7oz': ['navy','black']
+                                    '9oz': ['N','B','G','T'],
+                                    '8oz': ['N','B'],
+                                    '7oz': ['N','B']
                                 }
                             colorSelect.find('option').each(function(k,v){
                                 $(this).find('span').html('');
@@ -605,7 +572,7 @@ $this->form->setValue('template', $this->template);
                                 }
                             });
                             if($.inArray(colorSelect.val(), colors[fabric]) === -1) {
-                                colorSelect.val('X').trigger('input');
+                                colorSelect.val('N').trigger('input');
                             }
                             return data;
                         }
@@ -779,22 +746,15 @@ $this->form->setValue('template', $this->template);
                     ],
                     beforeAddToCart: [
                         function (data) {
-                            console.log(data);
+                            
                             if (!CCC.measurements_changed) {
-                                this.trigger('measurementsNotChanged', {item: this.items['ccc']});
+                                this.trigger('measurementsNotChanged', {item: this.item});
                                 data.triggerResult = false;
+                                console.log(data);
                                 return data;
                             }
-                            var item = data.args.items['ccc'];
-                            item.options = $.extend(true,item.options,CCC.options);
-                            item.options.measurement_source = {
-                                name: 'Measurements Provided By',
-                                text: !CCC.measurements_changed ? 'Default': CCC.measurements_changed,
-                                value: !CCC.measurements_changed ? 'Default': CCC.measurements_changed,
-                                visible: false
-                            }
-                            item.options.class = CCC.class;
-                            data.args.items['ccc'] = item;
+                            var item = data.args.item;
+                            data.args.item = item;
 
                             console.log(data);
                             return data;
@@ -807,15 +767,7 @@ $this->form->setValue('template', $this->template);
                         }
                     ]
                 }
-            },
-            removeValues: true,
-            pricePoints: {
-                item: ['']
             }
-            
-            
-            
-            
         });
     })
 </script>

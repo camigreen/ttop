@@ -437,13 +437,13 @@ class AppForm {
 				$span = $field->attributes()->span ? (string) $field->attributes()->span : '1';
 				$columns = $field->attributes()->columns ? (string) $field->attributes()->columns : '1';
 				$class = 'uk-width-medium-'.$span.'-'.$columns;
-				$class .= (bool) $field->attributes()->required ? ' required' : '';
+				$required = (bool) $field->attributes()->required ? true : false;
 				$default = strlen((string) $field->attributes()->default) > 0 ? (string) $field->attributes()->default : null; 
 				$value = $this->getValue($name, $default);
 				$control_name = $field->attributes()->controlname ? $field->attributes()->controlname : $group_control_name;
 				$disabled = $field->attributes()->disabled ? $field->attributes()->disabled : false;
 				$user = $this->app->storeuser->get();
-				$_field = $this->app->field->render($type, $name, $value, $field, array('id' => $id, 'user' => $user, 'assetName' => $this->assetName, 'control_name' => $control_name, 'parent' => $this, 'disabled' => $disabled));
+				$_field = $this->app->field->render($type, $name, $value, $field, array('id' => $id, 'user' => $user, 'assetName' => $this->assetName, 'control_name' => $control_name, 'parent' => $this, 'disabled' => $disabled, 'required' => $required));
 				$controlType = $field->attributes()->controlType ? $field->attributes()->controlType : 'option';
 
 
@@ -462,10 +462,17 @@ class AppForm {
 					$modal_icon = '';
 					if((string) $field->attributes()->modal != '') {
 						$modal = (string) $field->attributes()->modal;
+						$parts = explode('.', $modal);
+						if(count($parts) == 1) {
+							$modalConfig['type'] = 'default';
+							$modalConfig['name'] = $parts[0];
+						} else {
+							$modalConfig['type'] = $parts[0];
+							$modalConfig['name'] = $parts[1];
+						}
 						$attributes = array();
 						$attributes['class'] = "uk-icon-button uk-icon-info-circle modal-button";
-						$attributes['data-modal'] = $modal;
-						$attributes['data-modal-field-id'] = $id;
+						$attributes['data-config'] = json_encode($modalConfig);
 						$modal_icon = sprintf('<a %s data-uk-tooltip></a>', $this->app->field->attributes($attributes));
 					}
 					$html[] = $output;

@@ -23,7 +23,8 @@ $this->app->document->addScript('assets:js/jquery-validate-1.14.1/additional-met
     <div id="variables" class="uk-width-1-1 uk-hidden">
         <?php var_dump($this->app->merchant->getParams()); ?>
         <?php var_dump($order); ?>
-        <?php var_dump($this->cart->getAllItems()); ?>
+        <?php var_dump($this->cart->getAll()); ?>
+
     </div>
 </div>
 <?php endif; ?>

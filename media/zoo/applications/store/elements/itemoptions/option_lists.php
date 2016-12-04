@@ -68,10 +68,10 @@ $opts['global_options']['zipper'] = array(
 );
 
 $opts['global_options']['color'] = array(
-    'navy' => 'Navy',
-    'black' => 'Black',
-    'gray' => 'Grey',
-    'tan' => 'Tan'
+    'N' => 'Navy',
+    'B' => 'Black',
+    'G' => 'Grey',
+    'T' => 'Tan'
 );
 $opts['global_options']['storage'] = array(
     'T' => 'Trailer',
@@ -100,9 +100,9 @@ $opts['global_options']['activity_platform'] = array(
     'opt2' => 'Option 2'
 );
 $opts['global_options']['trolling_motor'] = array(
-    'y' => 'Yes',
-    'n' => 'No',
-    'r' => 'Removeable'
+    'Y' => 'Yes',
+    'N' => 'No',
+    'R' => 'Removeable'
 );
 $opts['global_options']['power_poles'] = array(
     'N' => 'None',

@@ -55,17 +55,17 @@ class OrderNotification extends Notification {
 	protected function _payment() {
 		$order = $this->_object;
 		$account = $this->app->account->get($order->account);
-		$recipients = explode("\n", $this->app->store->get()->params->get('notify_emails'));
 		$formType = $account->isReseller() ? 'reseller' : 'default';
 
 		// Set the Subject
-		$subject = 'Online Order Notification - Order# '.$order->id;
-		if($this->isTestMode()) {
-			$subject = 'Test - '.$subject;
-		}
 		$subject = 'Online Order Notification'.($this->isTestMode() ? ' - Test - Order# '. $order->id : ' - Order# '.$order->id);
 		
 		// Set Recipients
+		if($this->isTestMode()) {
+			$recipients = array('shawn@ttopcovers.com');
+		} else {
+			$recipients = explode("\n", $this->app->store->get()->params->get('notify_emails'));
+		}
 		foreach($recipients as $recipient) {
 			$this->_mail->addRecipient($recipient);
 
@@ -96,13 +96,17 @@ class OrderNotification extends Notification {
 
 		$order = $this->_object;
 		$account = $this->app->account->get($order->account);
-		$recipients = explode("\n", $this->app->store->get()->params->get('notify_printer'));
 		$formType = $account->isReseller() ? 'reseller' : 'default';
 		
 		// Set the Subject
 		$subject = 'Send Order to Printer';
 		
 		// Set Recipients
+		if($this->isTestMode()) {
+			$recipients = array('shawn@ttopcovers.com');
+		} else {
+			$recipients = explode("\n", $this->app->store->get()->params->get('notify_printer'));
+		}
 		foreach($recipients as $recipient) {
 			$this->_mail->addRecipient($recipient);
 

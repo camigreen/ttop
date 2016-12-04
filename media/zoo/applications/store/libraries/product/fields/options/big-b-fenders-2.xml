@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fields>
+	<field name="fender_size" label="Fender Size" type="base" default="6x15" visible="true">
+		<option value="6x15">6in x 15in</option>
+		<option value="8x20">8in x 20in</option>
+		<option value="10x26">10in x 26in</option>
+		<option value="12x34">12in x 34in</option>
+	</field>
+	<field name="color" label="Color" type="variable" visible="true" default="B">
+		<option value="white">White</option>
+		<option value="blue">Blue</option>
+		<option value="black">Black</option>
+		<option value="teal">Teal</option>
+		<option value="cranberry">Cranberry</option>
+		<option value="huntergreen">Hunter Green</option>
+		<option value="navyblue">Navy Blue</option>
+		<option value="red">Red</option>
+		<option value="sand">Sand</option>
+		<option value="yellow">Yellow</option>
+	</field>
+</fields>

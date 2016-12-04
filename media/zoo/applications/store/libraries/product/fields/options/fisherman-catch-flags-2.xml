@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fields>
+	<field name="flag" label="Choose your flag!" type="variable" visible="true" >
+		<option value="shark">Shark</option>
+		<option value="kingmac">King Mackerel</option>
+		<option value="albacore">Albacore</option>
+		<option value="bluemarlin">Blue Marlin</option>
+		<option value="tarpon">Tarpon</option>
+		<option value="bluefish">Bluefish</option>
+		<option value="swordfish">Swordfish</option>
+		<option value="tuna">Tuna</option>
+		<option value="salmon">Salmon</option>
+		<option value="whitemarlin">White Marlin</option>
+		<option value="wahoo">Wahoo</option>
+		<option value="dolphin">Dolphin</option>
+		<option value="striper">Striper</option>
+		<option value="sailfish">Sailfish</option>
+		<option value="pickerel">Pickerel</option>
+		<option value="crappie">Crappie</option>
+		<option value="walleye">Walleye</option>
+	</field>
+</fields>

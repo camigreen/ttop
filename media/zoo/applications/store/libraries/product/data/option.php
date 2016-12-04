@@ -11,65 +11,86 @@
  * 
  * @package Framework.Data
  */
-class OptionData extends AppData {
+class OptionData extends ParameterData {
 
 	/**
-     * Name
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function getValue($default = 0) {
+		return $this->get('value', $default);
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function setValue($value = null) {
+		if($value === null) {
+			return $this;
+		}
+		if($choice = $this->get('choices.'.$value)) {
+			$this->set('value', $choice->get('value'));
+			$this->set('text', $choice->get('text'));
+		} else {
+			$this->set('value', $value);
+			$this->set('text', $value);
+		}
+        
+        return $this;
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function setText($value = null) {
+		$this->set('text', $value);
+		return $this;
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function getText($default = null) {
+		return $this->get('text', $default);
+	}
+
+	    /**
+     * Describe the Function
      *
-     * @var [sting]
-     * @since 1.0.0
-     */
-    public $name;
-
-    /**
-     * Type
+     * @param     datatype        Description of the parameter.
      *
-     * @var [sting]
-     * @since 1.0.0
-     */
-    public $type;
-
-    /**
-     * value
+     * @return     datatype    Description of the value returned.
      *
-     * @var [mixed]
-     * @since 1.0.0
+     * @since 1.0
      */
-    public $value;
-
-    /**
-     * text
-     *
-     * @var [sting]
-     * @since 1.0.0
-     */
-    public $text;
-
-    /**
-     * Label
-     *
-     * @var [sting]
-     * @since 1.0.0
-     */
-    public $label;
-
-    /**
-     * Visible
-     *
-     * @var [bool]
-     * @since 1.0.0
-     */
-    public $visible;
-
-    /**
-     * Pattern Option
-     *
-     * @var [bool]
-     * @since 1.0.0
-     */
-    protected $_pattern;
-
-
+    public function isPriceOption() {
+    	$types = explode('|', $this->type);
+    	return in_array('price', $types);
+        
+    }
 }
 
 ?>
