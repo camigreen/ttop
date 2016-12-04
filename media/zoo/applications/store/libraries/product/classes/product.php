@@ -363,7 +363,10 @@ class Product {
      * @since 1.0
      */
     public function getMarkupRate($name = 'msrp', $default = 0) {
-        return ($this->price->getMarkupRate($name, $default)-1) * 100;
+        if($this->price instanceof Price) {
+            return ($this->price->getMarkupRate($name, $default)-1) * 100;
+        }
+        return ($this->price->get('markup.'.$name, $default)-1)*100; 
     }
 
     /**
@@ -376,7 +379,10 @@ class Product {
      * @since 1.0
      */
     public function getDiscountRate($default = 0) {
-        return (1-$this->price->getDiscountRate($default))*100;
+        if($this->price instanceof Price) {
+            return (1-$this->price->getDiscountRate($default))*100;
+        }
+        return (1-$this->price->get('discount', $default))*100;
     }
 
     /**

@@ -125,7 +125,11 @@ class Price {
 		$this->register('allowMarkup', $data->get('allowMarkup'));
 		$this->register('weight', $data->get('weight'));
 		$this->setPrice('base', $data->get('base', 0.00));
-		$this->setDiscountRate($data->get('discount',0));
+		if($this->app->storeuser->get()->isReseller()) {
+			$this->setDiscountRate($data->get('discount.reseller',0));
+		} else {
+			$this->setDiscountRate($data->get('discount.retail',0));
+		}
 		$this->setMarkupRate('msrp', $data->get('markup.msrp', 0.00));
 		return $this;
 	}
@@ -268,7 +272,7 @@ class Price {
 	 * @since 1.0
 	 */
 	public function lock() {
-		$price = $this->app->data->create($this->getParam('price.'));
+		$price = $this->app->parameter->create($this->getParam('price.'));
 		$price->set('discount', $this->getParam('discount'));
 		$price->set('markup.', $this->getParam('markup.'));
 		$price->set('lock', true);
@@ -342,9 +346,25 @@ class Price {
 	 * @since 1.0
 	 */
 	public function setMarkupRate($name, $value = 0) {
+		if($name == 'reseller' && !$this->allowMarkups()) {
+			$value = 0;
+		}
 		$value = $value >= 1 ? $value/100 : $value;
 		$this->register('markup.'.$name, (float) $value + 1);
 		return $this;
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function allowMarkups() {
+		return $this->_storage->get('allowMarkup', true);		
 	}
 
 	/**

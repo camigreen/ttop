@@ -177,8 +177,6 @@ $opts['global_options']['storagebag_size'] = array(
 );
 //  Item Attributes
 
-$opts['attributes']['boat_length'] = array('18|19','20|22','23','24','25','26','27','28','29','30','31','32','33','34','35','36|37','38','33Freeman','37Freeman', '280Tidewater', '255Everglades', '231Platinum', '232Platinum', '247Platinum', 'R220Robalo');
-
-
+$opts['attributes']['boat_length'] = array('18|19','20|22','23','24','25','26','27','28','29','30','31','32','33','34','35','36|37','38','33Freeman','37Freeman', '280Tidewater', '255Everglades', '231Platinum', '232Platinum', '247Platinum', 'R220Robalo', '36Fisharound', '255GradyWhite');
 
 ?>

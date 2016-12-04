@@ -103,44 +103,37 @@ $rules['280Tidewater.8oz.base'] = 1706;
 $rules['280Tidewater.9oz.base'] = 1861;
 $rules['280Tidewater.shipping.weight'] = 34;
 
-$price['280Tidewater.base'] = 0;
-$price['280Tidewater.option.fabric.7oz'] = 1491;
-$price['280Tidewater.option.fabric.8oz'] = 1706;
-$price['280Tidewater.option.fabric.9oz'] = 1861;
-$price['280Tidewater.shipping.weight'] = 34;
-$price['280Tidewater.shipping.price'] = 35;
+$rules['255Everglades.7oz.base'] = 1126;
+$rules['255Everglades.8oz.base'] = 1336;
+$rules['255Everglades.9oz.base'] = 1491;
+$rules['255Everglades.shipping.weight'] = 28;
 
-$price['255Everglades.base'] = 0;
-$price['255Everglades.option.fabric.7oz'] = 1126;
-$price['255Everglades.option.fabric.8oz'] = 1336;
-$price['255Everglades.option.fabric.9oz'] = 1491;
-$price['255Everglades.shipping.weight'] = 28;
-$price['255Everglades.shipping.price'] = 35;
+$rules['231Platinum.7oz.base'] = 846;
+$rules['231Platinum.8oz.base'] = 1071;
+$rules['231Platinum.9oz.base'] = 1206;
+$rules['231Platinum.shipping.weight'] = 25;
 
-$price['231Platinum.base'] = 0;
-$price['231Platinum.option.fabric.7oz'] = 846;
-$price['231Platinum.option.fabric.8oz'] = 1071;
-$price['231Platinum.option.fabric.9oz'] = 1206;
-$price['231Platinum.shipping.weight'] = 25;
-$price['231Platinum.shipping.price'] = 30;
+$rules['232Platinum.7oz.base'] = 846;
+$rules['232Platinum.8oz.base'] = 1071;
+$rules['232Platinum.9oz.base'] = 1206;
+$rules['232Platinum.shipping.weight'] = 25;
 
-$price['232Platinum.base'] = 0;
-$price['232Platinum.option.fabric.7oz'] = 846;
-$price['232Platinum.option.fabric.8oz'] = 1071;
-$price['232Platinum.option.fabric.9oz'] = 1206;
-$price['232Platinum.shipping.weight'] = 25;
-$price['232Platinum.shipping.price'] = 30;
+$rules['247Platinum.7oz.base'] = 1021;
+$rules['247Platinum.8oz.base'] = 1226;
+$rules['247Platinum.9oz.base'] = 1386;
+$rules['247Platinum.shipping.weight'] = 27;
 
-$price['247Platinum.base'] = 0;
-$price['247Platinum.option.fabric.7oz'] = 1021;
-$price['247Platinum.option.fabric.8oz'] = 1226;
-$price['247Platinum.option.fabric.9oz'] = 1386;
-$price['247Platinum.shipping.weight'] = 27;
-$price['247Platinum.shipping.price'] = 35;
+$rules['R220Robalo.7oz.base'] = 775;
+$rules['R220Robalo.8oz.base'] = 1021;
+$rules['R220Robalo.9oz.base'] = 1156;
+$rules['R220Robalo.shipping.weight'] = 25;
 
-$price['R220Robalo.base'] = 0;
-$price['R220Robalo.option.fabric.7oz'] = 775;
-$price['R220Robalo.option.fabric.8oz'] = 1021;
-$price['R220Robalo.option.fabric.9oz'] = 1156;
-$price['R220Robalo.shipping.weight'] = 25;
-$price['R220Robalo.shipping.price'] = 30;
+$rules['36Fisharound.7oz.base'] = 2800;
+$rules['36Fisharound.8oz.base'] = 3000;
+$rules['36Fisharound.9oz.base'] = 3150;
+$rules['36Fisharound.shipping.weight'] = 40;
+
+$rules['255GradyWhite.7oz.base'] = 1670;
+$rules['255GradyWhite.8oz.base'] = 1875;
+$rules['255GradyWhite.9oz.base'] = 1995;
+$rules['255GradyWhite.shipping.weight'] = 34;

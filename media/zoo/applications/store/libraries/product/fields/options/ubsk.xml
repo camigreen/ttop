@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fields>
-	<field name="kit_class" label="Class" type="base" visible="false" default="B">
+	<field name="kit_class" label="Class" type="base" visible="false" default="A">
 		<option value="A">A Class</option>
 		<option value="B">B Class</option>
 		<option value="C">C Class</option>
@@ -22,12 +22,12 @@
 		<option value='CB'>Catamaran</option>
 		<option value='other'>Other</option>
 	</field>
-	<field name="kit_options" label="Kit Options" type="base" visible="true" default="full">
+	<field name="kit_options" label="Kit Options" type="price" visible="true" default="full">
 		<option value='shade_only'>Shade Only</option>
 		<option value='full'>Complete Kit without Suction Cups</option>
 		<option value='fullwithcups'>Complete Kit with Suction Cups</option>
 	</field>
-	<field name="shade_type" label="Shade Type" type="base" visible="true" default="regular">
+	<field name="shade_type" label="Shade Type" type="base" visible="false" default="regular">
 		<option value='regular'>Regular</option>
 		<option value='extended'>Extended</option>
 	</field>

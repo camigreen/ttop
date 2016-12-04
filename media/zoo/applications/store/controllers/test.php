@@ -227,6 +227,7 @@ class TestController extends AppController {
 	 *
 	 * @since 1.0
 	 */
+
 	public function testCart() {
 		// $x = array();
 		// $x['id'] = 'ccbc';
@@ -287,10 +288,6 @@ class TestController extends AppController {
 		var_dump($shipper);
 		var_dump($shipper->getRates());
 
-	}
-
-	public function testModal() {
-		echo $this->app->modal->create(array('type' => 'ccbc', 'name' => 'zipper', 'args' => array('value' => 'ZP')));
 	}
 
 

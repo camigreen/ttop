@@ -349,17 +349,19 @@ class CheckoutController extends AppController {
         $oid = $this->app->request->get('oid', 'int');
         $order = $this->app->orderdev->get($oid);
         $types = array('payment','receipt', 'printer');
+        
         if(!$order->notify()) {
+            var_dump('No Notifications');
             return;
         }
-        
+        var_dump('Sending Notifications');
         $result = true;
 
         // Send the Notifications.
         foreach($types as $type) {
             try {
                 $this->app->notify->create('order:'.$type, $order)->send();
-            } catch (phpmailerException $e) {
+            } catch (Exception $e) {
                 echo 'From Order:'.$type.' - '.$e->errorMessage(); //Pretty error messages from PHPMailer
                 $result = false;
             } catch (Exception $e) {

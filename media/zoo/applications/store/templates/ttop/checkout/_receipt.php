@@ -11,6 +11,7 @@ $query = $order->params->get('terms', 'DUR') == 'DUR' ? '&form=receipt' : '&form
 $query .= $order->getAccount()->isReseller() ? '&type=reseller' : '&type=default';
 $page = $this->page;
 $salesperson = $order->created_by == 0 ? 'Website' : $this->app->storeuser->get($order->created_by)->name;
+var_dump($this->app->path->path('assets:pdfs'));
 ?>
 <div class='ttop-receipt'>
     <div class="uk-width-1-1 uk-container-center uk-text-right uk-margin-bottom">
@@ -89,7 +90,7 @@ $salesperson = $order->created_by == 0 ? 'Website' : $this->app->storeuser->get(
 <script>
 
 jQuery(document).ready(function($) {
-    //$("#contentext").load("?option=com_zoo&controller=checkout&task=orderNotification&oid=<?php echo $order->id; ?>&format=raw");
+    $("#contentext").load("?option=com_zoo&controller=checkout&task=orderNotification&oid=<?php echo $order->id; ?>&format=raw");
 });
 
 </script>

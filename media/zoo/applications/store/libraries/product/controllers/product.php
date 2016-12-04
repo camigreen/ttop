@@ -219,7 +219,12 @@ class ProductController extends AppController {
             $models = $this->app->data->create();
             foreach($xml->models->model as $xModel) {
                 $model = $this->app->data->create();
+                $enabled = $this->app->xml->getBool($xModel->attributes()->published);                   
+                if(!$enabled) {
+                    continue;
+                }
                 foreach($xModel as $key => $value) {
+
                     if($key == 'name') {
                         $name = (string) $value;
                     }

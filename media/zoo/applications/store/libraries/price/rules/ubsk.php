@@ -1,17 +1,11 @@
 <?php
 
-$rules['shipping.weight'] = 4;
+$rules['ubsk.shipping.weight'] = 15;
+$rules['ubsk.options.kit_options.full'] = 270;
+$rules['ubsk.options.kit_options.fullwithcups'] = 460;
 
-$rules['A.shade_only.base'] = 450;
-$rules['A.full.base'] = 725;
-$rules['A.full.shipping.weight'] = 15;
-$rules['A.fullwithcups.base'] = 915;
-$rules['A.fullwithcups.shipping.weight'] = 15;
-$rules['A.shade_only.extended.base'] = 675;
-$rules['A.full.extended.base'] = 950;
-$rules['A.full.extended.shipping.weight'] = 15;
-$rules['A.fullwithcups.extended.base'] = 1140;
-$rules['A.fullwithcups.extended.shipping.weight'] = 15;
+$rules['A.base'] = 450;
+$rules['A.extended.base'] = 675;
 
 $rules['B.shade_only.base'] = 487.50;
 $rules['B.full.base'] = 760;
@@ -24,74 +18,60 @@ $rules['B.full.extended.shipping.weight'] = 15;
 $rules['B.fullwithcups.extended.base'] = 1193.75;
 $rules['B.fullwithcups.extended.shipping.weight'] = 15;
 
+$rules['C.shade_only.base'] = 525.50;
+$rules['C.full.base'] = 795.50;
+$rules['C.full.shipping.weight'] = 15;
+$rules['C.fullwithcups.base'] = 985.50;
+$rules['C.fullwithcups.shipping.weight'] = 15;
+$rules['C.shade_only.extended.base'] = 787.50;
+$rules['C.full.extended.base'] = 1057.50;
+$rules['C.full.extended.shipping.weight'] = 15;
+$rules['C.fullwithcups.extended.base'] = 1247.50;
+$rules['C.fullwithcups.extended.shipping.weight'] = 15;
 
-$price['ubsk.C.item.base'] = 525.5;
-$price['ubsk.C.item.option.kit_options.full'] = 270;
-$price['ubsk.C.item.option.kit_options.fullwithcups'] = 460;
-$price['ubsk.C.shipping.base.weight'] = 4;
-$price['ubsk.C.shipping.base.price'] = 0;
-$price['ubsk.C.shipping.weight'] = 15;
-$price['ubsk.C.shipping.price'] = 0;
+$rules['D.shade_only.base'] = 562.50;
+$rules['D.full.base'] = 837.50;
+$rules['D.full.shipping.weight'] = 15;
+$rules['D.fullwithcups.base'] = 1022.50;
+$rules['D.fullwithcups.shipping.weight'] = 15;
+$rules['D.shade_only.extended.base'] = 843.75;
+$rules['D.full.extended.base'] = 1118.15;
+$rules['D.full.extended.shipping.weight'] = 15;
+$rules['D.fullwithcups.extended.base'] = 1303.75;
+$rules['D.fullwithcups.extended.shipping.weight'] = 15;
 
-$price['ubsk.C.extended.item.base'] = 787.50;
-$price['ubsk.C.extended.item.option.kit_options.full'] = 270;
-$price['ubsk.C.extended.item.option.kit_options.fullwithcups'] = 460;
-$price['ubsk.C.extended.shipping.base.weight'] = 4;
-$price['ubsk.C.extended.shipping.base.price'] = 0;
-$price['ubsk.C.extended.shipping.weight'] = 15;
-$price['ubsk.C.extended.shipping.price'] = 0;
-$price['ubsk.C.extended.shipping.weight'] = 20;
+$rules['E.shade_only.base'] = 600;
+$rules['E.full.base'] = 870;
+$rules['E.full.shipping.weight'] = 15;
+$rules['E.fullwithcups.base'] = 1060;
+$rules['E.fullwithcups.shipping.weight'] = 15;
+$rules['E.shade_only.extended.base'] = 900;
+$rules['E.full.extended.base'] = 1170;
+$rules['E.full.extended.shipping.weight'] = 15;
+$rules['E.fullwithcups.extended.base'] = 1360;
+$rules['E.fullwithcups.extended.shipping.weight'] = 15;
 
-$price['ubsk.D.item.base'] = 562.5;
-$price['ubsk.D.item.option.kit_options.full'] = 275;
-$price['ubsk.D.item.option.kit_options.fullwithcups'] = 460;
-$price['ubsk.D.shipping.base.weight'] = 4;
-$price['ubsk.D.shipping.base.price'] = 0;
-$price['ubsk.D.shipping.weight'] = 15;
-$price['ubsk.D.shipping.price'] = 0;
+$rules['F.shade_only.base'] = 637.50;
+$rules['F.full.base'] = 907.50;
+$rules['F.full.shipping.weight'] = 15;
+$rules['F.fullwithcups.base'] = 1097.50;
+$rules['F.fullwithcups.shipping.weight'] = 15;
+$rules['F.shade_only.extended.base'] = 956.25;
+$rules['F.full.extended.base'] = 1226;
+$rules['F.full.extended.shipping.weight'] = 15;
+$rules['F.fullwithcups.extended.base'] = 1416.25;
+$rules['F.fullwithcups.extended.shipping.weight'] = 15;
 
-$price['ubsk.D.extended.item.base'] = 843.75;
-$price['ubsk.D.extended.item.option.kit_options.full'] = 275;
-$price['ubsk.D.extended.item.option.kit_options.fullwithcups'] = 465;
-$price['ubsk.D.extended.shipping.base.weight'] = 4;
-$price['ubsk.D.extended.shipping.base.price'] = 0;
-$price['ubsk.D.extended.shipping.weight'] = 15;
-$price['ubsk.D.extended.shipping.price'] = 0;
-$price['ubsk.D.extended.shipping.weight'] = 20;
-
-$price['ubsk.E.item.base'] = 600;
-$price['ubsk.E.item.option.kit_options.full'] = 270;
-$price['ubsk.E.item.option.kit_options.fullwithcups'] = 460;
-$price['ubsk.E.shipping.base.weight'] = 4;
-$price['ubsk.E.shipping.base.price'] = 0;
-$price['ubsk.E.shipping.weight'] = 15;
-$price['ubsk.E.shipping.price'] = 0;
-
-$price['ubsk.E.extended.item.base'] = 900;
-$price['ubsk.E.extended.item.option.kit_options.full'] = 270;
-$price['ubsk.E.extended.item.option.kit_options.fullwithcups'] = 460;
-$price['ubsk.E.extended.shipping.base.weight'] = 4;
-$price['ubsk.E.extended.shipping.base.price'] = 0;
-$price['ubsk.E.extended.shipping.weight'] = 15;
-$price['ubsk.E.extended.shipping.price'] = 0;
-$price['ubsk.E.extended.shipping.weight'] = 20;
-
-$price['ubsk.F.item.base'] = 637.5;
-$price['ubsk.F.item.option.kit_options.full'] = 270;
-$price['ubsk.F.item.option.kit_options.fullwithcups'] = 460;
-$price['ubsk.F.shipping.base.weight'] = 4;
-$price['ubsk.F.shipping.base.price'] = 0;
-$price['ubsk.F.shipping.weight'] = 15;
-$price['ubsk.F.shipping.price'] = 0;
-
-$price['ubsk.F.extended.item.base'] = 956.25;
-$price['ubsk.F.extended.item.option.kit_options.full'] = 270;
-$price['ubsk.F.extended.item.option.kit_options.fullwithcups'] = 460;
-$price['ubsk.F.extended.shipping.base.weight'] = 4;
-$price['ubsk.F.extended.shipping.base.price'] = 0;
-$price['ubsk.F.extended.shipping.weight'] = 15;
-$price['ubsk.F.extended.shipping.price'] = 0;
-$price['ubsk.F.extended.shipping.weight'] = 20;
+$rules['G.shade_only.base'] = 675;
+$rules['G.full.base'] = 945;
+$rules['G.full.shipping.weight'] = 15;
+$rules['G.fullwithcups.base'] = 952.50;
+$rules['G.fullwithcups.shipping.weight'] = 15;
+$rules['G.shade_only.extended.base'] = 1012.50;
+$rules['G.full.extended.base'] = 1003.75;
+$rules['G.full.extended.shipping.weight'] = 15;
+$rules['G.fullwithcups.extended.base'] = 1193.75;
+$rules['G.fullwithcups.extended.shipping.weight'] = 15;
 
 $price['ubsk.G.item.base'] = 675;
 $price['ubsk.G.item.option.kit_options.full'] = 270;

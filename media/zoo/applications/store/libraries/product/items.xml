@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <item>
 	<boats>
+		<boat published="false">				
+			<name>boat-manufacturer</name>
+			<label>Boat Name Label</label>
+			<skucode></skucode>
+			<models>
+				<model>
+					<name>boat-model</name>
+					<label>Boat Model</label>
+					<skucode></skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
+						<option name="price_adjustment" label="Price Adjustment" type="price.adj" cost="0" description="Adjusting Price" visible="false" />
+					</options>
+				</model>
+			</models>
+		</boat>
 		<boat>				
 			<name>action-craft</name>
 			<label>Action Craft</label>
@@ -11,9 +27,7 @@
 					<label>1820 Flatsmaster</label>
 					<skucode>1820FM</skucode>
 					<options>
-						<option name="suction_cup" type="price.adj" qty="0" />
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
-						<option name="price_adjustment" label="Price Adjustment" type="price.adj" cost="175" description="Adjusting Price" visible="false" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -21,8 +35,7 @@
 					<label>19 Ace Flats Master</label>
 					<skucode>19AFM</skucode>
 					<options>
-						<option name="suction_cup" type="default" qty="0" />
-						<option name="boat_length" label="Boat Length" type="base" value="19" />
+						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -37,7 +50,7 @@
 					<label>17 Montauk</label>
 					<skucode>17MNTK</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="17" />
+						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -45,47 +58,47 @@
 					<label>18 Dauntless</label>
 					<skucode>18DNTLS</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
-				<model>
+				<model published="false">
 					<name>110-sport</name>
 					<label>110 Sport</label>
 					<skucode>110S</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="11" />
+						<option name="boat_length" label="Boat Length" type="base" value="11" visible="false" />
 					</options>
 				</model>
-				<model>
+				<model published="false">
 					<name>130-sport</name>
 					<label>130 Sport</label>
 					<skucode>130S</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="13" />
+						<option name="boat_length" label="Boat Length" type="base" value="13" visible="false" />
 					</options>
 				</model>
-				<model>
+				<model published="false">
 					<name>150-sport</name>
 					<label>150 Sport</label>
 					<skucode>150S</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="15" />
+						<option name="boat_length" label="Boat Length" type="base" value="15" visible="false" />
 					</options>
 				</model>
-				<model>
+				<model published="false">
 					<name>150-montauk</name>
 					<label>150 Montauk</label>
 					<skucode>150MNTK</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="15" />
+						<option name="boat_length" label="Boat Length" type="base" value="15" visible="false" />
 					</options>
 				</model>
-				<model>
+				<model published="false">
 					<name>160-dauntless</name>
 					<label>160 Dauntless</label>
 					<skucode>160DNTLS</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="16" />
+						<option name="boat_length" label="Boat Length" type="base" value="16" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -93,7 +106,7 @@
 					<label>170 Montauk</label>
 					<skucode>170MNTK</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="17" />
+						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -101,7 +114,7 @@
 					<label>180 Dauntless</label>
 					<skucode>180DNTLS</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -109,7 +122,7 @@
 					<label>190 Montauk</label>
 					<skucode>190MNTK</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="19" />
+						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -117,22 +130,22 @@
 					<label>220 Dauntless</label>
 					<skucode>220DNTLS</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="22" />
+						<option name="boat_length" label="Boat Length" type="base" value="22" visible="false" />
 					</options>
 				</model>
 			</models>
 		</boat>
-		<boat>				
+		<boat published="false">				
 			<name>beavertail</name>
 			<label>Beavertail</label>
 			<skucode>BT</skucode>
-			<models>
-				<model>
+			<models published="false">
+				<model published="false">
 					<name>16-micro</name>
 					<label>16 Micro</label>
 					<skucode>17MCR</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="16" />
+						<option name="boat_length" label="Boat Length" type="base" value="16" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -142,12 +155,12 @@
 			<label>Carolina Skiff</label>
 			<skucode>CRLNASKF</skucode>
 			<models>
-				<model>
+				<model published="false">
 					<name>15-jv</name>
 					<label>15 JV</label>
 					<skucode>15JV</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="15" />
+						<option name="boat_length" label="Boat Length" type="base" value="15" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -162,12 +175,12 @@
 					<label>20</label>
 					<skucode>20</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="20" />
+						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
 					</options>
 				</model>
 			</models>
 		</boat>
-		<boat>				
+		<boat published="false">				
 			<name>chaos</name>
 			<label>Chaos</label>
 			<skucode>CHAOS</skucode>
@@ -177,7 +190,7 @@
 					<label>21 Tarpon</label>
 					<skucode>21TRPN</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="21" />
+						<option name="boat_length" label="Boat Length" type="base" value="21" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -192,7 +205,7 @@
 					<label>25 Bay</label>
 					<skucode>25BAY</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="25" />
+						<option name="boat_length" label="Boat Length" type="base" value="25" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -207,7 +220,7 @@
 					<label>19</label>
 					<skucode>19</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="19" />
+						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -222,7 +235,7 @@
 					<label>188</label>
 					<skucode>188</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -230,7 +243,7 @@
 					<label>185 CC</label>
 					<skucode>185CC</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -245,7 +258,7 @@
 					<label>191 Coastal Explorer</label>
 					<skucode>191CE</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="19" />
+						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -255,12 +268,12 @@
 			<label>Hewes</label>
 			<skucode>HWS</skucode>
 			<models>
-				<model>
+				<model published="false">
 					<name>16-redfisher</name>
 					<label>16 Redfisher</label>
 					<skucode>16RF</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="16" />
+						<option name="boat_length" label="Boat Length" type="base" value="16" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -268,7 +281,7 @@
 					<label>18 Redfisher</label>
 					<skucode>18RF</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -283,7 +296,7 @@
 					<label>1720</label>
 					<skucode>1720</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="17" />
+						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -291,7 +304,7 @@
 					<label>176 Bay Reef</label>
 					<skucode>176</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="17" />
+						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -299,7 +312,7 @@
 					<label>189</label>
 					<skucode>189</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -307,7 +320,7 @@
 					<label>200 XT</label>
 					<skucode>200XT</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="20" />
+						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -315,7 +328,7 @@
 					<label>203 FS</label>
 					<skucode>203FS</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="20" />
+						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -323,7 +336,7 @@
 					<label>210 Bay Reef</label>
 					<skucode>210BR</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="21" />
+						<option name="boat_length" label="Boat Length" type="base" value="21" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -331,7 +344,7 @@
 					<label>210 FS</label>
 					<skucode>210FS</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="21" />
+						<option name="boat_length" label="Boat Length" type="base" value="21" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -339,7 +352,7 @@
 					<label>216</label>
 					<skucode>216</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="21" />
+						<option name="boat_length" label="Boat Length" type="base" value="21" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -347,7 +360,7 @@
 					<label>230 Bay Reef</label>
 					<skucode>230BR</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="23" />
+						<option name="boat_length" label="Boat Length" type="base" value="23" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -362,7 +375,7 @@
 					<label>17 HPX-S</label>
 					<skucode>17HPXS</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="17" />
+						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -370,7 +383,7 @@
 					<label>18 HPX-V</label>
 					<skucode>18HPXV</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -385,7 +398,7 @@
 					<label>210 Angler</label>
 					<skucode>210ANGLR</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="21" />
+						<option name="boat_length" label="Boat Length" type="base" value="21" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -393,7 +406,7 @@
 					<label>1810</label>
 					<skucode>1810</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -408,7 +421,7 @@
 					<label>2200 TRS</label>
 					<skucode>2200TRS</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="22" />
+						<option name="boat_length" label="Boat Length" type="base" value="22" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -416,7 +429,7 @@
 					<label>2300 HPS</label>
 					<skucode>2300HPS</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="23" />
+						<option name="boat_length" label="Boat Length" type="base" value="23" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -431,7 +444,7 @@
 					<label>180 Islander</label>
 					<skucode>180ISLNDR</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -439,7 +452,7 @@
 					<label>186 Cape Island</label>
 					<skucode>186CPILND</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -447,7 +460,7 @@
 					<label>197 Sportfish</label>
 					<skucode>197SF</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="19" />
+						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -455,7 +468,7 @@
 					<label>197 Venture</label>
 					<skucode>197VNTRE</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="19" />
+						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -470,7 +483,7 @@
 					<label>R180</label>
 					<skucode>R180</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -478,7 +491,7 @@
 					<label>R200</label>
 					<skucode>R200</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="20" />
+						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -486,7 +499,7 @@
 					<label>206 Cayman</label>
 					<skucode>206CMN</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="20" />
+						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -501,7 +514,7 @@
 					<label>177 Winyah Bay</label>
 					<skucode>177WB</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="17" />
+						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -509,7 +522,7 @@
 					<label>175 Sportfish</label>
 					<skucode>175SF</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="17" />
+						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -517,7 +530,7 @@
 					<label>191 Bay</label>
 					<skucode>191BAY</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="19" />
+						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -525,7 +538,7 @@
 					<label>201 Bay</label>
 					<skucode>201BAY</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="20" />
+						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -533,7 +546,7 @@
 					<label>221 Winyah Bay</label>
 					<skucode>221WB</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="22" />
+						<option name="boat_length" label="Boat Length" type="base" value="22" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -548,7 +561,7 @@
 					<label>180 Viper</label>
 					<skucode>180VPR</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -556,7 +569,7 @@
 					<label>186 Commander</label>
 					<skucode>186CMNDR</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -564,7 +577,7 @@
 					<label>189 Commander</label>
 					<skucode>189CMNDR</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -572,7 +585,7 @@
 					<label>200 XT</label>
 					<skucode>200XT</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="20" />
+						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -580,7 +593,7 @@
 					<label>220 XT</label>
 					<skucode>220XT</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="22" />
+						<option name="boat_length" label="Boat Length" type="base" value="22" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -595,7 +608,7 @@
 					<label>177 Triton</label>
 					<skucode>177TRTN</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="17" />
+						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -603,7 +616,7 @@
 					<label>188 Triton</label>
 					<skucode>188TRTN</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" />
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -611,7 +624,7 @@
 					<label>196 Ultra</label>
 					<skucode>196ULTRA</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="19" />
+						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -619,7 +632,7 @@
 					<label>20 BX-BR</label>
 					<skucode>20BXBR</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="20" />
+						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -627,7 +640,7 @@
 					<label>22 BX-BR</label>
 					<skucode>22BXBR</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="22" />
+						<option name="boat_length" label="Boat Length" type="base" value="22" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -642,7 +655,7 @@
 					<label>207 Masters</label>
 					<skucode>207MSTR</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="20" />
+						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -650,7 +663,7 @@
 					<label>211 Heritage</label>
 					<skucode>211HRTG</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="21" />
+						<option name="boat_length" label="Boat Length" type="base" value="21" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -658,7 +671,7 @@
 					<label>214 Tournament</label>
 					<skucode>214T</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="21" />
+						<option name="boat_length" label="Boat Length" type="base" value="21" visible="false" />
 					</options>
 				</model>
 					<model>
@@ -666,7 +679,7 @@
 					<label>227 Masters</label>
 					<skucode>227MSTR</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="22" />
+						<option name="boat_length" label="Boat Length" type="base" value="22" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -681,7 +694,7 @@
 					<label>17 FX</label>
 					<skucode>17FX</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="17" />
+						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -689,7 +702,7 @@
 					<label>17 Spider</label>
 					<skucode>17SPDR</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="17" />
+						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -704,7 +717,7 @@
 					<label>1900 Bay</label>
 					<skucode>1900BAY</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="19" />
+						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
 					</options>
 				</model>
 				<model>
@@ -712,7 +725,7 @@
 					<label>2200 Bay</label>
 					<skucode>2200BAY</skucode>
 					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="22" />
+						<option name="boat_length" label="Boat Length" type="base" value="22" visible="false" />
 					</options>
 				</model>
 			</models>

@@ -25,6 +25,7 @@ class ResellerPrice extends Price {
 	public function init($data) {
 		parent::init($data);
 		$user = $this->app->customer->get();
+
 		if(isset($data['tempMarkup'])) {
 			// Set Markup to Temporary Setting
 			$this->setMarkupRate('reseller', $data['tempMarkup']);
@@ -37,7 +38,10 @@ class ResellerPrice extends Price {
 		//$this->setMarkupRate('msrp', 0.15);
 
 		// Set User Account Discount
-		$this->setDiscountRate($user->params->get('discount', 0));
+		if(!$this->getDiscountRate()) {
+			$this->setDiscountRate($user->params->get('discount', 0));
+		}
+		
 
 	}
 
@@ -67,9 +71,8 @@ class ResellerPrice extends Price {
 		$this->setPrice('msrp', $msrp);
 
 		// Calculate Reseller
-		var_dump($discount);
-		$reseller = $base+$addons;
-		$reseller = $reseller*$discount;
+		$reseller = $base*$discount;
+		$reseller += $addons;
 		$this->setPrice('reseller', $reseller);
 
 		// Calculate Reseller Customer Price
@@ -79,8 +82,8 @@ class ResellerPrice extends Price {
 		$this->setPrice('customer', $customer);
 
 		// Calculate Reseller Display
-
 		$this->setPrice('display', $customer);
+		
 
 		// Calculate Reseller Profit
 

@@ -20,7 +20,7 @@ $this->template = $this->app->zoo->getApplication()->getTemplate()->getPath().'/
 $type = 'orderform';
 $this->form = $this->app->form->create(array($this->template.'config.xml', compact('type')));
 $this->form->setValue('template', $this->template);
-var_dump($product);
+
 ?>
 <article>
     <span class="uk-article-title"><?php echo $item->name; ?></span>

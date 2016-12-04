@@ -37,7 +37,6 @@ $model = $this->product->getParam('boat.model');
 
 $pattern = $this->product->getPatternID();
 $pattern = $pattern ? $pattern : 'No Pattern Found.';
-$this->product->price->debug(true);
 $renderer = $this->app->renderer->create('item');
 $items = $this->app->table->item->getByCategory(1,125,true);
 $relateds = array();
@@ -123,8 +122,8 @@ foreach($items as $_item) {
 
             $('#OrderForm-<?php echo $this->product->id; ?>').OrderForm({
                 name: 'Center Console Boat Cover',
-                validate: false,
-                debug: true,
+                validate: true,
+                debug: false,
                 confirm: true,
                 events: {
                     ccbc: {

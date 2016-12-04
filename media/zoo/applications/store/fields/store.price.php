@@ -2,12 +2,7 @@
 $product = $parent->getValue('product');
 $price = $product->getPrice();
 ?>
-<?php if(!$this->app->storeuser->get()->isReseller()) : ?>
-	<div id="<?php echo $parent->getValue('product')->id; ?>-price">
-		<i class="currency"></i>
-		<span class="price"><?php echo $this->app->number->format($product->getPrice(), 2); ?></span>
-	</div>
-<?php else : ?>
+<?php if($this->app->storeuser->get()->isReseller() && $product->price->allowMarkups()) : ?>
 	<div id="<?php echo $product->id; ?>-price">
 		<i class="currency"></i>
 		<span class="price"><?php echo $this->app->number->precision($price, 2); ?></span>
@@ -29,4 +24,9 @@ $price = $product->getPrice();
 		})
 
 	</script>
+<?php else : ?>
+	<div id="<?php echo $parent->getValue('product')->id; ?>-price">
+		<i class="currency"></i>
+		<span class="price"><?php echo $this->app->number->format($product->getPrice(), 2); ?></span>
+	</div>
 <?php endif; ?>

@@ -245,7 +245,7 @@ class AccountController extends AppController {
 
         $account->bind($post);
         echo 'Bind</br>';
-        var_dump($account);
+        var_dump($account->_mappedAccounts);
         //return;
 
         $account->save();

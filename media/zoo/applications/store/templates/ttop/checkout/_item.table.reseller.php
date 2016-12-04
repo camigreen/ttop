@@ -61,7 +61,7 @@
                 </td>
                 <td class="ttop-checkout-item-total">
                     <?php echo $item->getTotalPrice('customer', true); ?>
-                    <?php echo '<p class="uk-text-small">('.$this->app->number->toPercentage($item->getMarkupRate(), 0).' Markup)</p>'; ?>
+                    <?php echo '<p class="uk-text-small">('.$item->getMarkupRate('reseller').' Markup)</p>'; ?>
                 </td>
                 <td class="ttop-checkout-item-total">
                     <?php echo $item->getTotalPrice('reseller', true); ?>

@@ -13,6 +13,7 @@
 		<make value="boston_whaler" name="Boston Whaler">
 			<model value="76,61,34,A">200 Dauntless</model>
 			<model value="76,61,34,A">210 Montauk</model>
+			<model value="86,88,46">230 Vantage</model>
 			<model value="81,72,24,A">240 Outrage</model>
 			<model value="95,71,63,B">270 Dauntless</model>
 			<model value="108,77,50,B">28 Conquest</model>
@@ -50,7 +51,8 @@
 		</make>
 		<make value="grady_white" name="Grady White">
 			<model value="86,62,39">191 Coastal Explorer</model>
-			<model value="87,68,24,A">251 Coastal Explorer</model>
+			<model value="88,69,59,A">251 Coastal Explorer</model>
+			<model value="86,90,45">255 Freedom</model>
 			<model value="94,74,62,B">272 Sailfish</model>
 			<model value="90,72,60,B">275 Freedom</model>
 			<model value="94,74,62,B">272 Sailfish</model>
@@ -70,6 +72,7 @@
 			<model value="81,56,24,A">189 FS</model>
 			<model value="84,61,48,A">2020</model>
 			<model value="82,56,55,B">230 Bay Reef</model>
+			<model value="87,60,36,B">239 FS</model>
 			<model value="97,74,47,A">268</model>
 		</make>
 		<make value="mako" name="Mako">
@@ -82,9 +85,13 @@
 			<model value="88,74,44,A">2200 XS</model>
 			<model value="90,70,42,A">2500</model>
 		</make>
+		<make value="panga_craft" name="Panga Craft">
+			<model value="83,64,78">27</model>
+		</make>
 		<make value="pathfinder" name="Pathfinder">
 			<model value="88,64,57,B">2200</model>
 			<model value="88,65,57,B">2400</model>
+			<model value="89,64,80">2500</model>
 		</make>
 		<make value="polar_kraft" name="Polar Kraft">
 			<model value="85,70,56,B">2300</model>
@@ -106,6 +113,7 @@
 		<make value="regulator" name="Regulator">
 			<model value="90,66,30,A">23</model>
 			<model value="94,85,31,A">29 FS</model>
+			<model value="95,91,60">31</model>
 		</make>
 		<make value="robalo" name="Robalo">
 			<model value="85,70,25,A">R200</model>
@@ -126,6 +134,7 @@
 			<model value="84,67,37,A">185</model>
 			<model value="87,61,24,A">195 SF</model>
 			<model value="87,60,41,A">210 XSF</model>
+			<model value="83,63,70,A">215 XSF</model>
 			<model value="89,67,41,A">225 XSF</model>
 			<model value="91,61,28,A">240 Bay</model>
 			<model value="96,78,54,B">251 XS</model>
@@ -156,6 +165,7 @@
 			<model value="84,63,43,A">24 BX BR</model>
 			<model value="86,62,33,A">24 RZR</model>
 			<model value="80,89,24,A">24 Edge</model>
+			<model value="85,65,64">25 BXBR</model>
 			<model value="92,69,46,A">27 Gamefish</model>
 			<model value="92,84,54,B">30 Gamefish</model>
 		</make>
@@ -177,6 +187,8 @@
 			<model value="87,62,24,A">247 Platinum</model>
 			<model value="87,60,24,A">247 Masters</model>
 			<model value="92,70,27,A">251 Heritage</model>
+			<model value="92,72,40">267 Masters Bay</model>
+			<model value="92,73,60">282 Open</model>
 		</make>
 		<make value="tidewater" name="Tidewater">
 			<model value="88,62,24,A">220 LXF/Adventure</model>
@@ -238,7 +250,7 @@
 		</make>
 		<make value="grady_white" name="Grady White">
 			<model value="79,84,42">191 Coastal Explorer</model>
-			<model value="84,102,43,B">251 Coastal Explorer</model>
+			<model value="84,98,38">251 Coastal Explorer</model>
 			<model value="86,131,55,D">283 Release</model>
 		</make>
 		<make value="hydra_sport" name="Hydra Sport">
@@ -252,6 +264,7 @@
 			<model value="85,91,44,A">2020</model>
 			<model value="84,90,43,A">203 FS</model>
 			<model value="85,90,41,A">230 Bay Reef</model>
+			<model value="80,108,41,A">239 FS</model>
 			<model value="85,92,43,A">244 Bluewater</model>
 			<model value="87,106,54,B">268</model>
 		</make>
@@ -260,6 +273,9 @@
 		</make>
 		<make value="nautic_star" name="Nautic Star">
 			<model value="84,98,45,B">2200 XS</model>
+		</make>
+		<make value="panga_craft" name="Panga Craft">
+			<model value="83,100,40">27</model>
 		</make>
 		<make value="pathfinder" name="Pathfinder">
 			<model value="82,89,41,A">2200</model>
@@ -330,6 +346,7 @@
 			<model value="84,104,41,B">234 Ultra</model>
 			<model value="84,96,43,B">24 BX BR</model>
 			<model value="82,108,39,B">24 RZR</model>
+			<model value="82,103,44">25 BXBR</model>
 			<model value="85,105,43,B">25 Gamefish</model>
 			<model value="85,127,48,D">27 Gamefish</model>
 		</make>
@@ -344,6 +361,8 @@
 			<model value="81,88,40,A">247 Platinum</model>
 			<model value="85,86,39,A">247 Masters</model>
 			<model value="84,105,39,B">251 Heritage</model>
+			<model value="82,97,48">267 Masters Bay</model>
+			<model value="83,114,48">282 Open</model>
 		</make>
 		<make value="sundance" name="Sundance">
 			<model value="78,90,41">22 DX</model>

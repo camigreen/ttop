@@ -41,7 +41,10 @@ class ReceiptFormPDF extends FormPDF {
 	    foreach($order->elements->get('items.', array()) as $item) {
 	    	$options = array();
 	    	foreach($item->getOptions() as $option) {
-	    		$options[] = $option->get('label').': '.$option->get('text');
+	    		if($option->get('visible', 'true') == 'true') {
+	    			$options[] = $option->get('label').': '.$option->get('text');
+	    		}
+	    		
 	    	}
 	    	$item_array[] = array(
 	    		'item_description' => array(
@@ -62,7 +65,7 @@ class ReceiptFormPDF extends FormPDF {
 	    $form_data->set('delivery_method', JText::_(($ship = $order->elements->get('shipping_method')) ? 'SHIPPING_METHOD_'.$ship : ''));
 	    $form_data->set('terms', JText::_(($terms = $order->params->get('terms')) ? 'ACCOUNT_TERMS_'.$terms : ''));
 	    $form_data->set('subtotal', $order->getSubtotal());
-	    $form_data->set('tax_total', $order->getTaxTotal());
+	    $form_data->set('tax_total', $this->app->number->currency($order->getTaxTotal(), array('currency', 'USD')));
 	    $form_data->set('ship_total', $order->getShippingTotal());
 	    $form_data->set('total', $order->getTotal());
 
