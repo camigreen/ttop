@@ -265,23 +265,32 @@ function ZooParseRoute($segments) {
 		}
 
 	// shit
-	$task = 'order';
+	$task = 'ccbc';
+	// var_dump($segments);
+	// die();
 
-		if ($count >= 2 && $segments[0] == $task) {
+		if ($count == 1 && $segments[0] == $task) {
 			$vars['controller'] = 'product';
-			$vars['product'] = $segments[1];
+			$vars['product'] = $segments[0];
 			$vars['task'] = 'chooseBoatManufacturer';
-			$vars['process'] = $task;
+			$vars['process'] = 'order';	
 		}
 
-		if ($count >= 3 && $segments[0] == $task) {
-			$vars['task']    = 'chooseBoatModel';
-			$vars['make']	= $segments[2];
+		if ($count == 2 && $segments[0] == $task) {
+			$vars['controller'] = 'product';
+			$vars['product'] = $segments[0];
+			$vars['task'] = 'chooseBoatModel';
+			$vars['make'] = $segments[1];
+			$vars['process'] = 'order';
 		}
 
-		if ($count == 4 && $segments[0] == $task) {
-			$vars['task']    = 'orderForm';
-			$vars['model']	= $segments[3];
+		if ($count == 3 && $segments[0] == $task) {
+			$vars['controller'] = 'product';
+			$vars['product'] = $segments[0];
+			$vars['task'] = 'orderForm';
+			$vars['make'] = $segments[1];
+			$vars['model'] = $segments[2];
+			$vars['process'] = 'order';
 		}
 
 	// feed
