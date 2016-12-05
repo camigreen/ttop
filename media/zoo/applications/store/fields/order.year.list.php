@@ -47,7 +47,7 @@ $attributes = array('name' => $name, 'class' => 'uk-width-1-1'.$fieldtype.($requ
 if($node->attributes()->option) {
 	$attributes['data-option'] = json_encode($optionData);
 }
-$disabled = $disabled ? $disabled : !$user->canEdit($assetName);
+$disabled = $disabled ? $disabled : false;
 if($disabled) {
 	$attributes['disabled'] = true;
 }

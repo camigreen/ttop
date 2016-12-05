@@ -47,7 +47,7 @@ if(!isset($options)) {
 
 $attributes['class'] = $class;
 
-$disabled = false;
+$disabled = $disabled ? $disabled : false;
 if($disabled) {
 	$attributes['disabled'] = true;
 }
