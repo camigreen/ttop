@@ -21,7 +21,8 @@ jQuery(function($){
 
 		$('#ccbc-trolling_motor-modal').on('save', function(e, data){
 			console.log(data);
-			var item = $('OrderForm-ccbc').OrderForm('getItem');
+			var item = $('#OrderForm-ccbc').OrderForm('getItem');
+			console.log(item);
             var value = $('[name="ccbc.trolling_motor_modal_helper"]:checked').val()
             if(value === 'Y') {
             	item.options.trolling_motor.confirmed = true;
