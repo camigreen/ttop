@@ -8,7 +8,7 @@
 
 // set attributes
 
-$disabled = $disabled ? $disabled : !$user->canEdit($assetName);
+$disabled = $disabled ? $disabled : false;
 
 $attributes = array('type' => 'text', 'name' => $name, 'class' => 'uk-width-1-1 item-option');
 if($disabled) {

@@ -34,7 +34,7 @@ if(!isset($options)) {
 }
 $attributes['class'] = $class;
 
-$disabled = $disabled ? $disabled : !$user->canEdit($assetName);
+$disabled = $disabled ? $disabled : false;
 if($disabled) {
 	$attributes['disabled'] = true;
 }
