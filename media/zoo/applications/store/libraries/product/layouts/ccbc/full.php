@@ -34,6 +34,7 @@ $model = $this->product->getParam('boat.model');
 // $this->product->setOptionValue('motor_make', 'yamaha');
 // $this->product->setOptionValue('motor_size', '150');
 // $this->product->setOptionValue('casting_platform', 'N');
+$this->product->price->debug(true);
 
 $pattern = $this->product->getPatternID();
 $pattern = $pattern ? $pattern : 'No Pattern Found.';

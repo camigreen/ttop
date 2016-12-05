@@ -6,7 +6,9 @@
 		<option value="T">Tan</option>
 		<option value="G">Gray</option>
 	</field>
-	<field name="boat_length" label="Boat Length" type="base" visible="true" />
+	<field name="boat_make" label="Boat Make" type="variable" visible="true" />
+	<field name="boat_model" label="Boat Model" type="variable" visible="true" />
+	<field name="boat_length" label="Boat Length" type="base" visible="0" />
 	<field name="fabric" label="Fabric" type="base" visible="true" default="9Ply">
 		<option value="9Ply">Material 9oz. 5yr. Warranty</option>
 		<option value="9Acr">Material 9.25oz. Acrylic 5yr. Warranty</option>

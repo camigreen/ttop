@@ -149,6 +149,9 @@ class Options {
                     case 'default':
                         $option['value'] = (string) $param;
                         break;
+                    case 'visible':
+                        $option['visible'] = $this->app->xml->getBool((string) $param);
+                        break;
                     case 'name':
                         $name = (string) $param;
                     default:

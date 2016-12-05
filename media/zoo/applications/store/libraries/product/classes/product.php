@@ -591,7 +591,7 @@ class Product {
         $details->set('price', $this->getTotalPrice());
         $details->set('description', $this->description);
         foreach($this->getOptions() as $option) {
-            if($option->get('visible') === 'true') {
+            if($option->get('visible')) {
                 $details->set('options.'.$option->get('label'), $option->get('text'));
             }
         }

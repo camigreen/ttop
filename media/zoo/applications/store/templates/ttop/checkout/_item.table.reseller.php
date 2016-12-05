@@ -36,10 +36,13 @@
                             </thead>
                             <tbody>
                         <?php foreach($item->getOptions() as $option) : ?>
+                        <?php var_dump($option); ?>
+                        <?php if($option->get('visible') == 'true') : ?>
                             <tr>
                                 <td class="uk-text-small"><?php echo $option->get('label'); ?></td>
                                 <td class="uk-text-small <?php echo $option->get('name') == 'add_info' ? 'uk-text-left' : ''; ?>"><?php echo $option->get('text', 'Empty'); ?></td>
                             </tr>
+                        <?php endif; ?>
                         <?php endforeach; ?>
                             </tbody>
                         </table>
@@ -61,7 +64,7 @@
                 </td>
                 <td class="ttop-checkout-item-total">
                     <?php echo $item->getTotalPrice('customer', true); ?>
-                    <?php echo '<p class="uk-text-small">('.$item->getMarkupRate('reseller').' Markup)</p>'; ?>
+                    <?php echo '<p class="uk-text-small">('.$this->app->number->toPercentage($item->getMarkupRate('reseller'),0).' Markup)</p>'; ?>
                 </td>
                 <td class="ttop-checkout-item-total">
                     <?php echo $item->getTotalPrice('reseller', true); ?>

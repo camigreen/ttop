@@ -32,10 +32,12 @@
                             </thead>
                             <tbody>
                         <?php foreach($item->getOptions() as $option) : ?>
+                        <?php if($option->get('visible')) : ?>
                             <tr>
                                 <td class="uk-text-small"><?php echo $option->get('label'); ?></td>
-                                <td class="uk-text-small <?php echo $option->get('name') == 'add_info' ? 'uk-text-left' : ''; ?>"><?php echo $option->get('text', 'Empty'); ?></td>
+                                <td class="uk-text-small <?php echo $option->get('name') == 'add_info' ? 'uk-text-left' : ''; ?>"><?php echo $option->get('text'); ?></td>
                             </tr>
+                        <?php endif; ?>
                         <?php endforeach; ?>
                             </tbody>
                         </table>

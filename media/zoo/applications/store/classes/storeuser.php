@@ -174,7 +174,7 @@ class StoreUser {
     }
 
     public function getDiscountRate() {
-        return $this->app->number->toPercentage($this->_account->getParam('discount', 0),0);
+        return $this->getAccount()->getParam('discount', 0);
     }
 
     public function isGuest() {

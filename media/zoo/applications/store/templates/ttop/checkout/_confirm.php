@@ -30,7 +30,7 @@ list($page) = explode('.',$this->page, 2);
         </div>
         
         <div class="uk-width-1-1 uk-margin-top">
-            <div>E-mail: <?php echo $elements->get('email'); ?></div>
+            <div>E-mail: <?php echo $elements->get('billing.email'); ?></div>
         </div>
         <?php if($this->app->storeuser->get()->isReseller()) : ?>
             <div class="uk-width-1-1 uk-margin-top">

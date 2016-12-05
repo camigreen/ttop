@@ -15,11 +15,11 @@ class XMLHelper extends AppHelper {
 
 
     public function getBool($value = null, $default = true) {
-        if((string) $value == 'true') {
+        if((string) $value === 'true') {
             return true;
         } else if ($value === null) {
             return $default;
-        }
+    	}
 
         return false;
     }

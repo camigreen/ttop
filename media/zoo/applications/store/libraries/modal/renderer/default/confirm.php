@@ -26,7 +26,7 @@ $uID = uniqid();
                     </thead>
                     <tbody>
                         <?php foreach($product->getOptions() as $option) : ?>
-                            <?php if($option->get('visible', 'true') === 'true') : ?>
+                            <?php if($option->get('visible', true)) : ?>
                             <tr>
                                 <td><?php echo $option->get('label'); ?>
                                 <td <?php echo $option->get('name') == 'add_info' ? 'class="uk-text-left"' : ''; ?>><?php echo $option->get('text'); ?>

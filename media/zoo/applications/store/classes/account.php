@@ -232,6 +232,19 @@ class Account {
     }
 
     /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getMarkupRate($default = 0) {
+        return $this->getParam('margin', $default);
+    }
+
+    /**
      * Set the status for the account object
      *
      * @param  string $state The parameter to retrieve

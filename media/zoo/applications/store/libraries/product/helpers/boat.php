@@ -101,9 +101,12 @@ class BoatHelper extends AppHelper {
                                 
                                 if($k == 'name') {
                                     $optName = (string) $attribute;
-                                } 
-                                $option->set($k, (string) $attribute);
-
+                                }
+                                if($k == 'visible') {
+                                    $option->set($k, $this->app->xml->getBool($attribute));
+                                } else {
+                                    $option->set($k, (string) $attribute);
+                                }
                             }
                             $options->set($optName, $option);
                         }
