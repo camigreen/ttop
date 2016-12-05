@@ -151,6 +151,7 @@ foreach($items as $_item) {
 												value: 'Y',
 												item: this.item
 											};
+											console.log(data.item);
 											lpiModal.getModal(data);
                                         } else {
                                         	this.item.options.trolling_motor.confirmed = false;

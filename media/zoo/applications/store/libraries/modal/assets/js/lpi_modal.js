@@ -58,6 +58,7 @@
                 modal.show();
                 lpiModal.storage.data[mElem.prop('id')] = config;
             });
+            console.log(lpiModal);
         } else {
             modal = lpiModal.storage.modals[config.type];
             console.log(config);
