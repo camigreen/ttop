@@ -34,7 +34,7 @@ class ProductController extends AppController {
 
         $this->xml['config'] = simplexml_load_file($this->getLayoutPath().'/'.$this->type.'/config.xml');
         $this->xml['items'] = simplexml_load_file($this->app->path->path('library.product:/items.xml'));
-        $this->url = '/store/'.$this->process.'/'.$this->type.'/';
+        $this->url = '/'.$this->process.'/'.$this->type.'/';
         // registers tasks
 //      $this->registerTask('checkout', 'checkout');
         //$this->registerTask('getMake', 'display');
