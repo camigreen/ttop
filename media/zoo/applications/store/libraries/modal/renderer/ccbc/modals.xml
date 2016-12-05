@@ -7,7 +7,7 @@
 		<modal name="jp" layout="jp" title="Jack Plate" subtitle="If you have a jack plate, please choose which size." cancel="Cancel" save="Save" scroll="true"/>
 		<modal name="swim" layout="swim" title="Swim Ladder Platform" subtitle="Please select the swim ladder style that is on your boat." cancel="Cancel" save="Save" scroll="true"/>
 		<modal name="cast_platform" layout="cast_platform" title="Casting Platform" subtitle=""  save="I will remove it" cancel="Cancel"/>
-		<modal name="poling_platform" layout="poling_platform" title="Poling Platform" subtitle="Specify the height of your poling platform." cancel="Cancel" save="Save"/>
+		<modal name="poling_platform" layout="poling_platform" title="Poling Platform" subtitle="Specify the height of your poling platform." cancel="Cancel" save="OK"/>
 		<modal name="inwater" layout="inwater" title="Attention" subtitle="Center Console Boat Covers are not designed for in-water use."/>
 		<modal name="trolling_motor" layout="trolling_motor" title="Trolling Motor" subtitle="" save="Save" cancel="Cancel"/>
 	</modals>

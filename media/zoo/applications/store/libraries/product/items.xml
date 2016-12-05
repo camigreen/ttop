@@ -730,5 +730,20 @@
 				</model>
 			</models>
 		</boat>
+		<boat>				
+			<name>yellowfin</name>
+			<label>Yellowfin</label>
+			<skucode>YF</skucode>
+			<models>
+				<model>
+					<name>24-bay-ce</name>
+					<label>24 Bay CE</label>
+					<skucode>24BAYCE</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="24" visible="false" />
+					</options>
+				</model>
+			</models>
+		</boat>
 	</boats>
 </item>
