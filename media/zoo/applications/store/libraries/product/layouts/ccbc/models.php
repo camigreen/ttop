@@ -24,14 +24,16 @@ $models = $this->manufacturer->get('models');
 		<span class="uk-h3">Available Models</span>
 	</div>
 	<?php foreach($models as $model) : ?>
-	<a href="<?php echo $this->url.$this->manufacturer->name.'/'.$model->name; ?>">
+	
 		<div class="uk-width-medium-1-3">
+			<a href="<?php echo $this->url.$this->manufacturer->name.'/'.$model->name; ?>">
 			<div class="uk-panel uk-panel-box">
 				<div class="uk-h4">
 					<?php echo $model->label; ?>
 				</div>
 			</div>
+			</a>
 		</div>
-	</a>
+	
 	<?php endforeach; ?>
 </div>
