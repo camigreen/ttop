@@ -74,7 +74,16 @@ jQuery(function($) {
             validate: false,
             debug: true,
             confirm: false,
-            events: {}
+            events: {
+                accessories: {
+                    beforeAddToCart: [
+                        function(data) {
+                            UIkit.modal($(this.$element).closest('.uk-modal')).hide();
+                            return data;
+                        }
+                    ]
+                }
+            }
         });
     });
 });
