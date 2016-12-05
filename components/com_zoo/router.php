@@ -266,8 +266,8 @@ function ZooParseRoute($segments) {
 
 	// shit
 	$task = 'ccbc';
-	// var_dump($segments);
-	// die();
+	var_dump($segments);
+	die();
 
 		if ($count == 1 && $segments[0] == $task) {
 			$vars['controller'] = 'product';
