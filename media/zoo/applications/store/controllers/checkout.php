@@ -351,10 +351,10 @@ class CheckoutController extends AppController {
         $types = array('payment','receipt', 'printer');
         
         if(!$order->notify()) {
-            var_dump('No Notifications');
+            //var_dump('No Notifications');
             return;
         }
-        var_dump('Sending Notifications');
+        //var_dump('Sending Notifications');
         $result = true;
 
         // Send the Notifications.
