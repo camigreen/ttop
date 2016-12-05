@@ -27,6 +27,8 @@ class TTBCProduct extends Product {
 		parent::bind($product);
         $this->name = 'T-Top Boat Cover';
         $this->description = 'Custom fit for a '.$this->getParam('make').' '.$this->getParam('model');
+        $this->setOptionValue('boat_make', $this->getParam('make'));
+        $this->setOptionValue('boat_model', $this->getParam('model'));
 		return $this;
 	}
     

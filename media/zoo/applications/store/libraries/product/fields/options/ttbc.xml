@@ -6,6 +6,8 @@
 		<option value="T">Tan</option>
 		<option value="G">Gray</option>
 	</field>
+	<field name="boat_make" label="Boat Make" type="variable" visible="true" />
+	<field name="boat_model" label="Boat Model" type="variable" visible="true" />
 	<field name="boat_length" label="Boat Length" type="base" visible="false" />
 	<field name="fabric" label="Fabric" type="base" visible="true" default="9oz">
 		<option value="7oz">Material 7oz. 3yr. Warranty</option>
