@@ -120,6 +120,19 @@ class OrderDev {
 	}
 
 	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function getItems() {
+		return $this->elements->get('items.', array());
+	}
+
+	/**
 	 * Determines if notifications need to be sent
 	 *
 	 * @return 	boolean		True or false if notification needs to be sent.

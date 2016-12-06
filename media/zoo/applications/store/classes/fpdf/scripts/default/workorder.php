@@ -40,16 +40,16 @@ class WorkOrderFormPDF extends FormPDF {
     	$item_array = array();
 	    foreach($order->elements->get('items.', array()) as $item) {
 	    	$options = array();
-	    	foreach($item->options as $option) {
-	    		$options[] = $option['name'].': '.$option['text'];
+	    	foreach($item->getOptions() as $option) {
+	    		$options[] = $option->get('label').': '.$option->get('text');
 	    	}
 	    	$item_array[] = array(
 	    		'item_description' => array(
 	    			array('format' => 'item-name','text' => $item->name),
 	    			array('format' => 'item-options','text' => implode("\n",$options))
 	    		),
-	    		'qty' => array('text' => $item->qty),
-	    		'price' => array('text' => $item->getTotal('retail'))
+	    		'qty' => array('text' => $item->getQty()),
+	    		'price' => array('text' => $item->getTotalPrice())
 	    	);
 
 	    }
