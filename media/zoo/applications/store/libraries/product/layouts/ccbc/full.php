@@ -122,8 +122,8 @@ foreach($items as $_item) {
 
             $('#OrderForm-<?php echo $this->product->id; ?>').OrderForm({
                 name: 'Center Console Boat Cover',
-                validate: true,
-                debug: false,
+                validate: false,
+                debug: true,
                 confirm: true,
                 events: {
                     ccbc: {
@@ -168,7 +168,24 @@ foreach($items as $_item) {
                                 return data;
                             }
                         ],
-                        beforeAddToCart: [],
+                        beforeAddToCart: [
+                        	function(data) {
+                        		console.log(data);
+                        		var item = data.args.items[0];
+
+                        		if(item.options.add_info.prompted === "false") {
+                        			console.log('not prompted');
+                        			lpiModal.getModal({
+	                        			type: 'default',
+	                        			name: 'additional_info',
+	                        			item: this.item
+                        			});
+                        			data.triggerResult = false;
+                        		}
+                        		
+                        		return data;
+                        	}
+                        ],
                         onPublishPrice: []
                     }
                 },

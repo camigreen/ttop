@@ -121,5 +121,5 @@
 		<option value='N'>No</option>
 		<option value='R'>Removeable</option>
 	</field>
-	<field name="add_info" label="Additional Information" type="variable" visible="true" />
+	<field name="add_info" label="Additional Information" type="variable" prompted="false" visible="true" />
 </fields>
