@@ -122,8 +122,8 @@ foreach($items as $_item) {
 
             $('#OrderForm-<?php echo $this->product->id; ?>').OrderForm({
                 name: 'Center Console Boat Cover',
-                validate: false,
-                debug: true,
+                validate: true,
+                debug: false,
                 confirm: true,
                 events: {
                     ccbc: {
