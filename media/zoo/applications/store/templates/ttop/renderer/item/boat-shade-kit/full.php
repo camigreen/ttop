@@ -346,9 +346,9 @@ $this->form->setValue('template', $this->template);
         $('#OrderForm-bsk').OrderForm({
             name: 'BoatShadeKit',
             item: items['bsk-aft'],
-            validate: false,
+            validate: true,
             confirm: true,
-            debug: true,
+            debug: false,
             events: {
                 bsk: {
                     onInit: [

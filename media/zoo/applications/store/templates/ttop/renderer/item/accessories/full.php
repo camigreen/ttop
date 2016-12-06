@@ -86,7 +86,7 @@ $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css'
                 name: 'Accessories',
                 validate: true,
                 confirm: false,
-                debug: true,
+                debug: false,
                 events: {}
             });
         });

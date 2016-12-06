@@ -208,7 +208,7 @@ $product = $this->app->product->create($item);
             name: 'UltimateBoatShadeKit',
             validate: true,
             confirm: true,
-            debug: true,
+            debug: false,
             events: {
                 ubsk: {
                     onInit: [

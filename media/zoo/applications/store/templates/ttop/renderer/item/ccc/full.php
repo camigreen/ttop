@@ -320,8 +320,8 @@ $this->form->setValue('template', $this->template);
         $('#OrderForm-ccc').OrderForm({
             name: 'CenterConsoleCurtain',
             validate: true,
-            confirm: false,
-            debug: true,
+            confirm: true,
+            debug: false,
             events: {
                 ccc: {
                     onInit: [
