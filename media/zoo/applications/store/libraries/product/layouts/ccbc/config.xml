@@ -28,7 +28,6 @@
 				<field name="motor_size" type="order.list" option="variable" columns="1" span="1" default="0" label="Motor Size" description="" required="1" />
 			</fieldset>
 			<fieldset group="aft_options" label="Aft Options" controlname="options" columns="1" span="1">
-				<field name="trolling_motor" type="order.list" columns="2" span="1" default="0" label="Trolling Motor" modal="ccbc.trolling_motor" description="" required="1"/>
 				<field name="ski_tow_bar" type="order.list" option="pattern" columns="2" span="1" default="0" label="Ski/Tow Bar" description="" modal="ccbc.stb" required="1"/>
 				<field name="jack_plate" type="order.list" option="pattern" columns="2" span="1" default="0" label="Jack Plate" description="" modal="ccbc.jp" required="1"/>
 				<field name="swim_ladder" type="order.list" option="pattern" columns="2" span="1" default="0" label="Swim Ladder" description="" modal="ccbc.swim" required="1" />
@@ -36,6 +35,7 @@
 				<field name="poling_platform" type="product.poling.platform" option="pattern" columns="2" span="1" default="0" label="Poling Platform" description="" modal="ccbc.poling_platform" required="1" />
 			</fieldset>
 			<fieldset group="bow_options" label="Bow Options" controlname="options" columns="1" span="1">
+				<field name="trolling_motor" type="order.list" columns="2" span="1" default="0" label="Trolling Motor" modal="ccbc.trolling_motor" description="" required="1"/>
 				<field name="bow_rails" type="order.list" option="pattern" columns="2" span="1" default="0" label="Bow Rails" description="" modal="bowrails" required="1" />
 				<field name="casting_platform" type="order.list" option="variable" columns="2" span="1" default="0" label="Casting Platform" description="" modal="ccbc.cast_platform" required="1"/>
 				<field name="add_info" type="order.textarea" option="pattern" columns="1" span="1" label="Additional Information" description="" />
