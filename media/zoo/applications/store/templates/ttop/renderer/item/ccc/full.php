@@ -201,37 +201,6 @@ $this->form->setValue('template', $this->template);
         </div>
     </div>
     <div class="modals">
-        <div id="confirm-modal" class="uk-modal">
-            <div class="uk-modal-dialog">
-                <div class="uk-grid" data-uk-grid-margin="">
-                    <div class="uk-width-1-1">
-                        <div class="uk-article-title uk-text-center">Confirmation</div>
-                        <div class="uk-text-center uk-margin">By typing "yes" in the box below, I certify that the options that I have chosen are correct. I understand that the Center Console Curtain is a custom made product and that if I have chosen an option incorrectly it may lead to the Curtain not fitting my boat correctly.</div>
-                    </div>
-                    <div class="uk-width-1-1"> 
-                        <div class="item"></div>
-                    </div>
-                    <div class="uk-width-1-1">
-                        <span>Type "yes" in the box below to confirm that your options have been chosen correctly.</span><br />
-                        <span class="confirm-error uk-text-danger uk-text-small"></span><br />
-                        <input type="text" name="accept" />
-                    </div>
-                    <div class="uk-width-1-1">
-                        <div class="uk-grid">
-                            <div class="uk-width-1-2">
-                                <button class="uk-width-1-1 uk-button uk-button-danger confirm">Confirm</button>
-                            </div>
-                            <div class="uk-width-1-2">
-                                <button class="uk-width-1-1 uk-button uk-button-danger cancel">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="uk-width-1-1">
-                        <input type="hidden" name="cart_id" value="" />
-                    </div>
-                </div>
-            </div>
-        </div>
         <?php if ($this->checkPosition('modals')) : ?>        
             <?php echo $this->renderPosition('modals'); ?>
         <?php endif; ?>

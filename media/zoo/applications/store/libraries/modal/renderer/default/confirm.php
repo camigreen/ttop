@@ -70,7 +70,6 @@ jQuery(function($){
 
         $('#default-confirm-modal').on('save', function(e, data){
             var item = data.args.item;
-            console.log(item);
             if(validate()) {
                 console.log('Saving Confirm Modal');
                 item.params.confirmed = true;
@@ -86,7 +85,6 @@ jQuery(function($){
 
         $('#default-confirm-modal').on('cancel', function(e, data){
             var item = data.args.item;
-            console.log(item);
             item.params.confirmed = false;
             data.result = true;
         });
