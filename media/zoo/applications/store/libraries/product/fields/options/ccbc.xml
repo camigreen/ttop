@@ -11,7 +11,6 @@
 	<field name="boat_length" label="Boat Length" type="base" visible="0" />
 	<field name="fabric" label="Fabric" type="base" visible="true" default="9Ply">
 		<option value="9Ply">Material 9oz. 5yr. Warranty</option>
-		<option value="9Acr">Material 9.25oz. Acrylic 5yr. Warranty</option>
 	</field>
 	<field name="zipper" label="Zipper Side" type="variable" visible="true">
 		<option value='ZP'>Port Side</option>
