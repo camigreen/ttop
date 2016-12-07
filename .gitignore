@@ -617,8 +617,9 @@ error_log*
 /administrator/language/en-GB/en-GB.plg_system_jce.sys.ini
 /language/en-GB/en-GB.com_jce.xml
 /plugins/editors/jce/*
-/plugins/quickicon/jcefilebrowser/*
+/plugins/quickicon/jce/*
 /plugins/system/jce/*
+/plugins/extension/jce/*
 /media/jce/*
 /plugins/content/jce/*
 
