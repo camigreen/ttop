@@ -186,7 +186,7 @@
         trigger: function (event, args) {
             
             var self = this, types = [];
-
+            console.log(this.$element);
             
             if(typeof args === 'undefined') {
                 args = {};
@@ -387,7 +387,10 @@
         },
         _refresh: function (e) {
             var self = this;
-            console.log(this.item);
+            if($(e.target).closest('[id*="OrderForm"').data('id') != this.item.id) {
+                return;
+            }
+            console.log($(e.target));
             triggerData = this.trigger('beforeChange', {event: e, item: this.item});
             console.log(triggerData);
             if(!triggerData.triggerResult) {

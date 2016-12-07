@@ -13,7 +13,7 @@ $product = $this->app->product->create($item);
 ?>
 <div class="uk-modal-dialog uk-modal-dialog-large ttop-related-modal ">
     <a class="uk-modal-close uk-close uk-close-alt"></a>
-        <div id="OrderForm-<?php echo $item->id ?>" class="storeItem" data-id="<?php echo $item->id ?>">
+        <div id="OrderForm-<?php echo $item->id ?>" data-id="<?php echo $item->id ?>">
             <div class="ttop-related-modal-header">
                     <?php if ($this->checkPosition('title')) : ?>
                         <h2><?php echo $this->renderPosition('title'); ?></h2>

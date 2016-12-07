@@ -110,9 +110,9 @@ foreach($items as $_item) {
 			</div>
 		</div>
 	</div>
-	<div class='modals'></div>
+	
 </div>
-
+<div class='modals'></div>
 <script>
 	if(typeof items === 'undefined') { var items = {} };
 	items.ccbc = <?php echo $this->product->toJson(true); ?>;
@@ -120,7 +120,7 @@ foreach($items as $_item) {
         $(document).ready(function(){
 			lpiModal.init('.modals');
 
-            $('#OrderForm-<?php echo $this->product->id; ?>').OrderForm({
+            $('#OrderForm-<?php echo $this->product->id; ?>').not('.subitem').OrderForm({
                 name: 'Center Console Boat Cover',
                 validate: true,
                 debug: false,

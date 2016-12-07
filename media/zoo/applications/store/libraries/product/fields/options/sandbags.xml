@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fields>
-	<field name="color" label="Color" type="variable" default="N" visible="true">
+	<field name="color-sandbag" label="Color" type="variable" default="N" visible="true">
 		<option value="N">Navy</option>
 		<option value="B">Black</option>
 		<option value="T">Tan</option>
