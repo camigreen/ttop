@@ -771,7 +771,7 @@
 				</model>
 			</models>
 		</boat>
-		<boat published="false">				
+		<boat>				
 			<name>sea-pro</name>
 			<label>Sea Pro</label>
 			<skucode>SEAPRO</skucode>
@@ -794,7 +794,7 @@
 				</model>
 			</models>
 		</boat>
-		<boat published="false">				
+		<boat>				
 			<name>skeeter</name>
 			<label>Skeeter</label>
 			<skucode>SKTR</skucode>

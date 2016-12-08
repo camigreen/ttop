@@ -16,7 +16,7 @@ $models = $this->manufacturer->get('models');
 		<div class="uk-article-title uk-text-center"><?php echo $this->manufacturer->get('label'); ?></div>
 	</div>
 	<div class="uk-width-1-1">
-		<div class="uk-width-2-6 uk-container-center">
+		<div class="uk-width-3-6 uk-container-center">
 			<img src="<?php echo $params->get('images.full'); ?>" />
 		</div>
 	</div>
