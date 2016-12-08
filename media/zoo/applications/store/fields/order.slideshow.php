@@ -10,8 +10,8 @@ $images = $this->app->filesystem->readDirectoryFiles($imagepath,'', false, false
 $count = count($images);
 $i = 0;
 if($count == 0) {
-    $imageurl = '/images/boats/PNA';
-    $images[] = 'OfficialPNA.png';
+    $imageurl = '/images/boats/PNA/ccbc';
+    $images[] = 'PNA-CCBC.png';
 }
 ?>
 
