@@ -39,7 +39,10 @@ class ResellerPrice extends Price {
 		
 		// Set User Account Discount
 		//if(!$this->getDiscountRate()) {
-			$this->setDiscountRate($user->getDiscountRate()/100);
+			if(!$this->getDiscountRate()) {
+				$this->setDiscountRate($user->getDiscountRate()/100);
+			}
+			
 		//}
 		
 

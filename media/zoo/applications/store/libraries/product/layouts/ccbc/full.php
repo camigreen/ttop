@@ -10,7 +10,7 @@ $this->app->document->addScript('library.cart:assets/js/cart.js');
 $this->app->document->addScript('library.product:assets/js/orderform.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
-// var_dump($this->product);
+// $this->product->price->debug(true);
 $make = $this->product->getParam('boat.manufacturer');
 $model = $this->product->getParam('boat.model');
 

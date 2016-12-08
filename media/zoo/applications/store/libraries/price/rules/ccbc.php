@@ -1,5 +1,7 @@
 <?php
 
+$rules['ccbc.discount.reseller'] = 0.10;
+
 $rules['17.9Ply.base'] = 440.83;
 $rules['17.9Acr.base'] = 600.00;
 $rules['17.shipping.weight'] = 22;
