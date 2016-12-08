@@ -22,6 +22,10 @@ class OrderNotification extends Notification {
 			$formType = 'default';
 		}
 
+		if($this->app->store->merchantTestMode()) {
+			$recipients = array('shawn@ttopcovers.com');
+		}
+
 		// Set the Subject
 		$subject = 'Thank you for your order'.($this->isTestMode() ? ' - Test Order# '. $order->id : '');
 		

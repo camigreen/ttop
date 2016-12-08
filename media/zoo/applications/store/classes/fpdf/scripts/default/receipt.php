@@ -15,7 +15,7 @@ class ReceiptFormPDF extends FormPDF {
 
 	public function setData($order) {
 		$form_data = $this->app->data->create();
-
+		var_dump($order->elements);
 		$billto = array(
             $order->elements->get('billing.name'),
             $order->elements->get('billing.street1'),
@@ -40,6 +40,7 @@ class ReceiptFormPDF extends FormPDF {
     	$item_array = array();
 	    foreach($order->elements->get('items.', array()) as $item) {
 	    	$options = array();
+	    	var_dump($item);
 	    	foreach($item->getOptions() as $option) {
 	    		if($option->get('visible', 'true') == 'true') {
 	    			$options[] = $option->get('label').': '.$option->get('text');

@@ -126,17 +126,17 @@ class Notification {
 		$method = $this->_method;
 		$this->$method();
 		try {	
-			$this->_mail->send();
+			$result = $this->_mail->send();
 		} catch (phpmailerException $e) {
-			echo $e->errorMessage(); //Pretty error messages from PHPMailer
+			$result = $e->errorMessage(); //Pretty error messages from PHPMailer
 		} catch (Exception $e) {
-			echo $e->getMessage(); //Boring error messages from anything else!
+			$result = $e->getMessage(); //Boring error messages from anything else!
 		}
 		if(is_array($this->_attachment)) {
 			unlink($this->_attachment['path']);
 		}
 		
-		return true;
+		return $result;
 	}
 
 }

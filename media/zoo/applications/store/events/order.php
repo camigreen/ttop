@@ -27,17 +27,16 @@ class OrderEvent {
         $order->table = $app->table->orderdev;
         $order->params = $app->parameter->create($order->params);
         $order->elements = $app->parameter->create($order->elements);
+
         if(!$order->isProcessed()) {
-        	$order->elements->remove('items.');
-        	$order->elements->set('items.', $app->cart->getAll());
+        	$order->addItems($app->cart->getAll());
         } else {
         	$items = $order->elements->get('items.', array());
-        	foreach($items as $key => $item) {
+	    	foreach($items as $key => $item) {
 		    	$item = $app->product->create($item);
 		      	$order->elements->set('items.'.$key, $item);
 		    }
         }
-        
 
 	}
 

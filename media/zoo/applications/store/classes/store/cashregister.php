@@ -50,7 +50,12 @@ class CashRegister {
         $app->loader->register('PageStore','classes:store/page.php');
         $this->app = $app;
         $this->merchant = $this->app->merchant->anet;
-        $this->order = $this->app->orderdev->create();
+        if($orderID = $this->app->session->get('orderID', null, 'checkout')) {
+            $this->order = $this->app->orderdev->get($orderID);
+        } else {
+            $this->order = $this->app->orderdev->create();
+        }
+        
         $this->application = $this->app->zoo->getApplication();
 
         $this->account = $this->app->storeuser->get()->getAccount();
@@ -79,7 +84,7 @@ class CashRegister {
     }
 
     public function clearOrder() {
-        $this->app->session->clear('order','checkout');
+        $this->app->session->clear('orderID','checkout');
         $this->app->session->clear('cart','checkout');
     }
 
@@ -196,20 +201,19 @@ class CashRegister {
             $order->params->set('payment.status', 3);
             $order->params->set('payment.type', 'CC');
             $order->elements->set('items.', $items);
-            $order->setStatus(2);
+            $order->setStatus(1);
             if($this->app->store->merchantTestMode()) {
-                $order->params->set('payment.transaction_id','Test Mode');
-                $order->save(true);
+                $order->params->set('payment.transaction_id','Test Mode');  
             } else {
                 $order->params->set('payment.transaction_id',$response->transaction_id); ;
-                $order->save(true);
             }
-
+            $order->save(true);
             $this->clearOrder();
 
         } else {
             // trigger payment failure event
             $this->app->event->dispatcher->notify($this->app->event->create($this->order, 'order:paymentFailed', array('response' => $response)));
+            $order->params->set('payment.status', 1);
             $order->params->set('payment.approved', $response->approved);
             $order->params->set('payment.response_text', $response->response_reason_text);
         }

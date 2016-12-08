@@ -313,6 +313,7 @@ class CheckoutController extends AppController {
         $order = $this->CR->order;
         $next = $this->app->request->get('next','word', 'customer');
         $post = $this->app->request->get('post:', 'array', array());
+        //var_dump($order);
         //return;
         
         if(isset($post['elements'])) {
@@ -324,6 +325,7 @@ class CheckoutController extends AppController {
                 }
             }
         }
+
         if(isset($post['creditcard'])) {
             $order->params->set('payment.creditcard.', $post['creditcard']);
         }
@@ -339,7 +341,7 @@ class CheckoutController extends AppController {
             }
         }
         $order->save();
-        $this->app->session->set('order',(string) $order,'checkout');
+        $this->app->session->set('orderID',$order->id,'checkout');
 
         $this->setRedirect($this->baseurl.'&task='.$next);
 
@@ -348,31 +350,34 @@ class CheckoutController extends AppController {
     public function orderNotification() {
         $oid = $this->app->request->get('oid', 'int');
         $order = $this->app->orderdev->get($oid);
+        var_dump($order);
         $types = array('payment','receipt', 'printer');
-        
+        $this->app->document->setMimeEncoding('application/json');
+        $result = array();
         if(!$order->notify()) {
-            //var_dump('No Notifications');
+            $result['status'] = 'Already Sent.';
+            echo json_encode($result);
             return;
         }
-        //var_dump('Sending Notifications');
-        $result = true;
 
         // Send the Notifications.
         foreach($types as $type) {
             try {
-                $this->app->notify->create('order:'.$type, $order)->send();
+                $result['status'] = $this->app->notify->create('order:'.$type, $order)->send();
+                $order->params->set('notifications', false);
+                $order->save();
             } catch (Exception $e) {
-                echo 'From Order:'.$type.' - '.$e->errorMessage(); //Pretty error messages from PHPMailer
-                $result = false;
+                echo  //Pretty error messages from PHPMailer
+                $result['status'] = 'error';
+                $result['error'] = 'From Order:'.$type.' - '.$e->errorMessage();
             } catch (Exception $e) {
                 echo $e->getMessage(); //Boring error messages from anything else!
-                $result = false;
+                $result['status'] = 'error';
+                $result['error'] = $e->getMessage();
             }
         }
-
-        $order->params->set('notifications', $result);
-        $order->save(true);
         
+        echo json_encode($result);
 
     }
 

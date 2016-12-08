@@ -142,7 +142,7 @@ class StoreController extends AppController {
             return $this->app->error->raiseError(500, JText::_('No template selected'));
         }
         $filters = array(
-            'active' => 'status IN (0,1,2,3)',
+            'active' => 'status IN (1,2,3)',
             'closed' => 'status = 4'
         );
         $conditions = null;
@@ -153,6 +153,7 @@ class StoreController extends AppController {
         if ($filter && isset($filters[$filter])) {
             $conditions = is_null($conditions) ? $filters[$filter] : "$conditions AND {$filters[$filter]}";
         }
+
         //$conditions = is_null($conditions) ? "orderDate BETWEEN '2015-06-01' AND '2015-06-30'" : "$conditions AND orderDate BETWEEN '2015-06-01' AND '2015-06-30'";
         $this->orders = $this->app->table->orderdev->all(array('conditions' => $conditions, 'order' => 'id DESC'));
         $this->record_count = count($this->orders);
