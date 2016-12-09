@@ -350,8 +350,8 @@ class CheckoutController extends AppController {
     public function orderNotification() {
         $oid = $this->app->request->get('oid', 'int');
         $order = $this->app->orderdev->get($oid);
-        var_dump($order);
-        $types = array('payment','receipt', 'printer');
+        //$types = array('payment','receipt', 'printer');
+        $types = array('payment');
         $this->app->document->setMimeEncoding('application/json');
         $result = array();
         if(!$order->notify()) {
@@ -359,25 +359,15 @@ class CheckoutController extends AppController {
             echo json_encode($result);
             return;
         }
-
         // Send the Notifications.
         foreach($types as $type) {
-            try {
-                $result['status'] = $this->app->notify->create('order:'.$type, $order)->send();
-                $order->params->set('notifications', false);
-                $order->save();
-            } catch (Exception $e) {
-                echo  //Pretty error messages from PHPMailer
-                $result['status'] = 'error';
-                $result['error'] = 'From Order:'.$type.' - '.$e->errorMessage();
-            } catch (Exception $e) {
-                echo $e->getMessage(); //Boring error messages from anything else!
-                $result['status'] = 'error';
-                $result['error'] = $e->getMessage();
-            }
+            $notify = $this->app->notify->create($type, $order);
+            $notify->assemble()->send();
+            $result['status'] = true;
+            
         }
-        
-        echo json_encode($result);
+        $order->params->set('notifications', false);
+        $order->save();
 
     }
 

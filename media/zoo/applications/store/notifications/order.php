@@ -23,7 +23,7 @@ class OrderNotification extends Notification {
 		}
 
 		if($this->app->store->merchantTestMode()) {
-			$recipients = array('shawn@ttopcovers.com');
+			$recipients = array('shawn@ttopcovers');
 		}
 
 		// Set the Subject
@@ -41,18 +41,9 @@ class OrderNotification extends Notification {
         $this->_attachment['name'] = 'Order-'.$order->id.'.pdf';
 
         // Set Body
-        
-
-		// Send variables to JMail object
-		try {
-			$this->_mail->setSubject($subject);
-			$this->_mail->addAttachment($this->_attachment['path'],$this->_attachment['name']);
-			$this->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.receipt.php');
-		} catch (phpmailerException $e) {
-		  echo $e->errorMessage(); //Pretty error messages from PHPMailer
-		} catch (Exception $e) {
-		  echo $e->getMessage(); //Boring error messages from anything else!
-		}
+        $this->_mail->setSubject($subject);
+		$this->_mail->addAttachment($this->_attachment['path'],$this->_attachment['name']);
+		$this->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.receipt.php');
 
 	}
 
@@ -106,15 +97,8 @@ class OrderNotification extends Notification {
 		$subject = 'Send Order to Printer';
 		
 		// Set Recipients
-		if($this->isTestMode()) {
-			$recipients = array('shawn@ttopcovers.com');
-		} else {
-			$recipients = explode("\n", $this->app->store->get()->params->get('notify_printer'));
-		}
-		foreach($recipients as $recipient) {
-			$this->_mail->addRecipient($recipient);
-
-		}
+		$recipients = explode("\n", $this->app->store->get()->params->get('notify_printer'));
+		
 		// Set Attachment
 		$pdf = $this->app->pdf->create('workorder', $formType);
         $filename = $pdf->setData($order)->generate()->toFile();
