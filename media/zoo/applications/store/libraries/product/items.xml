@@ -500,7 +500,7 @@
 		<boat>				
 			<name>pioneer</name>
 			<label>Pioneer</label>
-			<skucode>PINR</skucode>
+			<skucode>PION</skucode>
 			<models>
 				<model>
 					<name>180-islander</name>
