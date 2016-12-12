@@ -30,6 +30,10 @@ class OrderEvent {
 
         if(!$order->isProcessed()) {
         	$order->addItems($app->cart->getAll());
+        	foreach($order->getItems() as $item) {
+        		$item = $app->product->create($item);
+        		$order->elements->set('items.'.$item->id, $item);
+        	}
         } else {
         	$items = $order->elements->get('items.', array());
 	    	foreach($items as $key => $item) {
@@ -37,6 +41,7 @@ class OrderEvent {
 		      	$order->elements->set('items.'.$key, $item);
 		    }
         }
+        $order->getTotal();
 
 	}
 

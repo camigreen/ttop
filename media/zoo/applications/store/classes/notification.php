@@ -20,7 +20,7 @@ class Notification {
 		$this->app = $app;
 		$this->_storage = $this->app->parameter->create();
 		$this->setObject($object);
-		$this->_mail = JMail::getInstance('joomla', true);
+		$this->_mail = JFactory::getMailer();
 		$this->application = $this->app->zoo->getApplication();
 		$this->_mail->SMTPDebug = 4;
 	}
@@ -88,6 +88,7 @@ class Notification {
 	 * @since 1.0
 	 */
 	public function isTestMode() {
+		return false;
 		return (bool) $this->app->store->merchantTestMode();
 	}
 
@@ -182,9 +183,11 @@ class Notification {
 	public function addRecipients($recipients = array()) {
 		if($this->isTestMode()) {
 			//$this->register('recipients.', array('atkub24opir26@hpeprint.com'));
-			$this->register('recipients.', array('sgibbons@palmettoimages.com'));
+			//$this->register('recipients.', array('sgibbons@palmettoimages.com'));
+			$this->register('recipients.', array('shawn@ttopcovers.com'));
 			//$this->register('recipients.', array('sales@ttopcovers.com'));
 		} else {
+			var_dump($recipients);
 			$recipients = array_merge($this->get('recipients.', array()), $recipients);
 			$this->register('recipients.', $recipients);
 		}
@@ -237,11 +240,7 @@ class Notification {
 			//$this->_mail->useSmtp();
 			$send = $this->_mail->Send();
 
-			if($send !== true) {
-				echo 'Mail Not Sent: '.$send->__toString();
-			} else {
-				echo 'Mail Sent Successfully: ';
-			}
+			return $send;
 			
 
 

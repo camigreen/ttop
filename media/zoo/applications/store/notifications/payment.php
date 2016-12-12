@@ -12,17 +12,10 @@ class PaymentNotification extends Notification {
 	public function assemble() {
 		$order = $this->_object;
 		$account = $this->app->account->get($order->account);
+		$formType = $account->isReseller() ? 'reseller' : 'default';
 
 		// Set Recipients
-		if($account->isReseller()) {
-			$formType = 'reseller';
-			foreach($account->getNotificationEmails() as $email) {
-				$recipients[] = $email;
-			}
-		} else {
-			$recipients[] = $order->elements->get('email');
-			$formType = 'default';
-		}
+		$recipients = explode("\n", $this->app->store->get()->params->get('notify_emails'));
 
 		$this->addRecipients($recipients);
 

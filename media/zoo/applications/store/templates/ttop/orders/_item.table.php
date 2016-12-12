@@ -13,8 +13,8 @@
     <?php foreach ($items as $hash => $item) : ?>
             <tr id="<?php echo $hash; ?>">
                 <td>
-                    <div class="ttop-checkout-item-name"><?php echo $item->name ?></div>
-                    <div class="ttop-checkout-item-description"><?php echo $item->description ?></div>
+                    <div class="table-item-name"><?php echo $item->name ?></div>
+                    <div class="table-item-description"><?php echo $item->description ?></div>
                     <?php if(count($item->getOptions()) > 0) : ?>
                     <span class="options-closed uk-text-small" data-uk-toggle="{target:'#<?php echo $hash; ?> .options-container,#<?php echo $hash; ?> .options-closed,#<?php echo $hash; ?> .options-open'}"><i class="uk-icon uk-icon-plus-square-o"></i> View Options</span>
                     <span class="options-open uk-text-small uk-hidden" data-uk-toggle="{target:'#<?php echo $hash; ?> .options-container,#<?php echo $hash; ?> .options-closed,#<?php echo $hash; ?> .options-open'}"><i class="uk-icon uk-icon-minus-square-o"></i> Hide Options</span>

@@ -96,7 +96,6 @@ class OrderDev {
 		foreach($items as $item) {
 			$this->elements->set('items.'.$item->id, $item);
 		}
-		$this->getTotal();
 		return $this;
 	}
 
@@ -161,7 +160,8 @@ class OrderDev {
 	 * @since 1.0
 	 */
 	public function notify() {
-		return !$this->params->get('notifications', false);
+		//return !$this->params->get('notifications.'.$type, false);
+		return true;
 	}
 
 	public function getOrderDate($format = 'DATE_STORE_RECEIPT') {

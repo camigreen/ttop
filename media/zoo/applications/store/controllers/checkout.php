@@ -62,8 +62,8 @@ class CheckoutController extends AppController {
                     Void
     */
     public function display($cachable = false, $urlparams = false) {
-
-        if($this->cart->isEmpty()) {
+        $orderID = $this->app->session->get('orderID', null, 'checkout');
+        if($this->cart->isEmpty() && !$orderID) {
             $this->setRedirect('/');
         }
         if($this->task != 'receipt') {
@@ -350,8 +350,7 @@ class CheckoutController extends AppController {
     public function orderNotification() {
         $oid = $this->app->request->get('oid', 'int');
         $order = $this->app->orderdev->get($oid);
-        //$types = array('payment','receipt', 'printer');
-        $types = array('payment');
+        $types = array('receipt', 'printer', 'payment');
         $this->app->document->setMimeEncoding('application/json');
         $result = array();
         if(!$order->notify()) {
@@ -361,13 +360,25 @@ class CheckoutController extends AppController {
         }
         // Send the Notifications.
         foreach($types as $type) {
+            $order->params->remove('notifications.'.$type.'.');
             $notify = $this->app->notify->create($type, $order);
-            $notify->assemble()->send();
-            $result['status'] = true;
+            $notify->assemble();
+            $result = $notify->send();
+            if($result !== true) {
+                $mail['status.'.$type] = 'Failed: '.$result->__toString();
+                $order->params->set('notifications.'.$type.'.error', $result->__toString());
+                $order->params->set('notifications.'.$type.'.status', 'failed');
+            } else {
+                $mail['status.'.$type] = 'success';
+                $order->params->set('notifications.'.$type.'.status', 'success');
+            }
+            
+            
             
         }
-        $order->params->set('notifications', false);
         $order->save();
+        //var_dump($mail);
+        echo json_encode($mail);
 
     }
 

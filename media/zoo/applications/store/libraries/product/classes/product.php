@@ -133,7 +133,6 @@ class Product {
     }
 
     public function bind($product = array()) {
-        //var_dump($product);
         // Bind all variable except options and params
         $exclude = array('options', 'params', 'price');
         foreach($product as $key => $value) {
