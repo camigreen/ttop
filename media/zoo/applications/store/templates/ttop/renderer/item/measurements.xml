@@ -7,6 +7,9 @@
 		<make value="angler" name="Angler">
 			<model value="84,60,48,A">2600</model>
 		</make>
+		<make value="blackjack" name="Blackjack">
+			<model value="77,70,60">256</model>
+		</make>
 		<make value="bluewater" name="Bluewater">
 			<model value="80,70,28,A">21</model>
 		</make>
@@ -215,6 +218,9 @@
 	<ccc>
 		<make value="albury_brothers" name="Albury Brothers">
 			<model value="82,94,48,A">23</model>
+		</make>
+		<make value="blackjack" name="Blackjack">
+			<model value="81,81,43">256</model>
 		</make>
 		<make value="bluewater" name="Bluewater">
 			<model value="84,76,41,A">21</model>

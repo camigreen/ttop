@@ -916,17 +916,17 @@
 					</options>
 				</model>
 				<model>
-					<name>1900-bay</name>
-					<label>1900 Bay</label>
-					<skucode>1900BAY</skucode>
+					<name>1900-bay-max</name>
+					<label>1900 Bay Max</label>
+					<skucode>1900BAYMAX</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
 					</options>
 				</model>
 				<model>
-					<name>2200-bay</name>
-					<label>2200 Bay</label>
-					<skucode>2200BAY</skucode>
+					<name>2200-carolina-bay</name>
+					<label>2200 Carolina Bay</label>
+					<skucode>2200CAROBAY</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="22" visible="false" />
 					</options>

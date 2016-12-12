@@ -8,6 +8,7 @@ $imagepath = $this->app->path->path('images.boats:'.str_replace('-', '_', $make-
 $imageurl = $this->app->path->url('images.boats:'.str_replace('-', '_', $make->name).'/'.$product->type.'/'.str_replace('-','_',$model->get('name')));
 $images = $this->app->filesystem->readDirectoryFiles($imagepath,'', false, false);
 $count = count($images);
+$count = $count > 6 ? 6 : $count;
 $i = 0;
 if($count == 0) {
     $imageurl = '/images/boats/PNA/ccbc';
@@ -21,7 +22,6 @@ if($count == 0) {
     <div class="uk-slidenav-position" data-uk-slideshow="{height: 375}">
         <ul class="uk-slideshow">
             <?php foreach($images as $image) : ?>
-            <?php echo $image; ?>
                 <li><a href="<?php echo $imageurl.'/'.$image; ?>" data-uk-lightbox="{group: 'slideshow'}" title="<?php echo $make->label.' '.$model->get('label'); ?>"><img src="<?php echo $imageurl.'/'.$image; ?>" height="375px" /></a></li>
             <?php endforeach; ?>
         </ul>
