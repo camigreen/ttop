@@ -347,6 +347,14 @@
 					</options>
 				</model>
 				<model>
+					<name>177-skiff</name>
+					<label>177 Skiff</label>
+					<skucode>177SKF</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
+					</options>
+				</model>
+				<model>
 					<name>189</name>
 					<label>189</label>
 					<skucode>189</skucode>
@@ -492,7 +500,7 @@
 		<boat>				
 			<name>pioneer</name>
 			<label>Pioneer</label>
-			<skucode>PIONR</skucode>
+			<skucode>PINR</skucode>
 			<models>
 				<model>
 					<name>180-islander</name>
