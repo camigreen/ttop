@@ -304,7 +304,12 @@ class Price {
 	 * @since 1.0
 	 */
 	public function getDiscountRate($default = 0) {
-		return (float) $this->getParam('discount', $default);
+		$discount = (float) $this->getParam('discount', $default);
+		if($discount == 0) {
+			$discount = 1;
+		}
+		
+		return $discount;
 		
 	}
 
