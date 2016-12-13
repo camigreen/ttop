@@ -145,7 +145,9 @@ $product = $this->app->product->create($item);
             <div id="ubsk-total-price"class="uk-width-1-1">
                 <i class="currency"></i>
                 <span class="price">0.00</span>
-                <a id="price_options_total_ubsk" href="#" class="uk-icon-button uk-icon-info-circle uk-text-top markup-modal" style="margin-left:10px;" data-uk-tooltip=""></a>
+                <?php if($this->app->storeuser->get()->isReseller()) : ?>
+                    <a id="price_options_total_ubsk" href="#" class="uk-icon-button uk-icon-info-circle uk-text-top markup-modal" style="margin-left:10px;" data-uk-tooltip=""></a>
+                <?php endif; ?>
             </div>
             <div class="uk-width-1-1">
                 <p class="uk-text-danger" style="font-size:18px">Fill out the measurements below for your custom price.</p>
