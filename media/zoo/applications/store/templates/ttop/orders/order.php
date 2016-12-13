@@ -9,8 +9,6 @@
 	}
 $tzoffset = $this->app->date->getOffset();
 $now = $this->app->date->create($order->created, $tzoffset);
-$this->app->session->set('orderID', $order->id, 'checkout');
-var_dump($this->app->session->get('orderID', null, 'checkout'));
 ?>
 <div class="ttop-order">
 	<div class="uk-width-1-1 uk-margin-bottom">

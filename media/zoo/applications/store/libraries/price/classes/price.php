@@ -126,9 +126,9 @@ class Price {
 		$this->register('weight', $data->get('weight'));
 		$this->setPrice('base', $data->get('base', 0.00));
 		if($this->app->storeuser->get()->isReseller()) {
-			$this->setDiscountRate($data->get('discount.reseller',0));
+			$this->setDiscountRate($data->get('discount.reseller'));
 		} else {
-			$this->setDiscountRate($data->get('discount.retail',0));
+			$this->setDiscountRate($data->get('discount.retail'));
 		}
 		$this->setMarkupRate('msrp', $data->get('markup.msrp', 0.00));
 		return $this;
@@ -318,6 +318,9 @@ class Price {
 	 * @since 1.0
 	 */
 	public function setDiscountRate($value = 0) {
+		if(is_null($value)) {
+			return $this;
+		}
 		$value = $value >= 1 ? $value/100 : $value;
 		$this->register('discount', (float) 1 - $value);
 		return $this;
