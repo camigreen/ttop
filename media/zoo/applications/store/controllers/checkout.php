@@ -62,8 +62,8 @@ class CheckoutController extends AppController {
                     Void
     */
     public function display($cachable = false, $urlparams = false) {
-
-        if($this->cart->isEmpty()) {
+        $orderID = $this->app->session->get('orderID', null, 'checkout');
+        if($this->cart->isEmpty() && !$orderID) {
             $this->setRedirect('/');
         }
         if($this->task != 'receipt') {
@@ -313,6 +313,7 @@ class CheckoutController extends AppController {
         $order = $this->CR->order;
         $next = $this->app->request->get('next','word', 'customer');
         $post = $this->app->request->get('post:', 'array', array());
+        //var_dump($order);
         //return;
         
         if(isset($post['elements'])) {
@@ -324,6 +325,7 @@ class CheckoutController extends AppController {
                 }
             }
         }
+
         if(isset($post['creditcard'])) {
             $order->params->set('payment.creditcard.', $post['creditcard']);
         }
@@ -339,7 +341,7 @@ class CheckoutController extends AppController {
             }
         }
         $order->save();
-        $this->app->session->set('order',(string) $order,'checkout');
+        $this->app->session->set('orderID',$order->id,'checkout');
 
         $this->setRedirect($this->baseurl.'&task='.$next);
 
@@ -348,31 +350,35 @@ class CheckoutController extends AppController {
     public function orderNotification() {
         $oid = $this->app->request->get('oid', 'int');
         $order = $this->app->orderdev->get($oid);
-        $types = array('payment','receipt', 'printer');
-        
+        $types = array('receipt', 'printer', 'payment');
+        $this->app->document->setMimeEncoding('application/json');
+        $result = array();
         if(!$order->notify()) {
-            //var_dump('No Notifications');
+            $result['status'] = 'Already Sent.';
+            echo json_encode($result);
             return;
         }
-        //var_dump('Sending Notifications');
-        $result = true;
-
         // Send the Notifications.
         foreach($types as $type) {
-            try {
-                $this->app->notify->create('order:'.$type, $order)->send();
-            } catch (Exception $e) {
-                echo 'From Order:'.$type.' - '.$e->errorMessage(); //Pretty error messages from PHPMailer
-                $result = false;
-            } catch (Exception $e) {
-                echo $e->getMessage(); //Boring error messages from anything else!
-                $result = false;
+            $order->params->remove('notifications.'.$type.'.');
+            $notify = $this->app->notify->create($type, $order);
+            $notify->assemble();
+            $result = $notify->send();
+            if($result !== true) {
+                $mail['status.'.$type] = 'Failed: '.$result->__toString();
+                $order->params->set('notifications.'.$type.'.error', $result->__toString());
+                $order->params->set('notifications.'.$type.'.status', 'failed');
+            } else {
+                $mail['status.'.$type] = 'success';
+                $order->params->set('notifications.'.$type.'.status', 'success');
             }
+            
+            
+            
         }
-
-        $order->params->set('notifications', $result);
-        $order->save(true);
-        
+        $order->save();
+        //var_dump($mail);
+        echo json_encode($mail);
 
     }
 

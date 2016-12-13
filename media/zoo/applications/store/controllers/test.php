@@ -289,6 +289,47 @@ class TestController extends AppController {
 		var_dump($shipper->getRates());
 	}
 
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function testMail() {
+
+		$mail = JFactory::getMailer();
+
+
+		$recipients = array('shawn@ttopcovers.com');
+
+		// Set the Subject
+		$subject = 'Test Email';
+		
+		// Set Recipients
+		foreach($recipients as $recipient) {
+			$mail->addRecipient($recipient);
+		}
+
+        // Set Body
+        $mail->setSubject($subject);
+		$mail->setBody('Test Email');
+		$mail->SMTPDebug = 2;
+
+
+		// Send variables to JMail object
+		try {
+			
+			$mail->Send();
+		} catch (phpmailerException $e) {
+		  echo $e->errorMessage(); //Pretty error messages from PHPMailer
+		} catch (Exception $e) {
+		  echo $e->getMessage(); //Boring error messages from anything else!
+		}
+	}
+
 
 }
 ?>

@@ -21,7 +21,7 @@ class OrderDev {
 	public $params;
 	public $elements;
 	public $access = 12;
-	public $status = 1;
+	public $status = 0;
 	public $subtotal = 0;
 	public $tax_total = 0;
 	public $ship_total = 0;
@@ -32,11 +32,8 @@ class OrderDev {
 
 	protected $_user;
 	protected $_account;
-	
-	public function __construct() {
-	}
 
-	public function save($writeToDB = false) {
+	public function save($lock = false) {
 
 		$tzoffset = $this->app->date->getOffset();
 		$now        = $this->app->date->create();
@@ -47,26 +44,32 @@ class OrderDev {
 			$this->created = $now->toSQL();
 		}
 
+		if(!$this->created_by) {
+			$this->created_by = $this->app->storeuser->get()->id;
+		}
+
         // Set Modified Date
         $this->modified = $now->toSQL();
         $this->modified_by = $cUser->id; 
 
         $this->params->set('terms', $this->app->storeuser->get()->getAccount()->params->get('terms', 'DUR'));
-        if($this->app->storeuser->get()->isReseller()) {
-        	$this->getTotal('reseller');
-        } else {
-        	$this->getTotal('retail');
-        }
 
-        foreach($this->elements->get('items.', array()) as $hash => $item) {
-        	$this->elements->set('items.'.$hash, $item->lock());
+        $this->getTotal();
+
+
+        if($lock) {
+        	foreach($this->elements->get('items.', array()) as $hash => $item) {
+	        	$this->elements->set('items.'.$hash, $item->lock());
+	        }
+        } else {
+        	foreach($this->elements->get('items.', array()) as $hash => $item) {
+        		$this->elements->set('items.'.$hash, $item->toJson());
+	        }
         }
 
         $this->elements->set('ip', $this->app->useragent->ip());
 
-		if($writeToDB) {
-			$this->table->save($this);
-		}
+		$this->table->save($this);
 
 		return $this;
 
@@ -77,6 +80,23 @@ class OrderDev {
 		$result->loadObject($this);
 		$result->remove('app');
 		return (string) $result;
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function addItems($items = array()) {
+		$items = (array) $items;
+		foreach($items as $item) {
+			$this->elements->set('items.'.$item->id, $item);
+		}
+		return $this;
 	}
 
 	/**
@@ -140,7 +160,8 @@ class OrderDev {
 	 * @since 1.0
 	 */
 	public function notify() {
-		return !$this->params->get('notifications', false);
+		//return !$this->params->get('notifications.'.$type, false);
+		return true;
 	}
 
 	public function getOrderDate($format = 'DATE_STORE_RECEIPT') {
@@ -180,7 +201,7 @@ class OrderDev {
         $markup = intval($markup)/100;
         $ship = $this->app->shipper;
         $ship_to = $this->app->parameter->create($this->elements->get('shipping.'));
-        $rates = $ship->setDestination($ship_to)->assemblePackages($this->app->cart->getAll())->getRates();
+        $rates = $ship->setDestination($ship_to)->assemblePackages($this->getItems())->getRates();
         $rate = 0;
         foreach($rates as $shippingMethod) {
             if($shippingMethod->getService()->getCode() == $service) {
@@ -198,7 +219,7 @@ class OrderDev {
     }
 
 	public function isProcessed() {
-		return $this->status > 1;
+		return $this->status > 0;
 	}
 
 	public function getUser() {

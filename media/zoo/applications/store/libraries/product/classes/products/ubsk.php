@@ -39,7 +39,7 @@ class UBSKProduct extends Product {
      */
     public function setPriceRule() {
         $rules[] = $this->getOption('kit_class')->get('value');
-//        $rules[] = $this->getOption('kit_options')->get('value');
+        $rules[] = $this->getOption('kit_options')->get('value');
         if($this->getOption('shade_type')->get('value') != 'regular') {
             $rules[] = $this->getOption('shade_type')->get('value');
         }

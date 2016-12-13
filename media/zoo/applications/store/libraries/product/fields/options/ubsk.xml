@@ -22,7 +22,7 @@
 		<option value='CB'>Catamaran</option>
 		<option value='other'>Other</option>
 	</field>
-	<field name="kit_options" label="Kit Options" type="price" visible="true" default="full">
+	<field name="kit_options" label="Kit Options" type="price" visible="true" default="fullwithcups">
 		<option value='shade_only'>Shade Only</option>
 		<option value='full'>Complete Kit without Suction Cups</option>
 		<option value='fullwithcups'>Complete Kit with Suction Cups</option>

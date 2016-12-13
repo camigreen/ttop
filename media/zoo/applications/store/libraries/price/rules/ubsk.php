@@ -1,11 +1,22 @@
 <?php
 
-$rules['ubsk.shipping.weight'] = 15;
-$rules['ubsk.options.kit_options.full'] = 270;
-$rules['ubsk.options.kit_options.fullwithcups'] = 460;
+//$rules['ubsk.shipping.weight'] = 15;
+// $rules['ubsk.options.kit_options.full'] = 270;
+// $rules['ubsk.options.kit_options.fullwithcups'] = 460;
 
-$rules['A.base'] = 450;
-$rules['A.extended.base'] = 675;
+// $rules['A.base'] = 450;
+// $rules['A.extended.base'] = 675;
+
+$rules['A.shade_only.base'] = 450;
+$rules['A.full.base'] = 720;
+$rules['A.full.shipping.weight'] = 15;
+$rules['A.fullwithcups.base'] = 910;
+$rules['A.fullwithcups.shipping.weight'] = 15;
+$rules['A.shade_only.extended.base'] = 675;
+$rules['A.full.extended.base'] = 945;
+$rules['A.full.extended.shipping.weight'] = 15;
+$rules['A.fullwithcups.extended.base'] = 1135;
+$rules['A.fullwithcups.extended.shipping.weight'] = 15;
 
 $rules['B.shade_only.base'] = 487.50;
 $rules['B.full.base'] = 760;

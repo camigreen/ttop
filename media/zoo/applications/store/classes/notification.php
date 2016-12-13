@@ -8,21 +8,48 @@
 
 class Notification {
 
+	protected $_storage;
+
 	protected $_object;
 
-	protected $_attachment;
-
-	protected $_method;
-
-	protected $_metadata;
+	protected $_mail;
 
 	public $app;
 
-	public function __construct($app) {
+	public function __construct($app, $object = null) {
 		$this->app = $app;
+		$this->_storage = $this->app->parameter->create();
+		$this->setObject($object);
 		$this->_mail = JFactory::getMailer();
 		$this->application = $this->app->zoo->getApplication();
 		$this->_mail->SMTPDebug = 4;
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	protected function register($name, $value) {
+		$this->_storage->set($name, $value);
+		return $this;
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function get($name, $default = null) {
+		return $this->_storage->get($name, $default);
 	}
 
 	/**
@@ -34,7 +61,7 @@ class Notification {
 	 *
 	 * @since 1.0
 	 */
-	public function addObject($object) {
+	public function setObject($object) {
 		$this->_object = $object;
 		return $this;
 	}
@@ -49,7 +76,8 @@ class Notification {
 	 * @since 1.0
 	 */
 	public function setMethod($method) {
-		$this->_method = '_'.$method;
+		$this->register('method', '_'.$method);
+		return $this;
 	}
 
 	/**
@@ -60,7 +88,8 @@ class Notification {
 	 * @since 1.0
 	 */
 	public function isTestMode() {
-		return (bool) $this->app->store->get()->params->get('anet.test_mode');
+		return false;
+		return (bool) $this->app->store->merchantTestMode();
 	}
 
 	/**
@@ -77,11 +106,11 @@ class Notification {
 
 		// auto-detect html
 		if (stripos($content, '<html') !== false) {
-			$this->_mail->IsHTML(true);
+			$this->register('isHtml', true);
 		}
 
 		// set body
-		$this->_mail->setBody($content);
+		$this->register('body', $content);
 	}
 
 	/**
@@ -99,7 +128,7 @@ class Notification {
 
 		// does the template file exists ?
 		if ($__tmpl == false) {
-			throw new AppMailException("Mail Template $template not found");
+			throw new Exception("Mail Template $template not found");
 		}
 
 		// render the mail template
@@ -114,6 +143,58 @@ class Notification {
 	}
 
 	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function setSubject($subject) {
+		$this->register('subject', $subject);
+		return $this;
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function addAttachment($attachment) {
+		$this->register('attachments.', $attachment);
+		return $this;
+		
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0 atkub24opir26@hpeprint.com
+	 */
+	public function addRecipients($recipients = array()) {
+		if($this->isTestMode()) {
+			//$this->register('recipients.', array('atkub24opir26@hpeprint.com'));
+			//$this->register('recipients.', array('sgibbons@palmettoimages.com'));
+			$this->register('recipients.', array('shawn@ttopcovers.com'));
+			//$this->register('recipients.', array('sales@ttopcovers.com'));
+		} else {
+			var_dump($recipients);
+			$recipients = array_merge($this->get('recipients.', array()), $recipients);
+			$this->register('recipients.', $recipients);
+		}
+		return $this;
+	}
+
+	/**
 	 * Send the notifications.
 	 *
 	 * @param 	datatype		Description of the parameter.
@@ -123,20 +204,49 @@ class Notification {
 	 * @since 1.0
 	 */
 	public function send() {
-		$method = $this->_method;
-		$this->$method();
-		try {	
-			$this->_mail->send();
-		} catch (phpmailerException $e) {
-			echo $e->errorMessage(); //Pretty error messages from PHPMailer
-		} catch (Exception $e) {
-			echo $e->getMessage(); //Boring error messages from anything else!
+
+			// Reply To
+			$this->_mail->addReplyTo($this->get('replyTo'));
+
+			// Allow Empty
+			$this->_mail->AllowEmpty = $this->get('allowEmpty', false);
+
+			// Sender
+			$config = JFactory::getConfig();
+				$sender = array( 
+				    $config->get( 'mailfrom' ),
+				    $config->get( 'fromname' ) 
+				);
+			$this->_mail->setSender($this->get('from.', $config->get('mailfrom')));
+
+			// Subject
+			$this->_mail->setSubject($this->get('subject', 'A Message from LaPorte\'s Products'));
+
+			// Body
+			$this->_mail->setBody($this->get('body'));
+			$this->_mail->isHTML($this->get('isHtml', false));
+
+			// Recipients
+			foreach($this->get('recipients.', array()) as $recipient) {
+				$this->_mail->addRecipient($recipient);
+			}
+
+			// Attachments
+			foreach($this->get('attachments.', array()) as $attachment) {
+			 	$this->_mail->addAttachment($attachment['path'], $attachment['name']);
+			}
+			
+			//  Send it
+			//$this->_mail->useSmtp();
+			$send = $this->_mail->Send();
+
+			return $send;
+			
+
+
+		foreach($this->get('attachments.', array()) as $attachment) {
+			unlink($attachment['path']);
 		}
-		if(is_array($this->_attachment)) {
-			unlink($this->_attachment['path']);
-		}
-		
-		return true;
 	}
 
 }

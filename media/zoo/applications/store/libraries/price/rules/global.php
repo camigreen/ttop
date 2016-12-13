@@ -1,6 +1,5 @@
 <?php 
 $rules['global.markup.msrp'] = 0;
-$rules['global.discount'] = 0;
 $rules['global.allowMarkup'] = true;
 
 $rules['ccbc.options.trolling_motor.Y'] = 175.00;

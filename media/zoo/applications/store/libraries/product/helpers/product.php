@@ -27,6 +27,9 @@ class ProductHelper extends AppHelper {
 	}
 
 	public function create($data = array()) {
+		if($data instanceof Product) {
+			return $data;
+		}
 		if($data instanceof Item) {
 			$data = $this->loadFromZoo($data);
 		} else {
