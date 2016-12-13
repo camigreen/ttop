@@ -76,12 +76,12 @@ $rules['F.fullwithcups.extended.shipping.weight'] = 15;
 $rules['G.shade_only.base'] = 675;
 $rules['G.full.base'] = 945;
 $rules['G.full.shipping.weight'] = 15;
-$rules['G.fullwithcups.base'] = 952.50;
+$rules['G.fullwithcups.base'] = 1135;
 $rules['G.fullwithcups.shipping.weight'] = 15;
 $rules['G.shade_only.extended.base'] = 1012.50;
-$rules['G.full.extended.base'] = 1003.75;
+$rules['G.full.extended.base'] = 1282.50;
 $rules['G.full.extended.shipping.weight'] = 15;
-$rules['G.fullwithcups.extended.base'] = 1193.75;
+$rules['G.fullwithcups.extended.base'] = 1472.5;
 $rules['G.fullwithcups.extended.shipping.weight'] = 15;
 
 $price['ubsk.G.item.base'] = 675;
