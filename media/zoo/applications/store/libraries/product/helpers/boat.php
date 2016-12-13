@@ -42,7 +42,29 @@ class BoatHelper extends AppHelper {
 
 	}
 
-	protected function getBoatMake($make) {
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getBoatMakes() {
+        $makes = array();
+        $xml = $this->xml;
+        $boat = $this->app->data->create();
+        foreach($xml->boats->boat as $item) {
+            if($item->name != 'boat-manufacturer') {
+                $makes[(string) $item->name] = $this->getBoatMake((string) $item->name);
+            }
+            
+        }
+        return $makes;
+    }
+
+	public function getBoatMake($make) {
         $xml = $this->xml;
         $make = str_replace('_', '-', $make);
         $boat = $this->app->data->create();

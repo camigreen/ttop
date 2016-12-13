@@ -16,6 +16,7 @@
                     <option value="attributes">Item Attributes</option>
                     <option value="item_year">Item Year</option>
                     <option value="user_entered">User Entered (Text Box)</option>
+                    <option value="make">Boat Make</option>
             </param>
             <param name="layout" type="list" default="1" label="Option Layout" description="">
                     <option value="dropdown">Dropdown</option>

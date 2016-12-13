@@ -157,7 +157,9 @@ function ZooBuildRoute(&$query) {
 		}
 
 	$app->event->dispatcher->notify($app->event->create(null, 'application:sefbuildroute', array('segments' => &$segments, 'query' => &$query)));
-
+		// var_dump(@$query);
+		// var_dump($segments);
+		// die();
 	return $segments;
 }
 
@@ -264,6 +266,18 @@ function ZooParseRoute($segments) {
 			$vars['item_id'] = (int) $app->alias->item->translateAliasToID($segments[1]);
 		}
 
+	$task = 'order';
+
+		if ($count >= 2 && $segments[0] == $task) {
+			$vars['controller'] = 'product';
+			$vars['name'] = $segments[1];
+		}
+		if ($count >= 3 && $segments[0] == $task) {
+			$vars['make'] = $segments[2];
+		}
+		if ($count >= 4 && $segments[0] == $task) {
+			$vars['model'] = $segments[3];
+		}
 	// shit
 	$task = 'ccbc';
 	// var_dump($segments);
@@ -382,6 +396,8 @@ function ZooParseRoute($segments) {
 	}
 
 	$app->event->dispatcher->notify($app->event->create(null, 'application:sefparseroute', array('segments' => &$segments, 'vars' => &$vars)));
-
+	// var_dump($segments);
+	// var_dump($vars);
+	// die();
 	return $vars;
 }

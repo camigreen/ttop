@@ -64,6 +64,14 @@ class ProductHelper extends AppHelper {
 			$item->set('type', 'bsk');
 		} else if ($data->type == 'ultimate-boat-shade') {
 			$item->set('type', 'ubsk');
+		} else if ($data->type == 'ccbc-shelved') {
+			$item->set('type', 'ccbc');
+			foreach($data->getElements() as $element) {
+				if($element->config->get('name') == 'Qty') {
+					$item->qty = $element->get('value');
+				}
+				
+			}
 		} else {
 			$item->set('type', $data->type);
 		}
