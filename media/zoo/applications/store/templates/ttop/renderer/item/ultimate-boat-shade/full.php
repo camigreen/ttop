@@ -223,6 +223,7 @@ $product = $this->app->product->create($item);
                                 measurements_changed = true;
                                 self.trigger('measure', {item: self.item});
                             });
+                            this._publishPrice({item: this.item});
                             return data;
                         }
                     ],
