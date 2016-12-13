@@ -15,7 +15,7 @@ $this->app->document->addScript('library.cart:assets/js/cart.js');
 $this->app->document->addScript('library.product:assets/js/orderform.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
-$product->price->debug(true);
+// $product->price->debug(true);
 
 ?>
 <div id="OrderForm-<?php echo $product->id; ?>" class="t-top-boat-cover" data-id="<?php echo $product->id; ?>">
