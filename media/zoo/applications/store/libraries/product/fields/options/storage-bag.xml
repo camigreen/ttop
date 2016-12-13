@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fields>
+	<field name="bag_color" label="Bag Color" type="base" default="N" visible="true">
+		<option value="N">Navy</option>
+		<option value="B">Black</option>
+	</field>
 	<field name="size" label="Size" type="base" default="L" visible="true">
 		<option value="L">Large</option>
 		<option value="XL">X-Large</option>
