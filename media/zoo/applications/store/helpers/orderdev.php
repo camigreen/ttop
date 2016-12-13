@@ -30,28 +30,21 @@ class OrderDevHelper extends AppHelper {
         } 
         $order = $this->table->get($id);
         if($order) {
-            $this->_order[$id] = $order;
-            return $this->_order[$id];
-        } else {
-            return false;
-        }
-        
+            $this->_order[$id] = $order; 
+        } 
+        return $this->_order[$id];
     }
     
     public function create() {
-        $order = new OrderDev;
-        $order_session = $this->app->session->get('order', array(), 'checkout');
-        $_order = $this->app->parameter->create($order_session);
-        foreach($_order as $key => $value) {
-            if(property_exists($order, $key)) {
-                $order->$key = $value;
-            }
-        }
+        $order = new OrderDev();
+
         $order->app = $this->app;
+        
         // trigger the init event
         $this->app->event->dispatcher->notify($this->app->event->create($order, 'order:init'));
-
-        $order->params->set('payment.status', 1);
+        
+        $order->status = 0;
+        $order->params->set('payment.status', 0);
 
         return $order;
     }

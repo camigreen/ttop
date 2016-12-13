@@ -15,7 +15,6 @@ class ReceiptFormPDF extends FormPDF {
 
 	public function setData($order) {
 		$form_data = $this->app->data->create();
-
 		$billto = array(
             $order->elements->get('billing.name'),
             $order->elements->get('billing.street1'),

@@ -476,3 +476,15 @@ select.oem-select {
     font-size:45px;
     line-height:50px;
 }
+
+.ttop-order {
+
+}
+.ttop-order .table-item-name {
+
+}
+
+.ttop-order .table-item-description {
+    font-weight: 100;
+    margin-left: 20px;
+}

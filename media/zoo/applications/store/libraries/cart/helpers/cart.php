@@ -160,6 +160,13 @@ class CartHelper extends AppHelper {
 	 */
 	public function clear() {
 		$this->_storage = $this->app->data->create();
+
+		// Clear the order if the Cart is emptied.
+		// $order = $this->app->orderdev->get($this->app->session->get('orderID', null, 'checkout'));
+		// if($orderID) {
+		// 	$this->app->table->orderdev->delete($order);
+		// 	$this->app->session->get('orderID', 'checkout');
+		// }
 		$this->updateSession();
 		return $this;
 	}

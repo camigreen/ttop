@@ -144,7 +144,6 @@ class Product {
 
         if($this->locked) 
             $this->price = $product->get('price');
-
         // Bind options
         $this->options = $this->app->option->create($this->options);
         foreach($product->get('options', array()) as $name => $value) {
@@ -421,6 +420,17 @@ class Product {
     }
 
     /**
+     * Determines if the product is locked.
+     *
+     * @return     bool    Locked status.
+     *
+     * @since 1.0
+     */
+    public function isLocked() {
+        return $this->locked;
+    }
+
+    /**
      * Describe the Function
      *
      * @param     datatype        Description of the parameter.
@@ -552,17 +562,6 @@ class Product {
     }
 
     /**
-     * Determines if the product is locked.
-     *
-     * @return     bool    Locked status.
-     *
-     * @since 1.0
-     */
-    public function isLocked() {
-        return $this->locked;
-    }
-
-    /**
      * Describe the Function
      *
      * @param     datatype        Description of the parameter.
@@ -612,6 +611,9 @@ class Product {
             $options[$name] = $option;
         }
         $data['options'] = $options;
+        if($this->isLocked()) {
+            $data['price'] = $this->price;
+        }
 
         return $encode ? json_encode($data) : $data;
     }

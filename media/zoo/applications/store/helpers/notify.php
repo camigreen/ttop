@@ -19,11 +19,12 @@ class NotifyHelper extends AppHelper {
 	}
 
 	public function create($type, $object) {
-		list($file, $method) = explode(':', $type);
-		$class = $file.'Notification';
-		$this->app->loader->register($class, 'notifications:'.$file.'.php');
-		$notify = new $class($this->app);
-		$notify->addObject($object)->setMethod($method);
+		$class = $type.'Notification';
+		if(file_exists($this->app->path->path('notifications:'.$type.'.php'))) {
+			$this->app->loader->register($class, 'notifications:'.$type.'.php');
+		}
+		
+		$notify = new $class($this->app, $object);
 		return $notify;
 	}
 
