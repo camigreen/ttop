@@ -70,11 +70,47 @@ class ProductHelper extends AppHelper {
 		} else if ($data->type == 'ccbc-shelved') {
 			$item->set('type', 'ccbc');
 			foreach($data->getElements() as $element) {
-				if($element->config->get('name') == 'Qty') {
-					$item->qty = $element->get('value');
+				switch ($element->config->get('name')) {
+					case 'Qty':
+						$item->qty = $element->get('value');
+						break;
+					case 'Make / Model':
+						$data->params->set('boat.manufacturer', $element->get('make'));
+						$data->params->set('boat.model', $element->get('model'));
+						break;
+					case 'Boat Model':
+						$data->params->set('model', $element->get('value'));
+						break;
+				}
+
+			}
+			$item->name = $data->getPrimaryCategory()->name;
+			$data->params->set('inventory', true);
+			$data->params->set('zoo_id', $data->id);
+			$data->params->set('zoo_type', $data->type);
+			$data->params->set('link', $this->app->route->item($data));
+		} else if ($data->type == 'ttbc-shelved') {
+			$item->set('id', $data->id);
+			$item->set('type', 'ttbc');
+			$opt = array();
+			foreach($data->getElements() as $element) {
+				switch ($element->config->get('name')) {
+					case 'Boat Length':
+						$opt['boat_length'] = array('value' => $element->get('option'));
+						break;
+					case 'Qty':
+						$item->qty = $element->get('value');
+						break;
+					case 'Fabric':
+						$opt['fabric'] = array('value' => $element->get('option')[0]);
+						break;
 				}
 				
 			}
+			$item->set('options', $opt);
+			$item->name = $data->getPrimaryCategory()->name;
+			$data->params->set('inventory', true);
+			$data->params->set('zoo_id', $data->id);
 		} else {
 			$item->set('type', $data->type);
 		}

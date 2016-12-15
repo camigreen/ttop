@@ -266,6 +266,15 @@ function ZooParseRoute($segments) {
 			$vars['item_id'] = (int) $app->alias->item->translateAliasToID($segments[1]);
 		}
 
+	$task = 'api';
+
+		if($count == 3 && $segments[0] == $task) {
+			$vars['controller'] = 'api';
+			$vars['api'] = $segments[1];
+			$vars['task'] = $segments[2];
+			$vars['format'] = 'json';
+		}
+
 	$task = 'order';
 
 		if ($count >= 2 && $segments[0] == $task) {

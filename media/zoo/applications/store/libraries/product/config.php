@@ -7,6 +7,7 @@ $zoo->path->register($path.'/helpers', 'helpers');
 $zoo->path->register($path.'/fields', 'fields');
 $zoo->path->register($path.'/data', 'data');
 $zoo->path->register($path.'/events', 'events');
+$zoo->path->register($path.'/apis', 'apis');
 
 // register and connect events
 $zoo->event->register('ProductEvent');

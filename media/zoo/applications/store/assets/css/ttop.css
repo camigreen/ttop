@@ -488,3 +488,92 @@ select.oem-select {
     font-weight: 100;
     margin-left: 20px;
 }
+
+.ttop .price-teaser {
+
+}
+
+.ttop .price-teaser .price {
+    font-size: 25px;
+    line-height: 0px;
+    margin: 0px;
+}
+.ttop .price-teaser .currency {
+    font-size: 15px;
+    line-height: 1.5em;
+    margin: 0px;
+
+}
+.ttop .teaser-options {
+    font-size: 10px;
+    line-height: 1em;
+}
+.ttop .teaser-options span {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.4em;
+
+}
+.ttop .clearance-teaser .clearance-title {
+    font-size:30px;
+}
+
+.ttop .clearance-teaser legend {
+    font-size: 15px;
+    line-height: 1em;
+    width: 90%;
+}
+
+.ttop .original-price {
+    color:red;
+}
+
+.ttop .original-price .price {
+    color: red;
+    text-decoration: line-through;
+    font-size:15px;
+}
+
+.ttop .sale-price {
+    line-height: 40px;
+}
+
+.ttop .sale-price .price {
+    font-size: 35px;
+}
+
+.ttop .sale-price-title {
+    float: right;
+    font-size: 12px;
+    width: 30px;
+    word-wrap: normal;
+    margin-right: 5px;
+    line-height: normal;
+}
+
+.ttop .sale-price .sale-price-container {
+    float:right;
+}
+
+.ttop .ccbc-clearance-full {
+
+}
+
+.ttop .ccbc-clearance-full .options {
+
+}
+
+.ttop .ccbc-clearance-full .options label{
+    font-size:20px;
+}
+
+.ttop .ccbc-clearance-full .options .option-name {
+    font-size:15px;
+    font-weight: 100;
+}
+
+.ttop .ccbc-clearance-full .options legend {
+    color: inherit;
+}
+
+

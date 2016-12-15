@@ -6,5 +6,6 @@ $zoo->path->register($path.'/controllers', 'controllers');
 $zoo->path->register($path.'/classes', 'classes');
 $zoo->path->register($path.'/helpers', 'helpers');
 $zoo->path->register($path.'/fields', 'fields');
+$zoo->path->register($path.'/apis', 'apis');
 
 ?>

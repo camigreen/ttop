@@ -330,6 +330,26 @@ class TestController extends AppController {
 		}
 	}
 
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function testInventory() {
+		$zid = $this->app->request->get('zid', 'int');
+		$item = $this->app->table->item->get($zid);
+		$qty = $item->getElement('ccbc-qty')->get('value');
+		$qty--;
+		$item->getElement('ccbc-qty')->set('value', $qty);
+
+		$this->app->table->item->save($item);
+		var_dump($item->getElement('ccbc-qty')->get('value'));
+	}
+
 
 }
 ?>

@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <renderer>
     <positions layout="full">
-        <position name="logo">Logo</position>
 		<position name="top">Top</position>
 		<position name="title">Title</position>
-		<position name="pricing">Pricing</position>
 		<position name="media">Media</position>
-		<position name="tabs">Tabs</position>
-        <position name="boat_options">Boat Options</position>
-        <position name="motor_options">Motor Options</position>
-		<position name="cover_options">Cover Options</position>
-        <position name="bow_options">Bow Options</position>
-        <position name="special_accessories">Special Accessories</position>
-        <position name="options">Options</position>
-		<position name="bottom">Bottom</position>
-        <position name="accessories">Accessories</position>
-        <position name="item_attributes">Item Attributes</position>
-        <position name="modals">Modals</position>
+		<position name="description">Description</position>
+        <position name="boat-options">Boat Options</position>
+		<position name="cover-options">Cover Options</position>
+        <position name="bow-options">Bow Options</position>
+        <position name="aft-options">Aft Options</position>
+        <position name="pricing">Pricing</position>
 	</positions>
 	<positions layout="teaser">
 		<position name="title">Title</position>
 		<position name="media">Media</position>
 		<position name="description">Description</position>
-		<position name="specification">Specification</position>
-		<position name="links">Links</position>
+		<position name="boat-options">Boat Options</position>
+		<position name="cover-options">Cover Options</position>
+		<position name="bow-options">Bow Options</position>
+		<position name="aft-options">Aft Options</position>
+		<position name="pricing">Pricing</position>
 	</positions>
 </renderer>

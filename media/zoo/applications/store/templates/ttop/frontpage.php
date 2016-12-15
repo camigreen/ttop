@@ -28,7 +28,6 @@ if (!($image = $this->application->getImage('content.image'))) {
 }
 
 $css_class = $this->application->getGroup().'-'.$this->template->name;
-
 ?>
 
 <div class="yoo-zoo <?php echo $css_class; ?> <?php echo $css_class.'-frontpage'; ?>">
@@ -64,7 +63,6 @@ $css_class = $this->application->getGroup().'-'.$this->template->name;
 	?>
 
 	<?php
-
 		// render items
 		if (count($this->items)) {
 			$itemstitle = $this->application->getParams()->get('content.items_title');
