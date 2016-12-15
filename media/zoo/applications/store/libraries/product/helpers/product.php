@@ -30,6 +30,7 @@ class ProductHelper extends AppHelper {
 		if($data instanceof Product) {
 			return $data;
 		}
+		        
 		if($data instanceof Item) {
 			$data = $this->loadFromZoo($data);
 		} else {
@@ -46,7 +47,6 @@ class ProductHelper extends AppHelper {
 
 		// trigger the init event
         $this->app->event->dispatcher->notify($this->app->event->create($product, 'product:init'));
-        
 		return $product;
 	}
 

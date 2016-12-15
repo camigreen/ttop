@@ -30,7 +30,7 @@ class OrderDevTable extends AppTable {
 	}
 
 	protected function _initObject($object) {
-
+		
 		parent::_initObject($object);
 	
 		// add to cache
@@ -42,7 +42,7 @@ class OrderDevTable extends AppTable {
 
 		// trigger init event
 		$this->app->event->dispatcher->notify($this->app->event->create($object, 'order:init'));
-
+                 
 		return $object;
 	}
 }

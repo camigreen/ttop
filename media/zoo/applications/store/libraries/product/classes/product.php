@@ -411,7 +411,7 @@ class Product {
      * @since 1.0
      */
     public function lock() {
-        $this->locked = true;
+        $this->setParam('locked', true);
         $this->_lockPrice();
         $product = $this->toJson();
         $product['price'] = $this->price;
@@ -427,7 +427,7 @@ class Product {
      * @since 1.0
      */
     public function isLocked() {
-        return $this->locked;
+        return $this->getParam('locked', false);
     }
 
     /**
