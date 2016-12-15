@@ -263,7 +263,7 @@ $this->form->setValue('template', $this->template);
                 text: null,
                 value: 0,
                 min: 60,
-                max: 133,
+                max: 150,
                 default: 95
             },
             helmSeatWidth: {
