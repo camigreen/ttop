@@ -349,7 +349,7 @@ $this->form->setValue('template', $this->template);
             item: items['bsk-aft'],
             validate: true,
             confirm: true,
-            debug: false,
+            debug: true,
             events: {
                 bsk: {
                     onInit: [
