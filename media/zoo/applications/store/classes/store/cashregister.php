@@ -175,7 +175,6 @@ class CashRegister {
         $sale->freight = $this->shipping;
 //        $sale->duty = $duty = "Duty1<|>export<|>15.00";
 //        $sale->po_num = $po_num = "12";
-        $priceDisplay = ($this->app->storeuser->get()->isReseller() ? 'reseller' : 'retail');
         foreach($items as $item) {
             $sale->addLineItem(
                 $item->id,
