@@ -285,11 +285,16 @@ $product = $this->app->product->create($item);
                                 }
 
                                 // Checking depth and determine if it is an exended shade.
+                                var old_shade_type = shade_type.value;
                                 if (depth.value >= 46 && depth.value <= 80) {
                                     shade_type.value = 'regular';
                                 } else if (depth.value >= 81 ) {
                                     shade_type.value = 'extended';
                                 } 
+
+                                if (old_shade_type !== shade_type.value) {
+                                    self._publishPrice({item: item});
+                                }
 
                             }
 
