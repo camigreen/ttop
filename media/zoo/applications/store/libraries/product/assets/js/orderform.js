@@ -387,6 +387,7 @@
         },
         _refresh: function (e) {
             var self = this;
+            triggerData = this.trigger('beforeRefresh', {event: e, item: this.item});
             if($(e.target).closest('[id*="OrderForm"').data('id') != this.item.id) {
                 return;
             }
@@ -397,6 +398,7 @@
                 return;
             }
             this._updateOptionValue($(e.target));
+            triggerData = this.trigger('afterChange', {event: e, item: this.item});
             var publishPrice = typeof triggerData.publishPrice === 'undefined' ? true : triggerData.publishPrice;
             if(publishPrice) {
                 self._publishPrice(triggerData.args);
