@@ -145,7 +145,7 @@ class CashRegister {
         $sale->card_num = $creditCard['cardNumber'];
         $sale->exp_date = $creditCard['expMonth'].'/'.$creditCard['expYear'];
         $sale->card_code = $creditCard['card_code'];
-        $sale->amount = $order->getTotal();
+        $sale->amount = $order->getTotal('charge');
         // $sale->card_num = '6011000000000012';
         // $sale->exp_date = '03/2017';
         // $sale->card_code = '555';
@@ -182,7 +182,7 @@ class CashRegister {
                 '',
 //                str_replace('-',' ',substr($item->get('description'),0,31)),// Item Description
                 $item->qty,// Item Quantity
-                $item->getTotalPrice(), // Item Unit Price
+                $item->getTotalPrice('charge'), // Item Unit Price
                 ($item->taxable ? 'Y' : 'N')// Item taxable
             );
         }

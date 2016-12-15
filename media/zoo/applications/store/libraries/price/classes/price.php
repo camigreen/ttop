@@ -249,7 +249,11 @@ class Price {
 			return false;
 		}
 
-		$price = $this->getParam('price.'.$name, $default);
+		if($name == 'charge') {
+			$price = $this->getParam('price.charge', $this->getParam('price.display', $default));
+		} else {
+			$price = $this->getParam('price.'.$name, $default);
+		}
 		
 		if($formatted) {
 			$price = $this->app->number->currency($price, array('currency' => 'USD'));
