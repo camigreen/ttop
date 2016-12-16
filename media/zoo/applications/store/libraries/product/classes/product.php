@@ -296,7 +296,7 @@ class Product {
      * @since 1.0
      */
     public function getWeight() {
-        return $this->price->getParam('weight', 0);
+        return $this->getParam('weight', 0);
     }
 
     public function getSKU() {
@@ -315,6 +315,7 @@ class Product {
     public function initPrice() {
         if(!$this->isLocked()) {
             $this->price = $this->app->price->create($this);
+            $this->setParam('weight', $this->price->getParam('weight'));
         } else {
             $this->price = $this->app->data->create($this->price);
         }

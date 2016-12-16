@@ -43,7 +43,7 @@ class StoreApplication extends Application {
         include_once $path.'/vendor/autoload.php';
 
         // Load libraries
-        $libraries = array('product', 'modal', 'price', 'cart', 'api');
+        $libraries = array('product', 'modal', 'price', 'cart');
         foreach($libraries as $library) {
             include_once $zoo->path->path('store.lib:/'.$library.'/config.php');
         }

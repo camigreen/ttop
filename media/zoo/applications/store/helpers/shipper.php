@@ -75,35 +75,78 @@ class ShipperHelper extends AppHelper {
     public $packageInsuredValuePercentage = .30;
     protected $availableShipMethods = array('03');
     protected $_rates;
+    protected $_errors = array();
+    public $shipment;
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function __construct($app) {
+        parent::__construct($app);
+        $this->shipment = new \SimpleUPS\Rates\Shipment();
+    }
 
 
     public function setDestination($address) {
 
-        $destination = new \SimpleUPS\Address();
-        $destination->setStreet($address->get('street1'));
-        $destination->setCity($address->get('city'));
-        $destination->setStateProvinceCode($address->get('state'));
-        $destination->setPostalCode($address->get('postalCode'));
-        $destination->setCountryCode('US');
+        $destination = $this->createAddress($address);
 
-        if(UPS::isValidRegion($destination)) {
-           
+        if(!$this->validateAddress($destination)) {
+            return;
         }
-        if(UPS::isValidAddress($destination)) {
-            
-        }
-        //var_dump($destination); 
-        $destination = UPS::getCorrectedAddress($destination);
-        
-        
+
         $this->destination = new \SimpleUPS\InstructionalAddress($destination);
-        
         $this->destination->setAddressee($address->get('name'));
         $this->destination->setAddressLine2($address->get('street2', null));
         $this->destination->setAddressLine3($address->get('street3', null));
-        //var_dump($this->destination);
-        //die();
+
+        $this->shipment->setDestination($this->destination);
+
         return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function createAddress($address) {
+        $a = new \SimpleUPS\Address();
+        $a->setStreet($address->get('street1'));
+        $a->setCity($address->get('city'));
+        $a->setStateProvinceCode($address->get('state'));
+        $a->setPostalCode($address->get('postalCode'));
+        $a->setPostalCodeExtended($address->get('postalCodeExtended'));
+        $a->setCountryCode($address->get('countryCode', 'US'));
+
+        return $a;
+
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function createInstructionalAddress(\SimpleUPS\Address $address) {
+        $instructionalAddress = new \SimpleUPS\InstructionalAddress($destination);
+        $instructionalAddress->setAddressee($address->get('name'));
+        $instructionalAddress->setAddressLine2($address->get('street2', null));
+        $instructionalAddress->setAddressLine3($address->get('street3', null));
     }
 
     public function setShipper() {
@@ -120,7 +163,9 @@ class ShipperHelper extends AppHelper {
         $shipper->setAddress($address);
         $shipper->setNumber(UPS_SHIPPER_NUMBER);
 
-        $this->shipper = $shipper;
+        $this->shipment->setShipper($shipper);
+
+        return $this;
 
     }
 
@@ -128,16 +173,79 @@ class ShipperHelper extends AppHelper {
         return $this->shipper;
     }
 
-    public function validateDestination() {
-        $destination = UPS::getCorrectedAddress($this->destination);
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function hasErrors() {
+        return !empty($this->_errors);
+    }
 
-        $this->destination = new \SimpleUPS\InstructionalAddress($destination);
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getErrors() {
+        return $this->_errors;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    protected function setError($error) {
+        $this->_errors[] = $error;
+    }
+
+    public function validateAddress(\SimpleUPS\Address $address) {
+
+        try {
+            $valid = UPS::isValidRegion($address);
+
+        } catch (Exception $e) {
+            throw new ShipperException($e->getCode());
+        } 
+
+        if(!$valid) {
+            throw new ShipperException('003');
+        }
         
-        $this->destination->setAddressee($address->get('name'));
-        $this->destination->setAddressLine2($address->get('street2', null));
-        $this->destination->setAddressLine3($address->get('street3', null));
-        $this->destination->validated = true;
-        return $this->destination;
+        try {
+            $valid = UPS::isValidAddress($address);
+
+        } catch (Exception $e) {
+            throw new ShipperException($e->getCode());
+        } 
+
+        if(!$valid) {
+            throw new ShipperException('002');
+        }
+
+        return $this;
+        
+
+        // $this->destination = new \SimpleUPS\InstructionalAddress($destination);
+        
+        // $this->destination->setAddressee($address->get('name'));
+        // $this->destination->setAddressLine2($address->get('street2', null));
+        // $this->destination->setAddressLine3($address->get('street3', null));
+        // $this->destination->validated = true;
+        // return $this->destination;
 
     }
 
@@ -147,6 +255,9 @@ class ShipperHelper extends AppHelper {
         $count = 1;
         foreach($items as $item) {
             $shipWeight = $item->getWeight();
+            if($shipWeight == 0) {
+                throw new ShipperException('001'); 
+            }
             $qty = $item->getQty();
             while($qty >= 1) {
                 if(($newpackage->get('weight', 0) + $shipWeight) > $this->packageWeightMax) {
@@ -163,41 +274,37 @@ class ShipperHelper extends AppHelper {
             }
         }
         $package = new \SimpleUPS\Rates\Package();
+        $package->setWeight(0)->setDeclaredValue($newpackage->get('insurance'), 'USD');
         $package->setWeight($newpackage->get('weight'))->setDeclaredValue($newpackage->get('insurance'), 'USD');
         $this->packages[] = $package;
-        // var_dump($this->packages);
-        // return;
+
         return $this;
     }
 
-    public function getRates() {
-        $shipment = new \SimpleUPS\Rates\Shipment();
-        $shipment->setDestination($this->destination);
+    public function getRates($order) {
 
-        foreach($this->packages as $package) {
-            $shipment->addPackage($package);
-        }
         try {
-            //define a package, we could specify the dimensions of the box if we wanted a more accurate estimate
-            //$this->setShipper();
-            //$shipper = $this->getShipper();
-            
+            // set the destination 
+            if(!$this->setDestination($order->getShippingAddress())) {
+                return;
+            }
 
-            //$service = new \SimpleUPS\Service();
-            //$service->setCode('03');
-            //$shipment->setService($service);
-            //$shipment->setShipper($shipper);
+            // assemble the packages
 
-            $rates = UPS::getRates($shipment);
+            $this->assemblePackages ($order->elements->get('items.'));
 
-            
-                    
+            //create the shipment            
+                foreach($this->packages as $package) {
+                    $this->shipment->addPackage($package);
+                }
+                $this->setShipper();
 
-        } catch (Exception $e) {
-            //doh, something went wrong
-            echo 'Failed: ('.get_class($e).') '.$e->getMessage().'<br/>';
-           echo 'Stack trace:<br/><pre>'.$e->getTraceAsString().'</pre>';
-           var_dump($this->packages);
+            //get the rates
+
+            $rates = UPS::getRates($this->shipment);
+
+        } catch (ShipperException $e) {
+            $this->setError($e->getMessage());
            return;
         }
         if (UPS::getDebug()) {
@@ -219,19 +326,6 @@ class ShipperHelper extends AppHelper {
 
         return 'Sevice Method Not Found.';
 
-    }
-
-    public function validateAddress($address) {
-        try {
-            if(!UPS::isValidAddress($address)) {
-                return UPS::getCorrectedAddress($address);
-            }
-            return true;
-        } catch(Exception $e) {
-            echo 'Failed: ('.get_class($e).') '.$e->getMessage().'<br/>';
-           echo 'Stack trace:<br/><pre>'.$e->getTraceAsString().'</pre>';
-        }
-        //UPS::getDebugOutput();
     }
 
     public function getPostalCodes($code) {
@@ -267,4 +361,12 @@ class ShipperHelper extends AppHelper {
  * @see   \SimpleUPS\UPS::setAuthentication()
  * @since 1.0
  */
-class ShipperException extends \SimpleUPS\Api\RequestFailedException {}
+class ShipperException extends Exception {
+
+
+    public function __construct($message = null, $code = 0, Exception $previous = null) {
+        $message = JText::_('SHIPPER_ERROR_'.$message);
+        $code = (int) $message;
+        parent::__construct($message, $code, $previous);
+    }
+}

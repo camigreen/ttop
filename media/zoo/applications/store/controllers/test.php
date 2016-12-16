@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * @package   Package Name
  * @author    Shawn Gibbons http://www.palmettoimages.com
@@ -276,17 +276,22 @@ class TestController extends AppController {
 	 * @since 1.0
 	 */
 	public function testShip() {
+
+		
+		
 		$shipper = $this->app->shipper;
-		$shipTo = array();
-		$shipTo['name'] = 'Shawn Gibbons';
-		$shipTo['street1'] = '114 St Awdry Street';
-		$shipTo['city'] = 'Summerville';
-		$shipTo['state'] = 'SC';
-		$shipTo['postalCode'] = '29485';
-		$shipTo = $this->app->data->create($shipTo);
-		$shipper->setDestination($shipTo)->assemblePackages($this->app->cart->getAll());
-		var_dump($shipper);
-		var_dump($shipper->getRates());
+
+		$order = $this->app->orderdev->get(8065);
+
+		$rates = $shipper->getRates($order);
+		
+		if(!$rates) {
+			var_dump($shipper->getErrors());
+		} else {
+			var_dump($rates);
+		}
+
+		
 	}
 
 	/**

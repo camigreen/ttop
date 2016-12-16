@@ -311,4 +311,30 @@ class OrderDev {
     	return $this->getUser()->name;
     }
 
+    /**
+     * Describe the Function
+     *
+     * @param 	datatype		Description of the parameter.
+     *
+     * @return 	datatype	Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getBillingAddress() {
+    	return $this->app->data->create($this->elements->get('billing.'));
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param 	datatype		Description of the parameter.
+     *
+     * @return 	datatype	Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getShippingAddress() {
+    	return $this->app->data->create($this->elements->get('shipping.'));
+    }
+
 }
