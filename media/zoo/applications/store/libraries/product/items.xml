@@ -410,6 +410,14 @@
 						<option name="boat_length" label="Boat Length" type="base" value="23" visible="false" />
 					</options>
 				</model>
+				<model>
+					<name>239-dfs</name>
+					<label>239 DFS</label>
+					<skucode>230DFS</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="23" visible="false" />
+					</options>
+				</model>
 			</models>
 		</boat>
 		<boat>				
