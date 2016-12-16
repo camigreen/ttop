@@ -363,6 +363,14 @@
 					</options>
 				</model>
 				<model>
+					<name>197-skiff</name>
+					<label>197 Skiff</label>
+					<skucode>197SKF</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
+					</options>
+				</model>
+				<model>
 					<name>200-xt</name>
 					<label>200 XT</label>
 					<skucode>200XT</skucode>
