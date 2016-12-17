@@ -22,7 +22,7 @@
                     <?php if(count($item->getOptions()) > 0) : ?>
                     <span class="options-closed uk-text-small" data-uk-toggle="{target:'#<?php echo $hash; ?> .options-container,#<?php echo $hash; ?> .options-closed,#<?php echo $hash; ?> .options-open'}"><i class="uk-icon uk-icon-plus-square-o"></i> View Options</span>
                     <span class="options-open uk-text-small uk-hidden" data-uk-toggle="{target:'#<?php echo $hash; ?> .options-container,#<?php echo $hash; ?> .options-closed,#<?php echo $hash; ?> .options-open'}"><i class="uk-icon uk-icon-minus-square-o"></i> Hide Options</span>
-                    <div class="options-container uk-width-2-3 uk-hidden">
+                    <div class="options-container uk-width-1-1 uk-hidden">
                         <table class="uk-table uk-table-condensed uk-table-striped">
                             <thead>
                                 <tr>
@@ -36,7 +36,6 @@
                             </thead>
                             <tbody>
                         <?php foreach($item->getOptions() as $option) : ?>
-                        <?php var_dump($option); ?>
                         <?php if($option->get('visible') == 'true') : ?>
                             <tr>
                                 <td class="uk-text-small"><?php echo $option->get('label'); ?></td>

@@ -87,6 +87,9 @@ class Price {
 		$this->setPrice('msrp', $msrp);
 		$display = $msrp*$discount;
 		$this->setPrice('display', $display);
+		$this->setPrice('charge', $display);
+
+		return $this;
 
 	}
 
@@ -275,6 +278,23 @@ class Price {
 	 *
 	 * @since 1.0
 	 */
+	public function getAll() {
+		$prices = $this->app->parameter->create($this->getParam('price.'));
+		$prices->set('markupRate', $this->getParam('markup.msrp'));
+		$prices->set('discountRate', $this->getDiscountRate());
+		return $prices;
+
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
 	public function lock() {
 		$price = $this->app->parameter->create($this->getParam('price.'));
 		$price->set('discount', $this->getParam('discount'));
@@ -344,7 +364,7 @@ class Price {
 	 *
 	 * @since 1.0
 	 */
-	public function getMarkupRate($name = null, $default = 0) {
+	public function getMarkupRate($name = 'msrp', $default = 0) {
 		return $this->getParam('markup.'.$name, (float) $default);
 	}
 

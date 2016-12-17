@@ -14,7 +14,6 @@ class ReceiptFormPDF extends FormPDF {
 
 
 	public function setData($order) {
-		var_dump($order);
 		$form_data = $this->app->data->create();
 
 		$billto = array(
@@ -47,7 +46,7 @@ class ReceiptFormPDF extends FormPDF {
 	    			$options[] = $option->get('label').': '.$option->get('text');
 	    		}
 	    	}
-	    	$markup = $this->app->number->toPercentage($item->getMarkupRate('reseller'), 0);
+	    	$markup = $this->app->number->toPercentage($item->getMarkupRate(), 0);
 	    	$discount = $this->app->number->toPercentage($item->getDiscountRate(), 0);
 	    	$profit = $this->app->number->toPercentage($item->getPrice('profitRate')*100, 0);
 	    	$item_array[] = array(

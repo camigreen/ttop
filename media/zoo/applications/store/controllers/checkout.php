@@ -113,8 +113,8 @@ class CheckoutController extends AppController {
                 $order->elements->set('shipping.altNumber', $account->elements->get('poc.mobile_phone'));
             }
             if(!$order->elements->get('email')) {
-                $order->elements->set('email', $user->getUser()->email);
-                $order->elements->set('confirm_email', $user->getUser()->email);
+                $order->elements->set('email', $user->email);
+                $order->elements->set('confirm_email', $user->email);
             }
             
         }
@@ -352,9 +352,8 @@ class CheckoutController extends AppController {
         $order = $this->app->orderdev->get($oid);
         $types = array('receipt', 'printer', 'payment');
         $this->app->document->setMimeEncoding('application/json');
-        $result = array();
         if(!$order->notify()) {
-            $result['status'] = 'Already Sent.';
+            $mail['status'] = 'Already Sent.';
             echo json_encode($result);
             return;
         }
@@ -378,7 +377,7 @@ class CheckoutController extends AppController {
         }
         $order->save();
         //var_dump($mail);
-        //echo json_encode($mail);
+        echo json_encode($mail);
 
     }
 

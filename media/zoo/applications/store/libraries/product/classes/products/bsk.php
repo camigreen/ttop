@@ -61,7 +61,7 @@ class BSKProduct extends Product {
 
     public function toJson($encode = false) {
         $json = parent::toJson();
-        $json['price'] = $this->getTotalPrice();
+        //$json['transferPrice'] = $this->getTotalPrice();
         return $encode ? json_encode($json) : $json;
     }
 }

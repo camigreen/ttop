@@ -1,5 +1,6 @@
 <?php 
     $items = $order->elements->get('items.');
+    $totals = $order->getTotals();
 ?>
 <table id="item-default-table" class="uk-table">
     <thead>
@@ -48,7 +49,7 @@
                     <div><?php echo $item->qty ?></div>             
                 </td>
                 <td class="ttop-checkout-item-total">
-                    <?php echo $item->getTotalPrice('display', true); ?>
+                    <?php echo $item->getTotalPrice('charge', true); ?>
                 </td>
             </tr>
     <?php endforeach; ?>
@@ -59,7 +60,7 @@
                     Subtotal:
                 </td>
                 <td>
-                    <?php echo $this->app->number->currency($order->getSubTotal(),array('currency' => 'USD')); ?>
+                    <?php echo $this->app->number->currency($totals->get('subtotal'),array('currency' => 'USD')); ?>
                 </td>
             </tr>
             <tr>
@@ -67,7 +68,7 @@
                     Shipping:
                 </td>
                 <td>
-                    <?php echo $this->app->number->currency($order->getShippingTotal(),array('currency' => 'USD')); ?>
+                    <?php echo $this->app->number->currency($totals->get('shiptotal'),array('currency' => 'USD')); ?>
                 </td>
             </tr>
             <tr>
@@ -75,7 +76,7 @@
                     Sales Tax:
                 </td>
                 <td>
-                    <?php echo $this->app->number->currency($order->getTaxTotal(),array('currency' => 'USD')); ?>
+                    <?php echo $this->app->number->currency($totals->get('taxtotal'),array('currency' => 'USD')); ?>
                 </td>
             </tr>
             <tr>
@@ -83,7 +84,7 @@
                     Total Balance Due:
                 </td>
                 <td>
-                    <?php echo $this->app->number->currency($order->getTotal(),array('currency' => 'USD')); ?>
+                    <?php echo $this->app->number->currency($totals->get('total'),array('currency' => 'USD')); ?>
                 </td>
             </tr>
         </tfoot>

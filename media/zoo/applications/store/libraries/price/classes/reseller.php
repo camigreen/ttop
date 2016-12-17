@@ -104,4 +104,23 @@ class ResellerPrice extends Price {
 		
 
 	}
+
+		/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function getAll() {
+		$prices = $this->app->parameter->create($this->getParam('price.'));
+		$prices->set('markupRate', $this->getParam('markup.reseller'));
+		$prices->set('msrpMarkup', $this->getParam('markup.msrp'));
+		$prices->set('discountRate', $this->getDiscountRate());
+		return $prices;
+
+	}
+
 }

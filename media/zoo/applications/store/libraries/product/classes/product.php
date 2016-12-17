@@ -95,7 +95,7 @@ class Product {
     public $_priceRule;
 
     /**
-     * String that identifies the pricing group of an item.
+     * Array object containing the prices.
      *
      * @var [string]
      * @since 1.0.0
@@ -103,12 +103,12 @@ class Product {
     public $price;
 
     /**
-     * Locks the product from any further changes.
+     * Storage of the price object.
      *
-     * @var [bool]
+     * @var [string]
      * @since 1.0.0
      */
-    protected $locked = false;
+    protected $_price;
 
     /**
      * Reference to the App Object.
@@ -134,16 +134,14 @@ class Product {
 
     public function bind($product = array()) {
         // Bind all variable except options and params
-        $exclude = array('options', 'params', 'price');
+        $exclude = array('options', 'params', 'price', 'locked');
         foreach($product as $key => $value) {
             if(property_exists($this, $key) && !in_array($key, $exclude)) {
                 $this->$key = $value;
             } 
         }
-        $this->locked = $this->locked == 'true' ? true : false;
 
-        if($this->locked) 
-            $this->price = $product->get('price');
+        
         // Bind options
         $this->options = $this->app->option->create($this->options);
         foreach($product->get('options', array()) as $name => $value) {
@@ -159,6 +157,11 @@ class Product {
         if(!$this->params->get('confirmed')) {
             $this->params->set('confirmed', false);
         }
+
+        $this->setParam('locked', $product->get('locked', $this->getParam('locked', false)));
+
+        if($this->isLocked()) 
+            $this->price = $product->get('price');
 
         $this->setPriceRule();
 
@@ -296,7 +299,7 @@ class Product {
      * @since 1.0
      */
     public function getWeight() {
-        return $this->price->getParam('weight', 0);
+        return $this->getParam('weight', 0);
     }
 
     public function getSKU() {
@@ -314,7 +317,9 @@ class Product {
      */
     public function initPrice() {
         if(!$this->isLocked()) {
-            $this->price = $this->app->price->create($this);
+            $this->_price = $this->app->price->create($this);
+            $this->price = $this->_price->getAll();
+            $this->setParam('weight', $this->_price->getParam('weight',0));
         } else {
             $this->price = $this->app->data->create($this->price);
         }
@@ -331,8 +336,9 @@ class Product {
      * @since 1.0
      */
     public function refreshPrice() {
-        if(!$this->locked) {
-            $this->price->calculate();
+        if(!$this->isLocked()) {
+            $this->_price->calculate();
+            $this->price = $this->_price->getAll();
         }
         return $this;
     }
@@ -347,9 +353,28 @@ class Product {
      * @since 1.0
      */
     public function getPrice($name = 'display', $default = 0.00, $formatted = false) {
-        
-        return $this->price->get($name, $default, $formatted);
+        // Workaround for older orders without the charge variable
+        if($name == 'charge' && is_null($default)) {
+            $default  = $this->price->get('display');
+        }
+        $price = $this->price->get($name, $default);
 
+        if($formatted) {
+            $price = $this->app->number->currency($price, array('currency' => 'USD'));
+        }
+        return $price;
+
+    }
+
+    /**
+     * Is the user allowed to markup the price of this item?
+     *
+     * @return     boolean    True or False
+     *
+     * @since 1.0
+     */
+    public function allowMarkups() {
+        return $this->_price->allowMarkups();
     }
 
     /**
@@ -361,11 +386,23 @@ class Product {
      *
      * @since 1.0
      */
-    public function getMarkupRate($name = 'msrp', $default = 0) {
-        if($this->price instanceof Price) {
-            return ($this->price->getMarkupRate($name, $default)-1) * 100;
-        }
-        return ($this->price->get('markup.'.$name, $default)-1)*100; 
+    public function getMarkupRate($default = 0) {
+        $markup = $this->price->get('markupRate', $default);
+        $markup = $markup >=1 ? ($markup - 1)*100 : $markup;
+        return $markup; 
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getMsrpMarkup($default = 0) {
+        return $this->price->get('msrpMarkup', $default);
     }
 
     /**
@@ -378,10 +415,7 @@ class Product {
      * @since 1.0
      */
     public function getDiscountRate($default = 0) {
-        if($this->price instanceof Price) {
-            return (1-$this->price->getDiscountRate($default))*100;
-        }
-        return (1-$this->price->get('discount', $default))*100;
+        return (1-$this->price->get('discountRate', $default))*100;
     }
 
     /**
@@ -412,9 +446,7 @@ class Product {
      */
     public function lock() {
         $this->setParam('locked', true);
-        $this->_lockPrice();
         $product = $this->toJson();
-        $product['price'] = $this->price;
         return $product;
         
     }
@@ -427,7 +459,7 @@ class Product {
      * @since 1.0
      */
     public function isLocked() {
-        return $this->getParam('locked', false);
+        return $this->getParam('locked', false) == 'true' ? true : false;
     }
 
     /**
@@ -598,7 +630,7 @@ class Product {
     }
 
     public function toJson($encode = false) {
-        $exclude = array('app', 'options', 'price', '_patternID', '_priceRule', 'boat_lengths');
+        $exclude = array('app', 'options', '_price', 'price', '_patternID', '_priceRule', 'boat_lengths');
         $data = array();
         foreach($this as $key => $value) {
             if(!in_array($key, $exclude)) {
