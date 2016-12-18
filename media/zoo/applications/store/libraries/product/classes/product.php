@@ -321,7 +321,12 @@ class Product {
             $this->price = $this->_price->getAll();
             $this->setParam('weight', $this->_price->getParam('weight',0));
         } else {
-            $this->price = $this->app->data->create($this->price);
+            try {
+                $this->price = $this->app->data->create($this->price);
+            } catch (Exception $e) {
+                throw new Exception('Problem Initializing Price Object', 1001);
+            }
+            
         }
         return $this;
     }
