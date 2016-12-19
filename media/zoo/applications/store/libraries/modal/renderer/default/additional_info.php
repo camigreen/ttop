@@ -5,7 +5,7 @@ $add_info = $product->getOption('add_info')->get('value');
 ?>
 <div class="uk-form">
 	<div class="uk-width-1-1 uk-article-lead uk-text-center">
-		<p>If you have added any aftermarket equipment that we do not have listed on our order form, please list it in the special instructions below.</p>
+		<p>If you have added any aftermarket equipment that may interfer with the cover, for example: Clamp on rod holders, Nav. Lights, Antennas etc. please list it in the special instructions below.</p>
 	</div>
 	<div class="uk-width-1-1">
 		<label>Special Instructions</label>
