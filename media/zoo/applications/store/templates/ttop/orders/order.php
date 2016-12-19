@@ -15,6 +15,7 @@ $now = $this->app->date->create($order->created, $tzoffset);
 		<a href="/account/orders/all-orders" class="uk-button uk-button-primary">Back to All Orders</a>
 		<a href="/store/checkout?task=getPDF&form=workorder<?php echo $type; ?>&id=<?php echo $this->order->id; ?>&format=raw" target="_blank" class="uk-button uk-button-primary">Print Work Order</a>
 		<a href="/store/checkout?task=getPDF&form=receipt<?php echo $type; ?>&id=<?php echo $this->order->id; ?>&format=raw" target="_blank" class="uk-button uk-button-primary">Download Receipt</a>
+		<a href="/store/checkout?task=claimOrder&oid=<?php echo $this->order->id; ?>" class="uk-button uk-button-primary">Claim Order</a>
 	</div>
 	<div class="uk-width-1-3">
 		<div>Order ID: <?php echo JText::_('ACCOUNT_TERMS_'.$this->order->params->get('terms')); ?></div>
