@@ -54,10 +54,10 @@ class OrderDev {
 
         $this->params->set('terms', $this->app->storeuser->get()->getAccount()->params->get('terms', 'DUR'));
 
-        $this->getTotal();
-
 
         if($lock) {
+        	$this->params->set('locked', true);
+        	$this->_calculateFinalTotals();
         	foreach($this->elements->get('items.', array()) as $hash => $item) {
 	        	$this->elements->set('items.'.$hash, $item->lock());
 	        }
@@ -175,11 +175,11 @@ class OrderDev {
 
 	public function getSubtotal($display = 'display') {
 		$items = $this->elements->get('items.', array());
-		$this->subtotal = 0;
+		$subtotal = 0;
 		foreach($items as $item) {
-			$this->subtotal += $item->getTotalPrice($display);
+			$subtotal += $item->getTotalPrice($display);
 		}
-		return $this->subtotal;
+		return $subtotal;
 	}
 
 	public function getShippingTotal() {
@@ -192,10 +192,8 @@ class OrderDev {
             return 0;
         }
         if($service == 'LP') {
-        	$this->ship_total = 0;
-        	return $this->ship_total;
+        	return 0;
         }
-        $this->ship_total = 0;
         $application = $this->app->zoo->getApplication();
         $markup = $application->getParams()->get('global.shipping.ship_markup', 0);
         $markup = intval($markup)/100;
@@ -208,14 +206,53 @@ class OrderDev {
                 $rate = $shippingMethod->getTotalCharges();
             }
         }
-		$this->ship_total = $rate += ($rate * $markup);
+		$rate += ($rate * $markup);
 
-        return $this->ship_total;
+        return $rate;
     }
 
     public function getTotal($display = 'display') {
-    	$this->total = $this->getSubTotal($display) + $this->getTaxTotal() + $this->getShippingTotal();
-    	return $this->total;
+    	$total = $this->getSubTotal($display) + $this->getTaxTotal() + $this->getShippingTotal();
+    	return $total;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param 	datatype		Description of the parameter.
+     *
+     * @return 	datatype	Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getTotals() {
+    	if(!$this->isProcessed() || $this->subtotal == 0) {
+    		$this->_calculateFinalTotals();
+    		$this->save();
+    	}
+    	$totals = array();
+    	$totals['subtotal'] = $this->subtotal;
+    	$totals['taxtotal'] = $this->tax_total;
+    	$totals['shiptotal'] = $this->ship_total;
+    	$totals['total'] = $this->total;
+
+    	return $this->app->data->create($totals);
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param 	datatype		Description of the parameter.
+     *
+     * @return 	datatype	Description of the value returned.
+     *
+     * @since 1.0
+     */
+    protected function _calculateFinalTotals() {
+    	$this->subtotal = $this->getSubTotal('charge');
+    	$this->tax_total = $this->getTaxTotal();
+    	$this->ship_total = $this->getShippingTotal();
+    	$this->total = $this->subtotal + $this->tax_total + $this->ship_total;
     }
 
 	public function isProcessed() {
@@ -235,8 +272,13 @@ class OrderDev {
 	}
 
 	public function getAccount() {
-		$this->_account = $this->app->storeuser->get()->getAccount();
-		$this->account = $this->_account->id;
+		if($this->account) {
+			$this->_account = $this->app->account->get($this->account);
+		} else {
+			$this->_account = $this->app->storeuser->get()->getAccount();
+			$this->account = $this->_account->id;
+		}
+		
 		return $this->_account;
 	}
 
@@ -250,34 +292,14 @@ class OrderDev {
 			return $this->tax_total;
 		}
 
-		if(!$items = $this->elements->get('items.')) {
-			$items = $this->app->cart->getAll();
-		}
+		$items = $this->elements->get('items.', array());
 
 		foreach($items as $item) {
-			$taxtotal += ($item->isTaxable() ? ($item->getTotalPrice()*$taxrate) : 0);
+			$taxtotal += ($item->isTaxable() ? ($item->getTotalPrice('charge')*$taxrate) : 0);
 		}
 		
 		$this->tax_total = $taxtotal;
 		return $this->tax_total;
-	}
-
-	public function calculateCommissions() {
-		$application = $this->app->zoo->getApplication();
-		$application->getCategoryTree();
-		$items = $this->elements->get('items.');
-		$account = $this->getAccount();
-		$oems = $account->getAllOEMs();
-		foreach($items as $item) {
-			$_item = $this->app->table->item->get($item->id);
-			$item_cat = $_item->getPrimaryCategory();
-			foreach($oems as $oem) {
-				if($item_cat->id == $oem->elements->get('category')) {
-					$this->elements->set('commissions.accounts.'.$oem->id, $this->getItemPrice($item->sku)*$oem->elements->get('commission'));
-				}
-			}
-			
-		}
 	}
 
 	public function isTaxable() {

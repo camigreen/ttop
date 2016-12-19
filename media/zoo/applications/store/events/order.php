@@ -28,8 +28,7 @@ class OrderEvent {
         $order->params = $app->parameter->create($order->params);
         $order->elements = $app->parameter->create($order->elements);
 
-
-        if(!$order->isProcessed()) {
+    	if(!$order->isProcessed()) {
         	$order->addItems($app->cart->getAll());
         	foreach($order->getItems() as $item) {
         		$item = $app->product->create($item);
@@ -38,12 +37,22 @@ class OrderEvent {
         } else {
         	$items = $order->elements->get('items.', array());
 	    	foreach($items as $key => $item) {
-		    	$item = $app->product->create($item);
-		      	$order->elements->set('items.'.$key, $item);
+	    		try { 
+					$item = $app->product->create($item);
+		      		$order->elements->set('items.'.$key, $item);
+	    		} catch (Exception $e) {
+					echo 'Error - Order ID: '.$order->id.'</br>';
+		        	echo $e->getMessage();
+		        	unset($item['price']);
+		        	var_dump($item);
+		        	$item = $app->product->create($item);
+		        	$order->elements->set('items.'.$key, $item);
+	    		}
+		    	
 		    }
         }
 
-        $order->getTotal();
+        // $order->getTotal();
 	}
 
 	/**

@@ -88,9 +88,23 @@ $salesperson = $order->created_by == 0 ? 'Website' : $this->app->storeuser->get(
     </div>
 </div>
 <script>
-
-jQuery(document).ready(function($) {
-    $("#contentext").load("?option=com_zoo&controller=checkout&task=orderNotification&oid=<?php echo $order->id; ?>&format=raw");
-});
-
+    jQuery(function($){
+        $(document).ready(function(){
+            $.ajax({
+                type: 'POST',
+                url: '?option=com_zoo&controller=checkout&task=orderNotification&format=raw',
+                data: {oid: <?php echo $order->id; ?>},
+                success: function (data) {
+                    console.log('Emails Sent Successfully');
+                    console.log(data);
+                },
+                error: function (data, status, error) {
+                    console.log('Error Occurred, Email not sent.');
+                    console.log(data);
+                    console.log(status);
+                    console.log(error);
+                }
+            })
+        });
+    });
 </script>

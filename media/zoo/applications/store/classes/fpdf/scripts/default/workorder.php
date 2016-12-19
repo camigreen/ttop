@@ -61,10 +61,11 @@ class WorkOrderFormPDF extends FormPDF {
 	    $form_data->set('customer', $order->elements->get('payment.customer_name'));
 	    $form_data->set('transaction_id', $order->elements);
 	    $form_data->set('payment_info', $order->params->get('payment.creditcard.cardNumber').' '.$order->params->get('payment.creditcard.card_name'));
-	    $form_data->set('subtotal', $order->getSubtotal());
-	    $form_data->set('tax_total', $this->app->number->currency($order->getTaxTotal(), array('currency', 'USD')));
-	    $form_data->set('ship_total', $order->getShippingTotal());
-	    $form_data->set('total', $order->getTotal());
+	    $totals = $order->getTotals();
+	    $form_data->set('subtotal', $totals->get('subtotal'));
+	    $form_data->set('tax_total', $this->app->number->currency($totals->get('taxtotal'), array('currency', 'USD')));
+	    $form_data->set('ship_total', $totals->get('shiptotal'));
+	    $form_data->set('total', $totals->get('total'));
 		return parent::setData($form_data);
 	}
 	

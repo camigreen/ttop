@@ -6,7 +6,6 @@ $mkupRate = $product->getMarkupRate('reseller');
 $options = array();
 $base = $product->getPrice('base')+$product->getPrice('addons');
 $isBase = true;
-
 foreach($markups as $markup) {
 	$option = array();
 	$text = array();

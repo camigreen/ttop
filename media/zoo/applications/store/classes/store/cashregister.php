@@ -124,7 +124,6 @@ class CashRegister {
         $this->order->params->set('payment.status', 2);
         $this->order->params->set('payment.type', 'PO');
         $this->order->setStatus(2);
-        //this->order->calculateCommissions();
         $this->order->params->set('payment.approved', true);
         $this->order->save(true);
 
@@ -134,22 +133,20 @@ class CashRegister {
     }
 
     protected function _creditCard() {
+
+        // Set Variables
         $order = $this->order;
-        
         $billing = $order->elements->get('billing.');
         $shipping = $order->elements->get('shipping.');
         $items = $order->getItems();
         $creditCard = $order->params->get('payment.creditcard.');
+        $totals = $order->getTotals();
         $sale = $this->merchant;
-        
-        $sale->card_num = $creditCard['cardNumber'];
-        $sale->exp_date = $creditCard['expMonth'].'/'.$creditCard['expYear'];
-        $sale->card_code = $creditCard['card_code'];
-        $sale->amount = $order->getTotal('charge');
-        // $sale->card_num = '6011000000000012';
-        // $sale->exp_date = '03/2017';
-        // $sale->card_code = '555';
-        // $sale->amount = '10.00';
+
+        // Create Sale
+        $sale->invoice_num = $order->id;
+
+        // Set Billing Address
         list($first, $last) = explode(' ', $billing['name']);
         $sale->first_name = $first;
         $sale->last_name = $last;
@@ -157,12 +154,12 @@ class CashRegister {
         $sale->city = $billing['city'];
         $sale->state = $billing['state'];
         $sale->zip = $billing['postalCode'];
-//        $sale->country = $country = "US";
         $sale->phone = $billing['phoneNumber'];
         $sale->setCustomField("CustomerAltNumber", $billing['altNumber']);
         $sale->email = $order->elements->get('email');
-        $sale->customer_ip = $order->elements->get('ip');
-        $sale->invoice_num = $order->id;
+        //$sale->country = $country = "US";
+
+        // Set Shipping Address
         list($first, $last) = explode(' ', $shipping['name']);
         $sale->ship_to_first_name = $first;
         $sale->ship_to_last_name = $last;
@@ -170,25 +167,38 @@ class CashRegister {
         $sale->ship_to_city = $shipping['city'];
         $sale->ship_to_state = $shipping['state'];
         $sale->ship_to_zip = $shipping['postalCode'];
-//        $sale->ship_to_country = $ship_to_country = "US";
-        $sale->tax = $this->taxTotal;
-        $sale->freight = $this->shipping;
-//        $sale->duty = $duty = "Duty1<|>export<|>15.00";
-//        $sale->po_num = $po_num = "12";
+        //$sale->ship_to_country = $ship_to_country = "US";
+
+        // Set Credit Card Info
+        $sale->card_num = $creditCard['cardNumber'];
+        $sale->exp_date = $creditCard['expMonth'].'/'.$creditCard['expYear'];
+        $sale->card_code = $creditCard['card_code'];
+
+        // Set Totals
+        $sale->freight = $totals->get('shiptotal');
+        $sale->tax = $totals->get('taxtotal');
+        $sale->amount = $totals->get('total');
+
+        // Set Other info
+        $sale->customer_ip = $order->elements->get('ip');
+        $sale->po_num = $order->params->get('payment.po_number');
+
+        // Set Items
         foreach($items as $item) {
             $sale->addLineItem(
                 $item->id,
-                str_replace('-',' ',substr($item->name,0,25)),// Item Name
-                '',
-//                str_replace('-',' ',substr($item->get('description'),0,31)),// Item Description
+                substr($item->name,0,30),// Item Name
+                substr($item->description, 0, 255), // Item Description
                 $item->qty,// Item Quantity
                 $item->getTotalPrice('charge'), // Item Unit Price
                 ($item->taxable ? 'Y' : 'N')// Item taxable
             );
         }
+
+        // Authorize the Card and Capture the funds
         $response = $sale->authorizeAndCapture();
 
-        
+        // Handle the Response
         if($response->approved) {
 
             $order->params->set('payment.creditcard.cardNumber', $response->account_number);
@@ -210,11 +220,13 @@ class CashRegister {
             $this->clearOrder();
 
         } else {
+
             // trigger payment failure event
             $this->app->event->dispatcher->notify($this->app->event->create($this->order, 'order:paymentFailed', array('response' => $response)));
             $order->params->set('payment.status', 1);
             $order->params->set('payment.approved', $response->approved);
             $order->params->set('payment.response_text', $response->response_reason_text);
+
         }
 
         return $order;

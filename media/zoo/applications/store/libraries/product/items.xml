@@ -250,6 +250,21 @@
 			</models>
 		</boat>
 		<boat>				
+			<name published="false">duracraft</name>
+			<label>Duracraft</label>
+			<skucode>DURACFT</skucode>
+			<models>
+				<model published="false">
+					<name>15</name>
+					<label>15</label>
+					<skucode>15</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="15" visible="false" />
+					</options>
+				</model>
+			</models>
+		</boat>
+		<boat>				
 			<name>east-cape</name>
 			<label>East Cape</label>
 			<skucode>EC</skucode>

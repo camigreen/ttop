@@ -406,6 +406,9 @@ $this->form->setValue('template', $this->template);
                                         $('.aft-container, .bow-container').removeClass('uk-hidden');
                                         bsktypes = ['aft', 'bow'];
                                         self._publishPrice({item: self.item, type: 'aft'});
+                                        self.item = items['bsk-bow'];
+                                        self._publishPrice({item: self.item, type: 'bow'});
+                                        self.item = items['bsk-aft'];
                                     } else if(type === 'aft') {
                                         $('.aft-container').removeClass('uk-hidden');
                                         $('.bow-container').addClass('uk-hidden');
@@ -594,6 +597,7 @@ $this->form->setValue('template', $this->template);
                     afterPublishPrice: [
                         function (data) {
                             var total = 0.00;
+                            console.log(data.args.item);
                             data.args.item.price = data.args.price;
                             $.each(bsktypes, function(k, type) {
                                 total += items['bsk-'+type].price;

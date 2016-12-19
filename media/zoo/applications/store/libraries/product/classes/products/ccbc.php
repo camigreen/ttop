@@ -109,7 +109,6 @@ class CCBCProduct extends Product {
 
     public function toJson($encode = false) {
         $data = parent::toJson();
-        $data['params'] = array();
         $data['params']['boat.model'] = $this->getParam('boat.model')->name;
         $data['params']['boat.manufacturer'] = $this->getParam('boat.manufacturer')->name;
 

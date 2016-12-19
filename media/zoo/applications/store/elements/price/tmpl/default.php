@@ -1,6 +1,6 @@
 <?php
 $item = $params['item'];
-$price = $item->getPrice();
+$price = $item->getPrice('display');
 ?>
 <div id="<?php echo $item->id; ?>-price">
 	<i class="currency"></i>

@@ -77,6 +77,8 @@
 			<model value="82,56,55,B">230 Bay Reef</model>
 			<model value="87,60,36,B">239 FS</model>
 			<model value="97,74,47,A">268</model>
+			<model value="97,75,50">281 Billistic</model>
+			<model value="102,74,60">351 Billistic</model>
 		</make>
 		<make value="mako" name="Mako">
 			<model value="81,66,36,A">221</model>
@@ -216,6 +218,9 @@
 		</make>
 	</bsk>
 	<ccc>
+		<make value="avenger" name="Avenger">
+			<model value="80,65,32">AV26</model>
+		</make>
 		<make value="albury_brothers" name="Albury Brothers">
 			<model value="82,94,48,A">23</model>
 		</make>
@@ -273,6 +278,7 @@
 			<model value="80,108,41,A">239 FS</model>
 			<model value="85,92,43,A">244 Bluewater</model>
 			<model value="87,106,54,B">268</model>
+			<model value="81,142,49">351 Billistic</model>
 		</make>
 		<make value="mako" name="Mako">
 			<model value="82,90,40,B">221</model>
