@@ -88,7 +88,6 @@ class Notification {
 	 * @since 1.0
 	 */
 	public function isTestMode() {
-		return false;
 		return (bool) $this->app->store->merchantTestMode();
 	}
 

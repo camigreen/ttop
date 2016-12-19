@@ -210,8 +210,8 @@ $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css'
             $('#OrderForm-<?php echo $product->id; ?>').OrderForm({
                 name: 'T-Top Boat Cover',
                 validate: true,
-                debug: true,
-                confirm: false,
+                debug: false,
+                confirm: true,
                 events: {
                     ttbc: {
                         onInit: [

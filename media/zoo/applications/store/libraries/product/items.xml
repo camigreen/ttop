@@ -363,6 +363,14 @@
 					</options>
 				</model>
 				<model>
+					<name>197-skiff</name>
+					<label>197 Skiff</label>
+					<skucode>197SKF</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
+					</options>
+				</model>
+				<model>
 					<name>200-xt</name>
 					<label>200 XT</label>
 					<skucode>200XT</skucode>
@@ -406,6 +414,14 @@
 					<name>230-bay-reef</name>
 					<label>230 Bay Reef</label>
 					<skucode>230BR</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="23" visible="false" />
+					</options>
+				</model>
+				<model>
+					<name>239-dfs</name>
+					<label>239 DFS</label>
+					<skucode>230DFS</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="23" visible="false" />
 					</options>

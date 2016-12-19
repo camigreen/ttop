@@ -28,6 +28,7 @@ class OrderEvent {
         $order->params = $app->parameter->create($order->params);
         $order->elements = $app->parameter->create($order->elements);
 
+
         if(!$order->isProcessed()) {
         	$order->addItems($app->cart->getAll());
         	foreach($order->getItems() as $item) {
@@ -41,8 +42,8 @@ class OrderEvent {
 		      	$order->elements->set('items.'.$key, $item);
 		    }
         }
-        $order->getTotal();
 
+        $order->getTotal();
 	}
 
 	/**

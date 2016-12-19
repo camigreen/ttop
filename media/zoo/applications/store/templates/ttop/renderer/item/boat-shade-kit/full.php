@@ -269,6 +269,7 @@ $this->form->setValue('template', $this->template);
     if(typeof items === 'undefined') { var items = {}};
     
     var bsktypes = ['aft'];
+    var currentType = 'aft';
     var mode = 'CYB';
     var defaults = {
         class: [
@@ -348,7 +349,7 @@ $this->form->setValue('template', $this->template);
             item: items['bsk-aft'],
             validate: true,
             confirm: true,
-            debug: false,
+            debug: true,
             events: {
                 bsk: {
                     onInit: [
@@ -474,6 +475,13 @@ $this->form->setValue('template', $this->template);
                         }
                             
                             
+                    ],
+                    beforeRefresh: [
+                        function (data) {
+                            console.log(data);
+                            data.args.item.id = 'bsk';
+                            return data;
+                        }
                     ],
                     setMode: [
                         function (data) {

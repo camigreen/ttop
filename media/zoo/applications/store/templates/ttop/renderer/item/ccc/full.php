@@ -262,15 +262,15 @@ $this->form->setValue('template', $this->template);
                 name: 'Rear of Helm Seat to Front of Console Seat Measurement',
                 text: null,
                 value: 0,
-                min: 75,
-                max: 133,
+                min: 60,
+                max: 150,
                 default: 95
             },
             helmSeatWidth: {
                 name: 'Width of Helm Seat Measurement',
                 text: null,
                 value: 0,
-                min: 38,
+                min: 30,
                 max: 62,
                 default: 50
             }   

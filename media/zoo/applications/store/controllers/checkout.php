@@ -378,7 +378,7 @@ class CheckoutController extends AppController {
         }
         $order->save();
         //var_dump($mail);
-        echo json_encode($mail);
+        //echo json_encode($mail);
 
     }
 

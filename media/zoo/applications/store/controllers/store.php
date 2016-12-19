@@ -281,6 +281,7 @@ class StoreController extends AppController {
         }
 
         //$conditions = is_null($conditions) ? "orderDate BETWEEN '2015-06-01' AND '2015-06-30'" : "$conditions AND orderDate BETWEEN '2015-06-01' AND '2015-06-30'";
+
         $this->orders = $this->app->table->orderdev->all(array('conditions' => $conditions, 'order' => 'id DESC'));
         $this->record_count = count($this->orders);
         $layout = 'orders';
