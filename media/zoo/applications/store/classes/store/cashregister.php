@@ -222,12 +222,12 @@ class CashRegister {
         } else {
 
             // trigger payment failure event
-            $this->app->event->dispatcher->notify($this->app->event->create($this->order, 'order:paymentFailed', array('response' => $response)));
+            
             $order->params->set('payment.status', 1);
             $order->params->set('payment.approved', $response->approved);
             $order->params->set('payment.response_text', $response->response_reason_text);
             $order->save();
-
+            $this->app->event->dispatcher->notify($this->app->event->create($this->order, 'order:paymentFailed', array('response' => $response)));
         }
 
         return $order;

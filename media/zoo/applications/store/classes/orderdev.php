@@ -70,6 +70,7 @@ class OrderDev {
         $this->elements->set('ip', $this->app->useragent->ip());
 
 		$this->table->save($this);
+		$this->app->event->dispatcher->notify($this->app->event->create($this, 'order:init'));
 
 		return $this;
 
