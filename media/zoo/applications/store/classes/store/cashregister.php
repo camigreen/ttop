@@ -226,6 +226,7 @@ class CashRegister {
             $order->params->set('payment.status', 1);
             $order->params->set('payment.approved', $response->approved);
             $order->params->set('payment.response_text', $response->response_reason_text);
+            $order->save();
 
         }
 
