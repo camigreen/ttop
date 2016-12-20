@@ -229,41 +229,12 @@ class TestController extends AppController {
 	 */
 
 	public function testCart() {
-		// $x = array();
-		// $x['id'] = 'ccbc';
-		// $x['type'] = 'ccbc';
-		// $x['qty'] = 3;
-		// $x['params'] = array(
-		// 	'boat.manufacturer' => 'action-craft',
-		// 	'boat.model' => '1820-flatsmaster'
-		// );
-		// $x['options'] = array(
-		// 	'trolling_motor' => 'Y',
-		// 	'bow_rails' => 'L',
-		// 	'poling_platform' => 42,
-		// 	'year' => 2016,
-		// 	'motors' => 1
-		// );
-		// $cart[] = $x;
-
-		//$this->app->request->set('products', $cart);
-		$this->cart = $this->app->cart;
-		
-		
-		// $stuff = array();
-        // $products = $this->app->request->get('products', 'array', array());
-        // foreach($products as $product) {
-        //     $product = $this->app->product->create($product);
-        //     $hash = $product->getHash();
-        //     $stuff[$hash] = $product;
-        // }
-
-        //$this->cart->add($stuff);
-
-        echo '<button class="open-cart">Open Cart</button>';
-        //$layout = 'cart';
-
-		//$this->getView()->addTemplatePath($this->app->path->path('library.cart:/layouts'))->setLayout($layout)->display();
+		$item = $this->app->table->item->get(631);
+		var_dump($item);
+		$product = $this->app->product->create($item);
+		var_dump($product);
+		$cart = $this->app->cart->getAll();
+		var_dump($cart);
 	}
 
 	/**

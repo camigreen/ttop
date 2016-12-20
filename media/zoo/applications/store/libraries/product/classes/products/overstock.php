@@ -30,8 +30,7 @@ class OverstockProduct extends Product {
     }
 
     public function bind($product = array()) {
-        $this->type = $product->get('productType');
-        $this->options = $product->get('productType');
+        $this->options = $product->params['optionType'];
 
         parent::bind($product);
         $this->name = $product->get('productName');
@@ -89,6 +88,12 @@ class OverstockProduct extends Product {
             $this->sku = $this->_patternID.'-'.$this->getOption('fabric')->get('value').'-'.$this->getOption('color')->get('text');
         }
         return parent::getSKU();
+    }
+
+    public function getHash() {
+        $sku = array();
+        $sku[] = $this->id;
+        return hash('md5', implode('.', $sku));
     }
 
     public function setBoatLength() {

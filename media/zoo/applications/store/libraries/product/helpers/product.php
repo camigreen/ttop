@@ -69,7 +69,6 @@ class ProductHelper extends AppHelper {
 			$item->set('type', 'ubsk');
 		} else if ($data->type == 'ccbc-shelved') {
 			$item->set('type', 'overstock');
-			$item->set('productType', 'ccbc');
 			$item->set('productName', 'Center Console Boat Cover');
 			$options = array();
 			foreach($data->getElements() as $key => $element) {
@@ -97,6 +96,8 @@ class ProductHelper extends AppHelper {
 
 			}
 			$item->name = $data->getPrimaryCategory()->name;
+			$data->params->set('priceType', 'ccbc');
+			$data->params->set('optionType', 'ccbc');
 			$data->params->set('inventory', true);
 			$data->params->set('zoo_id', $data->id);
 			$data->params->set('zoo_type', $data->type);

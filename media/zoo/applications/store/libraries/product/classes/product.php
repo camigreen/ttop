@@ -135,7 +135,7 @@ class Product {
     public function bind($product = array()) {
 
         // Bind all variable except options and params
-        $exclude = array('options', 'params', 'price', 'locked', 'type');
+        $exclude = array('options', 'params', 'price', 'locked');
         foreach($product as $key => $value) {
             if(property_exists($this, $key) && !in_array($key, $exclude)) {
                 $this->$key = $value;

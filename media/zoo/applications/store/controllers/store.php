@@ -141,7 +141,9 @@ class StoreController extends AppController {
         $item_count       = $this->category->id == 0 ? $this->app->table->item->getItemCountFromCategory($this->application->id, $category_id, true) : $this->category->itemCount();
         $items = array();
         foreach($this->items as $item) {
-            $qty = (int) $item->getElement('qty')->get('value');
+            
+            $product = $this->app->product->create($item);
+            $qty = (int) $product->getQty();
             if($qty > 0) {
                 $items[$item->id] = $item;
             }
