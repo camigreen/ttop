@@ -243,7 +243,8 @@ class OrderDev {
     }
 
 	public function isProcessed() {
-		return $this->params->get('locked', false);
+		$legacy = $this->status > 0 ? true : false;
+		return $this->params->get('locked', $legacy);
 	}
 
 	public function getUser() {
