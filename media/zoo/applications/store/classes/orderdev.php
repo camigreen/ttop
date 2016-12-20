@@ -56,8 +56,9 @@ class OrderDev {
 
 
         if($lock) {
-        	$this->params->set('locked', true);
         	$this->_calculateFinalTotals();
+        	$this->params->set('locked', true);
+        	
         	foreach($this->elements->get('items.', array()) as $hash => $item) {
 	        	$this->elements->set('items.'.$hash, $item->lock());
 	        }
@@ -242,7 +243,7 @@ class OrderDev {
     }
 
 	public function isProcessed() {
-		return $this->status > 0;
+		return $this->params->get('locked', false);
 	}
 
 	public function getUser() {
