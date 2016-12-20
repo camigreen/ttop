@@ -202,9 +202,7 @@ class OrderDev {
         $application = $this->app->zoo->getApplication();
         $markup = $application->getParams()->get('global.shipping.ship_markup', 0);
         $markup = intval($markup)/100;
-        $ship = $this->app->shipper;
-        $ship_to = $this->app->parameter->create($this->elements->get('shipping.'));
-        $rates = $ship->setDestination($ship_to)->assemblePackages($this->getItems())->getRates();
+        $rates = $this->app->shipper->getRates($this);
         $rate = 0;
         foreach($rates as $shippingMethod) {
             if($shippingMethod->getService()->getCode() == $service) {

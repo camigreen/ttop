@@ -34,14 +34,17 @@ class OverstockProduct extends Product {
         $this->options = $product->get('productType');
 
         parent::bind($product);
+        $this->name = $product->get('productName');
         $this->id = $this->id;
-        $this->name = 'Center Console Boat Cover';
         $boat_make = $this->getParam('boat.manufacturer');
         $boat_model = $this->getParam('boat.model');
         $this->setParam('boat.manufacturer', $this->app->boat->create($boat_make, $boat_model));
         $this->setParam('boat.model',$this->getParam('boat.manufacturer')->getModel());
-        // $this->setOptionValue('boat_make', $this->getParam('boat.manufacturer')->label);
-        // $this->setOptionValue('boat_model', $this->getParam('boat.model')->label);
+        $this->setOptionValue('boat_make', $this->getParam('boat.manufacturer')->label);
+        $this->setOptionValue('boat_model', $this->getParam('boat.model')->label);
+        foreach($this->getParam('boat.model')->get('options', array()) as $option) {
+            $this->setOption($option->get('name'), $option);
+        }
         $this->description = 'Custom fit for a '.$this->getParam('boat.manufacturer')->label.' '.$this->getParam('boat.model')->label;
         $this->setBoatLength();
         $this->setPriceRule();

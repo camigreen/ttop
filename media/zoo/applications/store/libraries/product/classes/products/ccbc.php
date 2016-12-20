@@ -40,6 +40,10 @@ class CCBCProduct extends Product {
         $boat_model = $this->getParam('boat.model');
         $this->setParam('boat.manufacturer', $this->app->boat->create($boat_make, $boat_model));
         $this->setParam('boat.model',$this->getParam('boat.manufacturer')->getModel());
+
+        foreach($this->getParam('boat.model')->get('options', array()) as $option) {
+            $this->setOption($option->get('name'), $option);
+        }
         
         $this->description = 'Custom fit for a '.$this->getParam('boat.manufacturer')->label.' '.$this->getParam('boat.model')->label;
         $this->setBoatLength();

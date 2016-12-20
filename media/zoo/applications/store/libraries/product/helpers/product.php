@@ -70,6 +70,7 @@ class ProductHelper extends AppHelper {
 		} else if ($data->type == 'ccbc-shelved') {
 			$item->set('type', 'overstock');
 			$item->set('productType', 'ccbc');
+			$item->set('productName', 'Center Console Boat Cover');
 			$options = array();
 			foreach($data->getElements() as $key => $element) {
 				if($element->getElementType() == 'optionselect') {

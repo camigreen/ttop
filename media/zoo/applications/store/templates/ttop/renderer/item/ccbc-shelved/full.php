@@ -14,7 +14,7 @@ $this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
 $this->app->document->addScript('library.cart:assets/js/cart.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
-$product->debug();
+
 
 
 ?>
@@ -97,17 +97,34 @@ $product->debug();
         </div>
     </div>
 </div>
+<div class="modals"></div>
 <script>
     if(typeof items === 'undefined') { var items = {} };
     item = <?php echo $product->toJson(true); ?>;
     console.log(item);
     jQuery(function($) {
 
+        function toggleATCStatus(elem) {
+            if(item.qty >= 1) {
+                elem.prop('disabled', false);
+            } else {
+                elem.prop('disabled', true);
+            }
+        }
+
         lpiModal.init('.modals');
 
         $(document).ready(function(){
+            toggleATCStatus($('#atc-631'));
+            // lpiModal.getModal({
+            //     type: 'default',
+            //     name: 'message',
+            //     message: 'Test'
+            // })
             $('#atc-631').on('click', function(){
                 lpiCart.add([item]);
+                item.qty--;
+                toggleATCStatus($(this));
             });
         //     $('#OrderForm-<?php echo $product->id; ?>').OrderForm({
         //         name: 'T-Top Boat Cover - Overstock',
