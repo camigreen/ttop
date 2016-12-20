@@ -132,8 +132,9 @@
                 lpiCart.show();
             },
             error: function(data, status, error) {
-                var elem = $('#'+item.id+'-price span');
-                elem.html('ERROR');
+                console.log(data);
+                console.log(status);
+                console.log(error);
             },
             dataType: 'json'
         });

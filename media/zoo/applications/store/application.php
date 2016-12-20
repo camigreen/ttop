@@ -43,11 +43,10 @@ class StoreApplication extends Application {
         include_once $path.'/vendor/autoload.php';
 
         // Load libraries
-        include_once $zoo->path->path('store.lib:/product/config.php');
-        include_once $zoo->path->path('store.lib:/modal/config.php');
-        include_once $zoo->path->path('store.lib:/price/config.php');
-        include_once $zoo->path->path('store.lib:/cart/config.php');
-
+        $libraries = array('product', 'modal', 'price', 'cart', 'api');
+        foreach($libraries as $library) {
+            include_once $zoo->path->path('store.lib:/'.$library.'/config.php');
+        }
 
 //        Load Classes
         $zoo->loader->register('ElementStore','elements:element/element.php');
@@ -76,5 +75,6 @@ class StoreApplication extends Application {
 
         
     }
+
 
 }

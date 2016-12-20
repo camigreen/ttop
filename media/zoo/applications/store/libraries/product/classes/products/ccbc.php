@@ -34,16 +34,17 @@ class CCBCProduct extends Product {
 	public function bind($product = array()) {
         $this->options = $this->type;
 		parent::bind($product);
-		$this->id = 'ccbc';
+		$this->id = $this->id ? $this->id : 'ccbc';
 		$this->name = 'Center Console Boat Cover';
         $boat_make = $this->getParam('boat.manufacturer');
         $boat_model = $this->getParam('boat.model');
         $this->setParam('boat.manufacturer', $this->app->boat->create($boat_make, $boat_model));
         $this->setParam('boat.model',$this->getParam('boat.manufacturer')->getModel());
-        
+
         foreach($this->getParam('boat.model')->get('options', array()) as $option) {
             $this->setOption($option->get('name'), $option);
         }
+        
         $this->description = 'Custom fit for a '.$this->getParam('boat.manufacturer')->label.' '.$this->getParam('boat.model')->label;
         $this->setBoatLength();
         $this->setPriceRule();

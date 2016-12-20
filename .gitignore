@@ -590,6 +590,8 @@ error_log*
 ## T-Top Store
 /media/zoo/applications/store/vendor/jms/*
 /media/zoo/applications/store/types/*
+!/media/zoo/applications/store/types/ccbc-shelved.config
+!/media/zoo/applications/store/types/ttbc-shelved.config
 /media/zoo/applications/store/templates/uikit/renderer/item/positions.config
 /media/zoo/applications/blog/types/*
 /media/zoo/applications/blog/templates/uikit/renderer/item/positions.config

@@ -111,6 +111,134 @@ class StoreController extends AppController {
 
     }
 
+    public function clearance() {
+        // get request vars
+        $page        = $this->app->request->getInt('page', 1);
+        $category_id = (int) $this->app->request->getInt('category_id', $this->params->get('category'));
+
+        // init vars
+        $this->categories = $this->application->getCategoryTree(true, $this->app->user->get(), true);
+
+        // raise 404 if category does not exist
+        if ($category_id && !$this->app->table->category->get($category_id)) {
+            return $this->app->error->raiseError(404, JText::_('Category not found'));
+        }
+
+        // raise warning when category can not be accessed
+        if (!isset($this->categories[$category_id])) {
+            return $this->app->error->raiseError(403, JText::_('Unable to access category'));
+        }
+
+        $this->category   = $this->categories[$category_id];
+        $params           = $category_id ? $this->category->getParams('site') : $this->application->getParams('frontpage');
+        $this->item_order = $params->get('config.item_order');
+        $ignore_priority  = $params->get('config.ignore_item_priority', false);
+        $layout           = 'overstock';
+        $items_per_page   = $params->get('config.items_per_page', 15);
+        $offset           = max(($page - 1) * $items_per_page, 0);
+        // get categories and items
+        $this->items      = $this->app->table->item->getByCategory($this->application->id, $category_id, true, null, $this->item_order, $offset, $items_per_page, $ignore_priority);
+        $item_count       = $this->category->id == 0 ? $this->app->table->item->getItemCountFromCategory($this->application->id, $category_id, true) : $this->category->itemCount();
+        $items = array();
+        foreach($this->items as $item) {
+            
+            $product = $this->app->product->create($item);
+            $qty = (int) $product->getQty();
+            if($qty > 0) {
+                $items[$item->id] = $item;
+            }
+        }
+        $this->items = $items;
+        // set categories to display
+        $this->selected_categories = $this->category->getChildren();
+
+        // get item pagination
+        $this->pagination = $this->app->pagination->create($item_count, $page, $items_per_page, 'page', 'app');
+        $this->pagination->setShowAll($items_per_page == 0);
+        $this->pagination_link = $layout == 'category' ? $this->app->route->category($this->category, false) : $this->app->route->frontpage($this->application->id);
+
+        // create pathway
+        $addpath = false;
+        $catid   = $this->params->get('category');
+        foreach ($this->category->getPathway() as $cat) {
+            if (!$catid || $addpath) {
+                $this->pathway->addItem($cat->name, $this->app->route->category($cat));
+            }
+            if ($catid && $catid == $cat->id) {
+                $addpath = true;
+            }
+        }
+
+        // get metadata
+        $title       = $params->get('metadata.title') ? $params->get('metadata.title') : ($category_id ? $this->category->name : '');
+        $description = $params->get('metadata.description');
+        $keywords    = $params->get('metadata.keywords');
+
+        if ($menu = $this->app->menu->getActive() and in_array(@$menu->query['view'], array('category', 'frontpage')) and $menu_params = $this->app->parameter->create($menu->params) and $menu_params->get('category') == $category_id) {
+
+            if ($page_title = $menu_params->get('page_title') or $page_title = $menu->title) {
+                $title = $page_title;
+            }
+
+            if ($page_description = $menu_params->get('menu-meta_description')) {
+                $description = $page_description;
+            }
+
+            if ($page_keywords = $menu_params->get('menu-meta_keywords')) {
+                $keywords = $page_keywords;
+            }
+
+        }
+
+        // set page title
+        if ($title) {
+            $this->app->document->setTitle($this->app->zoo->buildPageTitle($title));
+        }
+
+        if ($description) {
+            $this->app->document->setDescription($description);
+        }
+
+        if ($keywords) {
+            $this->app->document->setMetadata('keywords', $keywords);
+        }
+
+        // set metadata
+        $system_params = $this->app->parameter->create($this->app->system->application->getParams());
+        foreach (array('author', 'robots') as $meta) {
+            if ($value = $params->get("metadata.$meta") or $value = $system_params->get($meta)){
+                $this->app->document->setMetadata($meta, $value);
+            }
+        }
+
+        // add feed links
+        if ($params->get('config.show_feed_link') && $this->app->system->document instanceof JDocumentHTML) {
+            if ($alternate = $params->get('config.alternate_feed_link')) {
+                $this->app->document->addHeadLink($alternate, 'alternate', 'rel', array('type' => 'application/rss+xml', 'title' => 'RSS 2.0'));
+            } else {
+                $this->app->document->addHeadLink(JRoute::_($this->app->route->feed($this->category, 'rss')), 'alternate', 'rel', array('type' => 'application/rss+xml', 'title' => 'RSS 2.0'));
+                $this->app->document->addHeadLink(JRoute::_($this->app->route->feed($this->category, 'atom')), 'alternate', 'rel', array('type' => 'application/atom+xml', 'title' => 'Atom 1.0'));
+            }
+        }
+
+        // set alphaindex
+        if ($params->get('template.show_alpha_index')) {
+            $this->alpha_index = $this->_getAlphaindex();
+        }
+
+        // set template and params
+        if (!$this->template = $this->application->getTemplate()) {
+            return $this->app->error->raiseError(500, JText::_('No template selected'));
+        }
+        $this->params   = $params;
+
+        // set renderer
+        $this->renderer = $this->app->renderer->create('item')->addPath(array($this->app->path->path('component.site:'), $this->template->getPath()));
+
+        // display view
+        $this->getView($layout)->addTemplatePath($this->template->getPath())->setLayout($layout)->display();
+    }
+
     public function order() {
         if (!$this->template = $this->application->getTemplate()) {
             return $this->app->error->raiseError(500, JText::_('No template selected'));

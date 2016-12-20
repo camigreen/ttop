@@ -23,7 +23,7 @@ defined('_JEXEC') or die('Restricted access');
 
 	// render rows
 	while ((list($key, $item) = each($this->items))) {
-		if ($i % $columns == 0) echo ($i > 0 ? '</div><div class="uk-grid product-row" data-uk-grid-margin data-uk-grid-match="{target:\'.uk-panel\'}">' : '<div class="uk-grid product-row" data-uk-grid-margin data-uk-grid-match="{target:\'.uk-panel\'}">');
+		if ($i % $columns == 0) echo ($i > 0 ? '</div><div class="uk-grid product-row">' : '<div class="uk-grid product-row">');
 		echo '<div class="uk-width-medium-1-'.$columns.' product">'.$this->partial('item', compact('item')).'</div>';
 		$i++;
 	}

@@ -67,6 +67,68 @@ class ProductHelper extends AppHelper {
 			$item->set('type', 'bsk');
 		} else if ($data->type == 'ultimate-boat-shade') {
 			$item->set('type', 'ubsk');
+		} else if ($data->type == 'ccbc-shelved') {
+			$item->set('type', 'overstock');
+			$item->set('productName', 'Center Console Boat Cover');
+			$options = array();
+			foreach($data->getElements() as $key => $element) {
+				if($element->getElementType() == 'optionselect') {
+					if($key == 'fabric') {
+						$options[$key] = array('value' => $element->get('option')[0]);
+					} else {
+						$options[$key] = array('value' => strtoupper($element->get('option')[0]));
+					}
+					
+				}
+				$item->set('options', $options);
+				switch ($element->config->get('name')) {
+					case 'Qty':
+						$item->qty = $element->get('value');
+						break;
+					case 'Make / Model':
+						$data->params->set('boat.manufacturer', $element->get('make'));
+						$data->params->set('boat.model', $element->get('model'));
+						break;
+					case 'Boat Model':
+						$data->params->set('model', $element->get('value'));
+						break;
+				}
+
+			}
+			$item->name = $data->getPrimaryCategory()->name;
+			$data->params->set('priceType', 'ccbc');
+			$data->params->set('optionType', 'ccbc');
+			$data->params->set('inventory', true);
+			$data->params->set('zoo_id', $data->id);
+			$data->params->set('zoo_type', $data->type);
+			$data->params->set('link', $this->app->route->item($data));
+			$data->params->set('discount', 0.3);
+		} else if ($data->type == 'ttbc-shelved') {
+			$item->set('id', $data->id);
+			$item->set('type', 'ttbc');
+			$opt = array();
+			foreach($data->getElements() as $key => $element) {
+
+				switch ($element->config->get('name')) {
+					case 'Boat Length':
+						$opt['boat_length'] = array('value' => $element->get('option'));
+						break;
+					case 'Qty':
+						$item->qty = $element->get('value');
+						break;
+					case 'Fabric':
+						$opt['fabric'] = array('value' => $element->get('option')[0]);
+						break;
+				}
+				
+			}
+			$item->set('options', $opt);
+			$item->name = $data->getPrimaryCategory()->name;
+			$data->params->set('inventory', true);
+			$data->params->set('zoo_id', $data->id);
+			$data->params->set('zoo_type', $data->type);
+			$data->params->set('link', $this->app->route->item($data));
+			$data->params->set('discount', 0.3);
 		} else {
 			$item->set('type', $data->type);
 		}

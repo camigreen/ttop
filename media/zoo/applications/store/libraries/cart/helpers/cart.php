@@ -39,10 +39,11 @@ class CartHelper extends AppHelper {
 			$cart = $this->app->data->create();
 		}
 		foreach($cart as $hash => $product) {
+			
 			$product = $this->app->product->create($product);
 			$this->_storage->set($hash, $product);
 		}
-		$this->updateSession();
+		//$this->updateSession();
 	}
 
 	/**

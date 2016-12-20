@@ -133,6 +133,7 @@ class Product {
     }
 
     public function bind($product = array()) {
+
         // Bind all variable except options and params
         $exclude = array('options', 'params', 'price', 'locked');
         foreach($product as $key => $value) {
@@ -318,6 +319,7 @@ class Product {
     public function initPrice() {
         if(!$this->isLocked()) {
             $this->_price = $this->app->price->create($this);
+            $this->setDiscountRate($this->getParam('discount'));
             $this->price = $this->_price->getAll();
             $this->setParam('weight', $this->_price->getParam('weight',0));
         } else {
@@ -421,6 +423,23 @@ class Product {
      */
     public function getDiscountRate($default = 0) {
         return (1-$this->price->get('discountRate', $default))*100;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function setDiscountRate($rate = null) {
+        if($rate) {
+            $this->_price->setDiscountRate($rate);
+            $this->refreshPrice();
+        }
+        return $this;
     }
 
     /**
@@ -653,6 +672,19 @@ class Product {
         }
 
         return $encode ? json_encode($data) : $data;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function debug() {
+        $this->_price->debug(true);
     }
     
 }

@@ -33,10 +33,11 @@ class PriceHelper extends AppHelper {
         } else {
             $class = 'Price';
         }
+        $type = $product->getParam('priceType', $product->type);
         $data = array();
-        $data['path.rules.item'] = $this->app->path->path('rules:'.$product->type.'.php');
+        $data['path.rules.item'] = $this->app->path->path('rules:'.$type.'.php');
         $data['path.rules.global'] = $this->app->path->path('rules:global.php');
-        $data['product.type'] = $product->type;
+        $data['product.type'] = $type;
         $data['rule'] = $product->getPriceRule();
         $options = array_merge(array(), $product->options->getByType('price', array())->getArrayCopy(), $product->options->getByType('price.adj', array())->getArrayCopy());
         $data['options.product'] = $options;

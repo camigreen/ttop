@@ -67,9 +67,11 @@
 }
 .ttop .price {
     font-size: 50px;
-    line-height:53px;
     font-weight: 500;
     margin-bottom:10px;
+}
+.ttop .price-container {
+    line-height:53px;
 }
 .ttop .currency {
     font-family: FontAwesome;
@@ -488,3 +490,126 @@ select.oem-select {
     font-weight: 100;
     margin-left: 20px;
 }
+
+.ttop .price-teaser {
+
+}
+
+.ttop .price-teaser .price {
+    line-height: 0px;
+    margin: 0px;
+}
+.ttop .price-teaser .currency {
+    font-size: 15px;
+    line-height: 1.5em;
+    margin: 0px;
+
+}
+.ttop .teaser-options {
+    font-size: 10px;
+    line-height: 1em;
+}
+.ttop .teaser-options span {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.4em;
+
+}
+.ttop .clearance-teaser .clearance-title {
+    font-size:30px;
+}
+
+.ttop .clearance-teaser legend {
+    font-size: 15px;
+    line-height: 1em;
+    width: 90%;
+}
+
+.ttop .price-full {
+    margin:10px;
+}
+
+.ttop .original-price {
+    color:red;
+    
+}
+.ttop .original-price .price {
+    text-decoration: line-through;
+}
+
+.ttop .original-price .currency {
+
+}
+
+.ttop .clearance-teaser .original-price .currency {
+    
+}
+
+.ttop .clearance-full .sale-price .currency {
+    line-height: 30px;
+    margin-right:0px;
+}
+
+.ttop .clearance-teaser .original-price .price {
+    font-size:15px;
+}
+.ttop .clearance-full .original-price .price {
+    font-size:20px;
+}
+
+.ttop .sale-price {
+}
+.ttop .clearance-teaser .sale-price {
+}
+
+.ttop .clearance-full .sale-price {
+}
+
+.ttop .clearance-teaser .sale-price .price {
+    font-size: 35px;
+    line-height: 40px;
+}
+.ttop .clearance-full .sale-price .price {
+    line-height:40px;
+}
+.ttop .sale-price-title {
+    float: right;
+    font-size: 12px;
+    width: 30px;
+    word-wrap: normal;
+    margin-right: 5px;
+    line-height: normal;
+}
+
+.ttop .sale-price .sale-price-container {
+    float:right;
+}
+.ttop .sale-price-container {
+
+}
+.ttop .clearance-full .sale-price {
+
+}
+
+.ttop .ccbc.clearance-full {
+
+}
+
+.ttop .ccbc.clearance-full .options {
+
+}
+
+.ttop .ccbc.clearance-full .options label{
+    font-size:17px;
+}
+
+.ttop .ccbc.clearance-full .options .option-name {
+    font-size:15px;
+    font-weight: 100;
+}
+
+.ttop .ccbc.clearance-full .options legend {
+    color: inherit;
+}
+
+

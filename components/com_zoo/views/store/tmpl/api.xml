@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+
+	<layout title="API">
+		<message><![CDATA[Store API]]></message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request">  
+			<field name="controller" type="hidden" label="" required="true" default="api" />          
+		</fieldset>
+	</fields>
+
+</metadata>

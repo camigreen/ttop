@@ -327,14 +327,14 @@
             elem.html('<i class="uk-icon-refresh uk-icon-spin"></i>');
             $.ajax({
                 type: 'POST',
-                url: "?option=com_zoo&controller=price&task=getPrice&format=json",
+                url: "/store/api/price/getprice",
                 data: {product: product},
                 success: function(data){
                     console.log(elem);
-                    var price = data.price;
+                    var price = data.result.price;
                     elem.html(price.toFixed(2));
                     self.trigger('afterPublishPrice', {price: price, item: product, type: args.type});
-                    $('#patternID').html(data.product.pattern);
+                    $('#patternID').html(data.result.product.pattern);
                 },
                 error: function(data, status, error) {
                     self._debug('Error');

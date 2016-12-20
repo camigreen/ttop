@@ -157,7 +157,9 @@ function ZooBuildRoute(&$query) {
 		}
 
 	$app->event->dispatcher->notify($app->event->create(null, 'application:sefbuildroute', array('segments' => &$segments, 'query' => &$query)));
-
+		// var_dump(@$query);
+		// var_dump($segments);
+		// die();
 	return $segments;
 }
 
@@ -264,34 +266,28 @@ function ZooParseRoute($segments) {
 			$vars['item_id'] = (int) $app->alias->item->translateAliasToID($segments[1]);
 		}
 
-	// shit
+	$task = 'api';
+
+		if($count == 3 && $segments[0] == $task) {
+			$vars['controller'] = 'api';
+			$vars['api'] = $segments[1];
+			$vars['task'] = $segments[2];
+			$vars['format'] = 'json';
+		}
+
 	$task = 'ccbc';
-	// var_dump($segments);
-	// die();
 
-		if ($count == 1 && $segments[0] == $task) {
+		if ($count >= 1 && $segments[0] == $task) {
 			$vars['controller'] = 'product';
-			$vars['product'] = $segments[0];
-			$vars['task'] = 'chooseBoatManufacturer';
-			$vars['process'] = 'order';	
+			$vars['name'] = $segments[0];
 		}
-
-		if ($count == 2 && $segments[0] == $task) {
-			$vars['controller'] = 'product';
-			$vars['product'] = $segments[0];
-			$vars['task'] = 'chooseBoatModel';
+		if ($count >= 2 && $segments[0] == $task) {
 			$vars['make'] = $segments[1];
-			$vars['process'] = 'order';
 		}
-
-		if ($count == 3 && $segments[0] == $task) {
-			$vars['controller'] = 'product';
-			$vars['product'] = $segments[0];
-			$vars['task'] = 'orderForm';
-			$vars['make'] = $segments[1];
+		if ($count >= 3 && $segments[0] == $task) {
 			$vars['model'] = $segments[2];
-			$vars['process'] = 'order';
 		}
+	
 
 	// feed
 	$task = 'feed';
@@ -382,6 +378,8 @@ function ZooParseRoute($segments) {
 	}
 
 	$app->event->dispatcher->notify($app->event->create(null, 'application:sefparseroute', array('segments' => &$segments, 'vars' => &$vars)));
-
+	// var_dump($segments);
+	// var_dump($vars);
+	// die();
 	return $vars;
 }

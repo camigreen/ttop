@@ -203,9 +203,7 @@ class OrderDev {
         $application = $this->app->zoo->getApplication();
         $markup = $application->getParams()->get('global.shipping.ship_markup', 0);
         $markup = intval($markup)/100;
-        $ship = $this->app->shipper;
-        $ship_to = $this->app->parameter->create($this->elements->get('shipping.'));
-        $rates = $ship->setDestination($ship_to)->assemblePackages($this->getItems())->getRates();
+        $rates = $this->app->shipper->getRates($this);
         $rate = 0;
         foreach($rates as $shippingMethod) {
             if($shippingMethod->getService()->getCode() == $service) {
@@ -323,6 +321,32 @@ class OrderDev {
     		return 'Website';
     	}
     	return $this->getUser()->name;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param 	datatype		Description of the parameter.
+     *
+     * @return 	datatype	Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getBillingAddress() {
+    	return $this->app->data->create($this->elements->get('billing.'));
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param 	datatype		Description of the parameter.
+     *
+     * @return 	datatype	Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getShippingAddress() {
+    	return $this->app->data->create($this->elements->get('shipping.'));
     }
 
 }

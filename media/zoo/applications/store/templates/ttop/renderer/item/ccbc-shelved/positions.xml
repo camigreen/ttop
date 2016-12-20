@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<renderer>
+    <positions layout="full">
+		<position name="top">Top</position>
+		<position name="title">Title</position>
+		<position name="media">Media</position>
+		<position name="description">Description</position>
+        <position name="boat-options">Boat Options</position>
+		<position name="cover-options">Cover Options</position>
+        <position name="bow-options">Bow Options</position>
+        <position name="aft-options">Aft Options</position>
+        <position name="pricing">Pricing</position>
+	</positions>
+	<positions layout="teaser">
+		<position name="title">Title</position>
+		<position name="media">Media</position>
+		<position name="description">Description</position>
+		<position name="boat-options">Boat Options</position>
+		<position name="cover-options">Cover Options</position>
+		<position name="bow-options">Bow Options</position>
+		<position name="aft-options">Aft Options</position>
+		<position name="pricing">Pricing</position>
+	</positions>
+</renderer>

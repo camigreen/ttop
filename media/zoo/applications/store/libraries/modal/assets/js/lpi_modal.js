@@ -135,7 +135,7 @@
 
 
         lpiModal.load(config).done(function(data){
-            var elem = $(data.content);
+            var elem = $(data.result);
             dfd.resolve(elem);
         });
         
@@ -151,7 +151,7 @@
     lpiModal.load = function(config) {
         return $.ajax({
             type: 'POST',
-            url: "?option=com_zoo&controller=modal&task=getModal&format=json",
+            url: "/store/api/modal/get",
             data: {config: config},
             dataType: 'json', 
             success: function(data) {

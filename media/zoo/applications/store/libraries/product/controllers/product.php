@@ -29,14 +29,8 @@ class ProductController extends AppController {
         $this->pathway = $this->joomla->getPathway();
 
         
-        $this->type = $this->app->request->get('product', 'string');
-        $this->process = $this->app->request->get('process', 'string');
-
-        $this->xml['config'] = simplexml_load_file($this->getLayoutPath().'/'.$this->type.'/config.xml');
-        $this->xml['items'] = simplexml_load_file($this->app->path->path('library.product:/items.xml'));
-        $this->url = $this->process.'/'.$this->type.'/';
+        
         // registers tasks
-//      $this->registerTask('checkout', 'checkout');
         //$this->registerTask('getMake', 'display');
     }
     
@@ -50,14 +44,13 @@ class ProductController extends AppController {
     public function display($cachable = false, $urlparams = false) {
 
             // execute task
-        var_dump($this->pathway);
-            $model = $this->request->get('model', 'string');
-            $make = $this->app->request->get('make', 'string');
-            echo 'Make: '.($make ? $make : 'No Make Chosen').'</br>';
-            echo 'Model: '.($model ? $model : 'No Model Chosen').'</br>';
-            echo 'Task: '.$this->task.'</br>';
-            $this->taskMap['display'] = null;
-            $this->taskMap['__default'] = null;
+$this->name = $this->app->request->get('name', 'string');
+        $this->layout = $this->app->request->get('layout', 'string');
+
+        $this->xml['config'] = simplexml_load_file($this->getLayoutPath().'/'.$this->name.'/config.xml');
+        $this->xml['items'] = simplexml_load_file($this->app->path->path('library.product:/items.xml'));
+        $this->url = '/store/'.$this->name.'/';
+            $this->execute('order');
             
             
     }
@@ -100,7 +93,7 @@ class ProductController extends AppController {
         //         break;
         // }
         
-        $this->getView()->addTemplatePath($this->getLayoutPath().'/'.$this->type);
+        $this->getView()->addTemplatePath($this->getLayoutPath().'/'.$this->name);
         $this->getView()->setLayout($layout)->display();
     }
 
@@ -109,17 +102,24 @@ class ProductController extends AppController {
         $manufacturer = $this->app->request->get('make', 'string');
         $this->url;
         $this->manufacturer = $this->getManufacturer($manufacturer);
-        $this->getView()->addTemplatePath($this->getLayoutPath().'/'.$this->type);
+        $this->getView()->addTemplatePath($this->getLayoutPath().'/'.$this->name);
         $this->getView()->setLayout($layout)->display();
     }
 
-    public function orderForm() {
+    public function order() {
+        if(!$make = $this->app->request->get('make', 'string')) {
+            return $this->chooseBoatManufacturer();
+        }
+        if(!$model = $this->app->request->get('model', 'string')) {
+            return $this->chooseBoatModel();
+        }
+
         $manufacturer = $this->app->request->get('make', 'string');
         $model = $this->app->request->get('model', 'string');
         $product = array(
-            'type' => $this->type,
+            'type' => $this->name,
             'params' => array(
-                'boat.manufacturer' => $manufacturer,
+                'boat.manufacturer' => $make,
                 'boat.model' => $model
             )
         );
@@ -132,12 +132,28 @@ class ProductController extends AppController {
         $this->form->setAsset((string) $xml->assetName);
         $this->form->setValues($values);
         
-        $this->getView()->addTemplatePath($this->getLayoutPath().'/'.$this->product->type);
+        $this->getView()->addTemplatePath($this->getLayoutPath().'/'.$this->name);
         $this->getView()->setLayout($layout)->display();
     }
 
     public function getLayoutPath() {
         return $this->app->path->path('library.product:/layouts');
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function getBoatModels() {
+        $this->app->document->setMimeEncoding('application/json');
+        $make = $this->app->request->get('make', 'string');
+        $make = $this->app->boat->getBoatMake($make);
+        echo json_encode($make->get('models'));
     }
 
     protected function getManufacturer($make) {

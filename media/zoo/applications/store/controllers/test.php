@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * @package   Package Name
  * @author    Shawn Gibbons http://www.palmettoimages.com
@@ -229,41 +229,12 @@ class TestController extends AppController {
 	 */
 
 	public function testCart() {
-		// $x = array();
-		// $x['id'] = 'ccbc';
-		// $x['type'] = 'ccbc';
-		// $x['qty'] = 3;
-		// $x['params'] = array(
-		// 	'boat.manufacturer' => 'action-craft',
-		// 	'boat.model' => '1820-flatsmaster'
-		// );
-		// $x['options'] = array(
-		// 	'trolling_motor' => 'Y',
-		// 	'bow_rails' => 'L',
-		// 	'poling_platform' => 42,
-		// 	'year' => 2016,
-		// 	'motors' => 1
-		// );
-		// $cart[] = $x;
-
-		//$this->app->request->set('products', $cart);
-		$this->cart = $this->app->cart;
-		
-		
-		// $stuff = array();
-        // $products = $this->app->request->get('products', 'array', array());
-        // foreach($products as $product) {
-        //     $product = $this->app->product->create($product);
-        //     $hash = $product->getHash();
-        //     $stuff[$hash] = $product;
-        // }
-
-        //$this->cart->add($stuff);
-
-        echo '<button class="open-cart">Open Cart</button>';
-        //$layout = 'cart';
-
-		//$this->getView()->addTemplatePath($this->app->path->path('library.cart:/layouts'))->setLayout($layout)->display();
+		$item = $this->app->table->item->get(631);
+		var_dump($item);
+		$product = $this->app->product->create($item);
+		var_dump($product);
+		$cart = $this->app->cart->getAll();
+		var_dump($cart);
 	}
 
 	/**
@@ -276,17 +247,22 @@ class TestController extends AppController {
 	 * @since 1.0
 	 */
 	public function testShip() {
+
+		
+		
 		$shipper = $this->app->shipper;
-		$shipTo = array();
-		$shipTo['name'] = 'Shawn Gibbons';
-		$shipTo['street1'] = '114 St Awdry Street';
-		$shipTo['city'] = 'Summerville';
-		$shipTo['state'] = 'SC';
-		$shipTo['postalCode'] = '29485';
-		$shipTo = $this->app->data->create($shipTo);
-		$shipper->setDestination($shipTo)->assemblePackages($this->app->cart->getAll());
-		var_dump($shipper);
-		var_dump($shipper->getRates());
+
+		$order = $this->app->orderdev->get(8065);
+
+		$rates = $shipper->getRates($order);
+		
+		if(!$rates) {
+			var_dump($shipper->getErrors());
+		} else {
+			var_dump($rates);
+		}
+
+		
 	}
 
 	/**
@@ -328,6 +304,26 @@ class TestController extends AppController {
 		} catch (Exception $e) {
 		  echo $e->getMessage(); //Boring error messages from anything else!
 		}
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function testInventory() {
+		$zid = $this->app->request->get('zid', 'int');
+		$item = $this->app->table->item->get($zid);
+		$qty = $item->getElement('ccbc-qty')->get('value');
+		$qty--;
+		$item->getElement('ccbc-qty')->set('value', $qty);
+
+		$this->app->table->item->save($item);
+		var_dump($item->getElement('ccbc-qty')->get('value'));
 	}
 
 

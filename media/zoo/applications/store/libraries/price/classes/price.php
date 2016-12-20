@@ -278,7 +278,10 @@ class Price {
 	 *
 	 * @since 1.0
 	 */
-	public function getAll() {
+	public function getAll($recalc = false) {
+		if($recalc) {
+			$this->calculate();
+		}
 		$prices = $this->app->parameter->create($this->getParam('price.'));
 		$prices->set('markupRate', $this->getParam('markup.msrp'));
 		$prices->set('discountRate', $this->getDiscountRate());
@@ -346,12 +349,17 @@ class Price {
 	 *
 	 * @since 1.0
 	 */
-	public function setDiscountRate($value = 0) {
+	public function setDiscountRate($value = 0, $refresh = false) {
 		if(is_null($value)) {
 			return $this;
 		}
 		$value = $value >= 1 ? $value/100 : $value;
 		$this->register('discount', (float) 1 - $value);
+
+		if($refresh) {
+			$this->_refresh();
+		}
+
 		return $this;
 	}
 
@@ -459,6 +467,19 @@ class Price {
 
 		return $this->app->data->create($this->getParam('options.price.', array()));
 		
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	protected function _refresh() {
+		$this->calculate();
 	}
 
 	/**

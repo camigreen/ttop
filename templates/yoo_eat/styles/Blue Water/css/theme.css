@@ -1389,6 +1389,7 @@ h6 {
   background: #f1f1f1;
   color: #1c3767;
   border: 1px solid #eaeaea;
+  border-radius: 4px;
 }
 .uk-panel-box-hover:hover {
   color: #1c3767;

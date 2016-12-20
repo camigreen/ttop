@@ -159,6 +159,26 @@ class ElementItemOptions extends ElementStore {
 //            $layout = $this->renderLayout($this->app->path->path("elements:itemoptions/tmpl/user_options.php"), compact('params','content'));
             return $html;
         }
+
+        protected function edit_make($params) {
+            return $this->renderLayout($this->app->path->path("elements:itemoptions/tmpl/edit_make.php"), compact('style', 'options', 'rows', 'cols','tooltip','params'));
+        }
+        protected function render_make($params) {
+            $name = $this->config->get('name');
+            $default = $this->config->get('default');
+            $fName = $this->config->get('field_name');
+            
+            $options[] = $this->app->html->_('select.option', 'X', '-' . JText::_('Select') . '-');
+            
+            foreach($this as $self) {
+                $options[] = $this->app->html->_('select.option', $this->get('value'), $this->get('name'));
+            }
+            $style = 'class="uk-width-1-1"';
+            
+            $html = $this->app->html->_('select.genericlist', $options, ($fName == '' ? str_replace(' ','_',strtolower($name)) : str_replace(' ','_',strtolower($fName))), $style, 'value', 'text',$default);
+//            $layout = $this->renderLayout($this->app->path->path("elements:itemoptions/tmpl/user_options.php"), compact('params','content'));
+            return $html;
+        }
         
         protected function edit_user_entered($params) {
             

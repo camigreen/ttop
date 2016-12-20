@@ -123,7 +123,7 @@ foreach($items as $_item) {
             $('#OrderForm-<?php echo $this->product->id; ?>').not('.subitem').OrderForm({
                 name: 'Center Console Boat Cover',
                 validate: true,
-                debug: false,
+                debug: true,
                 confirm: true,
                 events: {
                     ccbc: {
