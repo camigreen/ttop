@@ -12,9 +12,7 @@
  *
  * @package Class Package
  */
-class CCBCProduct extends Product {
-
-	public $type = 'ccbc';
+class OverstockProduct extends Product {
 
     protected $boat_lengths = array(
             '17' => '17',
@@ -31,23 +29,24 @@ class CCBCProduct extends Product {
 
     }
 
-	public function bind($product = array()) {
-        $this->options = $this->type;
-		parent::bind($product);
-		$this->id = $this->id ? $this->id : 'ccbc';
-		$this->name = 'Center Console Boat Cover';
+    public function bind($product = array()) {
+        $this->type = $product->get('productType');
+        $this->options = $product->get('productType');
+
+        parent::bind($product);
+        $this->id = $this->id;
+        $this->name = 'Center Console Boat Cover';
         $boat_make = $this->getParam('boat.manufacturer');
         $boat_model = $this->getParam('boat.model');
         $this->setParam('boat.manufacturer', $this->app->boat->create($boat_make, $boat_model));
         $this->setParam('boat.model',$this->getParam('boat.manufacturer')->getModel());
-        
+        // $this->setOptionValue('boat_make', $this->getParam('boat.manufacturer')->label);
+        // $this->setOptionValue('boat_model', $this->getParam('boat.model')->label);
         $this->description = 'Custom fit for a '.$this->getParam('boat.manufacturer')->label.' '.$this->getParam('boat.model')->label;
         $this->setBoatLength();
         $this->setPriceRule();
-        $this->setOptionValue('boat_make', $this->getParam('boat.manufacturer')->label);
-        $this->setOptionValue('boat_model', $this->getParam('boat.model')->label);
-		return $this;
-	}
+        return $this;
+    }
     
     /**
      * Get the price group for the item.
@@ -70,7 +69,7 @@ class CCBCProduct extends Product {
         return $this;
         
     }
-	/**
+    /**
      * Get the price group for the item.
      *
      * @return     string    the price group.

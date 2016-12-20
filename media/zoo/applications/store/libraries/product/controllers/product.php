@@ -49,7 +49,7 @@ $this->name = $this->app->request->get('name', 'string');
 
         $this->xml['config'] = simplexml_load_file($this->getLayoutPath().'/'.$this->name.'/config.xml');
         $this->xml['items'] = simplexml_load_file($this->app->path->path('library.product:/items.xml'));
-        $this->url = '/order/'.$this->name.'/';
+        $this->url = '/store/'.$this->name.'/';
             $this->execute('order');
             
             

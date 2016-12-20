@@ -14,7 +14,6 @@ $this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
 $this->app->document->addScript('library.cart:assets/js/cart.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
-$product->setDiscountRate(0.3);
 $product->debug();
 
 
@@ -42,6 +41,11 @@ $product->debug();
                     <?php if ($this->checkPosition('pricing')) : ?>
                         <?php echo $this->renderPosition('pricing', array('item' => $product, 'layout' => 'overstock')); ?>
                     <?php endif; ?>
+                </div>
+                <div class="uk-width-1-1 addtocart-container uk-margin-top uk-text-right">
+                    <div class="uk-margin-top">
+                        <button id="atc-<?php echo $product->id; ?>" class="uk-button uk-button-danger atc" data-id="<?php echo $product->id; ?>"><i class="uk-icon-shopping-cart" data-store-cart style="margin-right:5px;"></i>Add to Cart</button>
+                    </div>
                 </div>
             </div>
             <div class="uk-width-2-3 options">
@@ -97,36 +101,39 @@ $product->debug();
     if(typeof items === 'undefined') { var items = {} };
     item = <?php echo $product->toJson(true); ?>;
     console.log(item);
-    // jQuery(function($) {
+    jQuery(function($) {
 
-    //     lpiModal.init('.modals');
+        lpiModal.init('.modals');
 
-    //     $(document).ready(function(){
-    //         $('#OrderForm-<?php echo $product->id; ?>').OrderForm({
-    //             name: 'T-Top Boat Cover - Overstock',
-    //             validate: false,
-    //             debug: true,
-    //             confirm: false,
-    //             events: {
-    //                 ttbc: {
-    //                     onInit: [
-    //                         function (data) {
-    //                             var item = data.args.item;
+        $(document).ready(function(){
+            $('#atc-631').on('click', function(){
+                lpiCart.add([item]);
+            });
+        //     $('#OrderForm-<?php echo $product->id; ?>').OrderForm({
+        //         name: 'T-Top Boat Cover - Overstock',
+        //         validate: false,
+        //         debug: true,
+        //         confirm: false,
+        //         events: {
+        //             ttbc: {
+        //                 onInit: [
+        //                     function (data) {
+        //                         var item = data.args.item;
 
-    //                             this.trigger('changeColor', {item: item, fabric: item.options.fabric.value});
-    //                             return data;
-    //                         }
-    //                     ],
-    //                     beforeChange: [],
-    //                     changeColor: [],
-    //                     beforeAddToCart: [],
-    //                     onPublishPrice: []
-    //                 }
-    //             }
-    //         });
-    //     });
+        //                         this.trigger('changeColor', {item: item, fabric: item.options.fabric.value});
+        //                         return data;
+        //                     }
+        //                 ],
+        //                 beforeChange: [],
+        //                 changeColor: [],
+        //                 beforeAddToCart: [],
+        //                 onPublishPrice: []
+        //             }
+        //         }
+        //     });
+        });
         
-    // });
+    });
     
     
 </script>

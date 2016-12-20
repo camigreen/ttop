@@ -278,7 +278,10 @@ class Price {
 	 *
 	 * @since 1.0
 	 */
-	public function getAll() {
+	public function getAll($recalc = false) {
+		if($recalc) {
+			$this->calculate();
+		}
 		$prices = $this->app->parameter->create($this->getParam('price.'));
 		$prices->set('markupRate', $this->getParam('markup.msrp'));
 		$prices->set('discountRate', $this->getDiscountRate());

@@ -68,7 +68,8 @@ class ProductHelper extends AppHelper {
 		} else if ($data->type == 'ultimate-boat-shade') {
 			$item->set('type', 'ubsk');
 		} else if ($data->type == 'ccbc-shelved') {
-			$item->set('type', 'ccbc');
+			$item->set('type', 'overstock');
+			$item->set('productType', 'ccbc');
 			$options = array();
 			foreach($data->getElements() as $key => $element) {
 				if($element->getElementType() == 'optionselect') {
@@ -99,6 +100,7 @@ class ProductHelper extends AppHelper {
 			$data->params->set('zoo_id', $data->id);
 			$data->params->set('zoo_type', $data->type);
 			$data->params->set('link', $this->app->route->item($data));
+			$data->params->set('discount', 0.3);
 		} else if ($data->type == 'ttbc-shelved') {
 			$item->set('id', $data->id);
 			$item->set('type', 'ttbc');
@@ -122,6 +124,9 @@ class ProductHelper extends AppHelper {
 			$item->name = $data->getPrimaryCategory()->name;
 			$data->params->set('inventory', true);
 			$data->params->set('zoo_id', $data->id);
+			$data->params->set('zoo_type', $data->type);
+			$data->params->set('link', $this->app->route->item($data));
+			$data->params->set('discount', 0.3);
 		} else {
 			$item->set('type', $data->type);
 		}

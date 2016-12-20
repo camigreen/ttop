@@ -133,8 +133,9 @@ class Product {
     }
 
     public function bind($product = array()) {
+
         // Bind all variable except options and params
-        $exclude = array('options', 'params', 'price', 'locked');
+        $exclude = array('options', 'params', 'price', 'locked', 'type');
         foreach($product as $key => $value) {
             if(property_exists($this, $key) && !in_array($key, $exclude)) {
                 $this->$key = $value;
@@ -318,6 +319,7 @@ class Product {
     public function initPrice() {
         if(!$this->isLocked()) {
             $this->_price = $this->app->price->create($this);
+            $this->setDiscountRate($this->getParam('discount'));
             $this->price = $this->_price->getAll();
             $this->setParam('weight', $this->_price->getParam('weight',0));
         } else {
@@ -432,9 +434,11 @@ class Product {
      *
      * @since 1.0
      */
-    public function setDiscountRate($rate) {
-        $this->_price->setDiscountRate($rate);
-        $this->refreshPrice();
+    public function setDiscountRate($rate = null) {
+        if($rate) {
+            $this->_price->setDiscountRate($rate);
+            $this->refreshPrice();
+        }
         return $this;
     }
 
