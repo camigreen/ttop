@@ -209,7 +209,6 @@ class CashRegister {
             $order->params->set('payment.status', 3);
             $order->params->set('payment.type', 'CC');
             $order->elements->set('items.', $items);
-            $order->setStatus(1);
             if($this->app->store->merchantTestMode()) {
                 $order->params->set('payment.transaction_id','Test Mode');  
             } else {

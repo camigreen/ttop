@@ -58,13 +58,14 @@ class OrderDev {
         if($lock) {
         	$this->_calculateFinalTotals();
         	$this->params->set('locked', true);
+        	$this->setStatus(1);
         	
         	foreach($this->elements->get('items.', array()) as $hash => $item) {
 	        	$this->elements->set('items.'.$hash, $item->lock());
 	        }
         } else {
-        	foreach($this->elements->get('items.', array()) as $hash => $item) {
-        		$this->elements->set('items.'.$hash, $item->toJson());
+	        	foreach($this->elements->get('items.', array()) as $hash => $item) {
+	        		$this->elements->set('items.'.$hash, $item->toJson());
 	        }
         }
 
