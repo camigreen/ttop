@@ -69,7 +69,17 @@ class ProductHelper extends AppHelper {
 			$item->set('type', 'ubsk');
 		} else if ($data->type == 'ccbc-shelved') {
 			$item->set('type', 'ccbc');
-			foreach($data->getElements() as $element) {
+			$options = array();
+			foreach($data->getElements() as $key => $element) {
+				if($element->getElementType() == 'optionselect') {
+					if($key == 'fabric') {
+						$options[$key] = array('value' => $element->get('option')[0]);
+					} else {
+						$options[$key] = array('value' => strtoupper($element->get('option')[0]));
+					}
+					
+				}
+				$item->set('options', $options);
 				switch ($element->config->get('name')) {
 					case 'Qty':
 						$item->qty = $element->get('value');
@@ -93,7 +103,8 @@ class ProductHelper extends AppHelper {
 			$item->set('id', $data->id);
 			$item->set('type', 'ttbc');
 			$opt = array();
-			foreach($data->getElements() as $element) {
+			foreach($data->getElements() as $key => $element) {
+
 				switch ($element->config->get('name')) {
 					case 'Boat Length':
 						$opt['boat_length'] = array('value' => $element->get('option'));

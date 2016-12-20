@@ -67,9 +67,11 @@
 }
 .ttop .price {
     font-size: 50px;
-    line-height:53px;
     font-weight: 500;
     margin-bottom:10px;
+}
+.ttop .price-container {
+    line-height:53px;
 }
 .ttop .currency {
     font-family: FontAwesome;
@@ -494,7 +496,6 @@ select.oem-select {
 }
 
 .ttop .price-teaser .price {
-    font-size: 25px;
     line-height: 0px;
     margin: 0px;
 }
@@ -524,24 +525,53 @@ select.oem-select {
     width: 90%;
 }
 
-.ttop .original-price {
-    color:red;
+.ttop .price-full {
+    margin:10px;
 }
 
+.ttop .original-price {
+    color:red;
+    
+}
 .ttop .original-price .price {
-    color: red;
     text-decoration: line-through;
+}
+
+.ttop .original-price .currency {
+
+}
+
+.ttop .clearance-teaser .original-price .currency {
+    
+}
+
+.ttop .clearance-full .sale-price .currency {
+    line-height: 30px;
+    margin-right:0px;
+}
+
+.ttop .clearance-teaser .original-price .price {
     font-size:15px;
+}
+.ttop .clearance-full .original-price .price {
+    font-size:20px;
 }
 
 .ttop .sale-price {
+}
+.ttop .clearance-teaser .sale-price {
+}
+
+.ttop .clearance-full .sale-price {
+}
+
+.ttop .clearance-teaser .sale-price .price {
+    font-size: 35px;
     line-height: 40px;
 }
-
-.ttop .sale-price .price {
-    font-size: 35px;
+.ttop .clearance-full .sale-price .price {
+    line-height:40px;
 }
-
 .ttop .sale-price-title {
     float: right;
     font-size: 12px;
@@ -554,25 +584,31 @@ select.oem-select {
 .ttop .sale-price .sale-price-container {
     float:right;
 }
+.ttop .sale-price-container {
 
-.ttop .ccbc-clearance-full {
+}
+.ttop .clearance-full .sale-price {
 
 }
 
-.ttop .ccbc-clearance-full .options {
+.ttop .ccbc.clearance-full {
 
 }
 
-.ttop .ccbc-clearance-full .options label{
+.ttop .ccbc.clearance-full .options {
+
+}
+
+.ttop .ccbc.clearance-full .options label{
     font-size:20px;
 }
 
-.ttop .ccbc-clearance-full .options .option-name {
+.ttop .ccbc.clearance-full .options .option-name {
     font-size:15px;
     font-weight: 100;
 }
 
-.ttop .ccbc-clearance-full .options legend {
+.ttop .ccbc.clearance-full .options legend {
     color: inherit;
 }
 

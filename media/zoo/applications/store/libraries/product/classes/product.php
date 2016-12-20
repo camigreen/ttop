@@ -432,6 +432,21 @@ class Product {
      *
      * @since 1.0
      */
+    public function setDiscountRate($rate) {
+        $this->_price->setDiscountRate($rate);
+        $this->refreshPrice();
+        return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
     public function getTotalPrice($name = 'display', $formatted = false) {
         $total = $this->getPrice($name) * $this->getQty();
         if($formatted) {
@@ -653,6 +668,19 @@ class Product {
         }
 
         return $encode ? json_encode($data) : $data;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function debug() {
+        $this->_price->debug(true);
     }
     
 }

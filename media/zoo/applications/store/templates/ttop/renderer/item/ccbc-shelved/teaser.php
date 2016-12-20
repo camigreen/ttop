@@ -9,7 +9,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 $product = $this->app->product->create($item);
-$product->price->setDiscountRate(0.3, true);
+$product->setDiscountRate(0.3);
 //$product->price->debug(true);
 $link = $product->params->get('link');
 

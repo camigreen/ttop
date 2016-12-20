@@ -9,8 +9,8 @@
 	<field name="boat_make" label="Boat Make" type="variable" visible="true" />
 	<field name="boat_model" label="Boat Model" type="variable" visible="true" />
 	<field name="boat_length" label="Boat Length" type="base" visible="0" />
-	<field name="fabric" label="Fabric" type="base" visible="true" default="9Ply">
-		<option value="9Ply">Material 9oz. 5yr. Warranty</option>
+	<field name="fabric" label="Fabric" type="base" visible="true" default="9ply">
+		<option value="9ply">Material 9oz. 5yr. Warranty</option>
 	</field>
 	<field name="zipper" label="Zipper Side" type="variable" visible="true">
 		<option value='ZP'>Port Side</option>

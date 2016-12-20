@@ -14,10 +14,12 @@ $this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
 $this->app->document->addScript('library.cart:assets/js/cart.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
+$product->setDiscountRate(0.3);
+$product->debug();
 
 
 ?>
-<div id="OrderForm-<?php echo $product->id; ?>" class="ttop uk-form ccbc-clearance-full" data-id="<?php echo $product->id; ?>">
+<div id="OrderForm-<?php echo $product->id; ?>" class="ttop uk-form ccbc clearance-full uk-panel uk-panel-box" data-id="<?php echo $product->id; ?>">
     <div id="<?php echo $product->id ?>" class="storeItem" >
         <div class="uk-grid uk-margin">
             <div class="uk-width-1-1">
@@ -36,9 +38,11 @@ $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css'
                 <?php endif; ?>
             </div>
             <div class="uk-width-1-3">
-                <?php if ($this->checkPosition('pricing')) : ?>
-                    <?php echo $this->renderPosition('pricing', array('item' => $product, 'layout' => 'overstock')); ?>
-                <?php endif; ?>
+                <div class="price-full uk-text-right">
+                    <?php if ($this->checkPosition('pricing')) : ?>
+                        <?php echo $this->renderPosition('pricing', array('item' => $product, 'layout' => 'overstock')); ?>
+                    <?php endif; ?>
+                </div>
             </div>
             <div class="uk-width-2-3 options">
                 <div class="uk-grid" data-uk-grid-margin>
