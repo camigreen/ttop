@@ -48,8 +48,8 @@ $order_number = $this->app->request->get('order_number','string',null);
 				<td><?php echo $order->created_by == 0 ? 'Website' : $this->app->user->get($order->created_by)->name; ?></td>
 				<td><?php echo $this->app->orderdev->getStatus($order); ?></td>
 				<td><?php echo $this->app->orderdev->getPaymentStatus($order); ?></td>
-				<td><?php echo $this->app->number->currency($order->total,array('currency' => 'USD')); ?></td>
-				<?php $total += $order->total; ?>
+				<td><?php echo $this->app->number->currency($order->getTotal(),array('currency' => 'USD')); ?></td>
+				<?php $total += $order->getTotal(); ?>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>

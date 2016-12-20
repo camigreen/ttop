@@ -44,7 +44,7 @@ class OrderDev {
 			$this->created = $now->toSQL();
 		}
 
-		if(!$this->created_by) {
+		if(is_null($this->created_by)) {
 			$this->created_by = $this->app->storeuser->get()->id;
 		}
 
@@ -56,8 +56,9 @@ class OrderDev {
 
 
         if($lock) {
-        	$this->params->set('locked', true);
         	$this->_calculateFinalTotals();
+        	$this->params->set('locked', true);
+        	
         	foreach($this->elements->get('items.', array()) as $hash => $item) {
 	        	$this->elements->set('items.'.$hash, $item->lock());
 	        }
@@ -70,6 +71,7 @@ class OrderDev {
         $this->elements->set('ip', $this->app->useragent->ip());
 
 		$this->table->save($this);
+		$this->app->event->dispatcher->notify($this->app->event->create($this, 'order:init'));
 
 		return $this;
 
@@ -174,6 +176,9 @@ class OrderDev {
 	}
 
 	public function getSubtotal($display = 'display') {
+		if($this->isProcessed()) {
+			return $this->subtotal;
+		}
 		$items = $this->elements->get('items.', array());
 		$subtotal = 0;
 		foreach($items as $item) {
@@ -212,31 +217,13 @@ class OrderDev {
     }
 
     public function getTotal($display = 'display') {
-    	$total = $this->getSubTotal($display) + $this->getTaxTotal() + $this->getShippingTotal();
-    	return $total;
-    }
-
-    /**
-     * Describe the Function
-     *
-     * @param 	datatype		Description of the parameter.
-     *
-     * @return 	datatype	Description of the value returned.
-     *
-     * @since 1.0
-     */
-    public function getTotals() {
-    	if(!$this->isProcessed() || $this->subtotal == 0) {
-    		$this->_calculateFinalTotals();
-    		$this->save();
+    	if($this->isProcessed()) {
+    		return $this->total;
     	}
-    	$totals = array();
-    	$totals['subtotal'] = $this->subtotal;
-    	$totals['taxtotal'] = $this->tax_total;
-    	$totals['shiptotal'] = $this->ship_total;
-    	$totals['total'] = $this->total;
-
-    	return $this->app->data->create($totals);
+    	$total = $this->getSubTotal($display);
+    	$total += $this->getTaxTotal();
+    	$total += $this->getShippingTotal();
+    	return $total;
     }
 
     /**
@@ -256,7 +243,8 @@ class OrderDev {
     }
 
 	public function isProcessed() {
-		return $this->status > 0;
+		$legacy = $this->status > 0 ? true : false;
+		return $this->params->get('locked', $legacy);
 	}
 
 	public function getUser() {
@@ -283,6 +271,10 @@ class OrderDev {
 	}
 
 	public function getTaxTotal() {
+
+		if($this->isProcessed()) {
+			return $this->tax_total;
+		}
 		
 		// Init vars
 		$taxtotal = 0;
@@ -298,8 +290,7 @@ class OrderDev {
 			$taxtotal += ($item->isTaxable() ? ($item->getTotalPrice('charge')*$taxrate) : 0);
 		}
 		
-		$this->tax_total = $taxtotal;
-		return $this->tax_total;
+		return $taxtotal;
 	}
 
 	public function isTaxable() {

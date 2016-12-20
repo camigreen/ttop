@@ -73,11 +73,11 @@ class ReceiptFormPDF extends FormPDF {
 	    $form_data->set('po_number', $order->params->get('payment.po_number'));
 	    $form_data->set('customer', $order->params->get('payment.customer_name'));
 	    $form_data->set('terms', JText::_(($terms = $order->params->get('terms')) ? 'ACCOUNT_TERMS_'.$terms : ''));
-	    $form_data->set('subtotal', $order->getSubtotal('reseller'));
+	    $form_data->set('subtotal', $order->getSubtotal('charge'));
 	    $form_data->set('tax_total', $this->app->number->currency($order->getTaxTotal(), array('currency', 'USD')));
 	    $form_data->set('ship_total', $order->getShippingTotal());
-	    $form_data->set('total', $order->getTotal('reseller'));
-	    $form_data->set('balance_due', $order->params->get('payment.status') == 3 ? $this->app->number->currency(0.00, array('currency' => 'USD')) : $order->total);
+	    $form_data->set('total', $order->getTotal());
+	    $form_data->set('balance_due', $order->params->get('payment.status') == 3 ? $this->app->number->currency(0.00, array('currency' => 'USD')) : $order->getTotal());
 
 		return parent::setData($form_data);
 	}

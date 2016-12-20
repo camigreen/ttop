@@ -70,7 +70,7 @@ class InvoiceFormPDF extends FormPDF {
 	    $form_data->set('tax_total', $order->getTaxTotal());
 	    $form_data->set('ship_total', $order->getShippingTotal());
 	    $form_data->set('total', $order->getTotal());
-	    $form_data->set('balance_due', $order->params->get('payment.status') == 3 ? 0 : $order->total);
+	    $form_data->set('balance_due', $order->params->get('payment.status') == 3 ? 0 : $order->getTotal());
 
 
 		return parent::setData($form_data);

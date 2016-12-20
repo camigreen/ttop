@@ -47,6 +47,21 @@ class Checkout {
         }
 
     }
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function claimOrder() {
+        $oid = $this->app->request->get('oid', 'int');
+        $order = $this->app->orderdev->get($oid);
+        $cart = $this->app->cart->add($order->elements->get('items.'));
+        $this->app->session->set('orderID', $oid, 'checkout');
+    }
     
     public function getItems() {
         return $this->_items;

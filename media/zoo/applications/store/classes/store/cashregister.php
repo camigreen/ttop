@@ -140,7 +140,6 @@ class CashRegister {
         $shipping = $order->elements->get('shipping.');
         $items = $order->getItems();
         $creditCard = $order->params->get('payment.creditcard.');
-        $totals = $order->getTotals();
         $sale = $this->merchant;
 
         // Create Sale
@@ -175,9 +174,9 @@ class CashRegister {
         $sale->card_code = $creditCard['card_code'];
 
         // Set Totals
-        $sale->freight = $totals->get('shiptotal');
-        $sale->tax = $totals->get('taxtotal');
-        $sale->amount = $totals->get('total');
+        $sale->freight = $order->getShippingTotal();
+        $sale->tax = $order->getTaxTotal();
+        $sale->amount = $order->getTotal();
 
         // Set Other info
         $sale->customer_ip = $order->elements->get('ip');
@@ -222,11 +221,12 @@ class CashRegister {
         } else {
 
             // trigger payment failure event
-            $this->app->event->dispatcher->notify($this->app->event->create($this->order, 'order:paymentFailed', array('response' => $response)));
+            
             $order->params->set('payment.status', 1);
             $order->params->set('payment.approved', $response->approved);
             $order->params->set('payment.response_text', $response->response_reason_text);
-
+            $order->save();
+            $this->app->event->dispatcher->notify($this->app->event->create($this->order, 'order:paymentFailed', array('response' => $response)));
         }
 
         return $order;
