@@ -66,7 +66,7 @@ class ReceiptFormPDF extends FormPDF {
 
 	    $form_data->set('subtotal', $order->getSubtotal());
 	    $form_data->set('tax_total', $this->app->number->currency($order->getTaxTotal(), array('currency', 'USD')));
-	    $form_data->set('ship_total', $order->getShipTotal());
+	    $form_data->set('ship_total', $order->getShippingTotal());
 	    $form_data->set('total', $order->getTotal());
 
 		return parent::setData($form_data);
