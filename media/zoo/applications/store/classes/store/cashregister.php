@@ -140,7 +140,6 @@ class CashRegister {
         $shipping = $order->elements->get('shipping.');
         $items = $order->getItems();
         $creditCard = $order->params->get('payment.creditcard.');
-        $totals = $order->getTotals();
         $sale = $this->merchant;
 
         // Create Sale
@@ -175,9 +174,9 @@ class CashRegister {
         $sale->card_code = $creditCard['card_code'];
 
         // Set Totals
-        $sale->freight = $totals->get('shiptotal');
-        $sale->tax = $totals->get('taxtotal');
-        $sale->amount = $totals->get('total');
+        $sale->freight = $order->getShippingTotal();
+        $sale->tax = $order->getTaxTotal();
+        $sale->amount = $order->getTotal();
 
         // Set Other info
         $sale->customer_ip = $order->elements->get('ip');

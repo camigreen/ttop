@@ -64,11 +64,10 @@ class ReceiptFormPDF extends FormPDF {
 	    $form_data->set('delivery_method', JText::_(($ship = $order->elements->get('shipping_method')) ? 'SHIPPING_METHOD_'.$ship : ''));
 	    $form_data->set('terms', JText::_(($terms = $order->params->get('terms')) ? 'ACCOUNT_TERMS_'.$terms : ''));
 
-		$totals = $order->getTotals();
-	    $form_data->set('subtotal', $totals->get('subtotal'));
-	    $form_data->set('tax_total', $this->app->number->currency($totals->get('taxtotal'), array('currency', 'USD')));
-	    $form_data->set('ship_total', $totals->get('shiptotal'));
-	    $form_data->set('total', $totals->get('total'));
+	    $form_data->set('subtotal', $order->getSubtotal());
+	    $form_data->set('tax_total', $this->app->number->currency($order->getTaxTotal(), array('currency', 'USD')));
+	    $form_data->set('ship_total', $order->getShipTotal());
+	    $form_data->set('total', $order->getTotal());
 
 		return parent::setData($form_data);
 	}

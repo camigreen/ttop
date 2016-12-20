@@ -50,7 +50,7 @@ class CheckoutController extends AppController {
         $this->registerTask('processPayment', 'display');
         $this->registerTask('addCoupon', 'display');
         $this->registerTask('orderNotification', 'orderNotification');
-        $this->registerTask('claimOrder', 'display');
+        //$this->registerTask('claimOrder', 'display');
         // $this->taskMap['display'] = null;
         // $this->taskMap['__default'] = null;
     }
@@ -89,7 +89,8 @@ class CheckoutController extends AppController {
         $this->app->cart->clear();
         $cart = $this->app->cart->add($order->elements->get('items.'));
         $this->app->session->set('orderID', $oid, 'checkout');
-        $this->customer();
+        $this->task = 'customer';
+        $this->display();
     }
 
     public function addCoupon() {
