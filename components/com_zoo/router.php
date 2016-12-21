@@ -113,17 +113,6 @@ function ZooBuildRoute(&$query) {
 			unset($query['task'], $query['view'], $query['layout'], $query['item_id']);
 		}
 
-	// item
-	$task = 'test';
-
-		if (@$query['task'] == $task || @$query['view'] == $task) {
-			if (@$query['task'] == $task && @$query['item_id']) {
-				$segments[] = $task;
-				$segments[] = $app->alias->item->translateIDToAlias((int) $query['item_id']);
-			}
-			unset($query['task'], $query['view'], $query['layout'], $query['item_id']);
-		}
-
 	// feed
 	$task = 'feed';
 
@@ -282,7 +271,7 @@ function ZooParseRoute($segments) {
 			$vars['controller'] = 'api';
 			$vars['api'] = $segments[1];
 			$vars['task'] = $segments[2];
-			$vars['format'] = 'json';
+			$vars['format'] = 'raw';
 
 		}
 
@@ -301,7 +290,7 @@ function ZooParseRoute($segments) {
 
 	$task = 'overstock';
 
-		if ($count >= 1 && $segments[0] == $task) {
+		if ($count = 1 && $segments[0] == $task) {
 			$vars['controller'] = 'store';
 			$vars['task'] = 'overstock';
 			$vars['category_id'] = 0;

@@ -37,6 +37,7 @@ class StoreApplication extends Application {
         $zoo->path->register($path.'/libraries', 'store.lib');
         $zoo->path->register($path.'/logs', 'logs');
         $zoo->path->register($path.'/views', 'views');
+        $zoo->path->register($path.'/apis', 'apis');
         $zoo->path->register(JPATH_ROOT.'/templates/yoo_eat', 'template');
         $zoo->path->register(JPATH_ROOT.'/images/logos', 'images.logos');
         $zoo->path->register(JPATH_ROOT.'/images/boats', 'images.boats');

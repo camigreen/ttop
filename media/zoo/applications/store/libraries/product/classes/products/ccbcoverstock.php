@@ -33,8 +33,8 @@ class CCBCOverstockProduct extends Product {
         $this->options = $product->params['optionType'];
 
         parent::bind($product);
-        $this->name = $product->get('productName');
-        $this->id = $this->id;
+        $this->name = $product->get('productName', $this->name);
+        $this->id = $product->id;
         $boat_make = $this->getParam('boat.manufacturer');
         $boat_model = $this->getParam('boat.model');
 
@@ -96,6 +96,37 @@ class CCBCOverstockProduct extends Product {
         $sku = array();
         $sku[] = $this->id;
         return hash('md5', implode('.', $sku));
+    }
+
+     /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function lock() {
+        $this->decreaseInventory();
+        return parent::lock(); 
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function decreaseInventory() {
+        $item = $this->app->table->item->get($this->id);
+        $qty = $item->getElement('qty')->get('value');
+        $qty--;
+        $item->getElement('qty')->set('value', $qty);
+        $this->app->table->item->save($item);
     }
 
     public function setBoatLength() {

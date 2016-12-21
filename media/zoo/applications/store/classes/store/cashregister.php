@@ -192,8 +192,8 @@ class CashRegister {
                 $item->getTotalPrice('charge'), // Item Unit Price
                 ($item->taxable ? 'Y' : 'N')// Item taxable
             );
-        }
 
+        }
         // Authorize the Card and Capture the funds
         $response = $sale->authorizeAndCapture();
 
