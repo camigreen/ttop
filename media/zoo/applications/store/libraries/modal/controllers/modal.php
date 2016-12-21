@@ -51,7 +51,7 @@ class ModalController extends AppController {
         $this->app->document->setMimeEncoding('application/json');
         $config = $this->app->request->get('config', 'array', array());
         $html = array();
-        $html['content'] = $this->app->modal->create($config);
+        $html['result'] = $this->app->modal->create($config);
         echo json_encode($html);
     }
 

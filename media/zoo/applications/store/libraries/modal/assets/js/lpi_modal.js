@@ -151,7 +151,7 @@
     lpiModal.load = function(config) {
         return $.ajax({
             type: 'POST',
-            url: "/store/api/modal/get",
+            url: "?option=com_zoo&controller=modal&task=getModal&format=raw",
             data: {config: config},
             dataType: 'json', 
             success: function(data) {
