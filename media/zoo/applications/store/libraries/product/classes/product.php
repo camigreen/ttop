@@ -279,7 +279,7 @@ class Product {
 
     public function setOptionValue($name, $value = null) {
         $this->options->setValue($name, $value);
-        if($this->getOption($name)->isPriceOption() && $this->price) {
+        if($this->getOption($name) && $this->getOption($name)->isPriceOption() && $this->price) {
             $this->refreshPrice();
         }
         return $this;
