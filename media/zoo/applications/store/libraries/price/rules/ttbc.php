@@ -1,7 +1,7 @@
 <?php
 $rules['ttbc.options.trolling_motor.Y'] = 175.00;
 $rules['ttbc.options.suction_cup'] = 10.00;
-$rules['ttbc.discount.reseller'] = 0.10;
+$rules['ttbc.discount.reseller'] = 0.20;
 
 $rules['1819.7oz.base'] = 599;
 $rules['1819.8oz.base'] = 699;
