@@ -515,8 +515,12 @@ select.oem-select {
     line-height: 1.4em;
 
 }
-.ttop .clearance-teaser .clearance-title {
+.ttop .clearance-teaser .title {
     font-size:30px;
+}
+
+.ttop .clearance-teaser .category {
+    font-weight: 200;
 }
 
 .ttop .clearance-teaser legend {
@@ -591,11 +595,22 @@ select.oem-select {
 
 }
 
-.ttop .ccbc.clearance-full {
+.ttop .clearance-full {
 
 }
 
-.ttop .ccbc.clearance-full .options {
+.ttop .clearance-full .title {
+    font-size: 60px;
+    line-height: 61px;
+    font-weight: 200;
+}
+
+.ttop .clearance-full .category {
+    font-size: 23px;
+    font-weight: 200;
+}
+
+.ttop .clearance-full .options {
 
 }
 

@@ -5,16 +5,9 @@
 		<message><![CDATA[Displays all of the products from the store application]]></message>
 	</layout>
 
-	<fields name="params">
-		<fieldset name="params"	addfieldpath="/administrator/components/com_zoo/joomla/fields">
-			<field name="category" type="hidden" label="" required="false" description="" />
-			<field name="application" type="zooapplication" label="Application" required="true" categories="true" description="Set an Application and Category"/>            
-		</fieldset>
-	</fields>
 	<fields name="request">
-		<fieldset name="request" addfieldpath="/administrator/components/com_zoo/joomla/fields">  
-			<field name="controller" type="hidden" label="" required="true" default="store" />
-			<field name="task" type="hidden" label="" required="true" default="clearance" />          
+		<fieldset name="request">  
+			<field name="controller" type="hidden" label="" required="true" default="store" />       
 		</fieldset>
 	</fields>
 

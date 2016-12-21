@@ -111,7 +111,7 @@ class StoreController extends AppController {
 
     }
 
-    public function clearance() {
+    public function overstock() {
         // get request vars
         $page        = $this->app->request->getInt('page', 1);
         $category_id = (int) $this->app->request->getInt('category_id', $this->params->get('category'));
@@ -170,25 +170,25 @@ class StoreController extends AppController {
         }
 
         // get metadata
-        $title       = $params->get('metadata.title') ? $params->get('metadata.title') : ($category_id ? $this->category->name : '');
+        $title       = 'Overstock Items';
         $description = $params->get('metadata.description');
         $keywords    = $params->get('metadata.keywords');
 
-        if ($menu = $this->app->menu->getActive() and in_array(@$menu->query['view'], array('category', 'frontpage')) and $menu_params = $this->app->parameter->create($menu->params) and $menu_params->get('category') == $category_id) {
+        // if ($menu = $this->app->menu->getActive() and in_array(@$menu->query['view'], array('category', 'frontpage')) and $menu_params = $this->app->parameter->create($menu->params) and $menu_params->get('category') == $category_id) {
 
-            if ($page_title = $menu_params->get('page_title') or $page_title = $menu->title) {
-                $title = $page_title;
-            }
+        //     if ($page_title = $menu_params->get('page_title') or $page_title = $menu->title) {
+        //         $title = $page_title;
+        //     }
 
-            if ($page_description = $menu_params->get('menu-meta_description')) {
-                $description = $page_description;
-            }
+        //     if ($page_description = $menu_params->get('menu-meta_description')) {
+        //         $description = $page_description;
+        //     }
 
-            if ($page_keywords = $menu_params->get('menu-meta_keywords')) {
-                $keywords = $page_keywords;
-            }
+        //     if ($page_keywords = $menu_params->get('menu-meta_keywords')) {
+        //         $keywords = $page_keywords;
+        //     }
 
-        }
+        // }
 
         // set page title
         if ($title) {

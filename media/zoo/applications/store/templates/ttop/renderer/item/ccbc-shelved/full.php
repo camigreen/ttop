@@ -21,13 +21,15 @@ $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css'
     <div id="<?php echo $product->id ?>" class="storeItem" >
         <div class="uk-grid uk-margin">
             <div class="uk-width-1-1">
-                <div class="clearance-title uk-article-title">
+                <div class="title">
                     <?php if ($this->checkPosition('title')) : ?>
                         <?php echo $this->renderPosition('title'); ?>
                     <?php endif; ?>
                 </div>
-                <div class="uk-article-lead">
-                    <?php echo $product->name; ?>
+                <div class="category">
+                    <?php if ($this->checkPosition('category')) : ?>
+                        <?php echo $this->renderPosition('category'); ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="uk-width-2-3">

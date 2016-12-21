@@ -1,4 +1,5 @@
 <?php 
+var_dump($data['items']);
 ?>
 <div class="uk-modal-dialog uk-modal-dialog-large">
     <div class="uk-panel uk-panel-box">

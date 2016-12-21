@@ -122,6 +122,12 @@ class ProductHelper extends AppHelper {
 					case 'Qty':
 						$item->qty = $element->get('value');
 						break;
+					case 'Boat Make':
+						$options['boat_make'] = array('value' => $element->get('value'));
+						break;
+					case 'Boat Model':
+						$options['boat_model'] = array('value' => $element->get('value'));
+						break;
 				}
 
 			}

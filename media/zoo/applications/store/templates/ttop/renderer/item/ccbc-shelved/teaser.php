@@ -19,9 +19,14 @@ $link = $product->params->get('link');
         <div class="clearance-teaser uk-panel uk-panel-box">
             <div class="uk-grid uk-grid-small uk-margin">
                 <div class="uk-width-2-3">
-                    <div class="clearance-title uk-article-title">
+                    <div class="title">
                         <?php if ($this->checkPosition('title')) : ?>
                             <?php echo $this->renderPosition('title'); ?>
+                        <?php endif; ?>
+                    </div>
+                    <div class="category">
+                        <?php if ($this->checkPosition('category')) : ?>
+                            <?php echo $this->renderPosition('category'); ?>
                         <?php endif; ?>
                     </div>
                 </div>

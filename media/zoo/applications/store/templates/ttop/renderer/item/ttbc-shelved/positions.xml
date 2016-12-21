@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <renderer>
     <positions layout="full">
-		<position name="top">Top</position>
 		<position name="title">Title</position>
+		<position name="category">Category</position>
 		<position name="media">Media</position>
 		<position name="description">Description</position>
         <position name="boat-options">Boat Options</position>
@@ -13,6 +13,7 @@
 	</positions>
 	<positions layout="teaser">
 		<position name="title">Title</position>
+		<position name="category">Category</position>
 		<position name="media">Media</position>
 		<position name="description">Description</position>
 		<position name="boat-options">Boat Options</position>

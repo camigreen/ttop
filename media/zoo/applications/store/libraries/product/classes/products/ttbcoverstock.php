@@ -31,12 +31,10 @@ class TTBCOverstockProduct extends Product {
 
     public function bind($product = array()) {
         $this->options = $product->params['optionType'];
-
         parent::bind($product);
         $this->name = $product->get('productName');
-        $this->id = $this->id;
-
-        $this->description = 'Custom fit for a '.$this->getOption('boat_make')->get('label').' '.$this->getOption('boat_model')->get('label');
+        $this->id = $product->id;
+        $this->description = 'Custom fit for a '.$this->getOption('boat_make')->get('value').' '.$this->getOption('boat_model')->get('value');
         $this->setPriceRule();
         return $this;
     }
