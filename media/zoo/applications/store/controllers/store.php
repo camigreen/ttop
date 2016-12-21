@@ -133,7 +133,7 @@ class StoreController extends AppController {
         $params           = $category_id ? $this->category->getParams('site') : $this->application->getParams('frontpage');
         $this->item_order = $params->get('config.item_order');
         $ignore_priority  = $params->get('config.ignore_item_priority', false);
-        $layout           = 'overstock';
+        $layout           = $category_id = 0 ? 'frontpage' : 'overstock';
         $items_per_page   = $params->get('config.items_per_page', 15);
         $offset           = max(($page - 1) * $items_per_page, 0);
         // get categories and items

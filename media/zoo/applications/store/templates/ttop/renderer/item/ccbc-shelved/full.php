@@ -43,7 +43,7 @@ $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css'
                 </div>
                 <div class="uk-width-1-1 addtocart-container uk-margin-top uk-text-right">
                     <div class="uk-margin-top">
-                        <button id="atc-<?php echo $product->id; ?>" class="uk-button uk-button-danger atc" data-id="<?php echo $product->id; ?>"><i class="uk-icon-shopping-cart" data-store-cart style="margin-right:5px;"></i>Add to Cart</button>
+                        <button id="atc" class="uk-button uk-button-danger atc" data-id="<?php echo $product->id; ?>"><i class="uk-icon-shopping-cart" data-store-cart style="margin-right:5px;"></i>Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -114,13 +114,13 @@ $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css'
         lpiModal.init('.modals');
 
         $(document).ready(function(){
-            toggleATCStatus($('#atc-631'));
+            toggleATCStatus($('#atc'));
             // lpiModal.getModal({
             //     type: 'default',
             //     name: 'message',
             //     message: 'Test'
             // })
-            $('#atc-631').on('click', function(){
+            $('#atc').on('click', function(){
                 lpiCart.add([item]);
                 item.qty--;
                 toggleATCStatus($(this));
