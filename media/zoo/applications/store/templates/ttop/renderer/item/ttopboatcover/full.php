@@ -237,7 +237,8 @@ $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css'
                                                 type: 'ttbc',
                                                 name: 'trolling_motor',
                                                 value: 'Y',
-                                                field: elem.prop('id')
+                                                field: elem.prop('id'),
+                                                item: this.item
                                             };
                                             lpiModal.getModal(data);
                                         } else {

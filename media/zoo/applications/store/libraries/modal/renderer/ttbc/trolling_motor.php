@@ -20,7 +20,7 @@ jQuery(function($){
 		$('input[name="ttbc.trolling_motor_modal_helper"][value="'+value+'"]').prop('checked', 'checked');
 
 		$('#ttbc-trolling_motor-modal').on('save', function(e, data){
-			var item = $('#OrderForm').OrderForm('getItem');
+			var item = data.item;
 			var name = data.name;
             var elem = $('[name="'+name+'"]');
             console.log(elem);
