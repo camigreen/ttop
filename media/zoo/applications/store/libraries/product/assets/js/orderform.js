@@ -327,7 +327,7 @@
             elem.html('<i class="uk-icon-refresh uk-icon-spin"></i>');
             $.ajax({
                 type: 'POST',
-                url: "/store/api/price/getprice",
+                url: "?option=com_zoo&controller=product&task=getPrice&format=raw",
                 data: {product: product},
                 success: function(data){
                     console.log(elem);
