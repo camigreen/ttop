@@ -252,15 +252,20 @@ class TestController extends AppController {
 		
 		$shipper = $this->app->shipper;
 
-		$order = $this->app->orderdev->get(8065);
-
-		$rates = $shipper->getRates($order);
-		
-		if(!$rates) {
-			var_dump($shipper->getErrors());
-		} else {
-			var_dump($rates);
+		$order = $this->app->orderdev->get(8086);
+		$i = 5;
+		while ($i > 0) {
+			var_dump($order->getShippingTotal());
+			$i--;
 		}
+
+		// $rates = $shipper->getRates($order);
+		
+		// if(!$rates) {
+		// 	var_dump($shipper->getErrors());
+		// } else {
+		// 	var_dump($rates);
+		// }
 
 		
 	}

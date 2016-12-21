@@ -27,7 +27,6 @@ class OrderDev {
 	public $ship_total = 0;
 	public $account;
 	public $total = 0;
-
 	public $app;
 
 	protected $_user;
@@ -189,7 +188,6 @@ class OrderDev {
 	}
 
 	public function getShippingTotal() {
-
 		if($this->isProcessed()) {
 			return $this->ship_total;
 		}
@@ -211,7 +209,6 @@ class OrderDev {
             }
         }
 		$rate += ($rate * $markup);
-
         return $rate;
     }
 

@@ -89,6 +89,7 @@ class ShipperHelper extends AppHelper {
      */
     public function __construct($app) {
         parent::__construct($app);
+
         $this->shipment = new \SimpleUPS\Rates\Shipment();
     }
 
@@ -282,7 +283,10 @@ class ShipperHelper extends AppHelper {
     }
 
     public function getRates($order) {
-
+        if($this->_rates) {
+            return $this->_rates;
+        }
+        
         try {
             // set the destination 
             if(!$this->setDestination($order->getShippingAddress())) {
