@@ -114,7 +114,10 @@ class ResellerPrice extends Price {
 	 *
 	 * @since 1.0
 	 */
-	public function getAll() {
+	public function getAll($recalc = false) {
+		if($recalc) {
+			$this->calculate();
+		}
 		$prices = $this->app->parameter->create($this->getParam('price.'));
 		$prices->set('markupRate', $this->getParam('markup.reseller'));
 		$prices->set('msrpMarkup', $this->getParam('markup.msrp'));
