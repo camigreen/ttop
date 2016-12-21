@@ -305,7 +305,7 @@ function ZooParseRoute($segments) {
 			$vars['controller'] = 'store';
 			$vars['task'] = 'overstock';
 			$vars['category_id'] = 0;
-			$vars['app_id'] = 19;
+			$vars['app_id'] = 17;
 		}
 	
 
