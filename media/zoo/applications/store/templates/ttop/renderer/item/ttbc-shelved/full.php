@@ -15,7 +15,6 @@ $this->app->document->addScript('library.cart:assets/js/cart.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
 
-
 ?>
 <div id="OrderForm-<?php echo $product->id; ?>" class="ttop uk-form ttbc clearance-full uk-panel uk-panel-box" data-id="<?php echo $product->id; ?>">
     <div id="<?php echo $product->id ?>" class="storeItem" >

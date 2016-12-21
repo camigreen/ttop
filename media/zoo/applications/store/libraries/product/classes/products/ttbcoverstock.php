@@ -37,8 +37,6 @@ class TTBCOverstockProduct extends Product {
         $this->id = $this->id;
 
         $this->description = 'Custom fit for a '.$this->getOption('boat_make')->get('label').' '.$this->getOption('boat_model')->get('label');
-        
-        $this->setBoatLength();
         $this->setPriceRule();
         return $this;
     }

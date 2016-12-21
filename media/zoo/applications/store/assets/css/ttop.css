@@ -599,16 +599,16 @@ select.oem-select {
 
 }
 
-.ttop .ccbc.clearance-full .options label{
+.ttop .clearance-full .options label{
     font-size:17px;
 }
 
-.ttop .ccbc.clearance-full .options .option-name {
+.ttop .clearance-full .options .option-name {
     font-size:15px;
     font-weight: 100;
 }
 
-.ttop .ccbc.clearance-full .options legend {
+.ttop .clearance-full .options legend {
     color: inherit;
 }
 

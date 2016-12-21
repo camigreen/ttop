@@ -147,7 +147,12 @@ class Product {
         $this->options = $this->app->option->create($this->options);
         foreach($product->get('options', array()) as $name => $value) {
             if(isset($value['value']) && $value['value']) {
-                $this->setOptionValue($name, $value['value']);
+                try{
+                    $this->setOptionValue($name, $value['value']);
+                } catch (Exception $e) {
+                    echo $e->getMessage();
+                }
+                
             }
         }
         // Bind Params
