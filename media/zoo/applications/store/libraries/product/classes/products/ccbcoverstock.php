@@ -12,7 +12,7 @@
  *
  * @package Class Package
  */
-class OverstockProduct extends Product {
+class CCBCOverstockProduct extends Product {
 
     protected $boat_lengths = array(
             '17' => '17',
@@ -37,6 +37,7 @@ class OverstockProduct extends Product {
         $this->id = $this->id;
         $boat_make = $this->getParam('boat.manufacturer');
         $boat_model = $this->getParam('boat.model');
+
         $this->setParam('boat.manufacturer', $this->app->boat->create($boat_make, $boat_model));
         $this->setParam('boat.model',$this->getParam('boat.manufacturer')->getModel());
         $this->setOptionValue('boat_make', $this->getParam('boat.manufacturer')->label);
@@ -45,6 +46,7 @@ class OverstockProduct extends Product {
             $this->setOption($option->get('name'), $option);
         }
         $this->description = 'Custom fit for a '.$this->getParam('boat.manufacturer')->label.' '.$this->getParam('boat.model')->label;
+        
         $this->setBoatLength();
         $this->setPriceRule();
         return $this;
@@ -113,6 +115,7 @@ class OverstockProduct extends Product {
 
     public function toJson($encode = false) {
         $data = parent::toJson();
+
         $data['params']['boat.model'] = $this->getParam('boat.model')->name;
         $data['params']['boat.manufacturer'] = $this->getParam('boat.manufacturer')->name;
 

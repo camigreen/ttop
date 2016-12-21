@@ -10,7 +10,6 @@
 defined('_JEXEC') or die('Restricted access');
 $product = $this->app->product->create($item);
 $link = $this->app->route->item($item);
-$product->price->setDiscountRate(0.3, true);
 //$product->price->debug(true);
 ?>
 <a href="<?php echo $link; ?>">

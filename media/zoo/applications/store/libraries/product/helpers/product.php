@@ -68,7 +68,7 @@ class ProductHelper extends AppHelper {
 		} else if ($data->type == 'ultimate-boat-shade') {
 			$item->set('type', 'ubsk');
 		} else if ($data->type == 'ccbc-shelved') {
-			$item->set('type', 'overstock');
+			$item->set('type', 'ccbcoverstock');
 			$item->set('productName', 'Center Console Boat Cover');
 			$options = array();
 			foreach($data->getElements() as $key => $element) {
@@ -96,6 +96,7 @@ class ProductHelper extends AppHelper {
 
 			}
 			$item->name = $data->getPrimaryCategory()->name;
+			$data->params->set('category', 'ccbc');
 			$data->params->set('priceType', 'ccbc');
 			$data->params->set('optionType', 'ccbc');
 			$data->params->set('inventory', true);
@@ -104,26 +105,30 @@ class ProductHelper extends AppHelper {
 			$data->params->set('link', $this->app->route->item($data));
 			$data->params->set('discount', 0.3);
 		} else if ($data->type == 'ttbc-shelved') {
-			$item->set('id', $data->id);
-			$item->set('type', 'ttbc');
-			$opt = array();
+			$item->set('type', 'ttbcoverstock');
+			$item->set('productName', 'T-Top Boat Cover');
+			$options = array();
 			foreach($data->getElements() as $key => $element) {
-
+				if($element->getElementType() == 'optionselect') {
+					if($key == 'fabric') {
+						$options[$key] = array('value' => $element->get('option')[0]);
+					} else {
+						$options[$key] = array('value' => strtoupper($element->get('option')[0]));
+					}
+					
+				}
+				$item->set('options', $options);
 				switch ($element->config->get('name')) {
-					case 'Boat Length':
-						$opt['boat_length'] = array('value' => $element->get('option'));
-						break;
 					case 'Qty':
 						$item->qty = $element->get('value');
 						break;
-					case 'Fabric':
-						$opt['fabric'] = array('value' => $element->get('option')[0]);
-						break;
 				}
-				
+
 			}
-			$item->set('options', $opt);
 			$item->name = $data->getPrimaryCategory()->name;
+			$data->params->set('category', 'ttbc');
+			$data->params->set('priceType', 'ttbc');
+			$data->params->set('optionType', 'ttbc');
 			$data->params->set('inventory', true);
 			$data->params->set('zoo_id', $data->id);
 			$data->params->set('zoo_type', $data->type);
