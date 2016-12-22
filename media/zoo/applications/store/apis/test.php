@@ -34,6 +34,23 @@ class TestAPI extends API {
         return $cart;
 	}
 
+	public function price() {
+		$product = array(
+            'type' => 'ccbc',
+            'params' => array(
+                'boat.manufacturer' => 'pathfinder',
+                'boat.model' => '2200-TRS'
+            ),
+            'options' => array(
+            	'trolling_motor' => array(
+            		'value' => 'Y'
+            	)
+            )
+        );
+        $product = $this->app->product->create($product);
+        var_dump($product->debug());
+	}
+
 	
 }
 

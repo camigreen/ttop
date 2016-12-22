@@ -189,7 +189,7 @@ class CashRegister {
                 substr($item->name,0,30),// Item Name
                 substr($item->description, 0, 255), // Item Description
                 $item->qty,// Item Quantity
-                $item->getTotalPrice('charge'), // Item Unit Price
+                $item->getPrice('charge'), // Item Unit Price
                 ($item->taxable ? 'Y' : 'N')// Item taxable
             );
 

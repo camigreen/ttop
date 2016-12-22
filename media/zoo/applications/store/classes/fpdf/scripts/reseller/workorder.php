@@ -58,7 +58,7 @@ class WorkOrderFormPDF extends FormPDF {
 	    			array('format' => 'item-options','text' => implode("\n",$options))
 	    		),
 	    		'qty' => array('text' => $item->qty),
-	    		'msrp' => array('text' => $item->getTotalPrice('msrp')),
+	    		'msrp' => array('text' => $item->getTotalPrice('base')),
 	    		'markup_price' => array('text' => $this->app->number->currency($item->getTotalPrice('customer'), array('currency' => 'USD'))."\n".$markup.' Markup'),
 	    		'dealer_price' => array('text' => $this->app->number->currency($item->getTotalPrice('reseller'), array('currency' => 'USD'))."\n".$discount.' Discount'),
 	    		'dealer_profit' => array('text' => $this->app->number->currency($item->getTotalPrice('profit'), array('currency' => 'USD'))."\n".$profit. ' Profit')

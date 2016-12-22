@@ -373,6 +373,9 @@ class Price {
 	 * @since 1.0
 	 */
 	public function getMarkupRate($name = 'msrp', $default = 0) {
+		if($name != 'msrp' && !$this->allowMarkups()) {
+			return 1;
+		}
 		return $this->getParam('markup.'.$name, (float) $default);
 	}
 

@@ -85,7 +85,8 @@ class ResellerPrice extends Price {
 		$this->setPrice('customer', $customer);
 
 		// Calculate Reseller Display
-		$this->setPrice('display', $customer);
+		$display = $this->getParam('display', 'customer');
+		$this->setPrice('display', $this->get($display));
 
 		// Calculate Reseller Display
 		$this->setPrice('charge', $reseller);

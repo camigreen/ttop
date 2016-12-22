@@ -26,7 +26,8 @@ class TTBCOverstockProduct extends Product {
 
     public function __construct($app, $product) {
         parent::__construct($app, $product);
-        $this->setAllowMarkup(false);
+        $this->_price->register('display', 'reseller');
+        $this->_price->setMarkupRate('msrp', 0);
     }
 
     public function bind($product = array()) {

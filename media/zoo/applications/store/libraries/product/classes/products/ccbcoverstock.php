@@ -26,7 +26,8 @@ class CCBCOverstockProduct extends Product {
 
     public function __construct($app, $product) {
         parent::__construct($app, $product);
-
+        $this->_price->register('display', 'reseller');
+        $this->_price->register('discount', 0.9);
         $this->setAllowMarkup(false);
 
     }
