@@ -26,7 +26,7 @@ class TTBCOverstockProduct extends Product {
 
     public function __construct($app, $product) {
         parent::__construct($app, $product);
-
+        $this->setAllowMarkup(false);
     }
 
     public function bind($product = array()) {

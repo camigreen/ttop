@@ -379,6 +379,20 @@ class Product {
     }
 
     /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function setAllowMarkup($bool = true) {
+        $this->_price->setAllowMarkup($bool);
+        $this->refreshPrice();
+    }
+
+    /**
      * Is the user allowed to markup the price of this item?
      *
      * @return     boolean    True or False

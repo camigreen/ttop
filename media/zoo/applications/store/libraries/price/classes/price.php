@@ -416,6 +416,21 @@ class Price {
 	 *
 	 * @since 1.0
 	 */
+	public function setAllowMarkup($bool = true) {
+		$this->_storage->set('allowMarkup', $bool);
+
+		return $this;
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
 	public function register($name, $value = 0.00) {
 		$this->_storage->set($name, $value);
 		return $this;
