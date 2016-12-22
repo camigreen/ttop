@@ -176,7 +176,7 @@ class CashRegister {
         // Set Totals
         $sale->freight = $order->getShippingTotal();
         $sale->tax = $order->getTaxTotal();
-        $sale->amount = $order->getTotal();
+        $sale->amount = $order->getTotal('charge');
 
         // Set Other info
         $sale->customer_ip = $order->elements->get('ip');
