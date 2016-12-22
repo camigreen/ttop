@@ -1,6 +1,6 @@
 <?php
 
-$rules['ccbc.discount.reseller'] = 0.10;
+$rules['ccbc.discount.reseller'] = 0.20;
 
 $rules['17.9ply.base'] = 440.83;
 $rules['17.9Acr.base'] = 600.00;
