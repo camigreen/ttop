@@ -259,6 +259,9 @@
 			<model value="83,111,45,C">245</model>
 			<model value="88,120,48,C">265</model>
 		</make>
+		<make value="glacier_bay" name="Glacier Bay">
+			<model value="80,116,50">2665</model>
+		</make>
 		<make value="grady_white" name="Grady White">
 			<model value="79,84,42">191 Coastal Explorer</model>
 			<model value="84,98,38">251 Coastal Explorer</model>
@@ -318,6 +321,7 @@
 		</make>
 		<make value="robalo" name="Robalo">
 			<model value="80,86,38,A">R200</model>
+			<model value="79,88,48">206 Cayman</model>
 			<model value="81,96,38,B">R222</model>
 			<model value="85,96,38,B">R242</model>
 			<model value="85,91,38,A">246 Cayman</model>
