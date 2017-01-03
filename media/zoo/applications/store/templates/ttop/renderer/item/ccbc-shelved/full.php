@@ -14,7 +14,7 @@ $this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
 $this->app->document->addScript('library.cart:assets/js/cart.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
-$product->debug();
+//$product->debug();
 
 ?>
 <div id="OrderForm-<?php echo $product->id; ?>" class="ttop uk-form ccbc clearance-full uk-panel uk-panel-box" data-id="<?php echo $product->id; ?>">
