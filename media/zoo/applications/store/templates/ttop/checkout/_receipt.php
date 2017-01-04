@@ -10,7 +10,7 @@ $items = $order->elements->get('items.');
 $query = $order->params->get('terms', 'DUR') == 'DUR' ? '&form=receipt' : '&form=invoice';
 $query .= $order->getAccount()->isReseller() ? '&type=reseller' : '&type=default';
 $page = $this->page;
-$salesperson = $order->created_by == 0 ? 'Website' : $this->app->storeuser->get($order->created_by)->name;
+$salesperson = $order->created_by == 0 ? 'Website' : $this->user->name;
 
 ?>
 <div class='ttop-receipt'>
@@ -56,7 +56,7 @@ $salesperson = $order->created_by == 0 ? 'Website' : $this->app->storeuser->get(
                         <h4>Payment Details:</h4>
                     </div>
                     <div class="uk-width-1-1">
-                        <?php if($this->app->storeuser->get()->isReseller()) : ?>
+                        <?php if($this->user->isReseller()) : ?>
                         <div class="payment-data">
                             <div>Account Name:  <?php echo $order->params->get('payment.account_name'); ?></div>
                             <div>Account Number:  <?php echo $order->params->get('payment.account_number'); ?></div>
@@ -74,7 +74,7 @@ $salesperson = $order->created_by == 0 ? 'Website' : $this->app->storeuser->get(
                 </div>
             </div>
             <div class='uk-width1-1 items-table'>
-                            <?php if($this->app->storeuser->get()->isReseller()) : ?>
+                            <?php if($this->user->isReseller()) : ?>
             <div class='uk-width1-1 items-table'>
                 <?php echo $this->partial('item.table.reseller',compact('order', 'page')); ?>
             </div>

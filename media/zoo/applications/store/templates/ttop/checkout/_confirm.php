@@ -32,7 +32,7 @@ list($page) = explode('.',$this->page, 2);
         <div class="uk-width-1-1 uk-margin-top">
             <div>E-mail: <?php echo $elements->get('billing.email'); ?></div>
         </div>
-        <?php if($this->app->storeuser->get()->isReseller()) : ?>
+        <?php if($this->user->isReseller()) : ?>
             <div class="uk-width-1-1 uk-margin-top">
                 <div>Sales Rep: <?php echo $order->getCreator(); ?></div>
             </div>
@@ -49,7 +49,7 @@ list($page) = explode('.',$this->page, 2);
             <div>Purchase Order Number:  <?php echo $params->get('payment.po_number'); ?></div>
         </div>
         <?php endif; ?>        
-        <?php if($this->app->storeuser->get()->isReseller()) : ?>
+        <?php if($this->user->isReseller()) : ?>
             <div class="uk-width-1-1 uk-margin-top">
                 <button class="uk-button uk-button-primary uk-width-1-3 uk-margin-bottom items-table uk-hidden" data-uk-toggle="{target:'.items-table'}">Hide Full Invoice</button>
                 <button class="uk-button uk-button-primary uk-width-1-3 uk-margin-bottom items-table" data-uk-toggle="{target:'.items-table'}">View Full Invoice</button>
