@@ -446,7 +446,12 @@ class Product {
      * @since 1.0
      */
     public function getDiscountRate($default = 0) {
-        return (1-$this->_price->getDiscountRate())*100;
+        if($this->_price) {
+            return (1-$this->_price->getDiscountRate())*100;
+        } else {
+            return (1-$this->price->get('discountRate', $default))*100;
+        }
+        
     }
 
     /**
