@@ -29,7 +29,6 @@ class OrderEvent {
         $order->elements = $app->parameter->create($order->elements);
 
     	if(!$order->isProcessed()) {
-        	$order->addItems($app->cart->getAll());
         	foreach($order->getItems() as $item) {
         		$item = $app->product->create($item);
         		$order->elements->set('items.'.$item->id, $item);
