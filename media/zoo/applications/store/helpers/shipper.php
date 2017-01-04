@@ -122,6 +122,9 @@ class ShipperHelper extends AppHelper {
      * @since 1.0
      */
     public function createAddress($address) {
+        if(!$address instanceof ArrayObject) {
+            $address = $this->app->data->create($address);
+        }
         $a = new \SimpleUPS\Address();
         $a->setStreet($address->get('street1'));
         $a->setCity($address->get('city'));
@@ -215,29 +218,29 @@ class ShipperHelper extends AppHelper {
 
     public function validateAddress(\SimpleUPS\Address $address) {
 
-        try {
-            $valid = UPS::isValidRegion($address);
+        // try {
+        //     $valid = UPS::isValidRegion($address);
+        // } catch (Exception $e) {
+        //     $this->setError($e->getMessage());
+        //     //throw new ShipperException($e->getCode());
+        // } 
 
-        } catch (Exception $e) {
-            throw new ShipperException($e->getCode());
-        } 
-
-        if(!$valid) {
-            throw new ShipperException('003');
-        }
+        // if(!$valid) {
+        //     throw new ShipperException('003');
+        // }
         
         try {
             $valid = UPS::isValidAddress($address);
 
         } catch (Exception $e) {
-            throw new ShipperException($e->getCode());
+            throw new ShipperException($e->getMessage(), 1002);
         } 
 
         if(!$valid) {
-            throw new ShipperException('002');
+            $this->setError(JText::_('SHIPPER_ERROR_002'));
         }
 
-        return $this;
+        return $valid;
         
 
         // $this->destination = new \SimpleUPS\InstructionalAddress($destination);
@@ -284,12 +287,13 @@ class ShipperHelper extends AppHelper {
 
     public function getRates($order) {
         if($this->_rates) {
+
             return $this->_rates;
         }
         
         try {
             // set the destination 
-            if(!$this->setDestination($order->getShippingAddress())) {
+            if(!$this->setDestination($order->getShipping())) {
                 return;
             }
 
@@ -369,8 +373,11 @@ class ShipperException extends Exception {
 
 
     public function __construct($message = null, $code = 0, Exception $previous = null) {
-        $message = JText::_('SHIPPER_ERROR_'.$message);
-        $code = (int) $message;
+        if(is_int($message)) {
+            $message = JText::_('SHIPPER_ERROR_'.$message);
+            $code = (int) $message;
+        }
+        
         parent::__construct($message, $code, $previous);
     }
 }
