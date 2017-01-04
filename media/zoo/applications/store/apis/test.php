@@ -51,6 +51,68 @@ class TestAPI extends API {
         var_dump($product->debug());
 	}
 
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function merchant($oid) {
+        $order = $this->app->orderdev->get($oid);
+        $merchant = $this->app->merchant;
+        return $merchant->prepareOrder($order);
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function address($address) {
+        $shipper = $this->app->shipper;
+
+        $address = $shipper->createAddress($address);
+        $valid = $shipper->validateAddress($address);
+        $rates = $shipper->getRates();
+
+        return $valid;
+
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function shipRates($oid) {
+
+        $shipper = $this->app->shipper;
+        $order = $this->app->orderdev->get($oid);
+        $service = $order->elements->get('shipping_method');
+        $result = array();
+
+        $shipRates = $shipper->getRates($order);
+        $rates = array();
+        foreach($shipRates as $shippingMethod) {
+            if($shippingMethod->getService()->getCode() == $service) {
+                $rates[$service] = $shippingMethod->getTotalCharges();
+            }
+        }
+        $result['rates'] = $rates;
+        return $result;
+    }
+
 	
 }
 
