@@ -26,15 +26,26 @@ class PriceHelper extends AppHelper {
     }
 
     public function create($product) {
-        
-        if($this->app->customer->isReseller()) {
+        $user = $product->getParam('user', $this->app->storeuser->get());
+        if($user->isReseller()) {
             $class = 'ResellerPrice';
             $this->app->loader->register('ResellerPrice','classes:reseller.php');
         } else {
             $class = 'Price';
         }
-        $type = $product->getParam('priceType', $product->type);
+
         $data = array();
+        $data['user'] = $user;
+        
+
+        $type = $product->getParam('priceType', $product->type);
+        
+        // if($product->getParam('price.charge')) {
+        //     $data['charge'] = $product->getParam('price.charge');
+        // }
+        // if($product->getParam('price.display')) {
+        //     $data['display'] = $product->getParam('price.display');
+        // }
         $data['path.rules.item'] = $this->app->path->path('rules:'.$type.'.php');
         $data['path.rules.global'] = $this->app->path->path('rules:global.php');
         $data['product.type'] = $type;

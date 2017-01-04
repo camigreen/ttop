@@ -9,7 +9,7 @@ $order = $this->order;
 
 $this->app->document->addScript('assets:js/jquery-validate-1.14.1/jquery.validate.min.js');
 $this->app->document->addScript('assets:js/jquery-validate-1.14.1/additional-methods.min.js');
-
+$this->user = $order->getUser();
 ?>
 <?php if($this->app->store->merchantTestMode()) : ?>
 

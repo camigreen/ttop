@@ -86,6 +86,8 @@ class CheckoutController extends AppController {
     public function claimOrder() {
         $oid = $this->app->request->get('oid', 'int');
         $order = $this->app->orderdev->get($oid);
+        $user = $order->getUser();
+        $this->app->session->set('aliasUser', $user->id, 'storeuser');
         $this->app->cart->clear();
         $cart = $this->app->cart->add($order->elements->get('items.'));
         $this->app->session->set('orderID', $oid, 'checkout');

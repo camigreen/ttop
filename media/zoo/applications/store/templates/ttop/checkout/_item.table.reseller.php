@@ -15,6 +15,7 @@
     <tbody>
     <?php foreach ($items as $hash => $item) : ?>
             <?php $price = $item->getPrice(); ?>
+            <?php $price = $item->debug(); ?>
             <tr id="<?php echo $hash; ?>">
                 <td>
                     <div class="ttop-checkout-item-name"><?php echo $item->name ?></div>

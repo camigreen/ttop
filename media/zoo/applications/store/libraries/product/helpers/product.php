@@ -44,7 +44,7 @@ class ProductHelper extends AppHelper {
 			$class = 'Product';
 		}
 		$product = new $class($this->app, $data);
-
+		
 		// trigger the init event
         $this->app->event->dispatcher->notify($this->app->event->create($product, 'product:init'));
 		return $product;

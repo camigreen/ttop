@@ -52,11 +52,14 @@ class Price {
 	 * @since 1.0
 	 */
 	public function init($data) {
-		$this->register('path.rules.item', $data['path.rules.item']);
-		$this->register('path.rules.global', $data['path.rules.global']);
-		$this->register('product.type', $data['product.type']);
-		$this->setRule($data['rule']);
-		$this->register('options.product.', $data['options.product']);
+		foreach($data as $param => $value) {
+			if($param == 'rule') {
+				$this->setRule($value);
+			} else {
+				$this->register($param, $value);
+			}
+			
+		}
 		if(!$this->_loadRules()) {
 			return false;
 		}
@@ -76,18 +79,28 @@ class Price {
 	 * @since 1.0
 	 */
 	public function calculate() {
-		
+		// Get Variables
 		$base = $this->get('base');
 		$msrpMkup = $this->getMarkupRate('msrp');
-		
-		$discount = $this->getDiscountRate();
+		$discount = $this->getDiscountRate('retail');
 		$addons = $this->get('addons');
+
+		// MSRP Price
 		$msrp = $base*$msrpMkup;
 		$msrp += $addons;
 		$this->setPrice('msrp', $msrp);
-		$display = $msrp*$discount;
-		$this->setPrice('display', $display);
-		$this->setPrice('charge', $display);
+		// Retail Price
+		$retail = $msrp*$discount;
+		$this->setPrice('retail', $retail);
+		// Overstock Price
+		$overstock = $msrp*$this->getDiscountRate('overstock');
+		$this->setPrice('overstock', $overstock);
+		// Display Price
+		$displayPrice = $this->get($this->getParam('charge', 'retail'));
+		$this->setPrice('display', $displayPrice);
+		// Charge Price
+		$charge = $this->get($this->getParam('charge', 'display'));
+		$this->setPrice('charge', $charge);
 
 		return $this;
 
@@ -123,15 +136,12 @@ class Price {
 		$data = $this->_addTypeRules($rules, $data);
 
 		$data = $this->_addItemRules($rules, $data);
-
 		$this->register('options.price.', $data->get('options.'));
 		$this->register('allowMarkup', $data->get('allowMarkup'));
 		$this->register('weight', $data->get('weight'));
 		$this->setPrice('base', $data->get('base', 0.00));
-		if($this->app->storeuser->get()->isReseller()) {
-			$this->setDiscountRate($data->get('discount.reseller'));
-		} else {
-			$this->setDiscountRate($data->get('discount.retail'));
+		foreach($data->get('discount.', array()) as $key => $discount) {
+			$this->setDiscountRate($key, $discount);
 		}
 		$this->setMarkupRate('msrp', $data->get('markup.msrp', 0.00));
 		return $this;
@@ -148,7 +158,11 @@ class Price {
 	 */
 	protected function _addGlobalRules($rules, $data) {
 		foreach($rules->get('global.', array()) as $key => $option) {
-			$data->set($key, $option);
+			if($key == 'discount') {
+				$data->set('discount.global', $option);
+			} else {
+				$data->set($key, $option);
+			}
 		}
 		$weight = $data->get('weight');
 		$data->set('weight', $rules->get('global.shipping.weight', $weight));
@@ -330,8 +344,8 @@ class Price {
 	 *
 	 * @since 1.0
 	 */
-	public function getDiscountRate($default = 0) {
-		$discount = (float) $this->getParam('discount', $default);
+	public function getDiscountRate($name = 'default', $default = 0) {
+		$discount = (float) $this->getParam('discount.'.$name, $default);
 		if($discount == 0) {
 			$discount = 1;
 		}
@@ -349,12 +363,12 @@ class Price {
 	 *
 	 * @since 1.0
 	 */
-	public function setDiscountRate($value = 0, $refresh = false) {
+	public function setDiscountRate($name = 'default', $value = 0, $refresh = false) {
 		if(is_null($value)) {
 			return $this;
 		}
 		$value = $value >= 1 ? $value/100 : $value;
-		$this->register('discount', (float) 1 - $value);
+		$this->register('discount.'.$name, (float) 1 - $value);
 
 		if($refresh) {
 			$this->_refresh();

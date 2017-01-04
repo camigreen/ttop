@@ -24,7 +24,7 @@ class ResellerPrice extends Price {
 	 */
 	public function init($data) {
 		parent::init($data);
-		$user = $this->app->storeuser->get();
+		$user = $this->getParam('user');
 
 		if(isset($data['tempMarkup'])) {
 			// Set Markup to Temporary Setting
@@ -36,14 +36,6 @@ class ResellerPrice extends Price {
 			$this->setMarkupRate('reseller', $user->getAccount()->getMarkupRate(0));
 		}
 		//$this->setMarkupRate('msrp', 0.15);
-		
-		// Set User Account Discount
-		//if(!$this->getDiscountRate()) {
-			if($this->getDiscountRate() == 1) {
-				$this->setDiscountRate($user->getDiscountRate()/100);
-			}
-			
-		//}
 		
 
 	}
@@ -58,6 +50,7 @@ class ResellerPrice extends Price {
 	 * @since 1.0
 	 */
 	public function calculate() {
+		parent::calculate();
 		
 		// Calculate the Base
 		$base = $this->get('base');
@@ -65,13 +58,8 @@ class ResellerPrice extends Price {
 		// Assign Variables
 		$msrpMkup = $this->getMarkupRate('msrp');
 		$resellerMkup = $this->getMarkupRate('reseller');
-		$discount = $this->getDiscountRate();
+		$discount = $this->getDiscountRate('reseller');
 		$addons = $this->get('addons');
-
-		// Calculate MSRP
-		$msrp = $base*$msrpMkup;
-		$msrp += $addons;
-		$this->setPrice('msrp', $msrp);
 
 		// Calculate Reseller
 		$reseller = $base*$discount;
@@ -89,11 +77,10 @@ class ResellerPrice extends Price {
 		$this->setPrice('display', $this->get($display));
 
 		// Calculate Reseller Display
-		$this->setPrice('charge', $reseller);
-		
+		$charge = $this->get($this->getParam('charge', 'reseller'));
+		$this->setPrice('charge', $charge);
 
 		// Calculate Reseller Profit
-
 		$profit = $this->get('customer') - $this->get('reseller');
 		$this->setPrice('profit', $profit);
 
@@ -102,8 +89,11 @@ class ResellerPrice extends Price {
 			$profitRate = $profit/$this->get('customer');
 			$this->setPrice('profitRate', $profitRate);
 		}
-		
 
+		$overstock = $this->get('msrp')*$this->getParam('discount.overstock');
+
+		$this->setPrice('overstock', $overstock);
+		
 	}
 
 		/**
@@ -125,6 +115,19 @@ class ResellerPrice extends Price {
 		$prices->set('discountRate', $this->getDiscountRate());
 		return $prices;
 
+	}
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function getDiscountRate($name = 'reseller', $default = 0) {
+		return parent::getDiscountRate($name, $default);
 	}
 
 }

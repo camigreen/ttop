@@ -11,7 +11,7 @@ $page = $this->page;
 ?>
 <div class="uk-width-1-1 uk-container-center ttop-checkout-payment">
     <div class="uk-grid">
-        <?php if($this->app->storeuser->get()->isReseller()) : ?>
+        <?php if($this->user->isReseller()) : ?>
             <div class="uk-width-1-1">
                 <button class="uk-button uk-button-primary uk-width-1-3 uk-margin-bottom items-table uk-hidden" data-uk-toggle="{target:'.items-table'}">Hide Full Invoice</button>
                 <button class="uk-button uk-button-primary uk-width-1-3 uk-margin-bottom items-table" data-uk-toggle="{target:'.items-table'}">View Full Invoice</button>

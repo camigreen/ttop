@@ -27,7 +27,7 @@ $elements = $this->order->elements;
             <?php endif; ?>
         </div>
         <div class="uk-width-1-2">
-        <?php if(!$this->app->storeuser->get()->isReseller()) : ?>
+        <?php if(!$this->user->isReseller()) : ?>
             <?php if($this->form->checkGroup('email-address')) : ?>
                 <div class="uk-form-row">
                     <?php echo $this->form->render('email-address')?>

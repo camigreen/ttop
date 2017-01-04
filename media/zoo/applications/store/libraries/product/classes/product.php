@@ -166,6 +166,11 @@ class Product {
 
         $this->setParam('locked', $product->get('locked', $this->getParam('locked', false)));
 
+        if($oid = $this->app->session->get('orderID', null, 'checkout')) {
+            $order = $this->app->orderdev->get($oid);
+            $this->setParam('user', $order->getUser());
+        }
+
         if($this->isLocked()) 
             $this->price = $product->get('price');
 
@@ -441,7 +446,7 @@ class Product {
      * @since 1.0
      */
     public function getDiscountRate($default = 0) {
-        return (1-$this->price->get('discountRate', $default))*100;
+        return (1-$this->_price->getDiscountRate())*100;
     }
 
     /**
@@ -453,11 +458,41 @@ class Product {
      *
      * @since 1.0
      */
-    public function setDiscountRate($rate = null) {
+    public function setDiscountRate($name = 'default', $rate = null) {
         if($rate) {
-            $this->_price->setDiscountRate($rate);
+            $this->_price->setDiscountRate($name, $rate);
             $this->refreshPrice();
         }
+        return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function setChargePrice($price = 'display') {
+        $this->_price->register('charge', $price);
+        $this->refreshPrice();
+        return $this;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function setDisplayPrice($price = 'retail') {
+        $this->_price->register('display', $price);
+        $this->refreshPrice();
         return $this;
     }
 
