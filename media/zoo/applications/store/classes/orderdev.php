@@ -329,7 +329,7 @@ class OrderDev {
      *
      * @since 1.0
      */
-    public function getBillingAddress() {
+    public function getBilling() {
     	return $this->app->data->create($this->elements->get('billing.'));
     }
 
@@ -342,7 +342,7 @@ class OrderDev {
      *
      * @since 1.0
      */
-    public function getShippingAddress() {
+    public function getShipping() {
     	return $this->app->data->create($this->elements->get('shipping.'));
     }
 
