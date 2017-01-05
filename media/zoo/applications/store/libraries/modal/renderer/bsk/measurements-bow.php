@@ -2,7 +2,7 @@
 <?php
 
 //var_dump($config['args']['measurements']);
-$product = $config['args']['product'];
+$product = $config['args']['item'];
 $product = $this->app->product->create($product);
 
 
@@ -50,12 +50,12 @@ jQuery(function($){
     $(document).ready(function(){
         $('#bsk-measurements-bow-modal input').on('change', function(e) {
             var name = $(this).prop('id');
-            var p = products['bsk-bow'];
+            var p = items['bsk-bow'];
             p.options[name].value = $(this).val();
-            $('#OrderForm-bsk').trigger('measure', {item: products['bsk-bow'], type: 'bow'});
+            $('#OrderForm-bsk').trigger('measure', {item: items['bsk-bow'], type: 'bow'});
         })
         $('#bsk-measurements-bow-modal').on('save', function(e, data){
-            $('#OrderForm-bsk').trigger('measure', {item: products['bsk-bow'], type: 'bow'});
+            $('#OrderForm-bsk').trigger('measure', {item: items['bsk-bow'], type: 'bow'});
             data.result = true;
         }); 
         $('#bsk-measurements-modal').on('cancel', function(e, data){
@@ -65,6 +65,6 @@ jQuery(function($){
         }); 
     });
 
-})
+});
 
 </script>

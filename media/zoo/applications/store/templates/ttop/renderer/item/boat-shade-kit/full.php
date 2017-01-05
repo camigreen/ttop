@@ -396,6 +396,7 @@ $this->form->setValue('template', $this->template);
                             $('.bsk-chooser .bsk-chooser-buttons li').on('click',function(e){
                                     var index = $(this).index();
                                     var type = $('.bsk-chooser .bsk-chooser-buttons li:eq('+index+')').data('value');
+                                    console.log(type);
                                     $('.bsk-chooser .bsk-chooser-buttons li').removeClass('active');
                                     $('.bsk-chooser .bsk-chooser-buttons li:eq('+index+')').addClass('active');
                                     $('.bsk-chooser .full-pic li').removeClass('active');
@@ -413,11 +414,13 @@ $this->form->setValue('template', $this->template);
                                         $('.aft-container').removeClass('uk-hidden');
                                         $('.bow-container').addClass('uk-hidden');
                                         bsktypes = [type];
+                                        self.item = items['bsk-aft'];
                                         self._publishPrice({item: self.item, type: type});
                                     } else {
                                         $('.bow-container').removeClass('uk-hidden');
                                         $('.aft-container').addClass('uk-hidden');
                                         bsktypes = [type];
+                                        self.item = items['bsk-bow'];
                                         self._publishPrice({item: self.item, type: type});
                                     }
 
