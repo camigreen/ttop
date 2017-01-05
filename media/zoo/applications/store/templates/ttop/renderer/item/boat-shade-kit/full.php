@@ -15,6 +15,7 @@ $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css'
 defined('_JEXEC') or die('Restricted access');
 $class = $item->type.'-full';
 $product = $this->app->product->create($item);
+//$product->debug();
 $this->template = $this->app->zoo->getApplication()->getTemplate()->getPath().'/renderer/item/boat-shade-kit/';
 $type = 'orderform';
 $this->form = $this->app->form->create(array($this->template.'config.xml', compact('type')));

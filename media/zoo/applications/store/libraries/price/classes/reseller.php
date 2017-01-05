@@ -36,6 +36,9 @@ class ResellerPrice extends Price {
 			$this->setMarkupRate('reseller', $user->getAccount()->getMarkupRate(0));
 		}
 		//$this->setMarkupRate('msrp', 0.15);
+		if(!$this->getParam('discount.reseller')) {
+			$this->setDiscountRate('reseller', $user->getAccount()->params->get('discount'));
+		}
 		
 
 	}
