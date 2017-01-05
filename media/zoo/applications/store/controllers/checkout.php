@@ -336,7 +336,7 @@ class CheckoutController extends AppController {
         $post = $this->app->request->get('post:', 'array', array());
         //var_dump($order);
         //return;
-        
+        $order->addItems($this->app->cart->getAll());
         if(isset($post['elements'])) {
             foreach($post['elements'] as $key => $value) {
                 if (is_array($value)) {
