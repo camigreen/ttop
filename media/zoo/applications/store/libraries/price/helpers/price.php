@@ -26,7 +26,8 @@ class PriceHelper extends AppHelper {
     }
 
     public function create($product) {
-        $user = $product->getParam('user', $this->app->storeuser->get());
+        $user = $product->getParam('user', $this->app->storeuser->get()->id);
+        $user = $this->app->storeuser->get($user);
         if($user->isReseller()) {
             $class = 'ResellerPrice';
             $this->app->loader->register('ResellerPrice','classes:reseller.php');

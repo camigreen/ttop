@@ -168,7 +168,7 @@ class Product {
 
         if($oid = $this->app->session->get('orderID', null, 'checkout')) {
             $order = $this->app->orderdev->get($oid);
-            $this->setParam('user', $order->getUser());
+            $this->setParam('user', $order->getUser()->id);
         }
 
         if($this->isLocked()) 

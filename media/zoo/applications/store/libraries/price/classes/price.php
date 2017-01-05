@@ -221,7 +221,7 @@ class Price {
 	 */
 	protected function _addOptions() {
 		$addons = 0.00;
-		$productOptions = $this->getParam('options.product.', array());
+		$productOptions = $this->getParam('options.product', array());
 		$rules = $this->getPriceOptionRules();
 		foreach($productOptions as $name => $option) {
 			$value = $option->get('type') == 'price.adj' ? null : '.'.$option->get('value');
