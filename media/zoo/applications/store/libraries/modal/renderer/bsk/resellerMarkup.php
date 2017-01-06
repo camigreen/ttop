@@ -47,15 +47,14 @@ foreach($markups as $markup) {
 <script>
 jQuery(function($){
     $(document).ready(function(){
-        $('#default-resellerMarkup-modal').on('save', function(e, data){
+        $('#bsk-resellerMarkup-modal').on('save', function(e, data){
         	console.log('Price Options Saved');
-        	console.log(data.item);
+        	console.log(data);
         	data.item.params.tempMarkup = $('[name="markup"]:checked').val();
-        	console.log($('#OrderForm-'+data.item.id));
-        	$('#OrderForm-'+data.item.id).trigger('updatePrice', data);
+        	$('#OrderForm-bsk').trigger('bskPrice', data);
         });
 
-        $('#default-resellerMarkup-modal').on('cancel', function(e, data){
+        $('#bsk-resellerMarkup-modal').on('cancel', function(e, data){
 			console.log('Price Options Canceled');
         });
     });

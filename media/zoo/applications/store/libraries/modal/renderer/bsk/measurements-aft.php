@@ -55,6 +55,7 @@ jQuery(function($){
             $('#OrderForm-bsk').trigger('measure', {item: items['bsk-aft'], type: 'aft'});
         })
         $('#bsk-measurements-aft-modal').on('save', function(e, data){
+            console.log(data);
             $('#OrderForm-bsk').trigger('measure', {item: items['bsk-aft'], type: 'aft'});
             data.result = true;
         }); 

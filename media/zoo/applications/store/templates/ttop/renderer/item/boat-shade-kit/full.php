@@ -115,7 +115,7 @@ $this->form->setValue('template', $this->template);
                                         <div class="uk-width-1-1 price-main" data-id="bsk-aft">
                                             <div class="uk-width-1-1 uk-grid price-container">
                                                 <?php if ($this->checkPosition('pricing')) : ?>
-                                                        <?php echo $this->renderPosition('pricing', array('item' => $product)); ?>
+                                                        <?php echo $this->renderPosition('pricing', array('item' => $product, 'type' => 'aft', 'layout' => 'bsk')); ?>
                                                 <?php endif; ?>
                                             </div>
                                         </div>
@@ -166,7 +166,7 @@ $this->form->setValue('template', $this->template);
                                     <div class="uk-width-1-2 price-main" data-id="bsk-bow">
                                         <div class="uk-width-1-1 price-container">
                                             <?php if ($this->checkPosition('pricing')) : ?>
-                                                    <?php echo $this->renderPosition('pricing', array('item' => $product)); ?>
+                                                    <?php echo $this->renderPosition('pricing', array('item' => $product, 'type' => 'bow', 'layout' => 'bsk')); ?>
                                             <?php endif; ?>
                                         </div>
                                         <div class="uk-width-1-1">
@@ -373,7 +373,12 @@ $this->form->setValue('template', $this->template);
                                     $('.chosen_boat').html();
                                 }
                                 self.trigger('measure', {item: data.item, type: data.type});
-                            })
+                            });
+
+                            $(this.$element).on('bskPrice', function(e, data) {
+                                console.log('bsk updatePrice');
+                                self._publishPrice({item: data.item});
+                            });
 
                             this.$element.on('setMode', function(e, data) {
                                 console.log(data);
@@ -440,7 +445,7 @@ $this->form->setValue('template', $this->template);
                                     }
                                 };
                                 lpiModal.getModal(data);
-                                self.trigger('setMode', {item: items['bsk-aft'], mode: 'EMM'});
+                                self.trigger('setMode', {item: items['bsk-aft'], mode: 'EMM', type: 'bsk'});
                             });
 
                             $('button#measurements-bow').on('click', function(e) {
@@ -454,7 +459,7 @@ $this->form->setValue('template', $this->template);
                                     }
                                 };
                                 lpiModal.getModal(data);
-                                self.trigger('setMode', {item: items['bsk-bow'], mode: 'EMM'});
+                                self.trigger('setMode', {item: items['bsk-bow'], mode: 'EMM', type: 'bsk'});
                             });
 
                             $.each(bsktypes, function(k,type) {
@@ -493,6 +498,12 @@ $this->form->setValue('template', $this->template);
                     setMode: [
                         function (data) {
                             var value = data.args.mode === 'EMM' ? 'customer' : 'default';
+                            console.log(data);
+                            if(data.args.mode === 'EMM') {
+                                $('[name="boat_make"]').val('').trigger('input');
+                                $('[name="boat_model"]').val('').trigger('input');
+                                $('.chosen_boat').html('');
+                            }
                             data.args.item.options.measurement_source.value = value;
                             return data;
                         }
