@@ -11019,7 +11019,7 @@ body {
   padding: 10px;
 }
 .tm-block-water {
-  background: url('../../../../../images/bg-water.jpeg') no-repeat fixed 50% 100%;
+  background: url('../../../../../images/bg-water.jpeg') no-repeat fixed 50% 0%;
   color: #ffffff;
 }
 .tm-link-contrast {
