@@ -109,20 +109,6 @@ $this->user = $order->getUser();
     </div>
 </div>
 
-<script type="text/javascript">
-
-//  var _gaq = _gaq || [];
-// 
-//  
-//  
-//  (function() {
-//    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-//    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-//    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-//  })();
-
-</script>
-
 
 <script>
     jQuery(function($) { 
@@ -160,38 +146,6 @@ $this->user = $order->getUser();
             }
         }
     });
-            
-        var pModal;
-        function sendTransactionToGoogle(data) {
-            var trans = [
-                '_addTrans',
-                data.transfer.order_number,           // transaction ID - required
-                'T-Top Boat Covers',  // affiliation or store name
-                parseFloat(data.response.amount),          // total - required
-                parseFloat(data.response.tax),           // tax
-                parseFloat(data.response.freight)              // shipping
-            ];
-            var items = [];
-            $.each(data.transfer.items,function(k,v){
-                var item = [
-                    '_addItem',
-                    data.transfer.order_number,
-                    k,
-                    v.name,
-                    v.description,
-                    parseFloat(v.price),
-                    v.qty
-                ];
-                _gaq.push(item);
-                
-            });
-            console.log(trans);
-            console.log(items);
-            _gaq.push(['_setAccount', 'UA-2871759-6']);
-            _gaq.push(['_trackPageview']);
-            _gaq.push(trans);
-            _gaq.push(['_trackTrans']); //submits transaction to the Analytics servers
-        }
         function copyToShipping () {
             var billing = $('fieldset#billing');
             var shipping = $('fieldset#shipping');
