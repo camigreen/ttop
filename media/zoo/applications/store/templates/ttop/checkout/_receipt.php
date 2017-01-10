@@ -87,6 +87,7 @@ $salesperson = $order->created_by == 0 ? 'Website' : $this->user->name;
         </div>
     </div>
 </div>
+<?php echo $this->app->google->ecommerce($order->id); ?>
 <script>
     jQuery(function($){
         $(document).ready(function(){
