@@ -44,10 +44,12 @@ class WorkOrderFormPDF extends FormPDF {
     	}
     	$item_array = array();
 	    foreach($order->elements->get('items.', array()) as $item) {
+	    	$exclude = array('boat_length');
 	    	$options = array();
 	    	foreach($item->getOptions() as $option) {
-
-	    		$options[] = $option->get('label').': '.$option->get('text');
+	    		if(!in_array($option->get('name'), $exclude)) {
+	    			$options[] = $option->get('label').': '.$option->get('text');
+	    		}
 	    	}
 	    	$markup = $this->app->number->toPercentage($item->getMarkupRate('reseller'), 0);
 	    	$discount = $this->app->number->toPercentage($item->getDiscountRate(), 0);
