@@ -146,6 +146,8 @@ $this->user = $order->getUser();
             }
         }
     });
+
+        var pModal;
         function copyToShipping () {
             var billing = $('fieldset#billing');
             var shipping = $('fieldset#shipping');
