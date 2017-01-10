@@ -340,26 +340,8 @@ class TestController extends AppController {
 	 * @since 1.0
 	 */
 	public function testEcommerce() {
-		$order = array();
-		$order['id'] = '1234';
-		$order['affiliation'] = 'T-Top Boat Covers';
-		$order['revenue'] = '1000';
-		$order['shipping'] = '10';
-		$order['tax'] = '70';
-		$item = array();
-		$item['id'] = 'ttbc';
-		$item['name'] = 'T-top Boat Cover';
-		$item['sku'] = 'TTBC-PION197SF-001';
-		$item['category'] = 'ttbc';
-		$item['quantity'] = 1;
-		$item['price'] = 1234;
-
-		$this->item = json_encode($item);
-
-		$layout = 'ecommerce';
-		$this->json = json_encode($order);
-		$this->getView()->addTemplatePath($this->app->path->path('library.product:layouts/tests/'));
-		$this->getView()->setLayout($layout)->display();
+		$oid = $this->app->request->getInt('oid', 0);
+		echo $this->app->google->ecommerce($oid);
 
 	}
 
