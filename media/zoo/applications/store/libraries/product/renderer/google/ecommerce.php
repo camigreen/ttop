@@ -1,5 +1,3 @@
-<h1>Ecommerce</h1>
-
 <script>
 	jQuery(function($) {
 		var transaction = <?php echo $google['transaction']; ?>;
