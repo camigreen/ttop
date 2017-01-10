@@ -93,6 +93,9 @@
 		<make value="panga_craft" name="Panga Craft">
 			<model value="83,64,78">27</model>
 		</make>
+		<make value="panga_marine" name="Panga Marine">
+			<model value="66,60,48">27</model>
+		</make>
 		<make value="pathfinder" name="Pathfinder">
 			<model value="88,64,57,B">2200</model>
 			<model value="88,65,57,B">2400</model>

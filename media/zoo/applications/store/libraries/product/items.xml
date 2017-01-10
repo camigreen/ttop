@@ -498,6 +498,21 @@
 			</models>
 		</boat>
 		<boat>				
+			<name>panga_marine</name>
+			<label>Panga Marine</label>
+			<skucode>PANGM</skucode>
+			<models>
+				<model>
+					<name>20</name>
+					<label>20</label>
+					<skucode>20</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
+					</options>
+				</model>
+			</models>
+		</boat>
+		<boat>				
 			<name>pathfinder</name>
 			<label>Pathfinder</label>
 			<skucode>PTHFNDR</skucode>
