@@ -30,29 +30,40 @@ class GoogleHelper extends AppHelper {
 
         $order = $this->app->orderdev->get($oid);
 
-        $transaction = array();
-        $transaction['id'] = $order->id;
-        $transaction['affiliation'] = 'T-Top Boat Covers';
-        $transaction['revenue'] = $order->getTotal('charge');
-        $transaction['shipping'] = $order->getShippingTotal();
-        $transaction['tax'] = $order->getTaxTotal();
-        $transaction['currency'] = 'USD';
-        $items = array();
+        $gtm = array();
+
+        $gtm['event'] = 'transactionComplete';
+        $gtm['ecommerce'] = array();
+        $gtm['ecommerce']['purchase'] = array();
+        $gtm['ecommerce']['purchase']['actionField'] = array();
+        $gtm['ecommerce']['purchase']['actionField']['id'] = $order->id;
+        $gtm['ecommerce']['purchase']['actionField']['affiliation'] = "LaPorte's Products, Inc";
+        $gtm['ecommerce']['purchase']['actionField']['revenue'] = (float) $order->getTotal('charge');
+        $gtm['ecommerce']['purchase']['actionField']['tax'] = (float) $order->getTaxTotal();
+        $gtm['ecommerce']['purchase']['actionField']['shipping'] = (float) $order->getShippingTotal();
+        $gtm['ecommerce']['purchase']['actionField']['coupon'] = $order->params->get('coupon');
+        $gtm['ecommerce']['purchase']['actionField']['dimension1'] $order->elements->get('referral');
+        $gtm['ecommerce']['purchase']['products'] = array();
         foreach($order->getItems() as $sku => $item) {
             $itm = array();
-            $itm['id'] = $order->id;
+            $itm['id'] = $item->id;
             $itm['name'] = $item->name;
-            $itm['sku'] = $sku;
-            $itm['category'] = $item->type;
-            $itm['quantity'] = $item->getQty();
             $itm['price'] = $item->price->get('charge');
-            $items[] = $itm;
+            $itm['brand'] = $item->params->get('brand', "LaPorte's Products");
+            $itm['category'] = $item->type;
+            $itm['quantity'] = (int) $item->getQty();
+            $itm['coupon'] = $item->params->get('coupon');
+            $itm['variant'] = $item->getOption('fabric');
+            $itm['dimension1'] = $item->getOption('color');
+            $gtm['ecommerce']['purchase']['products'][] = $itm;
         }
 
-        $google = array('transaction' => json_encode($transaction), 'items' => json_encode($items));
+        
 
         $renderer = $this->app->renderer->create();
         $renderer->addPath($this->app->path->path('library.product:'));
-        return $renderer->render('google.ecommerce', array('google' => $google));
+        return $renderer->render('google.ecommerce', array('gtm' => json_encode($gtm)));
     }
 }
+
+?>

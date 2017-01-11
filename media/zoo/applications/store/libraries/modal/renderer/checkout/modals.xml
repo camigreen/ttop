@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modals>
+	<modal name="referral" layout="referral" title="Quick Question" subtitle="How did you hear about us?" save="Continue" />
+</modals>

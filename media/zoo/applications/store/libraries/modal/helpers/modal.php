@@ -46,7 +46,7 @@ class ModalHelper extends AppHelper {
         $data['subtitle'] = $node->attributes()->subtitle ? (string) $node->attributes()->subtitle : null;
         $data['title'] = $node->attributes()->title ? (string) $node->attributes()->title : null;
         $data['save'] = $node->attributes()->save ? (string) $node->attributes()->save : null;
-        $data['cancel'] = $node->attributes()->cancel ? (string) $node->attributes()->cancel : 'Ok';
+        $data['cancel'] = $node->attributes()->cancel ? (string) $node->attributes()->cancel : null;
         $renderer = $this->app->renderer->create();
         $renderer->addPath($this->app->path->path('library.modal:'));
         $content = $renderer->render($type.'.'.$name, array('config' => $config));

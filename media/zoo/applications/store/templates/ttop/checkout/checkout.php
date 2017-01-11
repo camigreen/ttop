@@ -9,6 +9,7 @@ $order = $this->order;
 
 $this->app->document->addScript('assets:js/jquery-validate-1.14.1/jquery.validate.min.js');
 $this->app->document->addScript('assets:js/jquery-validate-1.14.1/additional-methods.min.js');
+$this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
 $this->user = $order->getUser();
 ?>
 <?php if($this->app->store->merchantTestMode()) : ?>
@@ -108,7 +109,7 @@ $this->user = $order->getUser();
         
     </div>
 </div>
-
+<div class='modals'></div>
 
 <script>
     jQuery(function($) { 
@@ -241,7 +242,7 @@ $this->user = $order->getUser();
         }
         
         $(document).ready(function(){
-
+            lpiModal.init('.modals');
             console.log(validator);
 
             $('#ttop-checkout').FormHandler({
@@ -252,7 +253,21 @@ $this->user = $order->getUser();
                 events: {
                     onInit: [
                         function (e) {
-                            var page = $('#page').val();
+                            var page = '<?php echo $this->page; ?>';
+                            var steps = {
+                                'customer': 1,
+                                'payment': 2,
+                                'confirm': 3,
+                                'receipt': 4
+                            };
+                            dataLayer.push({
+                                'event': 'checkout.'+page,
+                                'ecommerce': {
+                                  'checkout': {
+                                    'actionField': {'step': steps[page]}
+                                  }
+                                }
+                            });
                             switch(page) {
                                 case 'customer':
                                     $('.ttop-checkout-progress li div#customer').addClass('inProgress');
@@ -424,6 +439,20 @@ $this->user = $order->getUser();
                                         dfd.resolve(false);
                                     }
                                 });
+                            } else if ($(e.target).data('next') === 'payment') {
+                                if(!this.validation.form()) {
+                                    return false;
+                                }
+                                if(!$('[name="elements[referral]"]').val()) {
+                                    lpiModal.getModal({
+                                        type: 'checkout',
+                                        name: 'referral'
+                                    });
+                                    return false;
+                                } else {
+                                    $('input[name="next"]').val($(e.target).data('next'));
+                                    return true;
+                                }
                             } else {
                                 $('input[name="next"]').val($(e.target).data('next'));
                                 console.log($(e.target).data('next'));

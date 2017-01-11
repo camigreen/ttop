@@ -242,7 +242,7 @@
                 console.log('Cannot Add to Cart');
                 return;
             }
-            
+            dataLayer.push({event: "addToCart"});
             console.log(items);
             this.cart.add(items);
             var triggerData = this.trigger('afterAddToCart', {items: items});

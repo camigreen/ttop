@@ -44,6 +44,7 @@ $elements = $this->order->elements;
         </div> 
     </div>
 </div>
+<input type="hidden" name="elements[referral]" value="<?php echo $order->elements->get('referral'); ?>"/>
 <script>
 jQuery(function($){
     $(document).ready(function(){})

@@ -20,13 +20,15 @@
 			<div class="uk-modal-footer uk-text-right">
 				<ul class="uk-grid" data-uk-grid-margin>
 					<?php if(isset($data['save'])) : ?>
-			    	<li class="uk-width-1-4 uk-push-2-4">
+			    	<li class="uk-width-1-4 <?php echo ($data['cancel'] ? " uk-push-2-4" : " uk-push-3-4"); ?>">
 			    		<button class="modal-save uk-button uk-button-primary uk-width-1-1" ><?php echo $data['save'] ?></button>
 			    	</li>
 			    	<?php endif; ?>
+			    	<?php if(isset($data['cancel'])) : ?>
 			    	<li class="uk-width-1-4 <?php echo ($data['save'] ? " uk-push-2-4" : " uk-push-3-4"); ?>">
 						<button class="modal-cancel uk-button uk-width-1-1" ><?php echo $data['cancel']; ?></button>
 					</li>
+					<?php endif; ?>
 				</ul>
 			</div>
 		</div>
