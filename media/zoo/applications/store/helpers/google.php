@@ -42,7 +42,7 @@ class GoogleHelper extends AppHelper {
         $gtm['ecommerce']['purchase']['actionField']['tax'] = (float) $order->getTaxTotal();
         $gtm['ecommerce']['purchase']['actionField']['shipping'] = (float) $order->getShippingTotal();
         $gtm['ecommerce']['purchase']['actionField']['coupon'] = $order->params->get('coupon');
-        $gtm['ecommerce']['purchase']['actionField']['dimension1'] $order->elements->get('referral');
+        $gtm['ecommerce']['purchase']['actionField']['dimension1'] = $order->elements->get('referral');
         $gtm['ecommerce']['purchase']['products'] = array();
         foreach($order->getItems() as $sku => $item) {
             $itm = array();
