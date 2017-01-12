@@ -41,11 +41,11 @@ include($this['path']->path('layouts:theme.config.php'));
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PX2MWK');</script>
+})(window,document,'script','dataLayer','GTM-5SJ2NNF');</script>
 <!-- End Google Tag Manager -->
 
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PX2MWK"
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5SJ2NNF"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 

@@ -286,7 +286,7 @@ class OrderDev {
 			$taxtotal += ($item->isTaxable() ? ($item->getTotalPrice('charge')*$taxrate) : 0);
 		}
 		
-		return $taxtotal;
+		return (float) $taxtotal;
 	}
 
 	public function isTaxable() {
