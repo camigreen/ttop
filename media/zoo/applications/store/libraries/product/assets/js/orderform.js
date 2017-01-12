@@ -406,6 +406,7 @@
             if (this.validation.status === 'failed') {
                 this._validate([this.item]);
             }
+            dataLayer.push({'event': 'option.changed', 'option.name': $(e.target).prop('name')});
             this.trigger('afterChange', {event: e, item: this.item});
             
         },
