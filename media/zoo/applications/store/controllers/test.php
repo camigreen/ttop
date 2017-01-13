@@ -311,6 +311,19 @@ class TestController extends AppController {
 		}
 	}
 
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function coupon() {
+		$this->app->coupon->create();
+	}
+
 
 }
 ?>

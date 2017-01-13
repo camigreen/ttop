@@ -95,6 +95,24 @@ class TestAPI extends API {
      *
      * @since 1.0
      */
+    public function closeOrder($oid = null) {
+        $order = $this->app->orderdev->get($oid);
+            $order->params->set('payment.status', 3);
+            $order->params->set('payment.type', 'CC');
+            $order->params->set('payment.approved', true);
+            $order->save(true);
+        
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
     public function shipRates($oid) {
 
         $shipper = $this->app->shipper;
