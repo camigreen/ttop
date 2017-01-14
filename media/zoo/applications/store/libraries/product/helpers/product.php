@@ -69,7 +69,7 @@ class ProductHelper extends AppHelper {
 			$item->set('type', 'ubsk');
 		} else if ($data->type == 'ccbc-shelved') {
 			$item->set('type', 'ccbcoverstock');
-			$item->set('productName', 'Center Console Boat Cover');
+			$item->set('productName', 'Center Console Boat Cover - Overstock');
 			$options = array();
 			foreach($data->getElements() as $key => $element) {
 				if($element->getElementType() == 'optionselect') {
@@ -106,7 +106,7 @@ class ProductHelper extends AppHelper {
 			$data->params->set('discount', 0.3);
 		} else if ($data->type == 'ttbc-shelved') {
 			$item->set('type', 'ttbcoverstock');
-			$item->set('productName', 'T-Top Boat Cover');
+			$item->set('productName', 'T-Top Boat Cover - Overstock');
 			$options = array();
 			foreach($data->getElements() as $key => $element) {
 				if($element->getElementType() == 'optionselect') {
