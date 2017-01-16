@@ -96,7 +96,7 @@ class OrderDev {
 	public function addItems($items = array()) {
 		$items = (array) $items;
 		foreach($items as $item) {
-			$this->elements->set('items.'.$item->id, $item);
+			$this->elements->set('items.'.$item->getHash(), $item);
 		}
 		return $this;
 	}
