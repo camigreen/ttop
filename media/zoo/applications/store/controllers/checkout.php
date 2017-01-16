@@ -43,13 +43,7 @@ class CheckoutController extends AppController {
         $this->cart = $this->app->cart;
 
         // registers tasks
-        $this->registerTask('customer', 'display');
-        $this->registerTask('payment', 'display');
-        $this->registerTask('confirm', 'display');
-        $this->registerTask('save', 'display');
-        $this->registerTask('processPayment', 'display');
-        $this->registerTask('addCoupon', 'display');
-        $this->registerTask('orderNotification', 'orderNotification');
+
         //$this->registerTask('claimOrder', 'display');
         // $this->taskMap['display'] = null;
         // $this->taskMap['__default'] = null;
@@ -70,8 +64,7 @@ class CheckoutController extends AppController {
         if($this->task != 'receipt') {
             $this->CR = $this->app->cashregister->start();
         }
-        $task = $this->task;
-        $this->$task();
+        $this->save();
 
     }
     /**
@@ -110,12 +103,53 @@ class CheckoutController extends AppController {
         $this->payment();
     }
 
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function cart() {
+        if (!$this->template = $this->application->getTemplate()) {
+            return $this->app->error->raiseError(500, JText::_('No template selected'));
+        }
+        $this->CR = $this->app->cashregister->start();
+        $order = $this->CR->order;
+
+        $layout = 'checkout';
+
+        $this->page = 'cart';
+        $this->next = 'customer-info';
+        $this->task = 'customer';
+        $this->title = 'Shopping Cart';
+        $this->subtitle = '';
+        $this->buttons = array(
+            'back' => array(
+                'active' => false
+            ),
+            'proceed' => array(
+                    'active' => true,
+                    'next' => 'customer-info',
+                    'disabled' => false,
+                    'label' => 'Proceed'
+                )
+        );
+
+        $this->items = $this->cart->getAll();
+        $this->order = $order;
+        $this->getView()->addTemplatePath($this->template->getPath().'/checkout')->setLayout($layout)->display();
+    }
+
     public function customer() {
         if (!$this->template = $this->application->getTemplate()) {
             return $this->app->error->raiseError(500, JText::_('No template selected'));
         }
 
-        //var_dump($this->app->session->get('order', array(), 'checkout'));
+        $this->CR = $this->app->cashregister->start();
+
         $this->app->document->addScript('assets:js/formhandler.js');
         $order = $this->CR->order;
         $account = $order->getAccount();
@@ -144,7 +178,8 @@ class CheckoutController extends AppController {
         $this->form = $this->app->form->create(array($this->template->getPath().'/checkout/config.xml', compact('type')));
 
         $layout = 'checkout';
-        $this->task = 'save';
+
+        $this->next = 'payment-info';
         $this->title = 'Customer Information';
         $this->subtitle = 'Please enter your information below.';
         $this->buttons = array(
@@ -153,7 +188,7 @@ class CheckoutController extends AppController {
                 ),
             'proceed' => array(
                     'active' => true,
-                    'next' => 'payment',
+                    'next' => 'payment-info',
                     'disabled' => false,
                     'label' => 'Proceed'
                 )
@@ -169,13 +204,14 @@ class CheckoutController extends AppController {
         if (!$this->template = $this->application->getTemplate()) {
             return $this->app->error->raiseError(500, JText::_('No template selected'));
         }
+
+        $this->CR = $this->app->cashregister->start();
  
         $this->page = 'payment';
 
         $order = $this->CR->order;
         $account = $order->getAccount();
         $user = $order->getUser();
-        $this->task = 'save';
 
         if($account && $account->type != 'store') {
             $order->params->set('payment.account_name', $account->name);
@@ -196,7 +232,7 @@ class CheckoutController extends AppController {
         $this->buttons = array(
             'back' => array(
                     'active' => true,
-                    'next' => 'customer',
+                    'next' => 'customer-info',
                     'disabled' => false,
                     'label' => 'Back'
                 ),
@@ -219,12 +255,13 @@ class CheckoutController extends AppController {
             return $this->app->error->raiseError(500, JText::_('No template selected'));
         }
 
+        $this->CR = $this->app->cashregister->start();
+
         $this->app->document->addScript('assets:js/formhandler.js');
 
         $order = $this->CR->order;
         $account = $order->getAccount();
         $user = $order->getUser();
-        $next = 'processPayment';
         $this->task = 'processPayment';
         $layout = 'checkout';
         $this->page = 'confirm';
@@ -239,13 +276,13 @@ class CheckoutController extends AppController {
         $this->buttons = array(
             'back' => array(
                     'active' => true,
-                    'next' => 'payment',
+                    'next' => 'payment-info',
                     'disabled' => false,
                     'label' => 'Back'
                 ),
             'proceed' => array(
                     'active' => true,
-                    'next' => $next,
+                    'next' => $this->task,
                     'disabled' => false,
                     'label' => 'Proceed'
                 )
@@ -332,7 +369,7 @@ class CheckoutController extends AppController {
     public function save() {
 
         $order = $this->CR->order;
-        $next = $this->app->request->get('next','word', 'customer');
+        $next = $this->app->request->get('next', 'string', 'customer-info');
         $post = $this->app->request->get('post:', 'array', array());
         //var_dump($order);
         //return;
@@ -364,7 +401,7 @@ class CheckoutController extends AppController {
         $order->save();
         $this->app->session->set('orderID',$order->id,'checkout');
 
-        $this->setRedirect($this->baseurl.'&task='.$next);
+        $this->setRedirect('/checkout/'.$next);
 
     }
 

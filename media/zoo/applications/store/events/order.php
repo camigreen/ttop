@@ -31,7 +31,7 @@ class OrderEvent {
     	if(!$order->isProcessed()) {
         	foreach($order->getItems() as $item) {
         		$item = $app->product->create($item);
-        		$order->elements->set('items.'.$item->id, $item);
+        		$order->elements->set('items.'.$item->getHash(), $item);
         	}
         } else {
         	$items = $order->elements->get('items.', array());

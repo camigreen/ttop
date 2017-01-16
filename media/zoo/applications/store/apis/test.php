@@ -95,12 +95,12 @@ class TestAPI extends API {
      *
      * @since 1.0
      */
-    public function closeOrder($oid = null) {
+    public function closeOrder() {
         $order = $this->app->orderdev->get($oid);
-            $order->params->set('payment.status', 3);
-            $order->params->set('payment.type', 'CC');
-            $order->params->set('payment.approved', true);
-            $order->save(true);
+        $order->params->set('payment.status', 3);
+        $order->params->set('payment.type', 'CC');
+        $order->params->set('payment.approved', true);
+        $order->save(true);
         
     }
 
@@ -129,6 +129,33 @@ class TestAPI extends API {
         }
         $result['rates'] = $rates;
         return $result;
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function convertOrderItemIDtoHash() {
+        $orders = $this->app->table->orderdev->all();
+        $results = array();
+        foreach($orders as $order) {
+            
+            $items = $order->getItems();
+            $order->elements->remove('items.');
+            foreach($items as $item) {
+                $order->elements->set('items.'.$item->getHash(), $item);
+            }
+            $order->save();
+            $results[] = $order->id;
+        }
+        return $results;
+
+        
     }
 
 	

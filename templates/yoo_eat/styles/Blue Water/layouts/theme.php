@@ -41,11 +41,11 @@ include($this['path']->path('layouts:theme.config.php'));
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PX2MWK');</script>
+})(window,document,'script','dataLayer','GTM-5SJ2NNF');</script>
 <!-- End Google Tag Manager -->
 
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PX2MWK"
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5SJ2NNF"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
@@ -139,7 +139,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		</div>
 
 		<?php if ($this['widgets']->count('menu + search')) : ?>
-
+		
 			<nav class="tm-navbar uk-navbar" <?php if ($this['config']->get('fixed_navigation')) echo 'data-uk-sticky'; ?>>
 
 			
@@ -150,7 +150,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                                         <?php if ($this['widgets']->count('menu-logo')) : ?>    
 
-                                            <div class="menu-logo uk-hidden-small">    
+                                            <div class="menu-logo uk-visible-large">    
 
                                                 <?php echo $this['widgets']->render('menu-logo'); ?>    
 
@@ -182,7 +182,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 					<?php if ($this['widgets']->count('offcanvas')) : ?>
 
-					<a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+					<a href="#offcanvas" class="uk-navbar-toggle uk-hidden-large" data-uk-offcanvas></a>
 
 					<?php endif; ?>
 
@@ -190,7 +190,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 					<?php if ($this['widgets']->count('logo-small')) : ?>
 
-					<div class="uk-navbar-content uk-navbar-center uk-visible-small"><a class="tm-logo-small" href="<?php echo $this['config']->get('site_url'); ?>"><?php echo $this['widgets']->render('logo-small'); ?></a></div>
+					<div class="uk-navbar-content uk-navbar-center uk-hidden-large"><a class="tm-logo-small" href="<?php echo $this['config']->get('site_url'); ?>"><?php echo $this['widgets']->render('logo-small'); ?></a></div>
 
 					<?php endif; ?>
 
@@ -198,9 +198,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                                         <?php if ($this['widgets']->count('cart')) : ?>
 
-                                            <div class="uk-navbar-flip uk-visible-large">
+                                            <div class="uk-navbar-flip">
 
-						<?php echo $this['widgets']->render('cart'); ?>
+												<?php echo $this['widgets']->render('cart'); ?>
 
                                             </div>
 

@@ -49,7 +49,7 @@ if ($widget->menu) {
 		$renderer = $params['menu'];
 	} else if (in_array($widget->position, array('menu'))) {
 		$renderer = 'navbar';
-		$widget->nav_settings["modifier"] = "uk-hidden-small";
+		$widget->nav_settings["modifier"] = "uk-visible-large";
 	} else if (in_array($widget->position, array('toolbar-l', 'toolbar-r', 'footer'))) {
 		$renderer = 'subnav';
 		$widget->nav_settings["modifier"] = "uk-subnav-line";

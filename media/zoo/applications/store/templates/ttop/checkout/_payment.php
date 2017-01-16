@@ -16,10 +16,10 @@ $page = $this->page;
                 <button class="uk-button uk-button-primary uk-width-1-3 uk-margin-bottom items-table uk-hidden" data-uk-toggle="{target:'.items-table'}">Hide Full Invoice</button>
                 <button class="uk-button uk-button-primary uk-width-1-3 uk-margin-bottom items-table" data-uk-toggle="{target:'.items-table'}">View Full Invoice</button>
             </div>
-            <div class='uk-width1-1 items-table uk-hidden'>
+            <div class='uk-width-1-1 items-table uk-hidden'>
                 <?php echo $this->partial('item.table.reseller',compact('order', 'page')); ?>
             </div>
-             <div class='uk-width1-1 items-table'>
+             <div class='uk-width-1-1 items-table'>
                 <?php echo $this->partial('item.table',compact('order', 'page')); ?>
             </div>
             <script>
@@ -30,7 +30,7 @@ $page = $this->page;
                 })
             </script>
         <?php else : ?>
-            <div class='uk-width1-1 items-table retail'>
+            <div class='uk-width-1-1 items-table retail'>
                 <?php echo $this->partial('item.table',compact('order', 'page')); ?>
             </div>
         <?php endif; ?>
@@ -40,10 +40,9 @@ $page = $this->page;
         </div>
     </div>
 </div>
-<div class="uk-width-1-2 uk-container-center">
+<div class="uk-width-medium-1-2 uk-width-small-1-1 uk-container-center">
     <div class="uk-grid" data-uk-grid-margin>
         <div class='uk-width-1-1'>
-            <?php echo $this->partial('coupon_code', compact('params')); ?>
             <fieldset id="payment-info">
                 <div class="uk-grid" data-uk-margin>
                     <div class="uk-width-1-1">

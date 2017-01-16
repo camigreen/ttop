@@ -36,6 +36,7 @@
         this.$qty.on('change', $.proxy(this, '_updateQuantity'));
         this.$element.on('input','input.item-option', $.proxy(this, '_refresh'));
         this.$element.on('change','select.item-option, textarea.item-option', $.proxy(this, '_refresh'));
+        this.$element.on('blur','select.item-option', $.proxy(this, '_refresh'));
         this.trigger('onComplete');
     };
 
@@ -388,7 +389,7 @@
         _refresh: function (e) {
             var self = this;
             triggerData = this.trigger('beforeRefresh', {event: e, item: this.item});
-            if($(e.target).closest('[id*="OrderForm"').data('id') != this.item.id) {
+            if($(e.target).closest('[id^="OrderForm"]').data('id') != this.item.id) {
                 return;
             }
             console.log($(e.target));

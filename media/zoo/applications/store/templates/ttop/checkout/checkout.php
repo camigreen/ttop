@@ -11,75 +11,87 @@ $this->app->document->addScript('assets:js/jquery-validate-1.14.1/jquery.validat
 $this->app->document->addScript('assets:js/jquery-validate-1.14.1/additional-methods.min.js');
 $this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
 $this->user = $order->getUser();
+
+var_dump(JFactory::getApplication()->client->detection);
 ?>
-<?php if($this->app->store->merchantTestMode()) : ?>
 
-<div class="uk-width-1-1 uk-margin ttop-checkout">
-    <div class="uk-width-1-1 uk-text-center">
-        <span class="uk-text-danger uk-text-large testing-mode">TESTING MODE</span>
-    </div>
-    <div class="uk-width-1-1">
-        <button class="uk-button uk-button-primary uk-width-1-3 uk-margin-bottom" data-uk-toggle="{target:'#variables'}">Show/Hide Variables</button>
-    </div>
-    <div id="variables" class="uk-width-1-1 uk-hidden">
-        <?php var_dump($this->app->merchant->getParams()); ?>
-        <?php var_dump($order); ?>
-        <?php var_dump($this->cart->getAll()); ?>
 
-    </div>
-</div>
-<?php endif; ?>
-<div class="uk-clearfix ttop-checkout-title">
-    <img src="<?php echo $this->app->path->url('assets:images/shopping_cart_full_128.png'); ?>" class="uk-align-medium-left" />
-    <span class="uk-article-title">Checkout</span>
-    <div class='uk-align-right'>
-        <!-- (c) 2005, 2015. Authorize.Net is a registered trademark of CyberSource Corporation --> <div class="AuthorizeNetSeal"> <script type="text/javascript" language="javascript">var ANS_customer_id="d3b7044f-3c16-4fd1-9a4e-708ced7f70c0";</script> <script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js" ></script> <a href="http://www.authorize.net/" id="AuthorizeNetText" target="_blank">Credit Card Services</a> </div> 
-    </div>
-</div>
-<div class="uk-width-1-1 uk-margin-bottom ttop-checkout-steps" data-uk-grid-margin>
-    <ul class="uk-grid ttop-checkout-progress">
-        <li class="uk-width-1-4">
-            <div id="customer" >Customer<i class="uk-icon-arrow-right uk-align-right"></i></div>
-        </li>
-        <li class="uk-width-1-4">
-            <div id="payment" >Payment Info<i class="uk-icon-arrow-right uk-align-right"></i></div>
-        </li>
-        <li class="uk-width-1-4">
-            <div id="confirm" >Confirm Order<i class="uk-icon-arrow-right uk-align-right"></i></div>
-        </li>
-        <li class="uk-width-1-4">
-            <div id="receipt" >Receipt</div>
-        </li>
-    </ul>
-
-</div>
-<form id="ttop-checkout" class="uk-form" action="/store/checkout" method="post">
-    <div class="uk-width-1-1 uk-margin uk-text-center ttop-checkout-pagetitle">
-        <div class="uk-article-title"><?php echo $this->title; ?></div>
-        <div class="uk-article-lead"><?php echo $this->subtitle; ?></div>
-    </div>
-    <?php echo $this->partial($this->page,compact('order')); ?>
-    <div class="uk-width-1-2 uk-container-center uk-margin-top">
-        <div class="uk-grid">
-            <?php if ($this->buttons['back']['active']) : ?>
-            <div class="uk-width-1-2 uk-container-center">
-                <button id="back" class="uk-width-1-1 uk-button uk-button-primary ttop-checkout-step-button" data-next="<?php echo $this->buttons['back']['next']; ?>" <?php echo ($this->buttons['back']['disabled'] ? 'disabled' : '') ?>><?php echo $this->buttons['back']['label']; ?></button>
+<div class="uk-grid uk-margin ttop-checkout" data-uk-grid-margin>
+    <?php if($this->app->store->merchantTestMode()) : ?>
+        <div class="uk-width-1-1 uk-text-center">
+            <span class="uk-text-danger uk-text-large testing-mode">TESTING MODE</span>
+        </div>
+        <div class="uk-width-1-1">
+            <button class="uk-button uk-button-primary uk-width-small-1-1 uk-width-medium-1-3" data-uk-toggle="{target:'#variables'}">Show/Hide Variables</button>
+            <div id="variables" class="uk-width-1-1 uk-hidden">
+                <?php var_dump($this->app->merchant->getParams()); ?>
+                <?php var_dump($order); ?>
+                <?php var_dump($this->cart->getAll()); ?>
             </div>
-            <?php endif; ?>
-            <?php if ($this->buttons['proceed']['active']) : ?>
-            <div class="uk-width-1-2 uk-container-center">
-                <button id="proceed" class="uk-width-1-1 uk-button uk-button-primary ttop-checkout-step-button" data-next="<?php echo $this->buttons['proceed']['next']; ?>" <?php echo ($this->buttons['proceed']['disabled'] ? 'disabled' : '') ?>><?php echo $this->buttons['proceed']['label']; ?></button>
+        </div>
+    <?php endif; ?>
+    <div class="uk-width-medium-1-6 uk-hidden-small">
+        <img src="<?php echo $this->app->path->url('assets:images/shopping_cart_full_128.png'); ?>" />
+    </div>
+    <div class="uk-width-medium-4-6 uk-width-small-1-1">
+        <span class="uk-article-title uk-hidden-small">Checkout</span>
+        <div class="uk-article-title uk-visible-medium uk-width-1-1 uk-text-center">Checkout</div>
+    </div>
+    <div class='uk-width-medium-1-6 uk-width-small-1-1'>
+        <div class="uk-width-1-3 uk-container-center">
+            <!-- (c) 2005, 2015. Authorize.Net is a registered trademark of CyberSource Corporation --> 
+            <div class="AuthorizeNetSeal">
+                <script type="text/javascript" language="javascript">var ANS_customer_id="d3b7044f-3c16-4fd1-9a4e-708ced7f70c0";</script>
+                <script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js" ></script>
+                <a href="http://www.authorize.net/" id="AuthorizeNetText" target="_blank">Credit Card Services</a>
             </div>
-            <?php endif; ?>
         </div>
     </div>
-    <input type="hidden" name="task" value="<?php echo $this->task; ?>" />
-    <input type="hidden" name="updated" value="false" />
-    <input type="hidden" name="process" value="true" />
-    <input type="hidden" name="next" />
-    <input type="hidden" name="orderID" />
-    <input type="hidden" name="bypass" value="0" />
-</form>
+    <div class="uk-width-1-1 uk-margin-bottom ttop-checkout-steps uk-hidden-small" data-uk-grid-margin>
+        <ul class="uk-grid ttop-checkout-progress">
+            <li class="uk-width-1-4">
+                <div id="customer" >Customer<i class="uk-icon-arrow-right uk-align-right"></i></div>
+            </li>
+            <li class="uk-width-1-4">
+                <div id="payment" >Payment Info<i class="uk-icon-arrow-right uk-align-right"></i></div>
+            </li>
+            <li class="uk-width-1-4">
+                <div id="confirm" >Confirm Order<i class="uk-icon-arrow-right uk-align-right"></i></div>
+            </li>
+            <li class="uk-width-1-4">
+                <div id="receipt" >Receipt</div>
+            </li>
+        </ul>
+    </div>
+    <div class="uk-width-1-1">
+        <form id="ttop-checkout" class="uk-form" action="/checkout" method="post">
+            <div class="uk-grid">
+                <div class="uk-width-1-1 uk-margin uk-text-center ttop-checkout-pagetitle">
+                    <div class="uk-article-title"><?php echo $this->title; ?></div>
+                    <div class="uk-article-lead"><?php echo $this->subtitle; ?></div>
+                </div>
+                <?php echo $this->partial($this->page,compact('order')); ?>
+                <div class="uk-width-1-1 uk-margin-top">
+                    <div class="uk-grid" data-uk-grid-margin>
+                        <?php if ($this->buttons['back']['active']) : ?>
+                        <div class="uk-width-medium-1-4 uk-width-small-1-2 uk-container-center">
+                            <button id="back" class="uk-width-1-1 uk-button uk-button-primary ttop-checkout-step-button" data-next="<?php echo $this->buttons['back']['next']; ?>" <?php echo ($this->buttons['back']['disabled'] ? 'disabled' : '') ?>><?php echo $this->buttons['back']['label']; ?></button>
+                        </div>
+                        <?php endif; ?>
+                        <?php if ($this->buttons['proceed']['active']) : ?>
+                        <div class="uk-width-medium-1-4 uk-width-small-1-2 uk-container-center">
+                            <button id="proceed" class="uk-width-1-1 uk-button uk-button-primary ttop-checkout-step-button" data-next="<?php echo $this->buttons['proceed']['next']; ?>" <?php echo ($this->buttons['proceed']['disabled'] ? 'disabled' : '') ?>><?php echo $this->buttons['proceed']['label']; ?></button>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <input type="hidden" name="next" />
+                <input type="hidden" name="orderID" />
+                <input type="hidden" name="bypass" value="0" />
+            </div>
+        </form>
+    </div>
+</div>
 
 <div id="processing-modal" class="uk-modal ttop-checkout-processing-modal">
     <div class="uk-modal-dialog ">

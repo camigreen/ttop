@@ -5,15 +5,19 @@ $cart = $zoo->cart;
 $count = $cart->getItemCount();
 ?>
 
-<ul id="cart-module" class="uk-list uk-hidden-small uk-navbar-flip">
+<ul id="cart-module" class="uk-list uk-navbar-flip">
     <li class="uk-parent" data-uk-dropdown>
         <a href="#">
-            <div class="uk-grid"> 
-                <div class="uk-width-1-1">
+            <div class="uk-grid uk-margin-right"> 
+                <div class="uk-width-1-1 uk-hidden-small">
                     <span class="icon"></span>
                     <span class="currency" data-cart="currency">$</span>
                     <span data-cart="total"><?php echo $cart->getTotal(); ?></span>
                     <span data-cart="quantity">(<?php echo $count; ?> <?php echo $count > 1 ? 'Items)' : 'Item)'; ?></span>
+                </div>
+                <div class="uk-width-1-1 uk-visible-small">
+                    <span class="icon"></span>
+                    <span data-cart="quantity">(<?php echo $count; ?>)</span>
                 </div>
             </div>
         </a>

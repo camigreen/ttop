@@ -1,7 +1,12 @@
-<?php 
-    $items = $order->elements->get('items.');
+<?php
+    if($this->items) {
+        $items = $this->items;
+    } else {
+        $items = $order->elements->get('items.');
+    }
+    
 ?>
-<table id="item-default-table" class="uk-table">
+<table class="uk-table">
     <thead>
         <tr>
             <th class="uk-width-7-10">Item Name</th>
@@ -44,14 +49,18 @@
                     </div> 
                     <?php endif; ?>
                 </td>
-                <?php if($page != 'payment') : ?>
+                <?php if($page != 'cart') : ?>
                     <td class="ttop-checkout-item-total">
                         <div><?php echo $item->qty ?></div>             
                     </td>
                 <?php else : ?>
                     <td class="ttop-checkout-item-total">
-                        <input type="number" class="uk-width-1-3 uk-text-center" name="qty" value="<?php echo $item->qty ?>" min="1"/>
-                        <button class="uk-button uk-button-primary update-qty">Update</button>                
+                        <div class="uk-grid">
+                            <div class="uk-width-1-1">
+                                <input type="number" class="uk-width-medium-1-3 uk-width-small-1-1 uk-text-center" name="qty" value="<?php echo $item->qty ?>" min="1"/>
+                                <button class="uk-button uk-button-primary update-qty">Update</button> 
+                            </div>
+                        </div>               
                     </td>
                 <?php endif; ?>
                 <td class="ttop-checkout-item-total">

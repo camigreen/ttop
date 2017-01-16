@@ -7,7 +7,16 @@
 	<fields name="request">
 		<fieldset name="request" addfieldpath="/administrator/components/com_zoo/joomla/fields">  
 			<field name="controller" type="hidden" label="" required="true" default="checkout" />
-			<field name="task" type="hidden" required="true" label="" default="customer" />        
+			<field name="task" type="list" label="Checkout Page" required="true" default="">
+				<option value="">- SELECT -</option>
+				<option value="display">Default</option>
+				<option value="cart">Cart</option>
+				<option value="customer">Customer</option>
+				<option value="payment">Payment</option>
+				<option value="confirm">Confirm</option>
+				<option value="reciept">Receipt</option>
+				<option value="save">Save</option>
+			</field>        
 		</fieldset>
 	</fields>
 

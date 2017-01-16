@@ -19,9 +19,9 @@ if (isset($params['showlabel']) && $params['showlabel']) {
 }
 $hidden = (isset($params['hidden']) ? $params['hidden'] : 0);
 // create class attribute
-$width = 'uk-width-1-'.$params['field_width'];
+$width = 'uk-width-medium-1-'.$params['field_width'];
 $fName = str_replace(' ','_',strtolower($element->config->get('name')));
-$class = $width.($hidden == 1 ? ' uk-hidden' : '');
+$class = $width.($hidden == 1 ? ' uk-hidden' : '').' uk-width-small-1-1';
 $content = $element->render($params); 
 ?>
 <?php if ($content) : ?>

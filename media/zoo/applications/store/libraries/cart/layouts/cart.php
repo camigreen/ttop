@@ -60,10 +60,17 @@
                     </tr>
                 </tfoot>
             </table>
-        <div class="uk-align-right">
-            <button class="uk-button uk-button-primary continue"><?php echo JText::_('CART_CONTINUE_SHOPPING_BUTTON'); ?></button>
-            <button class="uk-button uk-button-primary checkout" <?php echo $data['count'] === 0 ? 'disabled' : '' ?> ><?php echo JText::_('CART_CHECKOUT_BUTTON'); ?></button>
-            <button class="uk-button uk-button-primary clear" <?php echo $data['count'] === 0 ? 'disabled' : '' ?> ><?php echo JText::_('CART_EMPTY_CART_BUTTON'); ?></button>
+        <div class="uk-width-medium-1-1">
+            <div class="uk-align-right uk-visible-large">
+                <button class="uk-button uk-button-primary continue"><?php echo JText::_('CART_CONTINUE_SHOPPING_BUTTON'); ?></button>
+                <button class="uk-button uk-button-primary checkout" <?php echo $data['count'] === 0 ? 'disabled' : '' ?> ><?php echo JText::_('CART_CHECKOUT_BUTTON'); ?></button>
+                <button class="uk-button uk-button-primary clear" <?php echo $data['count'] === 0 ? 'disabled' : '' ?> ><?php echo JText::_('CART_EMPTY_CART_BUTTON'); ?></button>
+            </div>
+            <div class="uk-visible-small uk-text-center">
+                <button class="uk-button uk-button-primary continue"><?php echo JText::_('CART_CONTINUE_SHOPPING_BUTTON'); ?></button>
+                <button class="uk-button uk-button-primary checkout" <?php echo $data['count'] === 0 ? 'disabled' : '' ?> ><?php echo JText::_('CART_CHECKOUT_BUTTON'); ?></button>
+                <button class="uk-button uk-button-primary clear" <?php echo $data['count'] === 0 ? 'disabled' : '' ?> ><?php echo JText::_('CART_EMPTY_CART_BUTTON'); ?></button>
+            </div>
         </div>
     </div>
 </div>
