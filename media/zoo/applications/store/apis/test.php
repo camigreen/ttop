@@ -131,6 +131,33 @@ class TestAPI extends API {
         return $result;
     }
 
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function convertOrderItemIDtoHash() {
+        $orders = $this->app->table->orderdev->all();
+        $results = array();
+        foreach($orders as $order) {
+            
+            $items = $order->getItems();
+            $order->elements->remove('items.');
+            foreach($items as $item) {
+                $order->elements->set('items.'.$item->getHash(), $item);
+            }
+            $order->save();
+            $results[] = $order->id;
+        }
+        return $results;
+
+        
+    }
+
 	
 }
 
