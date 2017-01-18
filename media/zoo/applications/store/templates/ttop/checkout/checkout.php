@@ -12,7 +12,6 @@ $this->app->document->addScript('assets:js/jquery-validate-1.14.1/additional-met
 $this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
 $this->user = $order->getUser();
 
-var_dump(JFactory::getApplication()->client->detection);
 ?>
 
 

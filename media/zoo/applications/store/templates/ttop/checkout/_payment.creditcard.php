@@ -10,7 +10,7 @@
     <div class="uk-width-1-1">
         <label>Card Number</label>
 
-        <input type="text" name="creditcard[cardNumber]" class="ttop-checkout-field required" placeholder="Credit Card Number" value='<?php echo $params->get('payment.creditcard.cardNumber') ?>'/>
+        <input type="text" name="creditcard[cardNumber]" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" class="ttop-checkout-field required" placeholder="Credit Card Number" value='<?php echo $params->get('payment.creditcard.cardNumber') ?>'/>
     </div>
     <div class="uk-width-1-1">
         <div class="uk-grid">
@@ -24,7 +24,7 @@
             </div>
             <div class="uk-width-medium-2-6 uk-width-small-1-1">
                 <label>CVV Code</label>
-                <input id="card_code" type="text" name="creditcard[card_code]" class="ttop-checkout-field required" placeholder="CVV Number" value='<?php echo $params->get('payment.creditcard.card_code'); ?>'/>
+                <input id="card_code" type="text" name="creditcard[card_code]" class="ttop-checkout-field required" placeholder="CVV Number" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" value='<?php echo $params->get('payment.creditcard.card_code'); ?>'/>
             </div>
         </div>
     </div>

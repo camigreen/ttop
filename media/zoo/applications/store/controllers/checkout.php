@@ -61,9 +61,6 @@ class CheckoutController extends AppController {
         if($this->cart->isEmpty() && !$orderID) {
             $this->setRedirect('/');
         }
-        if($this->task != 'receipt') {
-            $this->CR = $this->app->cashregister->start();
-        }
         $this->save();
 
     }
@@ -331,6 +328,7 @@ class CheckoutController extends AppController {
     }
 
     public function processPayment () {
+        $this->CR = $this->app->cashregister->start();
         $terms = $this->app->storeuser->get()->getAccount()->getParam('terms', 'DUR');
         $order = $this->CR->processPayment($terms);
         $this->app->document->setMimeEncoding('application/json');
@@ -367,7 +365,7 @@ class CheckoutController extends AppController {
     }
 
     public function save() {
-
+        $this->CR = $this->app->cashregister->start();
         $order = $this->CR->order;
         $next = $this->app->request->get('next', 'string', 'customer-info');
         $post = $this->app->request->get('post:', 'array', array());
@@ -401,7 +399,7 @@ class CheckoutController extends AppController {
         $order->save();
         $this->app->session->set('orderID',$order->id,'checkout');
 
-        $this->setRedirect('/checkout/'.$next);
+        $this->setRedirect('checkout/'.$next);
 
     }
 

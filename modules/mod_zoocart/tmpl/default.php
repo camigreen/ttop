@@ -5,24 +5,21 @@ $cart = $zoo->cart;
 $count = $cart->getItemCount();
 ?>
 
-<ul id="cart-module" class="uk-list uk-navbar-flip">
-    <li class="uk-parent" data-uk-dropdown>
-        <a href="#">
-            <div class="uk-grid uk-margin-right"> 
-                <div class="uk-width-1-1 uk-hidden-small">
-                    <span class="icon"></span>
-                    <span class="currency" data-cart="currency">$</span>
-                    <span data-cart="total"><?php echo $cart->getTotal(); ?></span>
-                    <span data-cart="quantity">(<?php echo $count; ?> <?php echo $count > 1 ? 'Items)' : 'Item)'; ?></span>
-                </div>
-                <div class="uk-width-1-1 uk-visible-small">
-                    <span class="icon"></span>
-                    <span data-cart="quantity">(<?php echo $count; ?>)</span>
-                </div>
-            </div>
-        </a>
-    </li>
-</ul>
+
+<div class="cart cart-large uk-hidden-small">
+    <a href="#">
+        <span class="currency" data-cart="currency">$<span data-cart="total"><?php echo $cart->getTotal(); ?></span></span>
+        <span class="cart-icon">
+            <span class="cart-count single-digit" data-cart="quantity"><?php echo $count; ?></span>
+        </span>
+    </a>
+</div>
+<div class="cart cart-small uk-visible-small">
+    <a class="cart-icon" href="#">
+        <span class="cart-count single-digit" data-cart="quantity"><?php echo $count; ?></span>
+    </a>
+</div>
+    
 <div id="cart-modal" class="uk-modal">
 </div>
 <script>

@@ -7,35 +7,64 @@
 */
 
 .cart {
+  color: #E5C800;
+}
+
+.cart a {
+  color: #E5C800;
+}
+
+.cart a:hover {
+  color: #E5C800;
+}
+
+.cart-large {
 
 }
 
-#cart-module {
-    margin: 0;
-    color: #F4FF54;
-    cursor: pointer;
-    padding-left: 10px;
+.cart-large a {
+  line-height: 60px;
 }
-#cart-module a {
-    line-height: 60px;
-    color: #F4FF54;
-}
-#cart-module .icon {
-    font-family: FontAwesome;
-    display: inline-block;
-    font-weight: normal;
-    font-style: normal;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-size:24px;
-    padding-right:5px;
 
+.cart-large .currency {
+  float: right;
 }
-#cart-module .icon:before {
-    content: "\f07a";
+
+.cart-large .cart-icon {
+  display: block;
+  background: url(/media/zoo/applications/store/libraries/cart/assets/images/cart.svg);
+  height: 25px;
+  width: 25px;
+  margin-top: 15px;
+  margin-right: 10px;
+  float: right;
 }
-#cart-module .items {
+
+.cart-large .cart-count {
+  width: 20px;
+  text-align: center;
+  display: block;
+  padding-left: 5px;
+  height: 12px;
+  line-height: 14px;
+  padding-top: 1px;
+}
+
+.cart-large .cart-count.single-digit {
+  font-size: 14px;
+  padding-top: 0px;
+  line-height: 13px;
+}
+
+.cart-large .cart-count.double-digit {
+  font-size: 12px;
+}
+
+.cart-large .cart-count.triple-digit {
+  font-size: 9px;
+}
+
+.cart-large .items {
     padding-left:5px;
 }
 #cart .cart-title, #cart .item-name, #cart .item-update {
@@ -45,11 +74,6 @@
 #cart .uk-panel {
   float:none !important;
   max-width:none !important;
-}
-
-.cart-icon span, .cart-icon i {
-  padding-left: 5px;
-  color: #F4FF54 !important;
 }
 
 #cart-modal .item-sku {
@@ -92,6 +116,104 @@
 #cart-modal .product .name {
       font-size:1.2em;
 }
+
+/*Mobile Cart*/
+
+.cart-small {
+
+}
+
+.cart-small .cart-title {
+    font-size: 25px;
+}
+
+.cart-small .cart-item-name {
+    font-size:20px;
+}
+
+.cart-small .cart-item-description {
+    font-size:11px;
+}
+
+.cart-small .cart-item-price {
+    font-size:15px;
+    color: #c21818;
+}
+
+.cart-small .uk-button {
+    font-size: 10px;
+}
+
+.cart-small .uk-button-text-large {
+    font-size: 15px;
+}
+
+.cart-small .cart-subtotal-text {
+    font-size:15px;
+}
+
+.cart-small .cart-subtotal-price {
+    font-size:20px;
+    color: #c21818;
+}
+
+.cart-small .uk-button-checkout {
+    background-image: linear-gradient(to bottom, #E5C800, #93881B);
+    color: black;
+}
+.cart-small .uk-button-checkout:hover {
+    background-image: linear-gradient(to bottom, #93881B, #E5C800);
+    color: black;
+    text-shadow:none;
+}
+
+.cart-small .uk-button-checkout:hover:disabled {
+   background-color: #fafafa;
+    color: #aaaaaa;
+    box-shadow: inset 0 -1px rgba(0, 0, 0, 0.09);
+    background-image: none; 
+}
+
+.cart-small .cart-icon-container {
+
+}
+
+.cart-small .cart-icon {
+  display: block;
+  background: url(/media/zoo/applications/store/libraries/cart/assets/images/cart.svg);
+  height: 25px;
+  width: 25px;
+  float: right;
+  margin-top: 15px;
+  margin-right: 10px;
+}
+
+.cart-small .cart-count {
+  width: 20px;
+  text-align: center;
+  display: block;
+  color: #E5C800;
+  padding-left: 5px;
+  height: 12px;
+  line-height: 14px;
+  padding-top: 1px;
+
+}
+
+.cart-small .cart-count.single-digit {
+  font-size: 14px;
+  padding-top: 0px;
+  line-height: 13px;
+}
+
+.cart-small .cart-count.double-digit {
+  font-size: 12px;
+}
+
+.cart-small .cart-count.triple-digit {
+  font-size: 9px;
+}
+
 
 
 

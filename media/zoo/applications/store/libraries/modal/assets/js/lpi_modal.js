@@ -57,6 +57,7 @@
                 modal.options.minScrollHeight = 150;
                 modal.show();
                 lpiModal.storage.data[mElem.prop('id')] = config;
+                mElem.trigger('loaded', config);
             });
             console.log(lpiModal);
         } else {

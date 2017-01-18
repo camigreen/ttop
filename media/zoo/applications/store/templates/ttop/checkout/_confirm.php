@@ -18,9 +18,25 @@ list($page) = explode('.',$this->page, 2);
             <p class='uk-text-center'>Orders are shipped within 5-15 business days.</p>
 
         </div>
-        <div class="uk-width-1-1 uk-margin-top">
+        <div class="uk-width-1-1 uk-margin-top uk-hidden-small">
             <div class="uk-grid">
+                <div class="uk-width-1-2">
+                    <?php echo $this->partial('billing',compact('elements')); ?>
+                </div>
+                <div class="uk-width-1-2">
+                    <?php 
+                        if(!$order->elements->get('localPickup')) {
+                            echo $this->partial('shipping',compact('elements'));
+                        }
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="uk-width-1-1 uk-margin-top uk-visible-small">
+            <div class="uk-width-1-1">
                 <?php echo $this->partial('billing',compact('elements')); ?>
+            </div>
+            <div class="uk-width-1-1">
                 <?php 
                     if(!$order->elements->get('localPickup')) {
                         echo $this->partial('shipping',compact('elements'));
@@ -28,9 +44,8 @@ list($page) = explode('.',$this->page, 2);
                 ?>
             </div>
         </div>
-        
         <div class="uk-width-1-1 uk-margin-top">
-            <div>E-mail: <?php echo $elements->get('billing.email'); ?></div>
+            <div>E-mail: <?php echo $elements->get('email'); ?></div>
         </div>
         <?php if($this->user->isReseller()) : ?>
             <div class="uk-width-1-1 uk-margin-top">

@@ -80,7 +80,7 @@ if (in_array($widget->position, array('breadcrumbs', 'logo', 'logo-small', 'sear
 			
 			$content = str_replace('{user-name}', $user->name, $content);
 			$content = $account ? str_replace('<div>{account-name}</div>', $account_line, $content) : $content;
-			$content = str_replace('<ul class="uk-navbar-nav uk-hidden-small">', '<ul class="uk-navbar-nav uk-hidden-small uk-navbar-flip">', $content);
+			$content = str_replace('<ul class="uk-navbar-nav uk-visible-large">', '<ul class="uk-navbar-nav uk-visible-large uk-navbar-flip">', $content);
 		}
 		echo $content;
 	} elseif ($widget->module == 'mod_zoocart') {

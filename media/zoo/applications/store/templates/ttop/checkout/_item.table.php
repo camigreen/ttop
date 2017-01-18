@@ -1,5 +1,5 @@
 <?php
-    if($this->items) {
+    if(isset($this->items)) {
         $items = $this->items;
     } else {
         $items = $order->elements->get('items.');

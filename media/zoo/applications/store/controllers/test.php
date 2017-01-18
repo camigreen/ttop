@@ -324,6 +324,33 @@ class TestController extends AppController {
 		$this->app->coupon->create();
 	}
 
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function testModal() {
+		$this->app->document->addScript('library.modal:assets/js/lpi_modal.js');
+		echo "
+			<div class='modals'></div>
+			<script>
+				lpiModal.init('.modals');
+				jQuery(function($) {
+					$(document).ready(function(){
+						lpiModal.getModal({
+							type: 'default',
+							name: 'purchase-thankyou'
+						});
+					});
+				});
+			</script>
+		";
+	}
+
 
 }
 ?>
