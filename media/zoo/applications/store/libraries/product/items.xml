@@ -449,25 +449,17 @@
 			<skucode>MVRK</skucode>
 			<models>
 				<model>
-					<name>17HPX-S</name>
-					<label>17 HPX-S</label>
-					<skucode>17HPXS</skucode>
+					<name>mirage-17HPX-S</name>
+					<label>Mirage 17 HPX-S</label>
+					<skucode>MIR17HPXS</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
 					</options>
 				</model>
 				<model>
-					<name>18</name>
-					<label>18</label>
-					<skucode>18</skucode>
-					<options>
-						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
-					</options>
-				</model>
-				<model>
-					<name>18HPX-V</name>
-					<label>18 HPX-V</label>
-					<skucode>18HPXV</skucode>
+					<name>mirage-18HPX-V</name>
+					<label>Mirage 18 HPX-V</label>
+					<skucode>MIR18HPXV</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
