@@ -66,6 +66,18 @@ class BSKProduct extends Product {
         return hash('md5', implode('.', $sku));
     }
 
+    public function getHash() {
+        $sku = array();
+        foreach($this->getOptions() as $option) {
+            $sku[] = $option->get('name').$option->get('value');
+        }
+        $sku[] = $this->getPrice();
+        $sku[] = $this->name;
+        $sku[] = $this->id;
+        $sku[] = $this->getParam('location');
+        return hash('md5', implode('.', $sku));
+    }
+
     public function getSKU() {
         return parent::getSKU();
     }

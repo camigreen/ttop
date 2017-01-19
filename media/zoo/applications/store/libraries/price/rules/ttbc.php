@@ -123,9 +123,9 @@ $rules['247Platinum.8oz.base'] = 1226;
 $rules['247Platinum.9oz.base'] = 1386;
 $rules['247Platinum.shipping.weight'] = 27;
 
-$rules['R220Robalo.7oz.base'] = 775;
-$rules['R220Robalo.8oz.base'] = 1021;
-$rules['R220Robalo.9oz.base'] = 1156;
+$rules['R220Robalo.7oz.base'] = 737;
+$rules['R220Robalo.8oz.base'] = 983;
+$rules['R220Robalo.9oz.base'] = 1118;
 $rules['R220Robalo.shipping.weight'] = 25;
 
 $rules['36Fisharound.7oz.base'] = 2800;
