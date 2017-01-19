@@ -435,8 +435,7 @@ $this->user = $order->getUser();
                                 }
                                 $.when(processPayment()).done(function(data){   
                                     if (data.approved) {
-//                                        sendTransactionToGoogle(data);
-                                        $('input[name="task"]').val('receipt');
+                                        $("form#ttop-checkout").prop('action', '/checkout/receipt');
                                         $('input[name="orderID"]').val(data.orderID);
                                         ProcessingModal('hide');
                                         thankYouModal('show');
