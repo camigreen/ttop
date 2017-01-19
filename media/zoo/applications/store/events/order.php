@@ -27,15 +27,16 @@ class OrderEvent {
         $order->table = $app->table->orderdev;
         $order->params = $app->parameter->create($order->params);
         $order->elements = $app->parameter->create($order->elements);
-
     	if(!$order->isProcessed()) {
         	foreach($order->getItems() as $item) {
+        		var_dump($order->id);
         		$item = $app->product->create($item);
         		$order->elements->set('items.'.$item->getHash(), $item);
         	}
         } else {
         	$items = $order->elements->get('items.', array());
 	    	foreach($items as $key => $item) {
+	    		var_dump($order->id);
 	    		try { 
 					$item = $app->product->create($item);
 		      		$order->elements->set('items.'.$key, $item);

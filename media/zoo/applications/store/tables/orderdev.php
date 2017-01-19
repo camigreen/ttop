@@ -30,9 +30,9 @@ class OrderDevTable extends AppTable {
 	}
 
 	protected function _initObject($object) {
-		
+
 		parent::_initObject($object);
-	
+
 		// add to cache
 		$key_name = $this->key;
 
