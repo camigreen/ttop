@@ -244,12 +244,12 @@ $this->form->setValue('template', $this->template);
         mode: 'CYB',
         area: 0,
         classes: {
-            A: 3362,
-            B: 4032,
-            C: 5175,
-            D: 5566,
-            E: 6016,
-            F: 7168
+            A: 3548,
+            B: 4241,
+            C: 5417,
+            D: 5818,
+            E: 6280,
+            F: 7446
         },
         options: {
             ttop2deck: {
