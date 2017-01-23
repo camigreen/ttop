@@ -46,25 +46,24 @@
         cart: lpiCart,
         modal: lpiModal,
         validation: {
-            message: null,
-            messageData: {
-                    message : '<span>Please complete the fields in red!</span><i class="uk-icon-arrow-down uk-margin-left" />',
-                    status  : 'danger',
-                    timeout : 5000,
-                    pos     : 'top-center'
+            sendWarning: function() {
+                if(!this.warned) {
+                    lpiModal.getModal({
+                        type: 'default',
+                        name: 'validation'
+                    }); 
+                };
+                
+                this.warned = true;
             },
-            sendMessage: function () {
-                if (!this.message) {
-                    this.message = UIkit.notify(this.messageData);
-                }
-                    
+            reset: function() {
+                this.warned = false;
+                this.complete = false;
+                this.init = true;
             },
-            closeMessage: function () {
-                if(this.message) {
-                    this.message.close();
-                    this.message = null;
-                }
-            }
+            warned: false,
+            complete: false,
+            init: false
         },
         init: function () {
             var self = this;
@@ -167,15 +166,14 @@
                 function (data) {
                     this._debug('Validation Passed!');
                     this.validation.complete = true;
-                    this.validation.closeMessage();
                     return data;
                 }
             ],
             validation_fail: [
                 function (data) {
                     this._debug('Validation Failed!');
-                    this.validation.status = 'failed';
-                    this.validation.sendMessage();
+                    this.validation.sendWarning();
+                    this.validation.complete = false;
                     return data;
                 }
             ],
@@ -186,12 +184,10 @@
         trigger: function (event, args) {
             
             var self = this, types = [];
-            console.log(this.$element);
             
             if(typeof args === 'undefined') {
                 args = {};
             }
-            console.log(args);
             if(args.item) {
                 types.push(args.item.type);
             }
@@ -225,13 +221,14 @@
                 return;
             }
             items = triggerData.args.items;
-            console.log(items);
             var self = this;
+            this.validation.reset();
+
             if(!this._validate(items)) {
                 return;
             }
+            this.validation.warned = true;
             $.each(items, function(k, item) {
-                console.log(item);
                 if(self.settings.confirm && !item.params.confirmed) {
                     self._confirmation(item);
                     proceed = false
@@ -243,7 +240,6 @@
                 return;
             }
             dataLayer.push({event: "addToCart"});
-            console.log(items);
             this.cart.add(items);
             var triggerData = this.trigger('afterAddToCart', {items: items});
         },
@@ -258,7 +254,6 @@
         },
         setItemConfirmation: function(confirm) {
             this.item.params.confirmed = confirm;
-            console.log(this.item);
         },
         _isConfirmed: function() {
             return this.item.params.confirmed;
@@ -330,7 +325,6 @@
                 url: "?option=com_zoo&controller=price&task=getPrice&format=raw",
                 data: {product: product},
                 success: function(data){
-                    console.log(elem);
                     var price = data.result.price;
                     elem.html(price.toFixed(2));
                     self.trigger('afterPublishPrice', {price: price, item: product, type: args.type});
@@ -356,7 +350,6 @@
             var text = $(elem).children('option:selected').text();
             options[name].value = value;
             options[name].text = text ? text : value;
-            console.log(options[name]);
         },
         _getFields: function() {
             var elems = this.$element.find('input.item-option, select.item-option, textarea.item-option'), self = this;
@@ -382,18 +375,16 @@
             item.qty = elem.val();
             triggerData = this.trigger('afterUpdateQuantity', {event: e, item: item});
             item = triggerData.args.item;
-            console.log(item);
             this._publishPrice(triggerData.args);
         },
         _refresh: function (e) {
+            this.validation.complete = false;
             var self = this;
             triggerData = this.trigger('beforeRefresh', {event: e, item: this.item});
-            if($(e.target).closest('[id*="OrderForm"').data('id') != this.item.id) {
+            if($(e.target).closest('[id*="OrderForm"]').data('id') != this.item.id) {
                 return;
             }
-            console.log($(e.target));
             triggerData = this.trigger('beforeChange', {event: e, item: this.item});
-            console.log(triggerData);
             if(!triggerData.triggerResult) {
                 return;
             }
@@ -403,24 +394,25 @@
             if(publishPrice) {
                 self._publishPrice(triggerData.args);
             }
-            if (this.validation.status === 'failed') {
-                this._validate([this.item]);
-            }
+            this._validate([this.item]);
             dataLayer.push({'event': 'option.changed', 'option.name': $(e.target).prop('name')});
             this.trigger('afterChange', {event: e, item: this.item});
             
         },
         _validate: function (items) {
             this._debug('Starting Validation');
-            if(!this.settings.validate) {
+            if(!this.settings.validate || (!this.validation.init || this.validation.complete)) {
+                console.log('validation cancelled');
+                console.log(this.settings.validate);
+                console.log(this.validation.init);
+                console.log(this.validation.complete);
                 return true;
             }
             var self = this, validated = true;
             self.$element.find('.validation-fail').removeClass('validation-fail');
 
             $.each(this.item.options, function(name, option) {
-                console.log(option);
-                if(typeof option.value === 'undefined' || !option.value || option.value === '' || option.value === '0' || option.value === 0) {
+                if(typeof option.value === 'undefined' || !option.value || option.value === '' || option.value === '0' || option.value === 0 || option.value === 'X') {
                     var elem = $('[name="'+name+'"]');
                     if(elem.hasClass('required')) {
                         elem.addClass('validation-fail');
@@ -430,7 +422,7 @@
                     
                 }
             });
-
+            console.log(validated);
             if(validated) {
                 this.trigger('validation_pass');
             } else {

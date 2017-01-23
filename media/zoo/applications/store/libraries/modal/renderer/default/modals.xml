@@ -5,4 +5,5 @@
 		<modal name="resellerMarkup" layout="resellerMarkup" title="Pricing Options" subtitle="These are the current pricing options." scroll="true" save="Save" cancel="Cancel" />
 		<modal name="additional_info" layout="additional_info" title="Special Instructions" subtitle="" cancel="Continue" />
 		<modal name="message" layout="message" title="Message" subtitle="" cancel="OK" />
+		<modal name="validation" layout="validation" title="Oops!" subtitle="Please check your options." cancel="OK" />
 	</modals>
