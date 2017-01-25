@@ -65,15 +65,15 @@
                     })
                 };
                 this.warned = true;
-
-            reset: function() {
+            },
+            initialize: function() {
                 this.warned = false;
                 this.complete = false;
                 this.init = true;
             },
+            init: false,
             warned: false,
-            complete: false,
-            init: false
+            complete: false
         },
         init: function () {
             var self = this;
@@ -232,7 +232,7 @@
             }
             items = triggerData.args.items;
             var self = this;
-            this.validation.reset();
+            this.validation.initialize();
 
             if(!this._validate(items)) {
                 return;
@@ -411,21 +411,20 @@
         },
         _validate: function (items) {
             this._debug('Starting Validation');
-            if(!this.settings.validate || (!this.validation.init || this.validation.complete)) {
-                console.log('validation cancelled');
                 console.log(this.settings.validate);
-                console.log(this.validation.init);
                 console.log(this.validation.complete);
+            if(!this.settings.validate || !this.validation.init || this.validation.complete) {
+                console.log('validation cancelled');
                 return true;
             }
             var self = this, validated = true;
             self.$element.find('.validation-fail').removeClass('validation-fail');
             var failed = [];
             $.each(this.item.options, function(name, option) {
-                if(typeof option.value === 'undefined' || !option.value || option.value === '' || option.value === '0' || option.value === 0) {
-                    failed.push(option);
+                if(typeof option.value === 'undefined' || !option.value || option.value === '' || option.value === '0' || option.value === 0 || option.value === 'X') {
                     var elem = $('[name="'+name+'"]');
                     if(elem.hasClass('required')) {
+                        failed.push(option);
                         elem.addClass('validation-fail');
                         self._debug(name + 'Failed Validation');
                         validated = false;
@@ -433,7 +432,6 @@
                     
                 }
             });
-            console.log(validated);
             if(validated) {
                 this.trigger('validation_pass');
             } else {

@@ -662,10 +662,10 @@ select.oem-select {
     font-weight: bold;
 }
 
-.lpiModal .uk-button {
+.lpiModal .uk-button-default {
     color: black;
 }
-.lpiModal .uk-button:focus {
+.lpiModal .uk-button-default:focus {
     color: black;
 }
 

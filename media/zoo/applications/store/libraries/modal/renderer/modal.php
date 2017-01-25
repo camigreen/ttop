@@ -32,7 +32,7 @@
 			    	<?php endif; ?>
 			    	<?php if(isset($data['cancel'])) : ?>
 			    	<li class="uk-width-1-3 uk-modal-close uk-container-center">
-						<button class="modal-cancel uk-button uk-width-1-1" ><?php echo $data['cancel']; ?></button>
+						<button class="modal-cancel uk-button uk-button-default uk-width-1-1" ><?php echo $data['cancel']; ?></button>
 					</li>
 					<?php endif; ?>
 				</ul>
