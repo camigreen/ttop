@@ -4,9 +4,8 @@
     } else {
         $items = $order->elements->get('items.');
     }
-    
 ?>
-<table class="uk-table">
+<table class="uk-table uk-hidden-small">
     <thead>
         <tr>
             <th class="uk-width-7-10">Item Name</th>
@@ -49,7 +48,7 @@
                     </div> 
                     <?php endif; ?>
                 </td>
-                <?php if($page != 'cart') : ?>
+                <?php if($page != 'payment') : ?>
                     <td class="ttop-checkout-item-total">
                         <div><?php echo $item->qty ?></div>             
                     </td>
@@ -104,3 +103,49 @@
             </tr>
         </tfoot>
 </table>
+
+<div class="uk-grid-small uk-visible-small checkout-small" data-uk-grid-margin>
+    <?php foreach ($items as $hash => $item) : ?>
+        <div class="uk-width-1-1">
+            <div id="<?php echo $hash; ?>" class="uk-panel uk-panel-box checkout-item">
+                <div class="uk-grid">
+                    <div class="uk-width-1-2 checkout-item-name"><?php echo $item->name; ?></div>
+                    <div class="uk-width-1-2 checkout-item-price uk-text-right"><?php echo $this->app->number->currency($item->getTotalPrice(), array('currency' => 'USD')); ?></div>
+                    <div class="uk-width-1-1 checkout-item-description"><?php echo $item->description; ?></div>
+                    <?php if(count($item->getOptions()) > 0) : ?>
+                    <div class="uk-width-1-1">
+                        <span class="options-closed uk-text-small" data-uk-toggle="{target:'#<?php echo $hash; ?> .options-container,#<?php echo $hash; ?> .options-closed,#<?php echo $hash; ?> .options-open'}"><i class="uk-icon uk-icon-plus-square-o"></i> View Options</span>
+                        <span class="options-open uk-text-small uk-hidden" data-uk-toggle="{target:'#<?php echo $hash; ?> .options-container,#<?php echo $hash; ?> .options-closed,#<?php echo $hash; ?> .options-open'}"><i class="uk-icon uk-icon-minus-square-o"></i> Hide Options</span>
+                        <div class="options-container uk-width-1-1 uk-hidden">
+                            <div class="uk-grid">
+                                <?php foreach($item->getOptions() as $option) : ?>
+                                <?php if($option->get('visible')) : ?>
+                                    <span class="uk-width-1-2 checkout-item-option"><?php echo $option->get('label'); ?>:</span>
+                                    <span class="uk-width-1-2 checkout-item-option-value <?php echo $option->get('name') == 'add_info' ? 'uk-text-left' : ''; ?>"><?php echo $option->get('text'); ?></span>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                    <?php if($page == 'payment') : ?>
+                        <div class="uk-width-2-3 checkout-item-qty">Qty: <input type="number" name="item-qty" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" value="<?php echo $item->getQty(); ?>" min="0" /></div>
+                    <?php else : ?>
+                        <div class="uk-width-2-3 checkout-item-qty">Qty: <?php echo $item->getQty(); ?></div>
+                    <?php endif; ?>
+                    <div class="uk-width-1-3 checkout-item-remove uk-text-right"><span class="uk-icon uk-icon-trash"></span></div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    <div class="uk-width-1-1">
+        <div class="uk-grid checkout-totals">
+            <div class="uk-width-2-3 uk-text-right">Subtotal:</div>
+            <div class="uk-width-1-3 uk-text-right checkout-currency"><?php echo $this->app->number->currency($order->getSubTotal(),array('currency' => 'USD')); ?></div>
+            <div class="uk-width-2-3 uk-text-right">Tax:</div>
+            <div class="uk-width-1-3 uk-text-right checkout-currency"><?php echo $this->app->number->currency($order->getTaxTotal(),array('currency' => 'USD')); ?></div>
+            <div class="uk-width-2-3 uk-text-right">Total:</div>
+            <div class="uk-width-1-3 uk-text-right checkout-currency checkout-total"><?php echo $this->app->number->currency($order->getTotal(),array('currency' => 'USD')); ?></div>
+        </div>
+    </div>
+</div>

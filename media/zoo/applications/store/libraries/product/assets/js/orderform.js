@@ -49,14 +49,20 @@
         validation: {
             message: null,
             messageData: {
-                    message : '<span>Please complete the fields in red!</span><i class="uk-icon-arrow-down uk-margin-left" />',
+                    message : '<span>Please complete the following fields in red!</span>',
                     status  : 'danger',
                     timeout : 5000,
                     pos     : 'top-center'
             },
-            sendMessage: function () {
+            sendMessage: function (fields) {
                 if (!this.message) {
-                    this.message = UIkit.notify(this.messageData);
+                    lpiModal.getModal({
+                        type: 'default',
+                        name: 'validation-fail',
+                        message: this.messageData.message,
+                        title: 'Required Info',
+                        fields: fields
+                    })
                 }
                     
             },
@@ -176,7 +182,7 @@
                 function (data) {
                     this._debug('Validation Failed!');
                     this.validation.status = 'failed';
-                    this.validation.sendMessage();
+                    this.validation.sendMessage(data.args.fields);
                     return data;
                 }
             ],
@@ -418,10 +424,10 @@
             }
             var self = this, validated = true;
             self.$element.find('.validation-fail').removeClass('validation-fail');
-
+            var failed = [];
             $.each(this.item.options, function(name, option) {
-                console.log(option);
                 if(typeof option.value === 'undefined' || !option.value || option.value === '' || option.value === '0' || option.value === 0) {
+                    failed.push(option);
                     var elem = $('[name="'+name+'"]');
                     if(elem.hasClass('required')) {
                         elem.addClass('validation-fail');
@@ -435,7 +441,7 @@
             if(validated) {
                 this.trigger('validation_pass');
             } else {
-                this.trigger('validation_fail');
+                this.trigger('validation_fail', {fields: failed});
             }
             return validated;
         },

@@ -196,14 +196,11 @@ $this->user = $order->getUser();
                 pModal = null;
             }
         }
-        function thankYouModal (state) {
-            var modal = UIkit.modal("#thankyou-modal",{center:true,bgclose: false});
-                
-            if (state === 'hide') {
-                modal.hide();
-            } else {
-                modal.show();
-            }
+        function thankYouModal () {
+            lpiModal.getModal({
+                type: "default",
+                name: "purchase-thankyou"
+            });
         }
         function verifyCard() {
                 console.log('Verifying Card');
@@ -430,7 +427,10 @@ $this->user = $order->getUser();
                             var dfd = $.Deferred();
                             if ($(e.target).data('next') === 'processPayment') {
                                 if (!$('[name="TC_Agree"]').prop('checked')) {
-                                    alert('Please read and agree to the terms and conditions.');
+                                    lpiModal.getModal({
+                                        type: "default",
+                                        name: "agree"
+                                    });
                                     return false;
                                 }
                                 $.when(processPayment()).done(function(data){   
@@ -438,7 +438,7 @@ $this->user = $order->getUser();
                                         $("form#ttop-checkout").prop('action', '/checkout/receipt');
                                         $('input[name="orderID"]').val(data.orderID);
                                         ProcessingModal('hide');
-                                        thankYouModal('show');
+                                        thankYouModal();
                                         setTimeout(function(){
                                             dfd.resolve(true);
                                         },5000);

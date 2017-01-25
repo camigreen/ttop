@@ -44,7 +44,9 @@ class ModalHelper extends AppHelper {
         $data['scroll'] = $this->getBool($node->attributes()->scroll);
         $data['scrolltext'] = $node->attributes()->scrolltext ? (string) $node->attributes()->scrolltext : 'Scroll down for more info.';
         $data['subtitle'] = $node->attributes()->subtitle ? (string) $node->attributes()->subtitle : null;
+        $data['subtitle'] = $config->get('subtitle', $data['subtitle']);
         $data['title'] = $node->attributes()->title ? (string) $node->attributes()->title : null;
+        $data['title'] = $config->get('title', $data['title']);
         $data['save'] = $node->attributes()->save ? (string) $node->attributes()->save : null;
         $data['cancel'] = $node->attributes()->cancel ? (string) $node->attributes()->cancel : null;
         $renderer = $this->app->renderer->create();

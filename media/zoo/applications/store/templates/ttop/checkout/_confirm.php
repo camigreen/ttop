@@ -8,8 +8,6 @@ $order = $this->order;
 $items = $this->cart->getAll();
 $elements = $order->elements;
 $params = $order->params;
-$article = JTable::getInstance("content"); 
-$article->load(22); // Get Article ID  
 list($page) = explode('.',$this->page, 2);
 ?>
 <div class="uk-width-1-1 uk-container-center ttop-receipt">
@@ -100,57 +98,21 @@ list($page) = explode('.',$this->page, 2);
             <h4 class="uk-text-warning">T-Top Boat Covers holds the right to adjust product pricing for any reason.</h4>
         </div>
         <div class="uk-width-1-1 uk-text-center">
-            <input type="checkbox" name="TC_Agree" /><span style="margin-left:10px;">I agree with <a href="#terms_and_conditions" data-uk-modal>terms and conditions.</a></span>
-        </div>
-        <div id="terms_and_conditions" class="uk-modal">
-            <div class="uk-modal-dialog">
-                <div class="uk-modal-dialog">
-                    <div class="uk-overflow-container">
-                        <div style="margin-top: 10px;">
-                            
-                        </div>
-                        <?php 
-                            echo $article->get('introtext');
-                        ?>
-                    </div>
-                    <div class="uk-grid uk-margin-top">
-                        <div class="uk-width-1-2">
-                            <button class="uk-button uk-button-primary uk-width-1-1" name="agree">I agree</button>
-                        </div>
-                        <div class="uk-width-1-2">
-                            <button class="uk-button uk-button-primary uk-width-1-1" name="disagree">I Disagree</button>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
+            <input type="checkbox" name="TC_Agree" /><span style="margin-left:10px;">I agree with <a href="#" id="terms_and_conditions">terms and conditions.</a></span>
         </div>
     </div>
 </div>
 
 <script>
     jQuery(function($) {
-        $('[name="agree"]').on('click', function(e){
-            e.preventDefault();
-            $('[name="TC_Agree"]').prop('checked', true);
-            var modal = UIkit.modal(".terms_and_conditions");
-
-            if ( modal.isActive() ) {
-                modal.hide();
-            } else {
-                modal.show();
-            }
-        })
-        $('[name="disagree"]').on('click', function(e){
-            e.preventDefault();
-            $('[name="TC_Agree"]').prop('checked', false);
-            var modal = UIkit.modal(".terms_and_conditions");
-
-            if ( modal.isActive() ) {
-                modal.hide();
-            } else {
-                modal.show();
-            }
-        })
+        $(document).ready(function(e){
+            $('#terms_and_conditions').on('click', function(e){
+                e.preventDefault();
+                lpiModal.getModal({
+                    type: 'default',
+                    name: 'termsandconditions'
+                });
+            });
+        });
     })
 </script>

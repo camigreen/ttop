@@ -7,16 +7,3 @@
     <p class="uk-article-lead">Thank you for your business.</p>
     <p class="uk-article-lead">Please standby for your receipt.</p>
 </div>
-
-<script>
-jQuery(function($){
-    $(document).ready(function(){
-    	$('#default-purchase-thankyou-modal').on('loaded', function(e, data){
-    		setTimeout(function(){ 
-    			$("#default-purchase-thankyou-modal").hide();
-    		}, 5000);
-    	});
-
-    });
-});
-</script>

@@ -416,11 +416,7 @@ input[type="text"] {
 .ttop.ttop-item .uk-tab li:not(.uk-active):hover > a {
     background-color: #B0B0B0;
 }
-.ttop-checkout a:not(.uk-button), .ttop-checkout:not(.uk-navbar a), .ttop-checkout:not(input.uk-button) {
-    color: #183FC3;
-    text-decoration: underline;
-    cursor: pointer;
-}
+
 
 .ttop-checkout .testing-mode {
     font-size: 45px;
@@ -630,4 +626,48 @@ select.oem-select {
 .modals {
     color: #1c3767;
 }
+
+.checkout-small {
+    font-size: 11px;
+}
+.checkout-small .checkout-item-name {
+    font-size: 14px;
+}
+.checkout-small .checkout-item-description {
+    font-size: 11px;
+}
+.checkout-small .checkout-item-price {
+    font-size:15px;
+    color: #c21818;
+}
+.checkout-small .checkout-item-qty input {
+    height: 21px !important;
+    font-size: 11px;
+    width: 55px;
+    line-height: 10px;
+}
+.checkout-small .checkout-item-option {
+    
+}
+.checkout-small .checkout-item-option-value {
+    padding-left:5px;
+    font-weight: bold;
+}
+.checkout-small .checkout-currency {
+    font-size:12px;
+}
+.checkout-small .checkout-total {
+    font-size:15px;
+    color: #c21818;
+    font-weight: bold;
+}
+
+.lpiModal .uk-button {
+    color: black;
+}
+.lpiModal .uk-button:focus {
+    color: black;
+}
+
+
 

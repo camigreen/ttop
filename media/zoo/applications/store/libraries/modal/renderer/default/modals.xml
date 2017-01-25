@@ -6,4 +6,7 @@
 		<modal name="additional_info" layout="additional_info" title="Special Instructions" subtitle="" cancel="Continue" />
 		<modal name="message" layout="message" title="Message" subtitle="" cancel="OK" />
 		<modal name="purchase-thankyou" layout="purchase-thankyou" title="" subtitle="" />
+		<modal name="agree" layout="agree" title="" subtitle="" cancel="OK" />
+		<modal name="termsandconditions" layout="termsandconditions" title="Terms and Conditions" scroll="true" subtitle="" save="I Agree" cancel="I Disagree" />
+		<modal name="validation-fail" layout="validation-fail" cancel="OK" scroll="true"/>
 	</modals>

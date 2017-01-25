@@ -14,7 +14,7 @@
 				<option value="customer">Customer</option>
 				<option value="payment">Payment</option>
 				<option value="confirm">Confirm</option>
-				<option value="reciept">Receipt</option>
+				<option value="receipt">Receipt</option>
 				<option value="save">Save</option>
 			</field>        
 		</fieldset>

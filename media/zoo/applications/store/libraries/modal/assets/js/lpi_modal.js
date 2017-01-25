@@ -47,8 +47,7 @@
                 $('.modals').append(mElem);
                 modal = UIkit.modal(mElem);
                 modal.on({
-                    'hide.uk.modal': function(){
-                        console.log(mElem);
+                    'hide.uk.modal': function (){
                         mElem.remove();
                     }
                 });
@@ -56,8 +55,12 @@
                 modal.options.center = true;
                 modal.options.minScrollHeight = 150;
                 modal.show();
+                var scroll = mElem.find('.uk-overflow-container');
+                if(scroll.length) {
+                    $(scroll).scrollTop(0);
+                }
                 lpiModal.storage.data[mElem.prop('id')] = config;
-                mElem.trigger('loaded', config);
+                //mElem.trigger('loaded', config);
             });
             console.log(lpiModal);
         } else {
