@@ -53,6 +53,9 @@ $uID = uniqid();
 
 <script>
 jQuery(function($){
+    $(document).load(function() {
+        $('#default-confirm-modal .uk-overflow-container').scrollTop(0);
+    })
     $(document).ready(function(){
         function validate() {
             var value = $('[name="accept"]').val();
@@ -67,7 +70,7 @@ jQuery(function($){
                 return false;
             }
         }
-
+        
         $('#default-confirm-modal').on('save', function(e, data){
             var item = data.args.item;
             if(validate()) {
