@@ -808,6 +808,14 @@
 					</options>
 				</model>
 				<model>
+					<name>235-escape</name>
+					<label>235 Escape</label>
+					<skucode>235ESC</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="23" visible="false" />
+					</options>
+				</model>
+				<model>
 					<name>25bx-br</name>
 					<label>25 BX-BR</label>
 					<skucode>25BXBR</skucode>
