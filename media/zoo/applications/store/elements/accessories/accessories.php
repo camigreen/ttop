@@ -59,22 +59,12 @@ class ElementAccessories extends Element {
 				$prefix .= $type.'.';
 			}
             //$storeItem = $this->app->item->create($item);   
-            $modal[$item->id] = $renderer->render($prefix.'.related_modal', array('item' => $item, 'layout' => 'related_modal'));
-            $output[$item->id] = $renderer->render($prefix.$layout, array('item' => $item, 'modal' => $modal[$item->id]));
+            $modal[$item->alias] = $renderer->render($prefix.'.related_modal', array('item' => $item, 'layout' => 'related_modal'));
+            $output[$item->id] = $renderer->render($prefix.$layout, array('item' => $item));
 		}
-        foreach ($items as $item) {
-            if (in_array($layout, $renderer->getLayouts($path))) {
-                                
-				
-			} elseif ($params->get('link_to_item', false) && $item->getState()) {
-				$output[] = '<a href="'.$this->app->route->item($item).'" title="'.$item->name.'">'.$item->name.'</a>';
-			} else {
-				$output[] = $item->name;
-			}
-        }
-        $finalLayout = $this->app->browser->isMobile() ? 'slider' : 'slider';
+        $finalLayout = $this->app->browser->isMobile() ? 'slider' : 'default';
         
-		return $this->renderLayout($this->app->path->path('elements:accessories/tmpl/'.$finalLayout.'.php'), compact('output', 'params'));
+		return $this->renderLayout($this->app->path->path('elements:accessories/tmpl/'.$finalLayout.'.php'), compact('output', 'params', 'modal'));
 
 	}
         

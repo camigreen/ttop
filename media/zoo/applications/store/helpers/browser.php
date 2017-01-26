@@ -42,6 +42,10 @@ class BrowserHelper extends AppHelper {
 		if(strpos($lowerAgent, 'mobi') !== false) {
 			$mobile = true;
 		}
+		// if(strpos($lowerAgent, 'ipad') !== false) {
+		// 	$mobile = false;
+		// }
+
 		return $mobile;
 	}
 

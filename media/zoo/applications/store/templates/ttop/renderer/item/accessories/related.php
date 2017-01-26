@@ -16,14 +16,14 @@ $class = 'accessories related '.$item->type.'-related';
     <div class="uk-grid">
         <?php if ($this->checkPosition('media')) : ?>
         <div class="uk-width-1-3">
-            <a href="#" data-uk-modal="{target: '.<?php echo $item->alias.'-modal'; ?>'}">
+            <a href="#<?php echo $item->alias.'-modal'; ?>" data-uk-modal>
                 <?php echo $this->renderPosition('media'); ?>
             </a>
         </div>
         <?php endif; ?>
         <div class="uk-width-2-3">
             <?php if ($this->checkPosition('title')) : ?>
-            <a href="#" data-uk-modal="{target: '.<?php echo $item->alias.'-modal'; ?>'}">
+            <a href="#<?php echo $item->alias.'-modal'; ?>" data-uk-modal>
                 <span class="uk-text-large title">
                     <?php echo $this->renderPosition('title'); ?>
                 </span>
@@ -40,7 +40,7 @@ $class = 'accessories related '.$item->type.'-related';
                     <?php echo $this->renderPosition('specification', array('style' => 'full_row')); ?>
             <?php endif; ?>
             <div class="button">
-                <a href="#" data-uk-modal="{target: '.<?php echo $item->alias.'-modal'; ?>'}">Add To Cart</a>
+                <a href="#<?php echo $item->alias.'-modal'; ?>" data-uk-modal="{center:true}">Add To Cart</a>
                 <a href="<?php echo $link; ?>" target="_blank">More Info</a>
             </div>
             <?php if ($this->checkPosition('links')) : ?>
@@ -50,7 +50,4 @@ $class = 'accessories related '.$item->type.'-related';
             <?php endif; ?>
         </div>
     </div>
-    <!-- <div id="" class="uk-modal <?php echo $item->alias.'-modal'; ?>">
-            <?php echo $modal ?>
-    </div> -->
 </div> 

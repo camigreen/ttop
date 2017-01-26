@@ -669,5 +669,10 @@ select.oem-select {
     color: black;
 }
 
-
+.uk-accordion .uk-accordion-title span.uk-icon-caret:before {
+    content: "\f0da";
+}
+.uk-accordion .uk-accordion-title.uk-active span.uk-icon-caret:before {
+    content: "\f0d7";
+}
 
