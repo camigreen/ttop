@@ -962,17 +962,41 @@
 			<skucode>TW</skucode>
 			<models>
 				<model>
-					<name>170-adventure</name>
-					<label>170 Adventure</label>
-					<skucode>170ADVTR</skucode>
+					<name>170-cc-adventure</name>
+					<label>170 CC Adventure</label>
+					<skucode>170CCADVTR</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
+					</options>
+				</model>
+				<model>
+					<name>180-cc-adventure</name>
+					<label>180 CC Adventure</label>
+					<skucode>180CCADVTR</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
+					</options>
+				</model>
+				<model>
+					<name>198-cc-adventure</name>
+					<label>198 CC Adventure</label>
+					<skucode>198CCADVTR</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
 					</options>
 				</model>
 				<model>
 					<name>1900-bay-max</name>
 					<label>1900 Bay Max</label>
 					<skucode>1900BAYMAX</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
+					</options>
+				</model>
+				<model>
+					<name>1910-bay-max</name>
+					<label>1910 Bay Max</label>
+					<skucode>1910BAYMAX</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
 					</options>
