@@ -57,7 +57,7 @@ $css_class = $this->application->getGroup().'-'.$this->template->name;
 	<?php endif; ?>
                 
 	<?php
-
+	echo 'test';
 		// render categories
 		if ($this->params->get('template.show_categories', true) && ($this->category->childrenHaveItems() || ($this->params->get('config.show_empty_categories', false) && !empty($this->selected_categories)))) {
 			$categoriestitle = $this->category->getParams()->get('content.categories_title');

@@ -50,7 +50,7 @@ class ElementAccessories extends Element {
 		foreach ($categories as $category) {   
 			$items = isset($items) && is_array($items) ? array_merge($items, $this->_getRelatedItems($category)) : $this->_getRelatedItems($category);    
 		}
-                foreach ($items as $item) {
+        foreach ($items as $item) {
 			$path   = 'item';
 			$prefix = 'item.';
 			$type   = $item->getType()->id;
@@ -58,20 +58,23 @@ class ElementAccessories extends Element {
 				$path   .= DIRECTORY_SEPARATOR.$type;
 				$prefix .= $type.'.';
 			}
-			            //$storeItem = $this->app->item->create($item);   
-                        $modal[$item->id] = $renderer->render($prefix.'.related_modal', array('item' => $item, 'layout' => 'related_modal'));
+            //$storeItem = $this->app->item->create($item);   
+            $modal[$item->id] = $renderer->render($prefix.'.related_modal', array('item' => $item, 'layout' => 'related_modal'));
+            $output[$item->id] = $renderer->render($prefix.$layout, array('item' => $item, 'modal' => $modal[$item->id]));
 		}
-                foreach ($items as $item) {
-                    if (in_array($layout, $renderer->getLayouts($path))) {
+        foreach ($items as $item) {
+            if (in_array($layout, $renderer->getLayouts($path))) {
                                 
-				$output[] = $renderer->render($prefix.$layout, array('item' => $item, 'modal' => $modal[$item->id]));
+				
 			} elseif ($params->get('link_to_item', false) && $item->getState()) {
 				$output[] = '<a href="'.$this->app->route->item($item).'" title="'.$item->name.'">'.$item->name.'</a>';
 			} else {
 				$output[] = $item->name;
 			}
-                }
-		return $this->app->element->applySeparators($params->get('separated_by'), $output);
+        }
+        $finalLayout = $this->app->browser->isMobile() ? 'slider' : 'slider';
+        
+		return $this->renderLayout($this->app->path->path('elements:accessories/tmpl/'.$finalLayout.'.php'), compact('output', 'params'));
 
 	}
         

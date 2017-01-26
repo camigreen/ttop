@@ -15,278 +15,298 @@ $this->app->document->addScript('library.cart:assets/js/cart.js');
 $this->app->document->addScript('library.product:assets/js/orderform.js');
 $this->app->document->addScript('assets:/jquery-ui-1.12.1/jquery-ui.min.js');
 $this->app->document->addStyleSheet('assets:/jquery-ui-1.12.1/jquery-ui.min.css');
-//$product->debug();
+$mobile = $this->app->browser->isMobile();
 
 ?>
-<div id="OrderForm-<?php echo $product->id; ?>" class="t-top-boat-cover" data-id="<?php echo $product->id; ?>">
+<div id="OrderForm-<?php echo $product->id; ?>" class="t-top-boat-cover uk-form" data-id="<?php echo $product->id; ?>">
     <div id="<?php echo $product->id ?>" class="storeItem" >
-    <div class="uk-grid">
-        <div class="uk-width-1-1 uk-visible-small">
-            <a href="<?php echo $this->app->route->category($item->getPrimaryCategory()); ?>" class="uk-button uk-button-danger uk-width-1-1 uk-margin-small-bottom">Back to <?php echo $item->getPrimaryCategory()->name; ?></a>
-            <a href="/store/t-top-boat-covers" class="uk-button uk-button-danger uk-width-1-1 uk-margin-small-bottom">Back to Manufactures</a>
-        </div>
-        <div class="uk-width-medium-1-2 uk-medium-small-1-1">
-            <p class="uk-article-title"><?php echo $product->name; ?></p>
-        </div>
-
-        <div class="uk-width-1-2 uk-text-right uk-hidden-small">
-            <a href="<?php echo $this->app->route->category($item->getPrimaryCategory()); ?>" class="uk-button uk-button-danger">Back to <?php echo $item->getPrimaryCategory()->name; ?></a>
-            <a href="/store/t-top-boat-covers" class="uk-button uk-button-danger">Back to Manufactures</a>
-        </div>
-        <?php if ($this->checkPosition('title')) : ?>
-            <div class="uk-width-medium-1-1 uk-width-small-1-1 uk-margin-top">
-                <?php echo $this->renderPosition('title', array('style' => 'uikit_list')); ?>
-            </div>
-        <?php endif; ?>
-
-    </div>
-
-
-    <div class="uk-form uk-margin">
         <div class="uk-grid" data-uk-grid-margin>
-            <div class="uk-width-medium-2-3 uk-width-small-1-1">
-                <?php if ($this->checkPosition('media') && $view->params->get('template.item_media_alignment') == "left") : ?>
-                    <div class="uk-width-medium-1-1 uk-margin">
-                            <?php echo $this->renderPosition('media', array('style' => 'blank')); ?>
-                    </div>
-                <?php endif; ?>
+            <div class="uk-width-1-1">
+                <ul class="uk-breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <li><span>T-Top Boat Covers</span></li>
+                    <li><a href="/store/t-top-boat-covers">All Boats</a></li>
+                    <li><a href="<?php echo $this->app->route->category($item->getPrimaryCategory()); ?>"><?php echo $item->getPrimaryCategory()->name; ?></a></li>
+                    <li><span><?php echo $product->params->get('model'); ?></span></li>
+                </ul>
             </div>
-            <div class="uk-width-medium-1-3 uk-width-small-1-1">
-                <div class="uk-width-1-1 uk-grid price-container">
-                    <?php if ($this->checkPosition('pricing')) : ?>
-                            <?php echo $this->renderPosition('pricing', array('item' => $product)); ?>
-                    <?php endif; ?>
+            <div class="uk-width-medium-1-2 uk-medium-small-1-1">
+                <p class="uk-article-title"><?php echo $product->name; ?></p>
+            </div>
+            <?php if ($this->checkPosition('title')) : ?>
+                <div class="uk-width-medium-1-1 uk-width-small-1-1 uk-margin-top">
+                    <?php echo $this->renderPosition('title', array('style' => 'uikit_list')); ?>
                 </div>
-                <div class="uk-width-1-1 options-container uk-margin-top" data-id="<?php echo $product->id; ?>">
-                    <?php if ($this->checkPosition('options')) : ?>
-                        <div class="uk-panel uk-panel-box">
-                            <h3><?php echo JText::_('Options'); ?></h3>
-                            <div class="validation-errors"></div>
-                            <?php echo $this->renderPosition('options', array('style' => 'options')); ?>
+            <?php endif; ?>
+            <div class="uk-width-large-2-3 uk-width-small-1-1">
+                <!-- Left Column -->
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="uk-width-1-1 media-container">
+                        <div class="uk-grid">
+                            <?php if ($this->checkPosition('media') && $view->params->get('template.item_media_alignment') == "left") : ?>
+                                <div class="uk-width-medium-1-1 uk-margin">
+                                        <?php echo $this->renderPosition('media', array('style' => 'blank')); ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                    <?php endif; ?>
-                </div>
-                <div class="uk-width-1-1 addtocart-container uk-margin-top">
-                    <label>Quantity</label>
-                    <input id="qty-<?php echo $product->id; ?>" type="number" class="uk-width-1-1 qty" name="qty" data-id="<?php echo $product->id; ?>" min="1" value ="1" />
-                    <div class="uk-margin-top">
-                        <button id="atc-<?php echo $product->id; ?>" class="uk-button uk-button-danger atc uk-width-small-1-1" data-id="<?php echo $product->id; ?>"><i class="uk-icon-shopping-cart" data-store-cart style="margin-right:5px;"></i>Add to Cart</button>
                     </div>
-                </div>
-            </div>
-            <div class="uk-width-medium-1-3 uk-width-small-1-1">
-                <div class="uk-width-1-1 uk-hidden-small">
-                    <ul class="uk-tab" data-uk-tab="{connect:'#tabs'}">
-                        <li>
-                            <a href="#">Order Form</a>
-                        </li>
-                        <?php if($category->description) : ?>
-                        <li>
-                            <a href="#">Description</a>
-                        </li>
+                    <?php if($mobile) : ?>
+                        <div class="price-container uk-width-1-1">
+                            <?php if ($this->checkPosition('pricing')) : ?>
+                                    <?php echo $this->renderPosition('pricing', array('item' => $product)); ?>
+                            <?php endif; ?>
+                        </div>
+                        <?php if ($this->checkPosition('options')) : ?>
+                        <div class="options-container uk-width-1-1" data-id="<?php echo $product->id; ?>">
+                                <div class="uk-panel uk-panel-box">
+                                    <h3><?php echo JText::_('Options'); ?></h3>
+                                    <div class="validation-errors"></div>
+                                    <?php echo $this->renderPosition('options', array('style' => 'options')); ?>
+                                </div>
+                        </div>
                         <?php endif; ?>
-                        <?php if ($this->checkPosition('tabs')) : ?>
-                            <?php echo $this->renderPosition('tabs', array('style' => 'tab')); ?>
-                        <?php endif; ?>
-                    </ul>
+                        <div class="addtocart-container uk-width-1-1">
+                            <label>Quantity</label>
+                            <input id="qty-<?php echo $product->id; ?>" type="number" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number" class="uk-width-1-1 qty" name="qty" data-id="<?php echo $product->id; ?>" min="1" value ="1" />
+                            <div class="uk-margin-top">
+                                <button id="atc-<?php echo $product->id; ?>" class="uk-button uk-button-danger atc uk-width-small-1-1" data-id="<?php echo $product->id; ?>"><i class="uk-icon-shopping-cart" data-store-cart style="margin-right:5px;"></i>Add to Cart</button>
+                            </div>
+                        </div>
+                        <div class="uk-width-1-1">
+                            <div class="uk-accordion" data-uk-accordion="{showfirst: false}">
+                                <?php if($category->description) : ?>
+                                <h3 class="uk-accordion-title">Description</h3>
+                                <div class="uk-accordion-content"><?php echo $category->getText($category->description); ?></div>
+                                <?php endif; ?>
+                                <?php if ($this->checkPosition('accessories')) : ?>
+                                <h3 class="uk-accordion-title">Essential Accessories</h3>
+                                <div class="uk-accordion-content">
+                                    <?php echo $this->renderPosition('accessories', array('style' => 'related')); ?>
+                                </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="uk-width-1-1 options-container">
+                            <div class="uk-grid">
+                                <?php if ($this->checkPosition('cover_options')) : ?>
+                                <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
+                                    <fieldset> 
+                                        <legend>
+                                            <?php echo JText::_('Cover Options'); ?>
+                                        </legend>
+                                        <div class="uk-grid">
+                                            <?php echo $this->renderPosition('cover_options', array('style' => 'options')); ?>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <?php endif; ?>
 
-                    <ul id="tabs" style="min-height:150px;" class="uk-width-1-1 uk-switcher uk-margin options-container" data-id="<?php echo $product->id; ?>">
-                        <li class="uk-grid">
-                            <?php if ($this->checkPosition('boat_options')) : ?>
-                            <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
-                                <fieldset> 
-                                    <legend>
-                                        <?php echo JText::_('Boat Options'); ?>
-                                    </legend>
-                                    <div class="uk-grid">
-                                        <?php echo $this->renderPosition('boat_options', array('style' => 'options')); ?>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <?php endif; ?>
+                                <?php if ($this->checkPosition('boat_options')) : ?>
+                                <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
+                                    <fieldset> 
+                                        <legend>
+                                            <?php echo JText::_('Boat Options'); ?>
+                                        </legend>
+                                        <div class="uk-grid">
+                                            <?php echo $this->renderPosition('boat_options', array('style' => 'options')); ?>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <?php endif; ?>
 
-                            <?php if ($this->checkPosition('motor_options')) : ?>
-                            <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
-                                <fieldset> 
-                                    <legend>
-                                        <?php echo JText::_('Motor Options'); ?>
-                                    </legend>
-                                    <div class="uk-grid">
-                                        <?php echo $this->renderPosition('motor_options', array('style' => 'options')); ?>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <?php endif; ?>
+                                <?php if ($this->checkPosition('motor_options')) : ?>
+                                <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
+                                    <fieldset> 
+                                        <legend>
+                                            <?php echo JText::_('Motor Options'); ?>
+                                        </legend>
+                                        <div class="uk-grid">
+                                            <?php echo $this->renderPosition('motor_options', array('style' => 'options')); ?>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <?php endif; ?>
 
-                            <?php if ($this->checkPosition('cover_options')) : ?>
-                            <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
-                                <fieldset> 
-                                    <legend>
-                                        <?php echo JText::_('Cover Options'); ?>
-                                    </legend>
-                                    <div class="uk-grid">
-                                        <?php echo $this->renderPosition('cover_options', array('style' => 'options')); ?>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <?php endif; ?>
+                                <?php if ($this->checkPosition('bow_options')) : ?>
+                                <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
+                                    <fieldset> 
+                                        <legend>
+                                            <?php echo JText::_('Bow Options'); ?>
+                                        </legend>
+                                        <div class="uk-grid">
+                                            <?php echo $this->renderPosition('bow_options', array('style' => 'options')); ?>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <?php endif; ?>
 
-                            <?php if ($this->checkPosition('bow_options')) : ?>
-                            <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
-                                <fieldset> 
-                                    <legend>
-                                        <?php echo JText::_('Bow Options'); ?>
-                                    </legend>
-                                    <div class="uk-grid">
-                                        <?php echo $this->renderPosition('bow_options', array('style' => 'options')); ?>
-                                    </div>
-                                </fieldset>
+                                <?php if ($this->checkPosition('special_accessories')) : ?>
+                                <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
+                                    <fieldset> 
+                                        <legend>
+                                            <?php echo JText::_('Special Accessories'); ?>
+                                        </legend>
+                                        <div class="uk-grid">
+                                            <?php echo $this->renderPosition('special_accessories', array('style' => 'options')); ?>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <?php endif; ?>
+                                <div class="uk-width-medium-1-1 uk-width-small-1-1 uk-margin-top">
+                                    <fieldset>
+                                        <legend>Additional Information<span class="uk-text-small uk-margin-left">(other)</span></legend>
+                                            <textarea class="uk-width-1-1 item-option" style="height:120px;" name="add_info" data-name="Additional Information"></textarea>
+                                    </fieldset>
+                                </div>
                             </div>
-                            <?php endif; ?>
-
-                            <?php if ($this->checkPosition('special_accessories')) : ?>
-                            <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
-                                <fieldset> 
-                                    <legend>
-                                        <?php echo JText::_('Special Accessories'); ?>
-                                    </legend>
-                                    <div class="uk-grid">
-                                        <?php echo $this->renderPosition('special_accessories', array('style' => 'options')); ?>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <?php endif; ?>
-                            <div class="uk-width-medium-1-1 uk-width-small-1-1 uk-margin-top">
-                                <fieldset>
-                                    <legend>Additional Information<span class="uk-text-small uk-margin-left">(other)</span></legend>
-                                        <textarea class="uk-width-1-1 item-option" style="height:120px;" name="add_info" data-name="Additional Information"></textarea>
-                                </fieldset>
-                            </div>
-                        </li>
-                        <?php if($category->description) : ?> 
+                        </div>
+                    <?php else : ?>
+                    <div class="uk-width-1-1 tabs-container">
+                        <ul class="uk-tab" data-uk-tab="{connect:'#tabs'}">
                             <li>
-                                <article class="uk-article">
-                                    <?php echo $category->getText($category->description); ?>
-                                </article>
+                                <a href="#">Order Form</a>
                             </li>
-                        <?php endif; ?>
-                        <?php if ($this->checkPosition('tabs')) : ?>
-                            <?php echo $this->renderPosition('tabs', array('style' => 'tab_content')); ?>
-                        <?php endif; ?>
-                    </ul>
-                </div>
-                <div class="uk-width-1-1 uk-visible-small">
-                    <?php if($category->description) : ?> 
-                        <button class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom" type="button" data-uk-toggle="{target: '#description'}">Description</button>
-                        <div id="description" class="uk-hidden">
-                            
+                            <?php if($category->description) : ?>
+                            <li>
+                                <a href="#">Description</a>
+                            </li>
+                            <?php endif; ?>
+                            <?php if ($this->checkPosition('tabs')) : ?>
+                                <?php echo $this->renderPosition('tabs', array('style' => 'tab')); ?>
+                            <?php endif; ?>
+                        </ul>
+
+                        <ul id="tabs" style="min-height:150px;" class="uk-width-1-1 uk-switcher uk-margin options-container" data-id="<?php echo $product->id; ?>">
+                            <li class="uk-grid">
+                                <?php if ($this->checkPosition('cover_options')) : ?>
+                                <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
+                                    <fieldset> 
+                                        <legend>
+                                            <?php echo JText::_('Cover Options'); ?>
+                                        </legend>
+                                        <div class="uk-grid">
+                                            <?php echo $this->renderPosition('cover_options', array('style' => 'options')); ?>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <?php endif; ?>
+
+                                <?php if ($this->checkPosition('boat_options')) : ?>
+                                <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
+                                    <fieldset> 
+                                        <legend>
+                                            <?php echo JText::_('Boat Options'); ?>
+                                        </legend>
+                                        <div class="uk-grid">
+                                            <?php echo $this->renderPosition('boat_options', array('style' => 'options')); ?>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <?php endif; ?>
+
+                                <?php if ($this->checkPosition('motor_options')) : ?>
+                                <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
+                                    <fieldset> 
+                                        <legend>
+                                            <?php echo JText::_('Motor Options'); ?>
+                                        </legend>
+                                        <div class="uk-grid">
+                                            <?php echo $this->renderPosition('motor_options', array('style' => 'options')); ?>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <?php endif; ?>
+
+                                <?php if ($this->checkPosition('bow_options')) : ?>
+                                <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
+                                    <fieldset> 
+                                        <legend>
+                                            <?php echo JText::_('Bow Options'); ?>
+                                        </legend>
+                                        <div class="uk-grid">
+                                            <?php echo $this->renderPosition('bow_options', array('style' => 'options')); ?>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <?php endif; ?>
+
+                                <?php if ($this->checkPosition('special_accessories')) : ?>
+                                <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
+                                    <fieldset> 
+                                        <legend>
+                                            <?php echo JText::_('Special Accessories'); ?>
+                                        </legend>
+                                        <div class="uk-grid">
+                                            <?php echo $this->renderPosition('special_accessories', array('style' => 'options')); ?>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <?php endif; ?>
+                                <div class="uk-width-medium-1-1 uk-width-small-1-1 uk-margin-top">
+                                    <fieldset>
+                                        <legend>Additional Information<span class="uk-text-small uk-margin-left">(other)</span></legend>
+                                            <textarea class="uk-width-1-1 item-option" style="height:120px;" name="add_info" data-name="Additional Information"></textarea>
+                                    </fieldset>
+                                </div>
+                            </li>
+                            <?php if($category->description) : ?> 
                                 <li>
                                     <article class="uk-article">
                                         <?php echo $category->getText($category->description); ?>
                                     </article>
                                 </li>
-                            
-                        </div>
-                    <?php endif; ?>
-                    <?php if ($this->checkPosition('accessories')) : ?>
-                        <button class="uk-button uk-button-default uk-width-1-1" type="button" data-uk-toggle="{target: '#ess-acc'}">Essential Accessories</button>
-                        <div id="ess-acc" class="uk-width-1-1 uk-margin-top uk-hidden">
-                                <fieldset>
-                                    <legend>Essential Accessories</legend>
-                                        <ul class="uk-list" data-uk-grid-margin>
-                                        <?php echo $this->renderPosition('accessories', array('style' => 'related')); ?>
-                                        </ul>
-                                </fieldset>
-                        </div>
-                    <?php endif; ?>
-                    <ul class="uk-list">
-                        <li class="uk-grid">
-                            <?php if ($this->checkPosition('boat_options')) : ?>
-                            <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
-                                <fieldset> 
-                                    <legend>
-                                        <?php echo JText::_('Boat Options'); ?>
-                                    </legend>
-                                    <div class="uk-grid">
-                                        <?php echo $this->renderPosition('boat_options', array('style' => 'options')); ?>
-                                    </div>
-                                </fieldset>
-                            </div>
                             <?php endif; ?>
-
-                            <?php if ($this->checkPosition('motor_options')) : ?>
-                            <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
-                                <fieldset> 
-                                    <legend>
-                                        <?php echo JText::_('Motor Options'); ?>
-                                    </legend>
-                                    <div class="uk-grid">
-                                        <?php echo $this->renderPosition('motor_options', array('style' => 'options')); ?>
-                                    </div>
-                                </fieldset>
-                            </div>
+                            <?php if ($this->checkPosition('tabs')) : ?>
+                                <?php echo $this->renderPosition('tabs', array('style' => 'tab_content')); ?>
                             <?php endif; ?>
-
-                            <?php if ($this->checkPosition('cover_options')) : ?>
-                            <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
-                                <fieldset> 
-                                    <legend>
-                                        <?php echo JText::_('Cover Options'); ?>
-                                    </legend>
-                                    <div class="uk-grid">
-                                        <?php echo $this->renderPosition('cover_options', array('style' => 'options')); ?>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <?php endif; ?>
-
-                            <?php if ($this->checkPosition('bow_options')) : ?>
-                            <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
-                                <fieldset> 
-                                    <legend>
-                                        <?php echo JText::_('Bow Options'); ?>
-                                    </legend>
-                                    <div class="uk-grid">
-                                        <?php echo $this->renderPosition('bow_options', array('style' => 'options')); ?>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <?php endif; ?>
-
-                            <?php if ($this->checkPosition('special_accessories')) : ?>
-                            <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
-                                <fieldset> 
-                                    <legend>
-                                        <?php echo JText::_('Special Accessories'); ?>
-                                    </legend>
-                                    <div class="uk-grid">
-                                        <?php echo $this->renderPosition('special_accessories', array('style' => 'options')); ?>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <?php endif; ?>
-                            <div class="uk-width-medium-1-1 uk-width-small-1-1 uk-margin-top">
-                                <fieldset>
-                                    <legend>Additional Information<span class="uk-text-small uk-margin-left">(other)</span></legend>
-                                        <textarea class="uk-width-1-1 item-option" style="height:120px;" name="add_info" data-name="Additional Information"></textarea>
-                                </fieldset>
-                            </div>
-                        </li>
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
             </div>
-
-            <?php if ($this->checkPosition('bottom')) : ?>
-                    <?php echo $this->renderPosition('bottom', array('style' => 'block')); ?>
-            <?php endif; ?>
-            
-            <?php if ($this->checkPosition('modals')) : ?>
-                <div class="modals">
-                    <?php echo $this->renderPosition('modals'); ?>
+            <div class="uk-width-large-1-3 uk-width-small-1-1">
+                <!-- Right Column -->
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="price-container uk-width-1-1">
+                        <?php if ($this->checkPosition('pricing')) : ?>
+                                <?php echo $this->renderPosition('pricing', array('item' => $product)); ?>
+                        <?php endif; ?>
+                    </div>
+                    <div class="options-containeruk-width-1-1" data-id="<?php echo $product->id; ?>">
+                        <?php if ($this->checkPosition('options')) : ?>
+                            <div class="uk-panel uk-panel-box">
+                                <h3><?php echo JText::_('Options'); ?></h3>
+                                <div class="validation-errors"></div>
+                                <?php echo $this->renderPosition('options', array('style' => 'options')); ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="addtocart-container uk-width-1-1">
+                        <label>Quantity</label>
+                        <input id="qty-<?php echo $product->id; ?>" type="number" class="uk-width-1-1 qty" name="qty" data-id="<?php echo $product->id; ?>" min="1" value ="1" />
+                        <div class="uk-margin-top">
+                            <button id="atc-<?php echo $product->id; ?>" class="uk-button uk-button-danger atc uk-width-small-1-1" data-id="<?php echo $product->id; ?>"><i class="uk-icon-shopping-cart" data-store-cart style="margin-right:5px;"></i>Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="essential-accessories-container uk-width-1-1">
+                        <?php if ($this->checkPosition('accessories')) : ?>
+                                <legend>Essential Accessories</legend>
+                                <?php echo $this->renderPosition('accessories', array('style' => 'related')); ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
+            </div>
             <?php endif; ?>
-
-
+            <div class="uk-width-1-1">
+                <?php if ($this->checkPosition('bottom')) : ?>
+                        <?php echo $this->renderPosition('bottom', array('style' => 'block')); ?>
+                <?php endif; ?>
+                
+                <?php if ($this->checkPosition('modals')) : ?>
+                    <div class="modals">
+                        <?php echo $this->renderPosition('modals'); ?>
+                    </div>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </div>

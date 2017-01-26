@@ -26,10 +26,30 @@ if (!($logo_image = $this->category->getImage('content.logo_image'))) {
 }
 
 $css_class = $this->application->getGroup().'-'.$this->template->name;
+$root = false;
+if($this->category->getParent()->name == 'ROOT') {
+	$root = true;
+	$parent = $this->category->name;
+} else {
+	$root = false;
+	$parent = $this->category->getParent()->name;
+	$category = $this->category->name;
+}
 
 ?>
 
 <div class="yoo-zoo <?php echo $css_class; ?> <?php echo $css_class.'-'.$this->category->alias; ?>">
+	<ul class="uk-breadcrumb">
+	    <li><a href="/">Home</a></li>
+	    <li><span><?php echo $parent; ?></span></li>
+	    <?php if($root) : ?>
+	    	<li class="uk-active"><span>All Boats</span></li>
+		<?php else : ?>
+	    	<li><a href="/store/t-top-boat-covers">All Boats</a></li>
+	    	<li class="uk-active"><span><?php echo $category; ?></span></li>
+		<?php endif; ?>
+
+	</ul>
     <div class="<?php echo 'uk-text-'.$this->params->get('template.alignment'); ?> uk-margin-bottom"><?php echo $this->category->getText($this->category->getParams()->get('content.slider')); ?></div>  
 	<?php if ($this->params->get('template.show_title') || $this->params->get('template.show_description') || $this->params->get('template.show_image')) : ?>
 
@@ -68,7 +88,6 @@ $css_class = $this->application->getGroup().'-'.$this->template->name;
 	?>
 
 	<?php
-
 		// render items
 
 		if (count($this->items)) {

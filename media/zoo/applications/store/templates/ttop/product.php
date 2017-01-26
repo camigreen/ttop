@@ -29,7 +29,7 @@ $css_class = $this->application->getGroup().'-'.$this->template->name;
 
 ?>
 <div class="yoo-zoo <?php echo $css_class; ?> <?php echo $css_class.'-'.$this->category->alias; ?> <?php echo 'uk-text-'.$this->params->get('template.alignment'); ?>">
-
+tetwetwetwetwet
 	<?php if ($this->params->get('template.show_title') || $this->params->get('template.show_description') || $this->params->get('template.show_image')) : ?>
 
 		<?php if ($this->params->get('template.show_title')) : ?>
@@ -50,7 +50,7 @@ $css_class = $this->application->getGroup().'-'.$this->template->name;
 	<?php endif; ?>
                 
 	<?php
-
+	echo 'test';
 		// render products
 		if ($this->params->get('template.show_categories', true) && ($this->category->childrenHaveItems() || ($this->params->get('config.show_empty_categories', false) && !empty($this->selected_categories)))) {
 			$categoriestitle = $this->category->getParams()->get('content.categories_title');

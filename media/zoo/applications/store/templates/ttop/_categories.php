@@ -10,7 +10,6 @@
 defined('_JEXEC') or die('Restricted access');
 
 ?>
-
 <?php if ($categoriestitle) : ?>
 <h2><?php echo $categoriestitle; ?></h2>
 <?php endif; ?>

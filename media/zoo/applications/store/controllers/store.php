@@ -28,6 +28,8 @@ class StoreController extends AppController {
         // get pathway
         $this->pathway = $this->joomla->getPathway();
 
+        $this->mobile = $this->app->browser->isMobile();
+
         // registers tasks
 //      $this->registerTask('checkout', 'checkout');
 //                $this->registerTask('products', 'product');
