@@ -416,11 +416,6 @@ input[type="text"] {
 .ttop.ttop-item .uk-tab li:not(.uk-active):hover > a {
     background-color: #B0B0B0;
 }
-.ttop-checkout a:not(.uk-button), .ttop-checkout:not(.uk-navbar a), .ttop-checkout:not(input.uk-button) {
-    color: #183FC3;
-    text-decoration: underline;
-    cursor: pointer;
-}
 
 .ttop-checkout .testing-mode {
     font-size: 45px;
