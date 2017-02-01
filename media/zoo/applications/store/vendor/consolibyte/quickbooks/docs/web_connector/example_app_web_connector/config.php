@@ -33,8 +33,8 @@ $qbwc_pass = 'password';
 
 // * MAKE SURE YOU CHANGE THE DATABASE CONNECTION STRING BELOW TO A VALID MYSQL USERNAME/PASSWORD/HOSTNAME *
 $dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@localhost/ttopcove_qb';
-var_dump(parse_url($dsn));
-die();
+// var_dump(parse_url($dsn));
+// die();
 
 if (!QuickBooks_Utilities::initialized($dsn))
 {
