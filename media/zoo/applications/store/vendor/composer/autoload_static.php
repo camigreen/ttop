@@ -6,6 +6,10 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit81d1be0410d8abbbddc795c77ea89224
 {
+    public static $files = array (
+        'cf23f80ea1e20903a9175ea58c5c13aa' => __DIR__ . '/..' . '/consolibyte/quickbooks/QuickBooks.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'D' => 
         array (

@@ -158,6 +158,25 @@ class TestAPI extends API {
         
     }
 
+    /**
+     * Describe the Function
+     *
+     * @param   datatype        Description of the parameter.
+     *
+     * @return  datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function quickbooks() {
+        $this->app->document->setMimeEncoding('text/xml');
+        $path = dirname(__FILE__).'/../';
+        $this->app->path->register($path.'/vendor/consolibyte/quickbooks', 'quickbooks');
+        $qb_path = $this->app->path->path('quickbooks:');
+        require_once($this->app->path->path('quickbooks:/docs/web_connector/example_app_web_connector/qbwc.php'));
+
+        return array('output' => false);
+    }
+
 	
 }
 

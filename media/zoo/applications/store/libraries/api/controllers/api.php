@@ -70,8 +70,11 @@ class ApiController extends AppController {
             }
 
         }
-
-        echo json_encode($result);
+        var_dump($result);
+        if(isset($result['result']['output']) && $result['result']['output']) {
+            echo json_encode($result);
+        }
+        
             
             
     }

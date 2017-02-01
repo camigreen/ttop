@@ -10,8 +10,9 @@
 				<option value="2">Test User</option>
 				<option value="testAccount">Test Account</option>
 				<option value="testCoupon">Test Coupon</option>
+				<option value="quickbooks">Quickbooks</option>
 			</field>
-			<field name="controller" type="hidden" default="test" />        
+			<field name="controller" type="hidden" default="test" />    
 		</fieldset>
 	</fields>
 
