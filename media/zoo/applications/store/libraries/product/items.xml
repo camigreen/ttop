@@ -46,11 +46,34 @@
 			<skucode>AVNG</skucode>
 			<models>
 				<model>
-					<name>26-av</name>
-					<label>26 AV</label>
-					<skucode>26AV</skucode>
+					<name>av26</name>
+					<label>AV26</label>
+					<skucode>AV26</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="26" visible="false" />
+					</options>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>bayliner</name>
+			<label>Bayliner</label>
+			<skucode>BAYL</skucode>
+			<models>
+				<model published="false">
+					<name>element-f16</name>
+					<label>Element F16</label>
+					<skucode>ELEMF16</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="16" visible="false" />
+					</options>
+				</model>
+				<model>
+					<name>element-f18</name>
+					<label>Element F18</label>
+					<skucode>ELEMF18</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -190,6 +213,21 @@
 			</models>
 		</boat>
 		<boat>				
+			<name>blackjack</name>
+			<label>Blackjack</label>
+			<skucode>BJ</skucode>
+			<models>
+				<model>
+					<name>224</name>
+					<label>224</label>
+					<skucode>224</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="22" visible="false" />
+					</options>
+				</model>
+			</models>
+		</boat>
+		<boat>				
 			<name>carolina-skiff</name>
 			<label>Carolina Skiff</label>
 			<skucode>CRLNASKF</skucode>
@@ -200,6 +238,16 @@
 					<skucode>15JV</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="15" visible="false" />
+					</options>
+				</model>
+			</models>
+			<models>
+				<model published="false">
+					<name>16-dlx</name>
+					<label>16 DLX</label>
+					<skucode>16DLX</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="16" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -339,8 +387,23 @@
 					</options>
 				</model>
 			</models>
-		</boat>
+		</boat>		
 		<boat>				
+			<name>hells-bay</name>
+			<label>Hell's Bay</label>
+			<skucode>HLSBY</skucode>
+			<models>
+				<model published="false">
+					<name>18-professional</name>
+					<label>18 Professional</label>
+					<skucode>18PRO</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
+					</options>
+				</model>
+			</models>
+		</boat>
+		<boat>	
 			<name>key-west</name>
 			<label>Key West</label>
 			<skucode>KW</skucode>
@@ -439,6 +502,14 @@
 					<skucode>230DFS</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="23" visible="false" />
+					</options>
+				</model>
+				<model>
+					<name>246-br</name>
+					<label>246 BR</label>
+					<skucode>246BR</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="24" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -737,6 +808,14 @@
 					</options>
 				</model>
 				<model>
+					<name>200-viper</name>
+					<label>200 Viper</label>
+					<skucode>200VPR</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
+					</options>
+				</model>
+				<model>
 					<name>200-xt</name>
 					<label>200 XT</label>
 					<skucode>200XT</skucode>
@@ -745,9 +824,25 @@
 					</options>
 				</model>
 				<model>
+					<name>220-viper</name>
+					<label>220 Viper</label>
+					<skucode>220VPR</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="22" visible="false" />
+					</options>
+				</model>
+				<model>
 					<name>220-xt</name>
 					<label>220 XT</label>
 					<skucode>220XT</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="22" visible="false" />
+					</options>
+				</model>
+				<model published="false">
+					<name>226-traveler</name>
+					<label>226 Traveler</label>
+					<skucode>226TRAV</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="22" visible="false" />
 					</options>
@@ -831,6 +926,22 @@
 			<skucode>SEAPRO</skucode>
 			<models>
 				<model>
+					<name>172</name>
+					<label>172</label>
+					<skucode>172</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
+					</options>
+				</model>
+				<model>
+					<name>208</name>
+					<label>208</label>
+					<skucode>208</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
+					</options>
+				</model>
+				<model>
 					<name>228-bay</name>
 					<label>228 Bay</label>
 					<skucode>228BAY</skucode>
@@ -844,6 +955,14 @@
 					<skucode>239</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="23" visible="false" />
+					</options>
+				</model>
+				<model>
+					<name>248</name>
+					<label>248</label>
+					<skucode>248</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="24" visible="false" />
 					</options>
 				</model>
 			</models>
@@ -918,7 +1037,7 @@
 				</model>
 			</models>
 		</boat>
-		<boat published="false">				
+		<boat>				
 			<name>spyder</name>
 			<label>Spyder</label>
 			<skucode>SPYDR</skucode>
@@ -929,6 +1048,21 @@
 					<skucode>17FX</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
+					</options>
+				</model>
+			</models>
+		</boat>
+		<boat>				
+			<name>stingray</name>
+			<label>Stingray</label>
+			<skucode>STRY</skucode>
+			<models>
+				<model>
+					<name>186</name>
+					<label>186</label>
+					<skucode>186</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
 			</models>
