@@ -65,7 +65,7 @@ $password = 'password';
 //	correctly! 
 // 	
 // 	Currently, only MySQL is supported/tested. 
-$dsn = 'mysqli://root:root@localhost/quickbooks';
+$dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@localhost/ttopcove_qb';
 
 // If the database has not been initialized, we need to initialize it (create 
 //	schema and set up the username/password, etc.)
