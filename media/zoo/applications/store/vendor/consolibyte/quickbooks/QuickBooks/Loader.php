@@ -50,7 +50,7 @@ class QuickBooks_Loader
 		}
 		
 		$loaded[$file] = true;
-		
+
 		if (QUICKBOOKS_LOADER_REQUIREONCE)
 		{
 			require_once QUICKBOOKS_BASEDIR . $file;

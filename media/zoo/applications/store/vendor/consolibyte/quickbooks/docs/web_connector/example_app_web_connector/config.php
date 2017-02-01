@@ -24,7 +24,8 @@ if (function_exists('date_default_timezone_set'))
 error_reporting(E_ALL | E_STRICT);
 
 // Require the framework
-require_once $qb_path.'/QuickBooks.php';
+
+require_once dirname(__FILE__).'/../../../QuickBooks.php';
 
 // Your .QWC file username/password
 $qbwc_user = 'quickbooks';
