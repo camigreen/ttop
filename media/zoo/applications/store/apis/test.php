@@ -174,6 +174,7 @@ class TestAPI extends API {
         $qb_path = $this->app->path->path('quickbooks:');
         require_once($this->app->path->path('quickbooks:/docs/web_connector/example_mysql_mirror.php'));
 
+        //return array('output' => true);
         return array('output' => false);
     }
 
