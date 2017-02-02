@@ -51,6 +51,7 @@ class ApiController extends AppController {
         $task = $this->getTask();
 
         $result = array();
+        $result['output'] = true;
         $result['errors'] = array();
 
         $args = $this->app->request->get('post:', 'array', array());
@@ -70,9 +71,8 @@ class ApiController extends AppController {
             }
 
         }
-        if(isset($result['result']['output']) && $result['result']['output']) {
-            echo json_encode($result);
-        }
+
+        echo json_encode($result);
         
             
             
