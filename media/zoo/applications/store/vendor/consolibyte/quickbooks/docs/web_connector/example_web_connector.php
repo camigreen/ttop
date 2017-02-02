@@ -233,9 +233,9 @@ $callback_options = array(
 //	- You are connecting to MySQL with an empty password
 //	- Your MySQL server is located on the same machine as the script ( i.e.: 'localhost', if it were on another machine, you might use 'other-machines-hostname.com', or '192.168.1.5', or ... etc. )
 //	- Your MySQL database name containing the QuickBooks tables is named 'quickbooks' (if the tables don't exist, they'll be created for you) 
-//$dsn = 'mysql://root:root@localhost/quickbooks';
+//$dsn = 'mysqli://root:root@localhost/quickbooks';
 //$dsn = 'mysql://root:password@localhost/your_database';				// Connect to a MySQL database with user 'root' and password 'password'
-$dsn = 'mysqli://root:root@localhost/quickbooks';					// Connect to a MySQL database using the PHP MySQLi extension
+$dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@localhost/ttopcove_qb';					// Connect to a MySQL database using the PHP MySQLi extension
 //$dsn = 'mssql://kpalmer:password@192.168.18.128/your_database';		// Connect to MS SQL Server database
 //$dsn = 'pgsql://pgsql:password@localhost/your_database';				// Connect to a PostgreSQL database 
 //$dsn = 'pearmdb2.mysql://root:password@localhost/your_database';		// Connect to MySQL using the PEAR MDB2 database abstraction library
