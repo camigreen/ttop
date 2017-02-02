@@ -172,7 +172,7 @@ class TestAPI extends API {
         $path = dirname(__FILE__).'/../';
         $this->app->path->register($path.'/vendor/consolibyte/quickbooks', 'quickbooks');
         $qb_path = $this->app->path->path('quickbooks:');
-        require_once($this->app->path->path('quickbooks:/docs/web_connector/example_web_connector.php'));
+        require_once($this->app->path->path('quickbooks:/docs/web_connector/example_mysql_mirror.php'));
 
         return array('output' => false);
     }
