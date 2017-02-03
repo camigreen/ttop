@@ -418,6 +418,10 @@ function _quickbooks_iteminventoryassembly_import_response($requestID, $user, $a
 			// 	$arr[$key] = $this->database->escape($value);
 			// }
 			// Store the invoices in MySQL
+			foreach($arr as $key => $value) {
+				$arr[$key] = $this->app->database->escape($value);
+			}
+
 			$sql = "REPLACE INTO
 					joomla_qb_test
 				(
