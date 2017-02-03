@@ -303,7 +303,7 @@ function _quickbooks_iteminventoryassembly_mod_request($requestID, $user, $actio
 				<ItemInventoryMod>
 					<ListID>'.$item->listid.'</ListID>
 					<EditSequence>'.$item->editsequence.'</EditSequence>
-					<Name>'.$item->fullname.'</Name>
+					<Name>'.$item->name.'</Name>
 					<SalesDesc>'.$item->salesdesc.'</SalesDesc>
 					<PurchaseDesc>'.$item->purchasedesc.'</PurchaseDesc>
 				</ItemInventoryMod>
@@ -405,7 +405,7 @@ function _quickbooks_iteminventoryassembly_import_response($requestID, $user, $a
 		{
 			$arr = array(
 				'listid' => $Customer->getChildDataAt('ItemInventoryRet ListID'),
-				'fullname' => $Customer->getChildDataAt('ItemInventoryRet FullName'),
+				'name' => $Customer->getChildDataAt('ItemInventoryRet Name'),
 				'editsequence' => $Customer->getChildDataAt('ItemInventoryRet EditSequence'),
 				'purchasedesc' => $Customer->getChildDataAt('ItemInventoryRet PurchaseDesc'),
 				'salesdesc' => $Customer->getChildDataAt('ItemInventoryRet SalesDesc')
