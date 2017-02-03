@@ -344,8 +344,6 @@ function _quickbooks_iteminventoryassembly_import_request($requestID, $user, $ac
 			<QBXMLMsgsRq onError="stopOnError">
 				<ItemQueryRq ' . $attr_iterator . ' ' . $attr_iteratorID . ' requestID="' . $requestID . '">
 					<MaxReturned>' . QB_QUICKBOOKS_MAX_RETURNED . '</MaxReturned>
-					<FromModifiedDate>' . $last . '</FromModifiedDate>
-					<OwnerID>0</OwnerID>
 				</ItemQueryRq>	
 			</QBXMLMsgsRq>
 		</QBXML>';
