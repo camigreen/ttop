@@ -177,12 +177,7 @@ class TestAPI extends API {
         $this->app->quickbooks;
         $primary_key_of_your_customer = 1;
         $Queue = $this->app->quickbooks->queue();
-        $extra = array(
-            'app' => $this->app, 
-            'post' => $this->app->request->get('post:', 'array', array()),
-            'dsn' => $this->app->quickbooks->dsn
-        );
-        $Queue->enqueue(QUICKBOOKS_IMPORT_INVENTORYASSEMBLYITEM, $primary_key_of_your_customer, 0, $extra);
+        $Queue->enqueue(QUICKBOOKS_IMPORT_INVENTORYASSEMBLYITEM, $primary_key_of_your_customer);
         $this->app->quickbooks->start();
         //require_once($this->app->path->path('quickbooks:/docs/web_connector/example_mysql_mirror.php'));
         // require_once($this->app->path->path('quickbooks:/docs/web_connector/example_app_web_connector/qbwc.php'));
