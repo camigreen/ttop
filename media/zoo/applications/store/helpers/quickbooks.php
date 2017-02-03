@@ -411,7 +411,7 @@ function _quickbooks_iteminventoryassembly_import_response($requestID, $user, $a
 				'salesdesc' => $Customer->getChildDataAt('ItemInventoryRet SalesDesc')
 				);
 			
-			QuickBooks_Utilities::log($this->dsn, 'Importing Assembly Item ' . $arr['fullname'] . ': ' . print_r($arr, true));
+			QuickBooks_Utilities::log($this->dsn, 'Importing Assembly Item ' . $arr['name'] . ': ' . print_r($arr, true));
 			
 			// foreach ($arr as $key => $value)
 			// {
