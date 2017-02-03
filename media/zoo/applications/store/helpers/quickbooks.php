@@ -324,10 +324,10 @@ function _quickbooks_iteminventoryassembly_import_request($requestID, $user, $ac
 	{
 		// This is the first request in a new batch
 		$last = _quickbooks_get_last_run($user, $action);
-		_quickbooks_set_last_run($user, $action);			// Update the last run time to NOW()
+		$this->_quickbooks_set_last_run($user, $action);			// Update the last run time to NOW()
 		
 		// Set the current run to $last
-		_quickbooks_set_current_run($user, $action, $last);
+		$this->_quickbooks_set_current_run($user, $action, $last);
 	}
 	else
 	{
@@ -335,7 +335,7 @@ function _quickbooks_iteminventoryassembly_import_request($requestID, $user, $ac
 		$attr_iteratorID = ' iteratorID="' . $extra['iteratorID'] . '" ';
 		$attr_iterator = ' iterator="Continue" ';
 		
-		$last = _quickbooks_get_current_run($user, $action);
+		$last = $this->_quickbooks_get_current_run($user, $action);
 	}
 	QuickBooks_Utilities::log($this->dsn, 'asdfasdfmbly Import ');
 	// Build the request
