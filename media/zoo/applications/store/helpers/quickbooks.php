@@ -337,17 +337,16 @@ function _quickbooks_iteminventoryassembly_import_request($requestID, $user, $ac
 		
 		$last = $this->_quickbooks_get_current_run($user, $action);
 	}
-	QuickBooks_Utilities::log($this->dsn, 'asdfasdfmbly Import ');
 	// Build the request
 	$xml = '<?xml version="1.0" encoding="utf-8"?>
 		<?qbxml version="' . $version . '"?>
 		<QBXML>
 			<QBXMLMsgsRq onError="stopOnError">
-				<ItemInventoryQueryRq ' . $attr_iterator . ' ' . $attr_iteratorID . ' requestID="' . $requestID . '">
+				<ItemQueryRq ' . $attr_iterator . ' ' . $attr_iteratorID . ' requestID="' . $requestID . '">
 					<MaxReturned>' . QB_QUICKBOOKS_MAX_RETURNED . '</MaxReturned>
 					<FromModifiedDate>' . $last . '</FromModifiedDate>
 					<OwnerID>0</OwnerID>
-				</ItemInventoryQueryRq>	
+				</ItemQueryRq>	
 			</QBXMLMsgsRq>
 		</QBXML>';
 	return $xml;
