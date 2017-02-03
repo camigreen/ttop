@@ -119,7 +119,7 @@ class QuickbooksHelper extends AppHelper {
 		require_once $this->app->path->path('quickbooks:/docs/web_connector/example_app_web_connector/functions.php');
 		// Map QuickBooks actions to handler functions
 		$map = array(
-			QUICKBOOKS_MOD_INVENTORYASSEMBLYITEM => array( '_quickbooks_iteminventoryassembly_mod_request', '_quickbooks_iteminventoryassembly_mod_response' ),
+			QUICKBOOKS_MOD_INVENTORYASSEMBLYITEM => array( array($this, '_quickbooks_iteminventoryassembly_mod_request'), array($this, '_quickbooks_iteminventoryassembly_mod_response' )),
 			QUICKBOOKS_ADD_INVENTORYASSEMBLYITEM => array( '_quickbooks_iteminventoryassembly_add_request', '_quickbooks_iteminventoryassembly_add_response' ),
 			QUICKBOOKS_IMPORT_INVENTORYASSEMBLYITEM => array( '_quickbooks_iteminventoryassembly_import_request', '_quickbooks_iteminventoryassembly_import_response' )
 			);
