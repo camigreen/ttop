@@ -126,7 +126,7 @@ class QuickbooksHelper extends AppHelper {
 
 		// This is entirely optional, use it to trigger actions when an error is returned by QuickBooks
 		$errmap = array(
-			'*' => '_quickbooks_error_catchall', 				// Using a key value of '*' will catch any errors which were not caught by another error handler
+			'*' => array($this, '_quickbooks_error_catchall'), 				// Using a key value of '*' will catch any errors which were not caught by another error handler
 			);
 
 		// An array of callback hooks
