@@ -181,11 +181,11 @@ class QuickbooksHelper extends AppHelper {
  * @param string $user		The web connector username 
  * @return string			A date/time in this format: "yyyy-mm-dd hh:ii:ss"
  */
-function _quickbooks_get_last_run($user, $action, $dsn)
+function _quickbooks_get_last_run($user, $action)
 {
 	$type = null;
 	$opts = null;
-	return QuickBooks_Utilities::configRead($dsn, $user, md5(__FILE__), QB_QUICKBOOKS_CONFIG_LAST . '-' . $action, $type, $opts);
+	return QuickBooks_Utilities::configRead($this->dsn, $user, md5(__FILE__), QB_QUICKBOOKS_CONFIG_LAST . '-' . $action, $type, $opts);
 }
 
 /**
@@ -194,7 +194,7 @@ function _quickbooks_get_last_run($user, $action, $dsn)
  * @param string $user
  * @return boolean
  */
-function _quickbooks_set_last_run($user, $action, $dsn, $force = null)
+function _quickbooks_set_last_run($user, $action, $force = null)
 {
 	$value = date('Y-m-d') . 'T' . date('H:i:s');
 	
@@ -203,25 +203,25 @@ function _quickbooks_set_last_run($user, $action, $dsn, $force = null)
 		$value = date('Y-m-d', strtotime($force)) . 'T' . date('H:i:s', strtotime($force));
 	}
 	
-	return QuickBooks_Utilities::configWrite($dsn, $user, md5(__FILE__), QB_QUICKBOOKS_CONFIG_LAST . '-' . $action, $value);
+	return QuickBooks_Utilities::configWrite($this->dsn, $user, md5(__FILE__), QB_QUICKBOOKS_CONFIG_LAST . '-' . $action, $value);
 }
 
 /**
  * 
  * 
  */
-function _quickbooks_get_current_run($user, $action, $dsn)
+function _quickbooks_get_current_run($user, $action)
 {
 	$type = null;
 	$opts = null;
-	return QuickBooks_Utilities::configRead($dsn, $user, md5(__FILE__), QB_QUICKBOOKS_CONFIG_CURR . '-' . $action, $type, $opts);	
+	return QuickBooks_Utilities::configRead($this->dsn, $user, md5(__FILE__), QB_QUICKBOOKS_CONFIG_CURR . '-' . $action, $type, $opts);	
 }
 
 /**
  * 
  * 
  */
-function _quickbooks_set_current_run($user, $action, $dsn,   $force = null)
+function _quickbooks_set_current_run($user, $action, $force = null)
 {
 	$value = date('Y-m-d') . 'T' . date('H:i:s');
 	
@@ -230,7 +230,7 @@ function _quickbooks_set_current_run($user, $action, $dsn,   $force = null)
 		$value = date('Y-m-d', strtotime($force)) . 'T' . date('H:i:s', strtotime($force));
 	}
 	
-	return QuickBooks_Utilities::configWrite($dsn, $user, md5(__FILE__), QB_QUICKBOOKS_CONFIG_CURR . '-' . $action, $value);	
+	return QuickBooks_Utilities::configWrite($this->dsn, $user, md5(__FILE__), QB_QUICKBOOKS_CONFIG_CURR . '-' . $action, $value);	
 }
 
 /**
@@ -316,19 +316,18 @@ function _quickbooks_iteminventoryassembly_mod_response($requestID, $user, $acti
  */
 function _quickbooks_iteminventoryassembly_import_request($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $version, $locale)
 {
-	$dsn = $extra['dsn'];
 	// Iterator support (break the result set into small chunks)
-	QuickBooks_Utilities::log($dsn, 'Started Item Inventory Assembly Import ');
+	QuickBooks_Utilities::log($this->dsn, 'Started Item Inventory Assembly Import ');
 	$attr_iteratorID = '';
 	$attr_iterator = ' iterator="Start" ';
 	if (empty($extra['iteratorID']))
 	{
 		// This is the first request in a new batch
-		$last = _quickbooks_get_last_run($user, $action, $dsn);
-		_quickbooks_set_last_run($user, $action, $dsn);			// Update the last run time to NOW()
+		$last = _quickbooks_get_last_run($user, $action);
+		_quickbooks_set_last_run($user, $action);			// Update the last run time to NOW()
 		
 		// Set the current run to $last
-		_quickbooks_set_current_run($user, $action, $last, $dsn);
+		_quickbooks_set_current_run($user, $action, $last);
 	}
 	else
 	{
@@ -336,9 +335,9 @@ function _quickbooks_iteminventoryassembly_import_request($requestID, $user, $ac
 		$attr_iteratorID = ' iteratorID="' . $extra['iteratorID'] . '" ';
 		$attr_iterator = ' iterator="Continue" ';
 		
-		$last = _quickbooks_get_current_run($user, $action, $dsn);
+		$last = _quickbooks_get_current_run($user, $action);
 	}
-	QuickBooks_Utilities::log($dsn, 'asdfasdfmbly Import ');
+	QuickBooks_Utilities::log($this->dsn, 'asdfasdfmbly Import ');
 	// Build the request
 	$xml = '<?xml version="1.0" encoding="utf-8"?>
 		<?qbxml version="' . $version . '"?>
