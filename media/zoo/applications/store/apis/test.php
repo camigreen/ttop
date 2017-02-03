@@ -61,7 +61,7 @@ class TestAPI extends API {
      * @since 1.0
      */
     public function merchant(&$params = array()) {
-        $oid = $params['oid'];
+        $oid = $params['args']['oid'];
         $order = $this->app->orderdev->get($oid);
         $merchant = $this->app->merchant;
         return $merchant->prepareOrder($order);
@@ -77,7 +77,7 @@ class TestAPI extends API {
      * @since 1.0
      */
     public function address(&$params = array()) {
-        $address = $params['address'];
+        $address = $params['args']['address'];
         $shipper = $this->app->shipper;
 
         $address = $shipper->createAddress($address);
@@ -98,7 +98,7 @@ class TestAPI extends API {
      * @since 1.0
      */
     public function closeOrder(&$params = array()) {
-        $oid = $params['oid'];
+        $oid = $params['args']['oid'];
         $order = $this->app->orderdev->get($oid);
             $order->params->set('payment.status', 3);
             $order->params->set('payment.type', 'CC');
@@ -117,7 +117,7 @@ class TestAPI extends API {
      * @since 1.0
      */
     public function shipRates(&$params = array()) {
-        $oid = $params['oid'];
+        $oid = $params['args']['oid'];
         $shipper = $this->app->shipper;
         $order = $this->app->orderdev->get($oid);
         $service = $order->elements->get('shipping_method');
@@ -171,19 +171,33 @@ class TestAPI extends API {
      * @since 1.0
      */
     public function quickbooks(&$params = array()) {
-        $params['output'] = false;
-        $params['encoding'] = 'text/xml';
+        $params['args']['output'] = false;
+        $params['args']['encoding'] = 'text/xml';
 
-        $this->app->quickbooks;
-        $primary_key_of_your_customer = 1;
-        $Queue = $this->app->quickbooks->queue();
-        $Queue->enqueue(QUICKBOOKS_IMPORT_INVENTORYASSEMBLYITEM, $primary_key_of_your_customer);
         $this->app->quickbooks->start();
-        //require_once($this->app->path->path('quickbooks:/docs/web_connector/example_mysql_mirror.php'));
-        // require_once($this->app->path->path('quickbooks:/docs/web_connector/example_app_web_connector/qbwc.php'));
-
         return;
     }
+
+    public function qbqueue() {
+        $id = 1;
+        $Queue = $this->app->quickbooks->queue();
+        $Queue->enqueue(QUICKBOOKS_IMPORT_INVENTORYASSEMBLYITEM, $id);
+    }
+
+    public function qbmod(&$params = array()) {
+        $table = $this->app->table->get('qb_test', '#__');
+        $table->key = 'listid';
+        $item = $table->first(array('conditions' => array("listid = '".$params['args']['id']."'")));
+        $item->purchasedesc = $params['args']['purchdesc'];
+        $item->salesdesc = $params['args']['salesdesc'];
+        $item->fullname = $params['args']['fullname'];
+        $result = $table->save($item);
+        $Queue = $this->app->quickbooks->queue();
+        $Queue->enqueue(QUICKBOOKS_MOD_INVENTORYASSEMBLYITEM, $params['args']['id']);
+        return $result;
+    }
+
+    
 
 	
 }

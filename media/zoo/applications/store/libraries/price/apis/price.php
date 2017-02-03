@@ -27,7 +27,7 @@ class PriceAPI extends API {
 	}
 
 	public function getPrice(&$params = array()) {
-        $product = $this->app->product->create($params['product']);
+        $product = $this->app->product->create($params['args']['product']);
         $price = array(
             'price' =>  $product->getTotalPrice($name),
             'product' => $product->toJson(),

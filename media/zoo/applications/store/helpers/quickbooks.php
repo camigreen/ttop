@@ -14,7 +14,10 @@
 class QuickbooksHelper extends AppHelper {
 
 	//public $dsn = 'mysqli://root:root@localhost/quickbooks';
-	public $dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@localhost/ttopcove_qb'; 
+	//public $dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@localhost/ttopcove_qb';
+	public $dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@ttopcovers.com/ttopcove_qb'; 
+
+	public $_queue;
 
 	public function __construct($app) {
 		parent::__construct($app);
@@ -31,7 +34,7 @@ class QuickbooksHelper extends AppHelper {
 			QuickBooks_Utilities::createUser($this->dsn, QB_QUICKBOOKS_USER, QB_QUICKBOOKS_PWD);
 
 			// Create our test table
-			mysqli_query("CREATE TABLE my_customer_table (
+			$this->app->database->query("CREATE TABLE my_customer_table (
 			  id int(10) unsigned NOT NULL AUTO_INCREMENT,
 			  name varchar(64) NOT NULL,
 			  fname varchar(64) NOT NULL,
@@ -119,8 +122,8 @@ class QuickbooksHelper extends AppHelper {
 		require_once $this->app->path->path('quickbooks:/docs/web_connector/example_app_web_connector/functions.php');
 		// Map QuickBooks actions to handler functions
 		$map = array(
-			QUICKBOOKS_MOD_INVENTORYASSEMBLYITEM => array( array($this, '_quickbooks_iteminventoryassembly_mod_request'), array($this, '_quickbooks_iteminventoryassembly_mod_response' )),
-			QUICKBOOKS_ADD_INVENTORYASSEMBLYITEM => array( '_quickbooks_iteminventoryassembly_add_request', '_quickbooks_iteminventoryassembly_add_response' ),
+			QUICKBOOKS_MOD_INVENTORYASSEMBLYITEM => array(array($this, '_quickbooks_iteminventoryassembly_mod_request'), array($this, '_quickbooks_iteminventoryassembly_mod_response' )),
+			QUICKBOOKS_ADD_INVENTORYASSEMBLYITEM => array(array($this, '_quickbooks_iteminventoryassembly_add_request'), array($this, '_quickbooks_iteminventoryassembly_add_response' )),
 			QUICKBOOKS_IMPORT_INVENTORYASSEMBLYITEM => array(array($this, '_quickbooks_iteminventoryassembly_import_request'), array($this, '_quickbooks_iteminventoryassembly_import_response' ))
 			);
 
@@ -151,14 +154,14 @@ class QuickbooksHelper extends AppHelper {
 			);
 
 		$callback_options = array(
-			//'only_import' => array(QUICKBOOKS_IMPORT_INVENTORYITEM)
+			
 			);
 
 		// Create a new server and tell it to handle the requests
 		// __construct($dsn_or_conn, $map, $errmap = array(), $hooks = array(), $log_level = QUICKBOOKS_LOG_NORMAL, $soap = QUICKBOOKS_SOAPSERVER_PHP, $wsdl = QUICKBOOKS_WSDL, $soap_options = array(), $handler_options = array(), $driver_options = array(), $callback_options = array()
 		$Server = new QuickBooks_WebConnector_Server($this->dsn, $map, $errmap, $hooks, $log_level, $soapserver, QUICKBOOKS_WSDL, $soap_options, $handler_options, $driver_options, $callback_options);
 		$response = $Server->handle(true, true);
-	}
+	}	
 
 	/**
 	 * Describe the Function
@@ -170,8 +173,11 @@ class QuickbooksHelper extends AppHelper {
 	 * @since 1.0
 	 */
 	public function queue() {
-
-		return new QuickBooks_WebConnector_Queue($this->dsn);
+		if(!$this->_queue) {
+			$this->_queue = new QuickBooks_WebConnector_Queue($this->dsn);
+		}
+		
+		return $this->_queue;
 		
 	}
 
@@ -287,16 +293,21 @@ function _quickbooks_iteminventoryassembly_mod_request($requestID, $user, $actio
 {
 	// Grab the data from our MySQL database
 	//$arr = mysqli_fetch_assoc(mysqli_query("SELECT * FROM my_customer_table WHERE id = " . (int) $ID));
+	$item = $this->app->table->get('qb_test', '#__')->first(array('conditions' => array("listid = '".$ID."'")));
 
 	$xml = '<?xml version="1.0" encoding="utf-8"?>
 	<?qbxml version="13.0"?>
 	<QBXML>
 		<QBXMLMsgsRq onError="stopOnError">
-			<ItemInventoryAssemblyModRq>
-				<ItemInventoryAssemblyMod>
-					<ListID></ListID>
-				</ItemInventoryAssemblyMod>
-			</ItemInventoryAssemblyModRq>
+			<ItemInventoryModRq>
+				<ItemInventoryMod>
+					<ListID>'.$item->listid.'</ListID>
+					<EditSequence>'.$item->editsequence.'</EditSequence>
+					<Name>'.$item->fullname.'</Name>
+					<SalesDesc>'.$item->salesdesc.'</SalesDesc>
+					<PurchaseDesc>'.$item->purchasedesc.'</PurchaseDesc>
+				</ItemInventoryMod>
+			</ItemInventoryModRq>
 		</QBXMLMsgsRq>
 	</QBXML>';
 	
@@ -309,6 +320,12 @@ function _quickbooks_iteminventoryassembly_mod_request($requestID, $user, $actio
 function _quickbooks_iteminventoryassembly_mod_response($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $xml, $idents)
 {	
 
+	$table = $this->app->table->get('qb_test', '#__');
+	$table->key = 'listid';
+	$item = $table->first(array('conditions' => array("listid = '".$ID."'")));
+	$item->editsequence = $this->app->database->escape($idents['EditSequence']);
+	$table->save($item);
+	QuickBooks_Utilities::log($this->dsn, print_r($idents, true));
 }
 
 	/**
@@ -317,7 +334,7 @@ function _quickbooks_iteminventoryassembly_mod_response($requestID, $user, $acti
 function _quickbooks_iteminventoryassembly_import_request($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $version, $locale)
 {
 	// Iterator support (break the result set into small chunks)
-	QuickBooks_Utilities::log($this->dsn, 'Started Item Inventory Assembly Import ');
+	QuickBooks_Utilities::log($this->dsn, 'Started Sending Item Inventory Assembly Import Request ');
 	$attr_iteratorID = '';
 	$attr_iterator = ' iterator="Start" ';
 	if (empty($extra['iteratorID']))
@@ -357,13 +374,14 @@ function _quickbooks_iteminventoryassembly_import_request($requestID, $user, $ac
  */
 function _quickbooks_iteminventoryassembly_import_response($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $xml, $idents)
 {	
-	QuickBooks_Utilities::log($this->dsn, 'Item Inventory Response');
+	QuickBooks_Utilities::log($this->dsn, 'Item Inventory Response '.print_r($idents,true));
 	if (!empty($idents['iteratorRemainingCount']))
 	{
+		QuickBooks_Utilities::log($this->dsn, 'Starting Queue');
 		//Queue up another request
+		$this->queue()->enqueue(QUICKBOOKS_IMPORT_INVENTORYASSEMBLYITEM, null, QB_PRIORITY_ITEM, array( 'iteratorID' => $idents['iteratorID'] ));
 		
-		$Queue = QuickBooks_WebConnector_Queue_Singleton::getInstance();
-		$Queue->enqueue(QUICKBOOKS_IMPORT_ITEMINVENTORYASSEMBLY, null, QB_PRIORITY_ITEMINVENTORYASSEMBLY, array( 'iteratorID' => $idents['iteratorID'] ));
+		
 	}
 	
 	// This piece of the response from QuickBooks is now stored in $xml. You 
@@ -386,27 +404,30 @@ function _quickbooks_iteminventoryassembly_import_response($requestID, $user, $a
 		foreach ($List->children() as $Customer)
 		{
 			$arr = array(
-				'value_1' => $Customer->getChildDataAt('ItemInventoryRet ListID'),
-				'value_2' => $Customer->getChildDataAt('ItemInventoryRet FullName'),
-				'value_3' => $Customer->getChildDataAt('ItemInventoryRet EditSequence'),
+				'listid' => $Customer->getChildDataAt('ItemInventoryRet ListID'),
+				'fullname' => $Customer->getChildDataAt('ItemInventoryRet FullName'),
+				'editsequence' => $Customer->getChildDataAt('ItemInventoryRet EditSequence'),
+				'purchasedesc' => $Customer->getChildDataAt('ItemInventoryRet PurchaseDesc'),
+				'salesdesc' => $Customer->getChildDataAt('ItemInventoryRet SalesDesc')
 				);
 			
-			QuickBooks_Utilities::log($this->dsn, 'Importing Assembly Item ' . $arr['FullName'] . ': ' . print_r($arr, true));
+			QuickBooks_Utilities::log($this->dsn, 'Importing Assembly Item ' . $arr['fullname'] . ': ' . print_r($arr, true));
 			
 			// foreach ($arr as $key => $value)
 			// {
 			// 	$arr[$key] = $this->database->escape($value);
 			// }
-			QuickBooks_Utilities::log($this->dsn, $app->database->name);
 			// Store the invoices in MySQL
-			$this->app->database->query("
-				REPLACE INTO
-					qb_test
+			$sql = "REPLACE INTO
+					joomla_qb_test
 				(
 					" . implode(", ", array_keys($arr)) . "
 				) VALUES (
 					'" . implode("', '", array_values($arr)) . "'
-				)") or die(trigger_error(mysql_error()));
+				)";
+			QuickBooks_Utilities::log($this->dsn, 'SQL = '.$sql);
+			$this->app->database->query($sql);
+				
 		}
 	}
 	
@@ -418,7 +439,7 @@ function _quickbooks_iteminventoryassembly_import_response($requestID, $user, $a
  */
 function _quickbooks_error_catchall($requestID, $user, $action, $ID, $extra, &$err, $xml, $errnum, $errmsg)
 {
-	
+	return;
 }
 
     
