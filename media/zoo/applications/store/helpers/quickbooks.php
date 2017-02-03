@@ -342,9 +342,11 @@ function _quickbooks_iteminventoryassembly_import_request($requestID, $user, $ac
 		<?qbxml version="' . $version . '"?>
 		<QBXML>
 			<QBXMLMsgsRq onError="stopOnError">
-				<ItemQueryRq ' . $attr_iterator . ' ' . $attr_iteratorID . ' requestID="' . $requestID . '">
+				<ItemInventoryQueryRq ' . $attr_iterator . ' ' . $attr_iteratorID . ' requestID="' . $requestID . '">
 					<MaxReturned>' . QB_QUICKBOOKS_MAX_RETURNED . '</MaxReturned>
-				</ItemQueryRq>	
+					<FromModifiedDate>' . $last . '</FromModifiedDate>
+					<OwnerID>0</OwnerID>
+				</ItemInventoryQueryRq>	
 			</QBXMLMsgsRq>
 		</QBXML>';
 	return $xml;
@@ -355,61 +357,60 @@ function _quickbooks_iteminventoryassembly_import_request($requestID, $user, $ac
  */
 function _quickbooks_iteminventoryassembly_import_response($requestID, $user, $action, $ID, $extra, &$err, $last_action_time, $last_actionident_time, $xml, $idents)
 {	
-	// QuickBooks_Utilities::log($dsn, 'Item Inventory Response');
-	// $app = $extra['app'];
-	// if (!empty($idents['iteratorRemainingCount']))
-	// {
-	// 	// Queue up another request
+	QuickBooks_Utilities::log($this->dsn, 'Item Inventory Response');
+	if (!empty($idents['iteratorRemainingCount']))
+	{
+		Queue up another request
 		
-	// 	//$Queue = QuickBooks_WebConnector_Queue_Singleton::getInstance();
-	// 	//$Queue->enqueue(QUICKBOOKS_IMPORT_ITEMINVENTORYASSEMBLY, null, QB_PRIORITY_ITEMINVENTORYASSEMBLY, array( 'iteratorID' => $idents['iteratorID'] ));
-	// }
+		$Queue = QuickBooks_WebConnector_Queue_Singleton::getInstance();
+		$Queue->enqueue(QUICKBOOKS_IMPORT_ITEMINVENTORYASSEMBLY, null, QB_PRIORITY_ITEMINVENTORYASSEMBLY, array( 'iteratorID' => $idents['iteratorID'] ));
+	}
 	
-	// // This piece of the response from QuickBooks is now stored in $xml. You 
-	// //	can process the qbXML response in $xml in any way you like. Save it to 
-	// //	a file, stuff it in a database, parse it and stuff the records in a 
-	// //	database, etc. etc. etc. 
-	// //	
-	// // The following example shows how to use the built-in XML parser to parse 
-	// //	the response and stuff it into a database. 
+	// This piece of the response from QuickBooks is now stored in $xml. You 
+	//	can process the qbXML response in $xml in any way you like. Save it to 
+	//	a file, stuff it in a database, parse it and stuff the records in a 
+	//	database, etc. etc. etc. 
+	//	
+	// The following example shows how to use the built-in XML parser to parse 
+	//	the response and stuff it into a database. 
 	
-	// // Import all of the records
-	// $errnum = 0;
-	// $errmsg = '';
-	// $Parser = new QuickBooks_XML_Parser($xml);
-	// if ($Doc = $Parser->parse($errnum, $errmsg))
-	// {
-	// 	$Root = $Doc->getRoot();
-	// 	$List = $Root->getChildAt('QBXML/QBXMLMsgsRs/ItemInventoryQueryRs');
+	// Import all of the records
+	$errnum = 0;
+	$errmsg = '';
+	$Parser = new QuickBooks_XML_Parser($xml);
+	if ($Doc = $Parser->parse($errnum, $errmsg))
+	{
+		$Root = $Doc->getRoot();
+		$List = $Root->getChildAt('QBXML/QBXMLMsgsRs/ItemInventoryQueryRs');
 		
-	// 	foreach ($List->children() as $Customer)
-	// 	{
-	// 		$arr = array(
-	// 			'value_1' => $Customer->getChildDataAt('ItemInventoryRet ListID'),
-	// 			'value_2' => $Customer->getChildDataAt('ItemInventoryRet FullName'),
-	// 			'value_3' => $Customer->getChildDataAt('ItemInventoryRet EditSequence'),
-	// 			);
+		foreach ($List->children() as $Customer)
+		{
+			$arr = array(
+				'value_1' => $Customer->getChildDataAt('ItemInventoryRet ListID'),
+				'value_2' => $Customer->getChildDataAt('ItemInventoryRet FullName'),
+				'value_3' => $Customer->getChildDataAt('ItemInventoryRet EditSequence'),
+				);
 			
-	// 		QuickBooks_Utilities::log($dsn, 'Importing Assembly Item ' . $arr['FullName'] . ': ' . print_r($arr, true));
+			QuickBooks_Utilities::log($this->dsn, 'Importing Assembly Item ' . $arr['FullName'] . ': ' . print_r($arr, true));
 			
-	// 		// foreach ($arr as $key => $value)
-	// 		// {
-	// 		// 	$arr[$key] = $this->database->escape($value);
-	// 		// }
-	// 		QuickBooks_Utilities::log($dsn, $app->database->name);
-	// 		// Store the invoices in MySQL
-	// 		$app->database->query("
-	// 			INSERT INTO
-	// 				qb_test
-	// 			(
-	// 				" . implode(", ", array_keys($arr)) . "
-	// 			) VALUES (
-	// 				'" . implode("', '", array_values($arr)) . "'
-	// 			)") or die(trigger_error(mysql_error()));
-	// 	}
-	// }
+			// foreach ($arr as $key => $value)
+			// {
+			// 	$arr[$key] = $this->database->escape($value);
+			// }
+			QuickBooks_Utilities::log($this->dsn, $app->database->name);
+			// Store the invoices in MySQL
+			$this->app->database->query("
+				REPLACE INTO
+					qb_test
+				(
+					" . implode(", ", array_keys($arr)) . "
+				) VALUES (
+					'" . implode("', '", array_values($arr)) . "'
+				)") or die(trigger_error(mysql_error()));
+		}
+	}
 	
-	//return true;
+	return true;
 }
 
 /**
