@@ -323,7 +323,7 @@ function _quickbooks_iteminventoryassembly_import_request($requestID, $user, $ac
 	if (empty($extra['iteratorID']))
 	{
 		// This is the first request in a new batch
-		$last = _quickbooks_get_last_run($user, $action);
+		$last = $this->_quickbooks_get_last_run($user, $action);
 		$this->_quickbooks_set_last_run($user, $action);			// Update the last run time to NOW()
 		
 		// Set the current run to $last
