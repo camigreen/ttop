@@ -60,7 +60,8 @@ class TestAPI extends API {
      *
      * @since 1.0
      */
-    public function merchant($oid) {
+    public function merchant(&$params = array()) {
+        $oid = $params['oid'];
         $order = $this->app->orderdev->get($oid);
         $merchant = $this->app->merchant;
         return $merchant->prepareOrder($order);
@@ -75,7 +76,8 @@ class TestAPI extends API {
      *
      * @since 1.0
      */
-    public function address($address) {
+    public function address(&$params = array()) {
+        $address = $params['address'];
         $shipper = $this->app->shipper;
 
         $address = $shipper->createAddress($address);
@@ -95,7 +97,8 @@ class TestAPI extends API {
      *
      * @since 1.0
      */
-    public function closeOrder($oid = null) {
+    public function closeOrder(&$params = array()) {
+        $oid = $params['oid'];
         $order = $this->app->orderdev->get($oid);
             $order->params->set('payment.status', 3);
             $order->params->set('payment.type', 'CC');
@@ -113,8 +116,8 @@ class TestAPI extends API {
      *
      * @since 1.0
      */
-    public function shipRates($oid) {
-
+    public function shipRates(&$params = array()) {
+        $oid = $params['oid'];
         $shipper = $this->app->shipper;
         $order = $this->app->orderdev->get($oid);
         $service = $order->elements->get('shipping_method');
@@ -167,15 +170,24 @@ class TestAPI extends API {
      *
      * @since 1.0
      */
-    public function quickbooks() {
-        $this->app->document->setMimeEncoding('text/xml');
-        $path = dirname(__FILE__).'/../';
-        $this->app->path->register($path.'/vendor/consolibyte/quickbooks', 'quickbooks');
-        $qb_path = $this->app->path->path('quickbooks:');
-        require_once($this->app->path->path('quickbooks:/docs/web_connector/example_mysql_mirror.php'));
+    public function quickbooks(&$params = array()) {
+        $params['output'] = false;
+        $params['encoding'] = 'text/xml';
 
-        //return array('output' => true);
-        return array('output' => false);
+        $this->app->quickbooks;
+        $primary_key_of_your_customer = 1;
+        $Queue = $this->app->quickbooks->queue();
+        $extra = array(
+            'app' => $this->app, 
+            'post' => $this->app->request->get('post:', 'array', array()),
+            'dsn' => $this->app->quickbooks->dsn
+        );
+        $Queue->enqueue(QUICKBOOKS_IMPORT_INVENTORYASSEMBLYITEM, $primary_key_of_your_customer, 0, $extra);
+        $this->app->quickbooks->start();
+        //require_once($this->app->path->path('quickbooks:/docs/web_connector/example_mysql_mirror.php'));
+        // require_once($this->app->path->path('quickbooks:/docs/web_connector/example_app_web_connector/qbwc.php'));
+
+        return;
     }
 
 	

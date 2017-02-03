@@ -11,7 +11,7 @@
  * @package QuickBooks
  * @subpackage Documentation
  */
- 
+
 // We need to make sure the correct timezone is set, or some PHP installations will complain
 if (function_exists('date_default_timezone_set'))
 {
@@ -32,10 +32,11 @@ $qbwc_user = 'quickbooks';
 $qbwc_pass = 'password';
 
 // * MAKE SURE YOU CHANGE THE DATABASE CONNECTION STRING BELOW TO A VALID MYSQL USERNAME/PASSWORD/HOSTNAME *
-$dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@localhost/ttopcove_qb';
+//$dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@localhost/ttopcove_qb';
+$dsn = 'mysqli://root:root@localhost/quickbooks';
 // var_dump(parse_url($dsn));
 // die();
-
+define('QB_QUICKBOOKS_DSN', $dsn);
 if (!QuickBooks_Utilities::initialized($dsn))
 {
 	// Initialize creates the neccessary database schema for queueing up requests and logging
@@ -43,7 +44,7 @@ if (!QuickBooks_Utilities::initialized($dsn))
 	
 	// This creates a username and password which is used by the Web Connector to authenticate
 	QuickBooks_Utilities::createUser($dsn, $qbwc_user, $qbwc_pass);
-	
+
 	// Create our test table
 	mysql_query("CREATE TABLE my_customer_table (
 	  id int(10) unsigned NOT NULL AUTO_INCREMENT,

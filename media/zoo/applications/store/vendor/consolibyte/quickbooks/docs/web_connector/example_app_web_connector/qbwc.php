@@ -11,7 +11,7 @@
  * @package QuickBooks
  * @subpackage Documentation
  */
-
+$db = $this->app->database;
 /**
  * Require some configuration stuff
  */ 
@@ -20,11 +20,13 @@ require_once dirname(__FILE__) . '/config.php';
 /**
  * Require some callback functions
  */ 
-require_once dirname(__FILE__) . '/functions.php';
+
 
 // Map QuickBooks actions to handler functions
 $map = array(
-	QUICKBOOKS_ADD_CUSTOMER => array( '_quickbooks_customer_add_request', '_quickbooks_customer_add_response' ),
+	QUICKBOOKS_MOD_INVENTORYASSEMBLYITEM => array( '_quickbooks_iteminventoryassembly_mod_request', '_quickbooks_iteminventoryassembly_mod_response' ),
+	QUICKBOOKS_ADD_INVENTORYASSEMBLYITEM => array( '_quickbooks_iteminventoryassembly_add_request', '_quickbooks_iteminventoryassembly_add_response' ),
+	QUICKBOOKS_IMPORT_INVENTORYASSEMBLYITEM => array( '_quickbooks_iteminventoryassembly_import_request', '_quickbooks_iteminventoryassembly_import_response' )
 	);
 
 // This is entirely optional, use it to trigger actions when an error is returned by QuickBooks
@@ -54,6 +56,7 @@ $driver_options = array(		// See the comments in the QuickBooks/Driver/<YOUR DRI
 	);
 
 $callback_options = array(
+	//'only_import' => array(QUICKBOOKS_IMPORT_INVENTORYITEM)
 	);
 
 // Create a new server and tell it to handle the requests

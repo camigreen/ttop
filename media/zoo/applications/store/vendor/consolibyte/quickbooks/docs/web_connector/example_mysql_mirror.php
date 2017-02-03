@@ -65,8 +65,8 @@ $password = 'password';
 //	correctly! 
 // 	
 // 	Currently, only MySQL is supported/tested. 
-$dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@localhost/ttopcove_qb';
-// $dsn = 'mysqli://root:root@localhost/quickbooks';
+// $dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@localhost/ttopcove_qb';
+$dsn = 'mysqli://root:root@localhost/quickbooks';
 // If the database has not been initialized, we need to initialize it (create 
 //	schema and set up the username/password, etc.)
 if (!QuickBooks_Utilities::initialized($dsn))
@@ -181,22 +181,23 @@ $handler_options = array(
 $driver_options = array();
 
 $ops = array(
-	QUICKBOOKS_OBJECT_SALESTAXITEM, 
-	QUICKBOOKS_OBJECT_SALESTAXCODE, 
-	QUICKBOOKS_OBJECT_CUSTOMER, 
-	QUICKBOOKS_OBJECT_VENDOR, 
+	QUICKBOOKS_OBJECT_UNITOFMEASURESET,
+	// QUICKBOOKS_OBJECT_SALESTAXITEM, 
+	// QUICKBOOKS_OBJECT_SALESTAXCODE, 
+	// QUICKBOOKS_OBJECT_CUSTOMER, 
+	// QUICKBOOKS_OBJECT_VENDOR, 
 	
 	QUICKBOOKS_OBJECT_INVENTORYITEM, 
 	
-	QUICKBOOKS_OBJECT_TEMPLATE, 
+	// QUICKBOOKS_OBJECT_TEMPLATE, 
 	
-	QUICKBOOKS_OBJECT_CUSTOMERTYPE, 
-	QUICKBOOKS_OBJECT_VENDORTYPE, 
-	QUICKBOOKS_OBJECT_ESTIMATE, 
-	QUICKBOOKS_OBJECT_INVOICE, 
-	QUICKBOOKS_OBJECT_CLASS, 
+	// QUICKBOOKS_OBJECT_CUSTOMERTYPE, 
+	// QUICKBOOKS_OBJECT_VENDORTYPE, 
+	// QUICKBOOKS_OBJECT_ESTIMATE, 
+	// QUICKBOOKS_OBJECT_INVOICE, 
+	// QUICKBOOKS_OBJECT_CLASS, 
 	
-	QUICKBOOKS_OBJECT_INVOICE, 
+	// QUICKBOOKS_OBJECT_INVOICE, 
 	
 	/*
 	QUICKBOOKS_OBJECT_INVENTORYITEM, 
@@ -209,17 +210,17 @@ $ops = array(
 	QUICKBOOKS_OBJECT_ITEM, 
 	*/
 	
-	QUICKBOOKS_OBJECT_PAYMENTMETHOD, 
+	// QUICKBOOKS_OBJECT_PAYMENTMETHOD, 
 	
-	QUICKBOOKS_OBJECT_COMPANY, 
-	QUICKBOOKS_OBJECT_HOST, 
-	QUICKBOOKS_OBJECT_PREFERENCES,
+	// QUICKBOOKS_OBJECT_COMPANY, 
+	// QUICKBOOKS_OBJECT_HOST, 
+	// QUICKBOOKS_OBJECT_PREFERENCES,
 	);
 
 $ops_misc = array(		// For fetching inventory levels, deleted transactions, etc. 
-	QUICKBOOKS_DERIVE_INVENTORYLEVELS,
-	QUICKBOOKS_QUERY_DELETEDLISTS,
-	QUICKBOOKS_QUERY_DELETEDTRANSACTIONS,
+	// QUICKBOOKS_DERIVE_INVENTORYLEVELS,
+	// QUICKBOOKS_QUERY_DELETEDLISTS,
+	// QUICKBOOKS_QUERY_DELETEDTRANSACTIONS,
 	// 'nothing', 
 	);
 

@@ -35,11 +35,11 @@ class ProductAPI extends API {
 	 *
 	 * @since 1.0
 	 */
-	public function subtract($id, $num) {
-		$item = $this->app->table->item->get($id);
+	public function subtract(&$params = array()) {
+		$item = $this->app->table->item->get($params['id']);
 
 		$qty = $item->getElement('ccbc-qty')->get('value');
-		$qty = $qty - $num;
+		$qty = $qty - $params['num'];
 
 		$item->getElement('ccbc-qty')->set('value', $qty);
 
