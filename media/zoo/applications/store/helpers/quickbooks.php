@@ -406,6 +406,7 @@ function _quickbooks_iteminventoryassembly_import_response($requestID, $user, $a
 			$arr = array(
 				'listid' => $Customer->getChildDataAt('ItemInventoryRet ListID'),
 				'name' => $Customer->getChildDataAt('ItemInventoryRet Name'),
+				'fullname' => $Customer->getChildDataAt('ItemInventoryRet FullName'),
 				'editsequence' => $Customer->getChildDataAt('ItemInventoryRet EditSequence'),
 				'purchasedesc' => $Customer->getChildDataAt('ItemInventoryRet PurchaseDesc'),
 				'salesdesc' => $Customer->getChildDataAt('ItemInventoryRet SalesDesc')
