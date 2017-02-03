@@ -14,8 +14,8 @@
 class QuickbooksHelper extends AppHelper {
 
 	//public $dsn = 'mysqli://root:root@localhost/quickbooks';
-	//public $dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@localhost/ttopcove_qb';
-	public $dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@ttopcovers.com/ttopcove_qb'; 
+	public $dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@localhost/ttopcove_qb';
+	//public $dsn = 'mysqli://ttopcove_admin:dXX0@wWCn6l!@ttopcovers.com/ttopcove_qb'; 
 
 	public $_queue;
 
