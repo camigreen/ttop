@@ -171,8 +171,8 @@ class TestAPI extends API {
      * @since 1.0
      */
     public function quickbooks(&$params = array()) {
-        $params['args']['output'] = false;
-        $params['args']['encoding'] = 'text/xml';
+        $params['output'] = false;
+        $params['encoding'] = 'text/xml';
 
         $this->app->quickbooks->start();
         return;
