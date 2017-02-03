@@ -360,7 +360,7 @@ function _quickbooks_iteminventoryassembly_import_response($requestID, $user, $a
 	QuickBooks_Utilities::log($this->dsn, 'Item Inventory Response');
 	if (!empty($idents['iteratorRemainingCount']))
 	{
-		Queue up another request
+		//Queue up another request
 		
 		$Queue = QuickBooks_WebConnector_Queue_Singleton::getInstance();
 		$Queue->enqueue(QUICKBOOKS_IMPORT_ITEMINVENTORYASSEMBLY, null, QB_PRIORITY_ITEMINVENTORYASSEMBLY, array( 'iteratorID' => $idents['iteratorID'] ));
