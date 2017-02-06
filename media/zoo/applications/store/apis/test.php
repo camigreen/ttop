@@ -179,9 +179,26 @@ class TestAPI extends API {
     }
 
     public function qbqueue() {
-        $id = 1;
-        $Queue = $this->app->quickbooks->queue();
-        $Queue->enqueue(QUICKBOOKS_IMPORT_INVENTORYASSEMBLYITEM, $id);
+        
+        $this->app->table->quickbooks
+
+        // $id = 1;
+        // $Queue = $this->app->quickbooks->queue();
+        // $Queue->enqueue(QUICKBOOKS_IMPORT_INVENTORYASSEMBLYITEM, $id);
+    }
+
+    /**
+     * Describe the Function
+     *
+     * @param     datatype        Description of the parameter.
+     *
+     * @return     datatype    Description of the value returned.
+     *
+     * @since 1.0
+     */
+    public function database() {
+        $db = $this->app->database;
+        var_dump($db->name);
     }
 
     public function qbmod(&$params = array()) {

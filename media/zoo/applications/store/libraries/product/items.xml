@@ -195,6 +195,14 @@
 						<option name="boat_length" label="Boat Length" type="base" value="22" visible="false" />
 					</options>
 				</model>
+				<model published="false">
+					<name>270-vantage</name>
+					<label>270-vantage</label>
+					<skucode>270VNTG</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="27" visible="false" />
+					</options>
+				</model>
 			</models>
 		</boat>
 		<boat published="false">				
@@ -996,6 +1004,14 @@
 			<skucode>SPTMN</skucode>
 			<models>
 				<model>
+					<name>18-island-bay</name>
+					<label>18 Island Bay</label>
+					<skucode>18ISLBAY</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
+					</options>
+				</model>
+				<model>
 					<name>207-masters</name>
 					<label>207 Masters</label>
 					<skucode>207MSTR</skucode>
@@ -1058,11 +1074,19 @@
 			<skucode>STRY</skucode>
 			<models>
 				<model>
-					<name>186</name>
-					<label>186</label>
-					<skucode>186</skucode>
+					<name>186cc</name>
+					<label>186cc</label>
+					<skucode>186CC</skucode>
 					<options>
 						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
+					</options>
+				</model>
+				<model>
+					<name>206cc</name>
+					<label>206cc</label>
+					<skucode>206CC</skucode>
+					<options>
+						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
 					</options>
 				</model>
 			</models>

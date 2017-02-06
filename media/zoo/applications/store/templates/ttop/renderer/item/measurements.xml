@@ -20,7 +20,7 @@
 			<model value="86,88,46">230 Vantage</model>
 			<model value="81,72,24,A">240 Outrage</model>
 			<model value="95,71,63,B">270 Dauntless</model>
-			<model value="95,96,56">270 Vantage</model>
+			<model value="96,85,64">270 Vantage</model>
 			<model value="108,77,50,B">28 Conquest</model>
 		</make>
 		<make value="caravelle" name="Caravelle">
@@ -206,6 +206,7 @@
 			<model value="87,63,24,A">250 Adventure</model>
 		</make>
 		<make value="triton" name="Triton">
+			<model value="84,62,54"240 LTS</model>
 			<model value="89,67,26,A">2501</model>
 			<model value="94,79,76,C">2690 Walk Around</model>
 		</make>
@@ -213,6 +214,8 @@
 			<model value="86,52,26,A">190 Bay</model>
 		</make>
 		<make value="wellcraft" name="Wellcraft">
+			<model value="89,66,44">222 Scarab Offshore</model>
+			<model value="88,66,44">242 Scarab Offshore</model>
 			<model value="108,84,83,C">290 Coastal</model>
 		</make>
 		<make value="world_cat" name="World Cat">
@@ -225,6 +228,7 @@
 	</bsk>
 	<ccc>
 		<make value="avenger" name="Avenger">
+			<model value="83,96,39">AV24</model>
 			<model value="80,65,32">AV26</model>
 		</make>
 		<make value="ameracat" name="Ameracat">
@@ -403,10 +407,15 @@
 			<model value="82,106,39,B">250</model>
 		</make>
 		<make value="triton" name="Triton">
+			<model value="83,101,35">240 LTS</model>
 			<model value="85,102,45,B">2501</model>
 		</make>
 		<make value="triumph" name="Triumph">
 			<model value="82,79,38,A">190 Bay</model>
+		</make>
+		<make value="wellcraft" name="Wellcraft">
+			<model value="81,91,43">222 Scarab Offshore</model>
+			<model value="81,90,43">242 Scarab Offshore</model>
 		</make>
 		<make value="yellowfin" name="Yellowfin">
 			<model value="78,104,47,B">29</model>
