@@ -196,6 +196,9 @@
 		<make value="seaswirl" name="Seaswirl">
 			<model value="88,54,72,C">2601 Striper</model>
 		</make>
+		<make value="southport" name="Southport">
+			<model value="89,70,60">272</model>
+		</make>
 		<make value="sportsman" name="Sportsman">
 			<model value="87,65,24,A">211 Heritage</model>
 			<model value="87,62,24,A">247 Platinum</model>
@@ -318,6 +321,7 @@
 			<model value="79,68,38,A">180 Islander</model>
 			<model value="83,99,41,B">197 Islander</model>
 			<model value="83,92,38,A">197 Sportfish</model>
+			<model value="82,90,44">202 Islander</model>
 			<model value="83,96,38,B">220 Bay Sport</model>
 			<model value="80,106,38,B">222 Sportfish</model>
 		</make>
@@ -328,7 +332,9 @@
 			<model value="83,118,38,C">22 Sport</model>
 		</make>
 		<make value="ranger" name="Ranger">
+			<model value="84,90,44">240 Bahia</model>
 			<model value="85,102,45,B">2510</model>
+		</make>
 		</make>
 		<make value="regulator" name="Regulator">
 			<model value="83,107,41,B">23</model>
@@ -343,6 +349,7 @@
 			<model value="81,96,38,B">R222</model>
 			<model value="85,96,38,B">R242</model>
 			<model value="85,91,38,A">246 Cayman</model>
+			<model value="84,124,53">R302</model>
 		</make>
 		<make value="sailfish" name="Sailfish">
 			<model value="85,78,38,A">206</model>
@@ -393,6 +400,9 @@
 		</make>
 		<make value="sea_pro" name="Sea Pro">
 			<model value="82,96,59">248</model>
+		</make>
+		<make value="southport" name="Southport">
+			<model value="82,135,45">272</model>
 		</make>
 		<make value="sportsman" name="Sportsman">
 			<model value="83,82,39,A">211 Heritage</model>
