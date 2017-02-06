@@ -154,6 +154,9 @@
 			<model value="100,87,44,A">300 LXF</model>
 			<model value="102,87,32,A">350 LXF</model>
 		</make>
+		<make value="sea-chaser" name="Sea Chaser">
+			<model value="99,68,83">27 HFC</model>
+		</make>
 		<make value="sea_fox" name="Sea Fox">
 			<model value="84,65,48,A">206</model>
 			<model value="82,64,31,A">209 Commander</model>
@@ -355,6 +358,9 @@
 			<model value="84,86,38,A">240 Bay</model>
 			<model value="84,111,38,C">260 SF</model>
 			<model value="82,120,43,C">275 LXF</model>
+		</make>
+		<make value="sea-chaser" name="Sea Chaser">
+			<model value="78,105,42">27 HFC</model>
 		</make>
 		<make value="sea_fox" name="Sea Fox">
 			<model value="80,87,38,A">200 XT</model>
