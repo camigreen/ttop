@@ -263,8 +263,6 @@
 						<option name="boat_length" label="Boat Length" type="base" value="15" visible="false" />
 					</options>
 				</model>
-			</models>
-			<models>
 				<model published="false">
 					<name>16-dlx</name>
 					<label>16 DLX</label>
@@ -273,7 +271,7 @@
 						<option name="boat_length" label="Boat Length" type="base" value="16" visible="false" />
 					</options>
 				</model>
-				<model published="false">
+				<model>
 					<name>17-jv</name>
 					<label>17 JV</label>
 					<skucode>17JV</skucode>
@@ -281,7 +279,7 @@
 						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
 					</options>
 				</model>
-				<model published="false">
+				<model>
 					<name>178-dlv</name>
 					<label>178 DLV</label>
 					<skucode>178DLV</skucode>
@@ -289,7 +287,7 @@
 						<option name="boat_length" label="Boat Length" type="base" value="17" visible="false" />
 					</options>
 				</model>
-				<model published="false">
+				<model>
 					<name>18-jvx</name>
 					<label>18 JVX</label>
 					<skucode>18JVX</skucode>
@@ -297,7 +295,7 @@
 						<option name="boat_length" label="Boat Length" type="base" value="18" visible="false" />
 					</options>
 				</model>
-				<model published="false">
+				<model>
 					<name>198-dlv</name>
 					<label>198 DLV</label>
 					<skucode>198DLV</skucode>
@@ -305,7 +303,7 @@
 						<option name="boat_length" label="Boat Length" type="base" value="19" visible="false" />
 					</options>
 				</model>
-				<model published="false">
+				<model>
 					<name>20-jvx</name>
 					<label>20 JVX</label>
 					<skucode>20JVX</skucode>
@@ -313,7 +311,7 @@
 						<option name="boat_length" label="Boat Length" type="base" value="20" visible="false" />
 					</options>
 				</model>
-				<model published="false">
+				<model>
 					<name>218-DLV</name>
 					<label>218 DLV</label>
 					<skucode>218DLV</skucode>
@@ -889,7 +887,7 @@
 				</model>
 			</models>
 		</boat>
-		<boat published="false">				
+		<boat>				
 			<name>sea-chaser</name>
 			<label>Sea Chaser</label>
 			<skucode>SEACHSR</skucode>

@@ -335,7 +335,6 @@
 			<model value="84,90,44">240 Bahia</model>
 			<model value="85,102,45,B">2510</model>
 		</make>
-		</make>
 		<make value="regulator" name="Regulator">
 			<model value="83,107,41,B">23</model>
 			<model value="81,102,41,B">24 FS</model>
