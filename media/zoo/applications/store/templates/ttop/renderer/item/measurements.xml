@@ -120,6 +120,7 @@
 			<model value="101,85,59,B">3070 Express</model>
 		</make>
 		<make value="ranger" name="Ranger">
+			<model value="91,60,60">240 Bahia</model>
 			<model value="89,67,26,A">2510</model>
 		</make>
 		<make value="regulator" name="Regulator">
