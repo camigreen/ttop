@@ -212,7 +212,7 @@
 			<model value="87,63,24,A">250 Adventure</model>
 		</make>
 		<make value="triton" name="Triton">
-			<model value="84,62,54"240 LTS</model>
+			<model value="84,62,54">240 LTS</model>
 			<model value="89,67,26,A">2501</model>
 			<model value="94,79,76,C">2690 Walk Around</model>
 		</make>
