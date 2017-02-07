@@ -77,6 +77,7 @@
 		<make value="key_west" name="Key West">
 			<model value="81,56,24,A">189 FS</model>
 			<model value="84,61,48,A">2020</model>
+			<model value="86,59,24">219 FS</model>
 			<model value="82,56,55,B">230 Bay Reef</model>
 			<model value="87,60,36,B">239 FS</model>
 			<model value="97,74,47,A">268</model>
