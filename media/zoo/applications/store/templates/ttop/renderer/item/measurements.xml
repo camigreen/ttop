@@ -267,6 +267,7 @@
 		<make value="cobia" name="Cobia">
 			<model value="86,101,40,B">237</model>
 			<model value="87,102,40,B">256</model>
+			<model value="86,110,48">277</model>
 		</make>
 		<make value="contender" name="Contender">
 			<model value="84,87,38,A">24</model>
