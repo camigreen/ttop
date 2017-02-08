@@ -77,6 +77,7 @@
 		<make value="key_west" name="Key West">
 			<model value="81,56,24,A">189 FS</model>
 			<model value="84,61,48,A">2020</model>
+			<model value="82,55,24">203 FS</model>
 			<model value="86,59,24">219 FS</model>
 			<model value="82,56,55,B">230 Bay Reef</model>
 			<model value="87,60,36,B">239 FS</model>
@@ -258,6 +259,9 @@
 			<model value="82,109,38,C">220 Outrage</model>
 			<model value="85,108,46,C">240 Outrage</model>
 			<model value="85,120,46,C">250 Outrage</model>
+		</make>
+		<make value="cape_horn" name="Cape Horn">
+			<model value="84,95,50">24 OS</model>
 		</make>
 		<make value="carolina_cat" name="Carolina Cat">
 			<model value="82,85,40,A">23</model>
