@@ -281,6 +281,8 @@ class TestController extends AppController {
 	 */
 	public function testMail() {
 
+		
+
 		$mail = JFactory::getMailer();
 
 
@@ -349,6 +351,26 @@ class TestController extends AppController {
 				});
 			</script>
 		";
+	}
+
+
+	/**
+	 * Describe the Function
+	 *
+	 * @param 	datatype		Description of the parameter.
+	 *
+	 * @return 	datatype	Description of the value returned.
+	 *
+	 * @since 1.0
+	 */
+	public function quickbooks() {
+		$this->app->document->setMimeEncoding('application/json');
+		$path = dirname(__FILE__).'/../';
+		$this->app->path->register($path.'/vendor/consolibyte/quickbooks', 'quickbooks');
+		echo json_encode(array());
+		//require_once $this->app->path->path('quickbooks:/docs/web_connector/example_web_connector_import.php');
+
+		
 	}
 
 

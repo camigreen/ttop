@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <measurements>
 	<bsk>
-		<make value="americat" name="Americat">
+		<make value="ameracat" name="Ameracat">
 			<model value="81,60,84,D">27 Gen II</model>
+			<model value="106,75,65">31</model>
 		</make>
 		<make value="angler" name="Angler">
 			<model value="84,60,48,A">2600</model>
@@ -19,6 +20,7 @@
 			<model value="86,88,46">230 Vantage</model>
 			<model value="81,72,24,A">240 Outrage</model>
 			<model value="95,71,63,B">270 Dauntless</model>
+			<model value="96,85,64">270 Vantage</model>
 			<model value="108,77,50,B">28 Conquest</model>
 		</make>
 		<make value="caravelle" name="Caravelle">
@@ -54,6 +56,7 @@
 		</make>
 		<make value="grady_white" name="Grady White">
 			<model value="86,62,39">191 Coastal Explorer</model>
+			<model value="85,68,40">236 Fisherman</model>
 			<model value="88,69,59,A">251 Coastal Explorer</model>
 			<model value="86,90,45">255 Freedom</model>
 			<model value="94,74,62,B">272 Sailfish</model>
@@ -74,6 +77,8 @@
 		<make value="key_west" name="Key West">
 			<model value="81,56,24,A">189 FS</model>
 			<model value="84,61,48,A">2020</model>
+			<model value="82,55,24">203 FS</model>
+			<model value="86,59,24">219 FS</model>
 			<model value="82,56,55,B">230 Bay Reef</model>
 			<model value="87,60,36,B">239 FS</model>
 			<model value="97,74,47,A">268</model>
@@ -116,6 +121,7 @@
 			<model value="101,85,59,B">3070 Express</model>
 		</make>
 		<make value="ranger" name="Ranger">
+			<model value="91,60,60">240 Bahia</model>
 			<model value="89,67,26,A">2510</model>
 		</make>
 		<make value="regulator" name="Regulator">
@@ -150,6 +156,9 @@
 			<model value="90,75,51,B">260 SF</model>
 			<model value="100,87,44,A">300 LXF</model>
 			<model value="102,87,32,A">350 LXF</model>
+		</make>
+		<make value="sea-chaser" name="Sea Chaser">
+			<model value="99,68,83">27 HFC</model>
 		</make>
 		<make value="sea_fox" name="Sea Fox">
 			<model value="84,65,48,A">206</model>
@@ -190,6 +199,9 @@
 		<make value="seaswirl" name="Seaswirl">
 			<model value="88,54,72,C">2601 Striper</model>
 		</make>
+		<make value="southport" name="Southport">
+			<model value="89,70,60">272</model>
+		</make>
 		<make value="sportsman" name="Sportsman">
 			<model value="87,65,24,A">211 Heritage</model>
 			<model value="87,62,24,A">247 Platinum</model>
@@ -203,6 +215,7 @@
 			<model value="87,63,24,A">250 Adventure</model>
 		</make>
 		<make value="triton" name="Triton">
+			<model value="84,62,54">240 LTS</model>
 			<model value="89,67,26,A">2501</model>
 			<model value="94,79,76,C">2690 Walk Around</model>
 		</make>
@@ -210,6 +223,8 @@
 			<model value="86,52,26,A">190 Bay</model>
 		</make>
 		<make value="wellcraft" name="Wellcraft">
+			<model value="89,66,44">222 Scarab Offshore</model>
+			<model value="88,66,44">242 Scarab Offshore</model>
 			<model value="108,84,83,C">290 Coastal</model>
 		</make>
 		<make value="world_cat" name="World Cat">
@@ -222,7 +237,11 @@
 	</bsk>
 	<ccc>
 		<make value="avenger" name="Avenger">
+			<model value="83,96,39">AV24</model>
 			<model value="80,65,32">AV26</model>
+		</make>
+		<make value="ameracat" name="Ameracat">
+			<model value="85,150,50">31</model>
 		</make>
 		<make value="albury_brothers" name="Albury Brothers">
 			<model value="82,94,48,A">23</model>
@@ -241,6 +260,9 @@
 			<model value="85,108,46,C">240 Outrage</model>
 			<model value="85,120,46,C">250 Outrage</model>
 		</make>
+		<make value="cape_horn" name="Cape Horn">
+			<model value="84,95,50">24 OS</model>
+		</make>
 		<make value="carolina_cat" name="Carolina Cat">
 			<model value="82,85,40,A">23</model>
 		</make>
@@ -250,6 +272,7 @@
 		<make value="cobia" name="Cobia">
 			<model value="86,101,40,B">237</model>
 			<model value="87,102,40,B">256</model>
+			<model value="86,110,48">277</model>
 		</make>
 		<make value="contender" name="Contender">
 			<model value="84,87,38,A">24</model>
@@ -267,6 +290,7 @@
 		</make>
 		<make value="grady_white" name="Grady White">
 			<model value="79,84,42">191 Coastal Explorer</model>
+			<model value="81,112,41">236 Fisherman</model>
 			<model value="84,98,38">251 Coastal Explorer</model>
 			<model value="86,131,55,D">283 Release</model>
 		</make>
@@ -283,6 +307,7 @@
 			<model value="85,90,41,A">230 Bay Reef</model>
 			<model value="80,108,41,A">239 FS</model>
 			<model value="85,92,43,A">244 Bluewater</model>
+			<model value="82,80,40">246 Bay Reef</model>
 			<model value="87,106,54,B">268</model>
 			<model value="81,142,49">351 Billistic</model>
 		</make>
@@ -303,6 +328,7 @@
 			<model value="79,68,38,A">180 Islander</model>
 			<model value="83,99,41,B">197 Islander</model>
 			<model value="83,92,38,A">197 Sportfish</model>
+			<model value="82,90,44">202 Islander</model>
 			<model value="83,96,38,B">220 Bay Sport</model>
 			<model value="80,106,38,B">222 Sportfish</model>
 		</make>
@@ -313,6 +339,7 @@
 			<model value="83,118,38,C">22 Sport</model>
 		</make>
 		<make value="ranger" name="Ranger">
+			<model value="84,90,44">240 Bahia</model>
 			<model value="85,102,45,B">2510</model>
 		</make>
 		<make value="regulator" name="Regulator">
@@ -328,6 +355,7 @@
 			<model value="81,96,38,B">R222</model>
 			<model value="85,96,38,B">R242</model>
 			<model value="85,91,38,A">246 Cayman</model>
+			<model value="84,124,53">R302</model>
 		</make>
 		<make value="sailfish" name="Sailfish">
 			<model value="85,78,38,A">206</model>
@@ -339,9 +367,13 @@
 			<model value="84,118,38,C">210 XSF</model>
 			<model value="85,95,38,B">225 XSF</model>
 			<model value="82,82,42,A">225 Bay Fisher</model>
+			<model value="82,90,43">231 XSF</model>
 			<model value="84,86,38,A">240 Bay</model>
 			<model value="84,111,38,C">260 SF</model>
 			<model value="82,120,43,C">275 LXF</model>
+		</make>
+		<make value="sea-chaser" name="Sea Chaser">
+			<model value="78,105,42">27 HFC</model>
 		</make>
 		<make value="sea_fox" name="Sea Fox">
 			<model value="80,87,38,A">200 XT</model>
@@ -372,6 +404,12 @@
 		<make value="seacraft" name="Seacraft">
 			<model value="84,85,38,A">23</model>
 		</make>
+		<make value="sea_pro" name="Sea Pro">
+			<model value="82,96,59">248</model>
+		</make>
+		<make value="southport" name="Southport">
+			<model value="82,135,45">272</model>
+		</make>
 		<make value="sportsman" name="Sportsman">
 			<model value="83,82,39,A">211 Heritage</model>
 			<model value="83,84,38,A">227 Masters</model>
@@ -391,10 +429,15 @@
 			<model value="82,106,39,B">250</model>
 		</make>
 		<make value="triton" name="Triton">
+			<model value="83,101,35">240 LTS</model>
 			<model value="85,102,45,B">2501</model>
 		</make>
 		<make value="triumph" name="Triumph">
 			<model value="82,79,38,A">190 Bay</model>
+		</make>
+		<make value="wellcraft" name="Wellcraft">
+			<model value="81,91,43">222 Scarab Offshore</model>
+			<model value="81,90,43">242 Scarab Offshore</model>
 		</make>
 		<make value="yellowfin" name="Yellowfin">
 			<model value="78,104,47,B">29</model>

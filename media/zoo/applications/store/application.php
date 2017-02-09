@@ -38,13 +38,14 @@ class StoreApplication extends Application {
         $zoo->path->register($path.'/logs', 'logs');
         $zoo->path->register($path.'/views', 'views');
         $zoo->path->register($path.'/apis', 'apis');
+        $zoo->path->register($path.'/vendor', 'vendor');
         $zoo->path->register(JPATH_ROOT.'/templates/yoo_eat', 'template');
         $zoo->path->register(JPATH_ROOT.'/images/logos', 'images.logos');
         $zoo->path->register(JPATH_ROOT.'/images/boats', 'images.boats');
         include_once $path.'/vendor/autoload.php';
 
         // Load libraries
-        $libraries = array('product', 'modal', 'price', 'cart', 'api');
+        $libraries = array('product', 'modal', 'price', 'cart', 'api', 'quickbooks');
         foreach($libraries as $library) {
             include_once $zoo->path->path('store.lib:/'.$library.'/config.php');
         }

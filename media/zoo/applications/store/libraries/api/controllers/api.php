@@ -44,7 +44,7 @@ class ApiController extends AppController {
     */
     public function display($cachable = false, $urlparams = false) {
 
-        $this->app->document->setMimeEncoding('application/json');
+        
 
         $name = $this->app->request->get('api', 'string');
 
@@ -53,7 +53,10 @@ class ApiController extends AppController {
         $result = array();
         $result['errors'] = array();
 
-        $args = $this->app->request->get('post:', 'array', array());
+        $params['args'] = $this->app->request->get('post:', 'array', array());
+        $params['args'] = array_merge($params['args'], $this->app->request->get('get:', 'array', array()));
+        $params['output'] = true;
+        $params['encoding'] = 'application/json';
 
         try {
             $this->_api = $this->app->api->create($name);
@@ -64,14 +67,18 @@ class ApiController extends AppController {
         if($this->_api) {
 
             try {
-                $result['result'] = call_user_func_array(array($this->_api, $task), $args);
+                $result['result'] = call_user_func_array(array($this->_api, $task), array(&$params));
             } catch (Exception $e) {
                 $result['errors'][] = $e->getMessage();
             }
 
         }
-
-        echo json_encode($result);
+        $this->app->document->setMimeEncoding($params['encoding']);
+        if($params['output']) {
+            echo json_encode($result);
+        }
+        
+        
             
             
     }

@@ -26,7 +26,8 @@ class ModalAPI extends API {
 		return 'Modal API Initialized';
 	}
 
-	public function get($config = array()) {
+	public function get($params = array()) {
+		$config = $params['args']['config'];
 		if(!isset($config['type'])) {
 			throw new ModalAPIException('Modal Type Missing.');
 		}

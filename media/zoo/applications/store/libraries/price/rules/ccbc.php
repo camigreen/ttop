@@ -6,7 +6,7 @@ $rules['17.9ply.base'] = 440.83;
 $rules['17.9Acr.base'] = 600.00;
 $rules['17.shipping.weight'] = 22;
 
-$rules['1819.9ply.base'] = 537.50;
+$rules['1819.9ply.base'] = 537.50; // $645
 $rules['1819.9Acr.base'] = 737.50;
 $rules['1819.shipping.weight'] = 22;
 

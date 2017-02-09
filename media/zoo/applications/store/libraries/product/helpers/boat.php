@@ -89,12 +89,12 @@ class BoatHelper extends AppHelper {
             if(file_exists($this->app->path->path('images.boats:/'.$name.'/ccbc/thumbs/'.$name.'.png'))) {
                 $params->set('images.thumb', $this->app->path->url('images.boats:/'.$name.'/ccbc/thumbs/'.$name.'.png'));
             } else {
-                $params->set('images.thumb', $this->app->path->url('images.boats:/PNA/ccbc/thumbs/PNA-CCBC-NOBACK.png'));
+                $params->set('images.thumb', $this->app->path->url('images.boats:/PNA/ccbc/thumbs/PNA-NOBACK.png'));
             }
             if(file_exists($this->app->path->path('images.boats:/'.$name.'/ccbc/'.$name.'.png'))) {
                 $params->set('images.full', $this->app->path->url('images.boats:/'.$name.'/ccbc/'.$name.'.png'));
             } else {
-                $params->set('images.full', $this->app->path->url('images.boats:/PNA/ccbc/PNA-CCBC-NOBACK.png'));
+                $params->set('images.full', $this->app->path->url('images.boats:/PNA/ccbc/PNA-NOBACK.png'));
             }
             if(file_exists($this->app->path->path('images.logos:/'.$name.'.png'))) {
                 $params->set('images.logo', $this->app->path->url('images.logos:/'.$name.'.png'));
