@@ -321,7 +321,7 @@ class TestController extends AppController {
 	 * @since 1.0
 	 */
 	public function coupon() {
-		$this->app->coupon->create();
+		echo '<a href="file:///Users/shawngibbons/Downloads/MIC.csv">Test</a>';
 	}
 
 	/**

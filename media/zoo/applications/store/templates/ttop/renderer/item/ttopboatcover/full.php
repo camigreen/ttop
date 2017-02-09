@@ -75,92 +75,110 @@ $mobile = $this->app->browser->isMobile();
                 </div>
             </div>
             <div class="uk-width-large-2-3 uk-width-small-1-1">
-                <div class="uk-width-1-1">
-                    <div class="uk-accordion" data-uk-accordion="{showfirst: false}">
-                        <?php if($category->description) : ?>
-                        <h3 class="uk-accordion-title"><div class="uk-width-1-1">Description<span class="uk-icon uk-icon-caret uk-align-right" style="line-height: 1.4"></span></div></h3>
-                        <div class="uk-accordion-content"><?php echo $category->getText($category->description); ?></div>
-                        <?php endif; ?>
-                        <?php if ($this->checkPosition('accessories')) : ?>
-                        <h3 class="uk-accordion-title"><div class="uk-width-1-1">Essential Accessories<span class="uk-icon uk-icon-caret uk-align-right" style="line-height: 1.4"></span></div></h3>
-                        <div class="uk-accordion-content"><?php echo $this->renderPosition('accessories', array('style' => 'related')); ?></div>
-                        <?php endif; ?>
-                    
-                    </div>
-                </div>
-                <div class="uk-width-1-1 options-container">
-                    <div class="uk-grid">
-                        <?php if ($this->checkPosition('cover_options')) : ?>
-                        <div class="uk-width-large-1-2 uk-width-small-1-1 uk-margin-top">
-                            <fieldset> 
-                                <legend>
-                                    <?php echo JText::_('Cover Options'); ?>
-                                </legend>
+                <div class="uk-grid">
+                    <div class="uk-width-1-1">
+                        <div class="uk-accordion" data-uk-accordion="{showfirst: false}">
+                            <?php if($category->description) : ?>
+                            <h3 class="uk-accordion-title"><div class="uk-width-1-1">Description<span class="uk-icon uk-icon-caret uk-align-right" style="line-height: 1.4"></span></div></h3>
+                            <div class="uk-accordion-content">
                                 <div class="uk-grid">
-                                    <?php echo $this->renderPosition('cover_options', array('style' => 'options')); ?>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <?php endif; ?>
-
-                        <?php if ($this->checkPosition('boat_options')) : ?>
-                        <div class="uk-width-large-1-2 uk-width-small-1-1 uk-margin-top">
-                            <fieldset> 
-                                <legend>
-                                    <?php echo JText::_('Boat Options'); ?>
-                                </legend>
-                                <div class="uk-grid">
-                                    <?php echo $this->renderPosition('boat_options', array('style' => 'options')); ?>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <?php endif; ?>
-
-                        <?php if ($this->checkPosition('motor_options')) : ?>
-                        <div class="uk-width-large-1-2 uk-width-small-1-1 uk-margin-top">
-                            <fieldset> 
-                                <legend>
-                                    <?php echo JText::_('Motor Options'); ?>
-                                </legend>
-                                <div class="uk-grid">
-                                    <?php echo $this->renderPosition('motor_options', array('style' => 'options')); ?>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <?php endif; ?>
-
-                        <?php if ($this->checkPosition('bow_options')) : ?>
-                        <div class="uk-width-large-1-2 uk-width-small-1-1 uk-margin-top">
-                            <fieldset> 
-                                <legend>
-                                    <?php echo JText::_('Bow Options'); ?>
-                                </legend>
-                                <div class="uk-grid">
-                                    <?php echo $this->renderPosition('bow_options', array('style' => 'options')); ?>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <?php endif; ?>
-
-                        <?php if ($this->checkPosition('special_accessories')) : ?>
-                        <div class="uk-width-large-1-1 uk-width-small-1-1 uk-margin-top">
-                            <fieldset> 
-                                <legend>
-                                    <?php echo JText::_('Special Accessories'); ?>
-                                </legend>
-                                <div class="uk-grid">
-                                    <?php echo $this->renderPosition('special_accessories', array('style' => 'options')); ?>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <?php endif; ?>
-                        <div class="uk-width-large-1-1 uk-width-small-1-1 uk-margin-top">
-                            <fieldset>
-                                <legend>Additional Information<span class="uk-text-small uk-margin-left">(other)</span></legend>
-                                    <textarea class="uk-width-1-1 item-option" style="height:120px;" name="add_info" data-name="Additional Information"></textarea>
-                            </fieldset>
-                        </div>
+                                    <div class="uk-width-medium-2-3 uk-width-small-1-1">
+                                        <p>T-top Boat Covers are designed to be custom fit for each specific boat model. They are very durable and lightweight when compared to traditional canvas covers. This makes installation for one person very easy. Watch the installation video to see how easy it really is.</p>
+                                        <p>Our unique cover design does not trap water or moisture, which could lead to mold and mildew growth on the boat. Take a look at the ventilation video to see the "chimney effect" in action.</p>
+                                        <p>Our cover design utilizes 1\ wide webbing straps with plastic side release buckles to allow the cover to hang under the T-top. We install a port or starboard side zipper entry on each cover and it is located in-line with the helm seat. We utilize a 3/8 diameter Nylon rope which is hemmed into the bottom of the cover to secure your cover to your boat around the hull and motor(s). We also provide tie down loops installed every 4&rsquo; around the perimeter. This gives you the option to secure your cover to the trailer or if you&rsquo;re on a lift, you can hang our sandbags from them. Click the accessories tab to see our sandbags and all of our other accessories.</p>
+                                    </div>
+                                        <div class="uk-width-medium-1-3 uk-width-small-1-1 uk-text-center">
+                                            <div class="uk-panel uk-panel-box">
+                                                <h3 class="uk-panel-title-center">Media</h3>
+                                                <a href="https://www.youtube.com/watch?v=BuYtm1D-xdI" class="uk-button uk-button-danger uk-width-1-1" data-lightbox="width:800;height:450;">Installation Video</a>
+                                                <a href="https://www.youtube.com/watch?v=C6gDlCC1eX8" class="uk-button uk-button-danger uk-width-1-1" data-lightbox="width:800;height:450;">Ventilation Video </a>
+                                                <a href="gallery/photo-galleries/t-top-boat-covers-gallery" target="_blank" class="uk-button uk-button-danger uk-width-1-1">T-Top Gallery </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <?php endif; ?>
+                            <?php if ($this->checkPosition('accessories')) : ?>
+                            <h3 class="uk-accordion-title"><div class="uk-width-1-1">Essential Accessories<span class="uk-icon uk-icon-caret uk-align-right" style="line-height: 1.4"></span></div></h3>
+                            <div class="uk-accordion-content"><?php echo $this->renderPosition('accessories', array('style' => 'related')); ?></div>
+                            <?php endif; ?>
                         
+                        </div>
+                    </div>
+                    <div class="uk-width-1-1 options-container">
+                        <div class="uk-grid">
+                            <?php if ($this->checkPosition('cover_options')) : ?>
+                            <div class="uk-width-large-1-2 uk-width-small-1-1 uk-margin-top">
+                                <fieldset> 
+                                    <legend>
+                                        <?php echo JText::_('Cover Options'); ?>
+                                    </legend>
+                                    <div class="uk-grid">
+                                        <?php echo $this->renderPosition('cover_options', array('style' => 'options')); ?>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php if ($this->checkPosition('boat_options')) : ?>
+                            <div class="uk-width-large-1-2 uk-width-small-1-1 uk-margin-top">
+                                <fieldset> 
+                                    <legend>
+                                        <?php echo JText::_('Boat Options'); ?>
+                                    </legend>
+                                    <div class="uk-grid">
+                                        <?php echo $this->renderPosition('boat_options', array('style' => 'options')); ?>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php if ($this->checkPosition('motor_options')) : ?>
+                            <div class="uk-width-large-1-2 uk-width-small-1-1 uk-margin-top">
+                                <fieldset> 
+                                    <legend>
+                                        <?php echo JText::_('Motor Options'); ?>
+                                    </legend>
+                                    <div class="uk-grid">
+                                        <?php echo $this->renderPosition('motor_options', array('style' => 'options')); ?>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php if ($this->checkPosition('bow_options')) : ?>
+                            <div class="uk-width-large-1-2 uk-width-small-1-1 uk-margin-top">
+                                <fieldset> 
+                                    <legend>
+                                        <?php echo JText::_('Bow Options'); ?>
+                                    </legend>
+                                    <div class="uk-grid">
+                                        <?php echo $this->renderPosition('bow_options', array('style' => 'options')); ?>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php if ($this->checkPosition('special_accessories')) : ?>
+                            <div class="uk-width-large-1-1 uk-width-small-1-1 uk-margin-top">
+                                <fieldset> 
+                                    <legend>
+                                        <?php echo JText::_('Special Accessories'); ?>
+                                    </legend>
+                                    <div class="uk-grid">
+                                        <?php echo $this->renderPosition('special_accessories', array('style' => 'options')); ?>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <?php endif; ?>
+                            <div class="uk-width-large-1-1 uk-width-small-1-1 uk-margin-top">
+                                <fieldset>
+                                    <legend>Additional Information<span class="uk-text-small uk-margin-left">(other)</span></legend>
+                                        <textarea class="uk-width-1-1 item-option" style="height:120px;" name="add_info" data-name="Additional Information"></textarea>
+                                </fieldset>
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
             </div>

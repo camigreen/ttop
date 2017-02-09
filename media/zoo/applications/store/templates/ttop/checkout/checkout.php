@@ -64,21 +64,21 @@ $this->user = $order->getUser();
     </div>
     <div class="uk-width-1-1">
         <form id="ttop-checkout" class="uk-form" action="/checkout" method="post">
-            <div class="uk-grid">
+            <div class="uk-grid" data-uk-grid-margin>
                 <div class="uk-width-1-1 uk-margin uk-text-center ttop-checkout-pagetitle">
                     <div class="uk-article-title"><?php echo $this->title; ?></div>
                     <div class="uk-article-lead"><?php echo $this->subtitle; ?></div>
                 </div>
                 <?php echo $this->partial($this->page,compact('order')); ?>
-                <div class="uk-width-1-1 uk-margin-top">
+                <div class="uk-width-medium-2-3 uk-container-center">
                     <div class="uk-grid" data-uk-grid-margin>
                         <?php if ($this->buttons['back']['active']) : ?>
-                        <div class="uk-width-medium-1-4 uk-width-small-1-2 uk-container-center">
+                        <div class="uk-width-1-2">
                             <button id="back" class="uk-width-1-1 uk-button uk-button-primary ttop-checkout-step-button" data-next="<?php echo $this->buttons['back']['next']; ?>" <?php echo ($this->buttons['back']['disabled'] ? 'disabled' : '') ?>><?php echo $this->buttons['back']['label']; ?></button>
                         </div>
                         <?php endif; ?>
                         <?php if ($this->buttons['proceed']['active']) : ?>
-                        <div class="uk-width-medium-1-4 uk-width-small-1-2 uk-container-center">
+                        <div class="uk-width-1-2 <?php echo $this->buttons['back']['active'] ? '' : 'uk-container-center'; ?>">
                             <button id="proceed" class="uk-width-1-1 uk-button uk-button-primary ttop-checkout-step-button" data-next="<?php echo $this->buttons['proceed']['next']; ?>" <?php echo ($this->buttons['proceed']['disabled'] ? 'disabled' : '') ?>><?php echo $this->buttons['proceed']['label']; ?></button>
                         </div>
                         <?php endif; ?>

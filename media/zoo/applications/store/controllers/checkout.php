@@ -369,8 +369,8 @@ class CheckoutController extends AppController {
         $order = $this->CR->order;
         $next = $this->app->request->get('next', 'string', 'customer-info');
         $post = $this->app->request->get('post:', 'array', array());
-        //var_dump($order);
-        //return;
+        // var_dump($next);
+        // return;
         $order->elements->remove('items.');
         $order->addItems($this->app->cart->getAll());
         if(isset($post['elements'])) {
