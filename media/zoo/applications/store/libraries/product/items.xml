@@ -669,7 +669,7 @@
 			</models>
 		</boat>
 		<boat>				
-			<name>panga_marine</name>
+			<name>panga-marine</name>
 			<label>Panga Marine</label>
 			<skucode>PANGM</skucode>
 			<models>
