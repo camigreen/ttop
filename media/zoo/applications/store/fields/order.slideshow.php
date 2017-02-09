@@ -12,7 +12,7 @@ $count = $count > 6 ? 6 : $count;
 $i = 0;
 if($count == 0) {
     $imageurl = '/images/boats/PNA/ccbc';
-    $images[] = 'PNA-CCBC.png';
+    $images[] = 'PNA.png';
 }
 ?>
 
